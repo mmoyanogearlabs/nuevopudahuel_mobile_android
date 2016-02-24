@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="khand_bold">fonts/Khand_Bold.otf</string>
+    <string name="khand_light">fonts/Khand_Light.otf</string>
+    <string name="khand_medium">fonts/Khand_Medium.otf</string>
+    <string name="khand_regular">fonts/Khand_Regular.otf</string>
+    <string name="khand_semibold">fonts/Khand_Semibold.otf</string>
+</resources>
