@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">NuevoPudahuel</string>
+    
+    <!--Social activity strings-->
+    <string name="social_Title">Síguenos</string>
+    <string name="social_Subtitle">Lo compartimos todo contigo</string>
+    <string name="social_button">Recordar mas tarde</string>
 </resources>
