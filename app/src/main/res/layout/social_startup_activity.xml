@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/padding_15"
-            android:text="@string/social_Title"
+            android:text="@string/initialTitleKey"
             android:textSize="@dimen/textSize20"
             android:id="@+id/social_title"/>
 
@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/padding_5"
             android:layout_gravity="center_horizontal"
-            android:text="@string/social_Subtitle"
+            android:text="@string/initialSubTitleKey"
             android:id="@+id/social_subTitle"/>
 
         <LinearLayout
@@ -71,7 +71,7 @@
         fontPath="@string/economica_bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/social_button"
+        android:text="@string/initialButtonTitleKey"
         android:textColor="@color/softBlue"
         android:textSize="@dimen/padding_10"
         android:layout_below="@+id/linearLayout"
