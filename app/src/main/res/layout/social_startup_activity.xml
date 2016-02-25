@@ -20,41 +20,46 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/padding_20"
+            android:layout_marginTop="@dimen/padding_15"
             android:text="@string/social_Title"
-            android:textSize="@dimen/textSize20"/>
+            android:textSize="@dimen/textSize20"
+            android:id="@+id/social_title"/>
 
         <TextView
             fontPath="@string/avenir_roman"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/padding_10"
+            android:layout_marginTop="@dimen/padding_5"
             android:layout_gravity="center_horizontal"
-            android:text="@string/social_Subtitle"/>
+            android:text="@string/social_Subtitle"
+            android:id="@+id/social_subTitle"/>
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/padding_50">
+            android:layout_marginTop="@dimen/padding_40">
 
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/iconfacebook"/>
+                android:background="@drawable/iconfacebook"
+                android:id="@+id/social_facebook"/>
 
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/padding_40"
                 android:layout_marginLeft="@dimen/padding_40"
-                android:background="@drawable/icontwitter" />
+                android:background="@drawable/icontwitter"
+                android:id="@+id/social_twitter"/>
 
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/iconinstagram" />
+                android:background="@drawable/iconinstagram"
+                android:id="@+id/social_instagram"/>
 
         </LinearLayout>
 
@@ -71,6 +76,7 @@
         android:textSize="@dimen/padding_10"
         android:layout_below="@+id/linearLayout"
         android:layout_centerHorizontal="true"
-        android:background="@android:color/transparent"/>
+        android:background="@android:color/transparent"
+        android:id="@+id/social_remember"/>
 
 </RelativeLayout>
