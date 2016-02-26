@@ -1,7 +1,9 @@
 package com.cleverox.nuevopudahuel.ui.activities;
 
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -13,10 +15,7 @@ import com.cleverox.nuevopudahuel.base.BaseActivity;
 /**
  * Created by moddity on 24/2/16.
  */
-public class SocialStartUpActivity extends BaseActivity {
-
-    private ImageButton facebook, twitter, instagram;
-    private Button remember;
+public class SocialStartUpActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     protected int getLayoutResource() {
@@ -25,11 +24,26 @@ public class SocialStartUpActivity extends BaseActivity {
 
     @Override
     protected void configView() {
-        facebook = $(R.id.social_facebook);
-        twitter = $(R.id.social_twitter);
-        instagram = $(R.id.social_instagram);
+        $(R.id.social_facebook).setOnClickListener(this);
+        $(R.id.social_twitter).setOnClickListener(this);
+        $(R.id.social_instagram).setOnClickListener(this);
+        $(R.id.social_remember).setOnClickListener(this);
 
-        remember = $(R.id.social_remember);
+    }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.social_remember:
+                startActivity(new Intent(this, DashBoardActivity.class));
+                finish();
+                break;
+            case R.id.social_facebook:
+                break;
+            case R.id.social_twitter:
+                break;
+            case R.id.social_instagram:
+                break;
+        }
     }
 }

@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/backgroundhome">
+    android:background="@drawable/backgroundhome"
+    tools:ignore="MissingPrefix" >
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -38,7 +40,7 @@
                 android:layout_marginLeft="@dimen/padding_10"
                 android:text="25º"
                 android:textColor="@color/white"
-                android:textSize="@dimen/padding_50"/>
+                android:textSize="@dimen/textSize50"/>
         </LinearLayout>
 
         <ImageView
@@ -66,43 +68,64 @@
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/btnsalidashome">
+                android:background="@drawable/btnsalidashome"
+                android:id="@+id/dash_salidas_container"
+                android:gravity="center">
 
-                <ImageButton
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="@dimen/padding_20"
-                    android:src="@drawable/btnsalidasvuelosicon"
-                    android:id="@+id/das_image_salidas" />
+                    android:orientation="horizontal"
+                    android:gravity="bottom">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="@string/homeDepartureButtonTitleKey"
-                    android:id="@+id/textView" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@drawable/btnsalidasvuelosicon" />
+
+                    <TextView
+                        fontPath="@string/economica_bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/padding_10"
+                        android:text="@string/homeDepartureButtonTitleKey"
+                        android:textSize="16sp"
+                        android:id="@+id/textView" />
+
+                </LinearLayout>
+
             </LinearLayout>
 
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/btnllegadashome">
+                android:background="@drawable/btnllegadashome"
+                android:id="@+id/dash_llegadas_container"
+                android:gravity="center">
 
-                <ImageButton
+                <LinearLayout
+                    android:orientation="horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="@dimen/padding_10"
-                    android:src="@drawable/btniconllegadasvuelos"/>
+                    android:gravity="bottom">
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btniconllegadasvuelos"/>
 
                 <TextView
+                    fontPath="@string/economica_bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/padding_10"
                     android:text="@string/homeArribalButtonTitleKey"
-                    android:id="@+id/dash_text_arribal"/>
+                    android:textSize="16sp"/>
+
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -112,48 +135,69 @@
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/padding_10">
+            android:id="@+id/dash_search_container">
 
             <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/btnmisvuelos">
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:background="@drawable/dash_rounded_left_grey"
+                android:id="@+id/dash_search_layout">
 
                 <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/homeSearchFlightPlaceholderTextKey" />
+                    fontPath="@string/avenir_roman"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="@string/homeSearchFlightPlaceholderTextKey"
+                    android:textSize="15sp"
+                    android:background="@android:color/transparent"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="@dimen/padding_20"
+                    android:paddingRight="10dp"
+                    android:singleLine="true"
+                    android:id="@+id/dash_editText"
+                    android:layout_toLeftOf="@+id/dash_icon_lupa"/>
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/iconlupa"/>
+                    android:src="@drawable/iconlupa"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/padding_5"
+                    android:id="@+id/dash_icon_lupa" />
 
             </RelativeLayout>
 
-            <LinearLayout
+            <RelativeLayout
                 android:orientation="horizontal"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="@drawable/btnmisvuelos">
+                android:layout_weight="1"
+                android:background="@drawable/btnmisvuelos"
+                android:id="@+id/dash_button_myflights">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    fontPath="@string/economica_bold"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/padding_15"
-                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/padding_10"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/dash_img_myflights"
                     android:text="@string/homeMyFlightsButtonTitleKey"
+                    android:textSize="14sp"
                     android:textColor="@color/white"/>
 
-                <ImageButton
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/padding_15"
-                    android:layout_gravity="center"
-                    android:background="@drawable/iconalertaactiva"/>
+                    android:id="@+id/dash_img_myflights"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/btnmisvuelosicon"
+                    android:layout_marginRight="@dimen/padding_10"/>
 
-            </LinearLayout>
+            </RelativeLayout>
 
         </LinearLayout>
 

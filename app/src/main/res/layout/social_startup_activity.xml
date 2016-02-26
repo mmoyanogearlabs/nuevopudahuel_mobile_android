@@ -73,7 +73,7 @@
         android:layout_height="wrap_content"
         android:text="@string/initialButtonTitleKey"
         android:textColor="@color/softBlue"
-        android:textSize="@dimen/padding_10"
+        android:textSize="@dimen/padding_15"
         android:layout_below="@+id/linearLayout"
         android:layout_centerHorizontal="true"
         android:background="@android:color/transparent"

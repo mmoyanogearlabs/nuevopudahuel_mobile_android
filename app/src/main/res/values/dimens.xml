@@ -4,6 +4,7 @@
     <dimen name="textSize10">10sp</dimen>
     <dimen name="textSize15">15sp</dimen>
     <dimen name="textSize20">20sp</dimen>
+    <dimen name="textSize50">50sp</dimen>
 
 
     <!-- Standard padding dimen -->
