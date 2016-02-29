@@ -1,30 +1,39 @@
-package com.cleverox.nuevopudahuel.ui.activities;
+package com.cleverox.nuevopudahuel.ui.fragments;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import com.cleverox.nuevopudahuel.R;
-import com.cleverox.nuevopudahuel.base.BaseActivity;
+import com.cleverox.nuevopudahuel.base.HomeFragment;
 
 /**
- * Created by moddity on 25/2/16.
+ * Created by moddity on 29/2/16.
  */
-public class DashBoardActivity extends BaseActivity implements View.OnClickListener {
+public class DashboardFragment extends HomeFragment implements View.OnClickListener {
 
-    @Override
-    protected int getLayoutResource() {
-        return R.layout.dash_board_activity;
+    private EditText searchFly;
+
+    public static DashboardFragment newInstance() {
+        DashboardFragment fragment = new DashboardFragment();
+        return fragment;
     }
 
     @Override
-    protected void configView() {
-        $(R.id.dash_menu).setOnClickListener(this);
+    protected int getLayoutResource() {
+        return R.layout.dash_board_fragment;
+    }
+
+    @Override
+    protected void configView(View parentView) {
+        $(R.id.dash_salidas_container).setOnClickListener(this);
+        $(R.id.dash_llegadas_container).setOnClickListener(this);
+        $(R.id.dash_editText).setOnClickListener(this);
+        $(R.id.dash_button_myflights).setOnClickListener(this);
 
         LinearLayout searchContainer = $(R.id.dash_search_container);
         Bitmap roundedLeft = BitmapFactory.decodeResource(getResources(), R.drawable.btnsalidashome);
@@ -37,9 +46,6 @@ public class DashBoardActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.dash_menu:
-                break;
-        }
+
     }
 }

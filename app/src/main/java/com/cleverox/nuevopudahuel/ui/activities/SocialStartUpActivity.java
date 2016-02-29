@@ -2,12 +2,7 @@ package com.cleverox.nuevopudahuel.ui.activities;
 
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-
 import com.cleverox.nuevopudahuel.R;
 import com.cleverox.nuevopudahuel.base.BaseActivity;
 
@@ -19,7 +14,7 @@ public class SocialStartUpActivity extends BaseActivity implements View.OnClickL
 
     @Override
     protected int getLayoutResource() {
-        return R.layout.social_startup_activity;
+        return R.layout.activity_social_startup;
     }
 
     @Override
@@ -35,7 +30,7 @@ public class SocialStartUpActivity extends BaseActivity implements View.OnClickL
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.social_remember:
-                startActivity(new Intent(this, DashBoardActivity.class));
+                startActivity(new Intent(this, HomeActivity.class));
                 finish();
                 break;
             case R.id.social_facebook:

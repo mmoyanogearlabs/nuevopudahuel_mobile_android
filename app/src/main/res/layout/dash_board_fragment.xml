@@ -14,7 +14,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginRight="@dimen/padding_10"
         android:layout_marginTop="@dimen/padding_10"
-        android:id="@+id/dash_menu"/>
+        android:id="@+id/home_menu_button"/>
 
     <LinearLayout
         android:orientation="vertical"
@@ -115,7 +115,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/btniconllegadasvuelos"/>
+                    android:background="@drawable/btniconllegadasvuelos" />
 
                 <TextView
                     fontPath="@string/economica_bold"
@@ -200,6 +200,12 @@
             </RelativeLayout>
 
         </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:id="@+id/dash_publicitat_container"/>
 
     </LinearLayout>
 
