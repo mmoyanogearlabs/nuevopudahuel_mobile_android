@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.cleverox.nuevopudahuel.R;
 import com.cleverox.nuevopudahuel.base.BaseActivity;
@@ -19,6 +20,8 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
 
     private BaseActivity baseActivity;
     private List<MenuItem> items;
+    private View.OnClickListener onItemListener;
+
 
     public MenuAdapter(BaseActivity baseActivity) {
         this.baseActivity = baseActivity;
@@ -33,7 +36,10 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(MenuAdapter.ViewHolder holder, int position) {
         MenuItem item = items.get(position);
-
+        holder.image.setImageResource(item.getImgResource());
+        holder.text.setText(item.getTitle());
+        holder.cell.setTag(position);
+        holder.cell.setOnClickListener(onItemListener);
     }
 
     @Override
@@ -46,15 +52,22 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
         this.items = items;
     }
 
+    public void setOnItemListener(View.OnClickListener onItemListener) {
+        this.onItemListener = onItemListener;
+    }
+
+
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView image;
         private TextView text;
+        private LinearLayout cell;
 
         public ViewHolder(View itemView) {
             super(itemView);
             image = (ImageView) itemView.findViewById(R.id.menu_image);
             text = (TextView) itemView.findViewById(R.id.menu_text);
+            cell = (LinearLayout) itemView.findViewById(R.id.menu_cell);
         }
     }
 }

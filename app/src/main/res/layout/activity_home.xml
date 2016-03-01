@@ -28,11 +28,13 @@
                 android:background="@drawable/btnmenu"
                 android:layout_marginLeft="@dimen/padding_10"
                 android:layout_marginTop="@dimen/padding_10"
+                android:layout_marginBottom="@dimen/padding_20"
                 android:id="@+id/home_menu_button"/>
 
             <android.support.v7.widget.RecyclerView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:id="@+id/menu_list">
 
             </android.support.v7.widget.RecyclerView>
         </LinearLayout>

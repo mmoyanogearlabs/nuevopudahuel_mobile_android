@@ -1,17 +1,19 @@
 package com.cleverox.nuevopudahuel.model;
 
+import android.support.annotation.DrawableRes;
+
 /**
  * Created by moddity on 29/2/16.
  */
 public class MenuItem {
 
     private int id;
-    private int imgResource;
+    private @DrawableRes int imgResource;
     private String title;
 
     public MenuItem() {}
 
-    public MenuItem(int id, int imgResource, String title) {
+    public MenuItem(int id, @DrawableRes int imgResource, String title) {
         this.id = id;
         this.imgResource = imgResource;
         this.title = title;
@@ -29,7 +31,7 @@ public class MenuItem {
         return imgResource;
     }
 
-    public void setImgResource(int imgResource) {
+    public void setImgResource(@DrawableRes int imgResource) {
         this.imgResource = imgResource;
     }
 

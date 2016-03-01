@@ -1,22 +1,22 @@
 package com.cleverox.nuevopudahuel.ui.activities;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.LinearLayout;
 
 import com.cleverox.nuevopudahuel.R;
 import com.cleverox.nuevopudahuel.base.BaseActivity;
 import com.cleverox.nuevopudahuel.model.MenuItem;
+import com.cleverox.nuevopudahuel.ui.adapter.MenuAdapter;
 import com.cleverox.nuevopudahuel.ui.fragments.DashboardFragment;
+import com.cleverox.nuevopudahuel.ui.fragments.MenuWebviewFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +24,9 @@ import java.util.List;
 /**
  * Created by moddity on 25/2/16.
  */
-public class HomeActivity extends BaseActivity {
+public class HomeActivity extends BaseActivity implements View.OnClickListener {
 
+    private RecyclerView list;
     private DrawerLayout drawer;
 
     @Override
@@ -47,22 +48,63 @@ public class HomeActivity extends BaseActivity {
     }
 
     private void configMenu() {
-
+        list = $(R.id.menu_list);
+        MenuAdapter adapter = new MenuAdapter(this);
+        LinearLayoutManager manager = new LinearLayoutManager(this);
+        manager.setOrientation(LinearLayoutManager.VERTICAL);
+        list.setLayoutManager(manager);
+        adapter.setItems(configMenuItems());
+        adapter.setOnItemListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Integer position = (Integer) v.getTag();
+                switch (position) {
+                    case 0: // HOME
+                        break;
+                    case 1: // MIS VUELOS
+                        break;
+                    case 2: // VUELOS
+                        break;
+                    case 3: // PARKING
+                        changeFragment(MenuWebviewFragment.newInstance(getString(R.string.menuOptionParkingUrlKey)));
+                        break;
+                    case 4: // ANTES DEL VUELO
+                        changeFragment(MenuWebviewFragment.newInstance(getString(R.string.menuOptionBeforeUrlKey)));
+                        break;
+                    case 5: //EN EL AEROPUERTO
+                        changeFragment(MenuWebviewFragment.newInstance(getString(R.string.menuOptionAirportUrlKey)));
+                        break;
+                    case 6: // PROMOCIONES
+                        break;
+                    case 7: // CONFIGURACIÓN
+                        break;
+                    case 8: // NUEVOPUDAHUEL
+                        break;
+                }
+            }
+        });
+        list.setAdapter(adapter);
     }
 
     private List<MenuItem> configMenuItems() {
         List<MenuItem> items = new ArrayList<>();
-        MenuItem myFlights = new MenuItem(0, R.drawable.iconmenualerta, getString(R.string.menuOptionFlightsTitleKey));
+        MenuItem home = new MenuItem(0, R.drawable.iconmenuhome, getString(R.string.menuOptionHomeTitleKey));
+        items.add(home);
+        MenuItem myFlights = new MenuItem(1, R.drawable.iconmenualerta, getString(R.string.menuOptionUserFlightsTitleKey));
         items.add(myFlights);
-        MenuItem flights = new MenuItem(1, R.drawable.iconmenuvuelos, getString(R.string.menuOptionFlightsTitleKey));
+        MenuItem flights = new MenuItem(2, R.drawable.iconmenuvuelos, getString(R.string.menuOptionFlightsTitleKey));
         items.add(flights);
-        MenuItem parking = new MenuItem(2, R.drawable.iconmenuparking, getString(R.string.menuOptionParkingTitleKey));
+        MenuItem parking = new MenuItem(3, R.drawable.iconmenuparking, getString(R.string.menuOptionParkingTitleKey));
         items.add(parking);
-        MenuItem beforeFlight = new MenuItem(3, R.drawable.iconmenuantesvuelo, getString(R.string.menuOptionBeforeFlightTitleKey));
+        MenuItem beforeFlight = new MenuItem(4, R.drawable.iconmenuantesvuelo, getString(R.string.menuOptionBeforeFlightTitleKey));
         items.add(beforeFlight);
-        MenuItem airport = new MenuItem(4, R.drawable.iconmenuaeropuerto, getString(R.string.menuOptionAirportTitleKey));
+        MenuItem airport = new MenuItem(5, R.drawable.iconmenuaeropuerto, getString(R.string.menuOptionAirportTitleKey));
         items.add(airport);
-        MenuItem pudahuel = new MenuItem(5, R.drawable.iconmenuinfo, getString(R.string.menuOptionNewTitleKey));
+        MenuItem promo = new MenuItem(6, R.drawable.iconmenuqr,getString(R.string.menuOptionPromosTitleKey));
+        items.add(promo);
+        MenuItem config = new MenuItem(7, R.drawable.iconmenusettings,getString(R.string.menuOptionConfigTitleKey));
+        items.add(config);
+        MenuItem pudahuel = new MenuItem(8, R.drawable.iconmenuinfo, getString(R.string.menuOptionNewTitleKey));
         items.add(pudahuel);
 
         return items;
@@ -91,4 +133,10 @@ public class HomeActivity extends BaseActivity {
         else
             super.onBackPressed();
     }
+
+
+    @Override
+    public void onClick(View v) {
+    }
 }
+
