@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.ImageButton;
 
 import com.cleverox.nuevopudahuel.R;
 import com.cleverox.nuevopudahuel.base.BaseActivity;
@@ -17,6 +18,7 @@ import com.cleverox.nuevopudahuel.model.MenuItem;
 import com.cleverox.nuevopudahuel.ui.adapter.MenuAdapter;
 import com.cleverox.nuevopudahuel.ui.fragments.DashboardFragment;
 import com.cleverox.nuevopudahuel.ui.fragments.MenuWebviewFragment;
+import com.cleverox.nuevopudahuel.ui.fragments.NuevoPudahuelFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +30,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
 
     private RecyclerView list;
     private DrawerLayout drawer;
+    private ImageButton close;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,6 +51,10 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void configMenu() {
+
+        close = $(R.id.close_menu_button);
+        close.setOnClickListener(this);
+
         list = $(R.id.menu_list);
         MenuAdapter adapter = new MenuAdapter(this);
         LinearLayoutManager manager = new LinearLayoutManager(this);
@@ -59,7 +66,9 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
             public void onClick(View v) {
                 Integer position = (Integer) v.getTag();
                 switch (position) {
+
                     case 0: // HOME
+                        changeFragment(DashboardFragment.newInstance());
                         break;
                     case 1: // MIS VUELOS
                         break;
@@ -79,6 +88,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
                     case 7: // CONFIGURACIÓN
                         break;
                     case 8: // NUEVOPUDAHUEL
+                        changeFragment(NuevoPudahuelFragment.newInstance());
                         break;
                 }
             }
@@ -116,6 +126,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
 
     public void closeMenu() {
         drawer.closeDrawer(Gravity.RIGHT);
+
     }
 
     private void changeFragment(Fragment targetFragment) {
@@ -124,6 +135,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
                 .replace(R.id.menuMain_fragment, targetFragment, targetFragment.getClass().getName())
                 .setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .commit();
+        closeMenu();
     }
 
     @Override
@@ -137,6 +149,11 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.close_menu_button:
+                closeMenu();
+                break;
+        }
     }
 }
 

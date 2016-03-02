@@ -14,7 +14,8 @@ import com.cleverox.nuevopudahuel.base.HomeFragment;
 /**
  * Created by moddity on 29/2/16.
  */
-public class DashboardFragment extends HomeFragment implements View.OnClickListener {
+public class
+        DashboardFragment extends HomeFragment implements View.OnClickListener {
 
     private EditText searchFly;
 

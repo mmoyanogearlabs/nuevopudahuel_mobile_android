@@ -123,7 +123,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/padding_10"
                     android:text="@string/homeArribalButtonTitleKey"
-                    android:textSize="16sp"/>
+                    android:textSize="@dimen/textSize16"/>
 
                 </LinearLayout>
 
@@ -149,11 +149,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:hint="@string/homeSearchFlightPlaceholderTextKey"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/textSize15"
                     android:background="@android:color/transparent"
                     android:layout_centerVertical="true"
                     android:paddingLeft="@dimen/padding_20"
-                    android:paddingRight="10dp"
+                    android:paddingRight="@dimen/padding_10"
                     android:singleLine="true"
                     android:id="@+id/dash_editText"
                     android:layout_toLeftOf="@+id/dash_icon_lupa"/>
@@ -185,7 +185,7 @@
                     android:layout_centerVertical="true"
                     android:layout_toLeftOf="@+id/dash_img_myflights"
                     android:text="@string/homeMyFlightsButtonTitleKey"
-                    android:textSize="14sp"
+                    android:textSize="@dimen/textSize14"
                     android:textColor="@color/white"/>
 
                 <ImageView

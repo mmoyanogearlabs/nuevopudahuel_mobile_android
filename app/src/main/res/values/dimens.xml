@@ -2,7 +2,9 @@
 
     <!--Text Size-->
     <dimen name="textSize10">10sp</dimen>
+    <dimen name="textSize14">14sp</dimen>
     <dimen name="textSize15">15sp</dimen>
+    <dimen name="textSize16">16sp</dimen>
     <dimen name="textSize20">20sp</dimen>
     <dimen name="textSize50">50sp</dimen>
 
@@ -12,6 +14,7 @@
     <dimen name="padding_10">10dp</dimen>
     <dimen name="padding_15">15dp</dimen>
     <dimen name="padding_20">20dp</dimen>
+    <dimen name="padding_30">30dp</dimen>
     <dimen name="padding_40">40dp</dimen>
     <dimen name="padding_50">50dp</dimen>
 

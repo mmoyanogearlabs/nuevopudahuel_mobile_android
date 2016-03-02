@@ -1,13 +1,10 @@
 package com.cleverox.nuevopudahuel.ui.fragments;
-
-import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.webkit.WebView;
 
 import com.cleverox.nuevopudahuel.R;
 import com.cleverox.nuevopudahuel.base.HomeFragment;
+
 
 /**
  * Created by moddity on 1/3/16.
@@ -15,9 +12,10 @@ import com.cleverox.nuevopudahuel.base.HomeFragment;
 public class MenuWebviewFragment extends HomeFragment {
 
     private String currentUrl;
-    WebView wv;
+    private WebView webview;
 
     public static MenuWebviewFragment newInstance(String url) {
+
         MenuWebviewFragment fragment = new MenuWebviewFragment();
         fragment.currentUrl = url;
         return fragment;
@@ -30,8 +28,8 @@ public class MenuWebviewFragment extends HomeFragment {
 
     @Override
     protected void configView(View parentView) {
-
+        webview = $(R.id.webview);
+        webview.getSettings().setJavaScriptEnabled(true);
+        webview.loadUrl(currentUrl);
     }
-
-
 }
