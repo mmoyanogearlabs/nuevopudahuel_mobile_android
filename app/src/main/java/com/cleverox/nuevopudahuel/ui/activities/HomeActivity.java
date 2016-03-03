@@ -17,6 +17,7 @@ import com.cleverox.nuevopudahuel.base.BaseActivity;
 import com.cleverox.nuevopudahuel.model.MenuItem;
 import com.cleverox.nuevopudahuel.ui.adapter.MenuAdapter;
 import com.cleverox.nuevopudahuel.ui.fragments.DashboardFragment;
+import com.cleverox.nuevopudahuel.ui.fragments.FlightsFragment;
 import com.cleverox.nuevopudahuel.ui.fragments.MenuWebviewFragment;
 import com.cleverox.nuevopudahuel.ui.fragments.NuevoPudahuelFragment;
 
@@ -73,6 +74,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
                     case 1: // MIS VUELOS
                         break;
                     case 2: // VUELOS
+                        changeFragment(FlightsFragment.newInstance());
                         break;
                     case 3: // PARKING
                         changeFragment(MenuWebviewFragment.newInstance(getString(R.string.menuOptionParkingUrlKey)));
