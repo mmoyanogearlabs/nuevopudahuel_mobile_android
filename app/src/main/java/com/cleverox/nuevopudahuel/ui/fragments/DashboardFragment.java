@@ -7,15 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-
 import com.cleverox.nuevopudahuel.R;
 import com.cleverox.nuevopudahuel.base.HomeFragment;
 
 /**
  * Created by moddity on 29/2/16.
  */
-public class
-        DashboardFragment extends HomeFragment implements View.OnClickListener {
+public class DashboardFragment extends HomeFragment implements View.OnClickListener {
 
     private EditText searchFly;
 
@@ -26,7 +24,7 @@ public class
 
     @Override
     protected int getLayoutResource() {
-        return R.layout.dash_board_fragment;
+        return R.layout.fragment_dash_board;
     }
 
     @Override

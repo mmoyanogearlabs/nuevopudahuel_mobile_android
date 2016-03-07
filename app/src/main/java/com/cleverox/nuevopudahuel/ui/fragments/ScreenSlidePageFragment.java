@@ -1,16 +1,10 @@
 package com.cleverox.nuevopudahuel.ui.fragments;
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.cleverox.nuevopudahuel.R;
 import com.cleverox.nuevopudahuel.base.BaseFragment;
-
-import java.util.List;
 
 /**
  * Created by moddity on 2/3/16.
@@ -27,7 +21,7 @@ public class ScreenSlidePageFragment extends BaseFragment {
 
     @Override
     protected int getLayoutResource() {
-        return R.layout.screen_slide_page_fragment;
+        return R.layout.fragment_screen_slide_page;
     }
 
     @Override

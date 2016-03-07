@@ -35,7 +35,7 @@ public class NuevoPudahuelFragment extends HomeFragment {
 
     @Override
     protected int getLayoutResource() {
-        return R.layout.nuevo_pudahuel_fragment;
+        return R.layout.fragment_nuevo_pudahuel;
     }
 
     @Override

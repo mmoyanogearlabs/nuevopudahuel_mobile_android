@@ -23,7 +23,7 @@ public class MenuWebviewFragment extends HomeFragment {
 
     @Override
     protected int getLayoutResource() {
-        return R.layout.web_view_fragment;
+        return R.layout.fragment_web_view;
     }
 
     @Override
