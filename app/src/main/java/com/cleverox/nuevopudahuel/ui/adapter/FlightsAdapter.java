@@ -37,7 +37,7 @@ public class FlightsAdapter extends RecyclerView.Adapter<FlightsAdapter.ViewHold
         holder.origen.setText(vol.getOrigen());
         holder.tiempo.setText(vol.getTiempo());
         holder.estado.setText(vol.getEstado());
-        holder.cell.setTag(position);
+        holder.cell.setTag(vol);
         holder.cell.setOnClickListener(this.onItemListener);
 
     }

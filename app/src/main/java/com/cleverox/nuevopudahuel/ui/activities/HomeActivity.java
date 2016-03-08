@@ -19,6 +19,7 @@ import com.cleverox.nuevopudahuel.ui.adapter.MenuAdapter;
 import com.cleverox.nuevopudahuel.ui.fragments.DashboardFragment;
 import com.cleverox.nuevopudahuel.ui.fragments.FlightsFragment;
 import com.cleverox.nuevopudahuel.ui.fragments.MenuWebviewFragment;
+import com.cleverox.nuevopudahuel.ui.fragments.MyFlightsFragment;
 import com.cleverox.nuevopudahuel.ui.fragments.NuevoPudahuelFragment;
 
 import java.util.ArrayList;
@@ -72,6 +73,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
                         changeFragment(DashboardFragment.newInstance());
                         break;
                     case 1: // MIS VUELOS
+                        changeFragment(MyFlightsFragment.newInstance());
                         break;
                     case 2: // VUELOS
                         changeFragment(FlightsFragment.newInstance());
