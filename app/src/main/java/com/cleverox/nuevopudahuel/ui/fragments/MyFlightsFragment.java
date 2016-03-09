@@ -1,7 +1,6 @@
 package com.cleverox.nuevopudahuel.ui.fragments;
 
 import android.view.View;
-
 import com.cleverox.nuevopudahuel.R;
 import com.cleverox.nuevopudahuel.base.HomeFragment;
 
@@ -17,11 +16,15 @@ public class MyFlightsFragment extends HomeFragment {
 
     @Override
     protected int getLayoutResource() {
-        return R.layout.fragment_myflights;
+        return R.layout.fragment_flights;
     }
 
     @Override
     protected void configView(View parentView) {
 
-    }
+        $(R.id.flights_editText_container).setVisibility(View.GONE);
+        $(R.id.flights_a).setVisibility(View.GONE);
+     }
+
+
 }
