@@ -19,7 +19,6 @@ import com.cleverox.nuevopudahuel.ui.adapter.MenuAdapter;
 import com.cleverox.nuevopudahuel.ui.fragments.DashboardFragment;
 import com.cleverox.nuevopudahuel.ui.fragments.FlightsFragment;
 import com.cleverox.nuevopudahuel.ui.fragments.MenuWebviewFragment;
-import com.cleverox.nuevopudahuel.ui.fragments.MyFlightsFragment;
 import com.cleverox.nuevopudahuel.ui.fragments.NuevoPudahuelFragment;
 
 import java.util.ArrayList;
@@ -73,10 +72,10 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
                         changeFragment(DashboardFragment.newInstance());
                         break;
                     case 1: // MIS VUELOS
-                        changeFragment(MyFlightsFragment.newInstance());
+                        changeFragment(FlightsFragment.newInstance(FlightsFragment.EXTRA_MY_FLIGHTS));
                         break;
                     case 2: // VUELOS
-                        changeFragment(FlightsFragment.newInstance());
+                        changeFragment(FlightsFragment.newInstance(FlightsFragment.EXTRA_FLIGTHS));
                         break;
                     case 3: // PARKING
                         changeFragment(MenuWebviewFragment.newInstance(getString(R.string.menuOptionParkingUrlKey)));

@@ -5,7 +5,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
-
+import android.widget.TextView;
 import com.cleverox.nuevopudahuel.R;
 import com.cleverox.nuevopudahuel.base.HomeFragment;
 import com.cleverox.nuevopudahuel.model.FlightsItem;
@@ -20,10 +20,19 @@ import java.util.List;
  */
 public class FlightsFragment extends HomeFragment implements View.OnClickListener {
 
-    private FlightsAdapter adapter;
+    public static final int EXTRA_MY_FLIGHTS = 0;
+    public static final int EXTRA_FLIGTHS = 1;
 
-    public static FlightsFragment newInstance() {
+    private int currentScreen;
+    private FlightsAdapter adapter;
+    boolean click = true;
+    LinearLayout salidas;
+    LinearLayout llegadas;
+    TextView origen, myFlightsTitle;
+
+    public static FlightsFragment newInstance(int currentScreen) {
         FlightsFragment fragment = new FlightsFragment();
+        fragment.currentScreen = currentScreen;
         return fragment;
     }
 
@@ -34,8 +43,19 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
 
     @Override
     protected void configView(View parentView) {
-        $(R.id.flights_salidas_container).setOnClickListener(this);
-        $(R.id.flights_llegadas_container).setOnClickListener(this);
+
+        salidas = $(R.id.flights_salidas_container);
+        llegadas = $(R.id.flights_llegadas_container);
+        origen = $(R.id.flights_origen_button);
+        myFlightsTitle = $(R.id.flights_tittle);
+
+        $(R.id.flights_salidas_container).setSelected(true);
+
+        if(currentScreen == 0){
+            $(R.id.flights_editText_container).setVisibility(View.GONE);
+            $(R.id.flights_a).setVisibility(View.GONE);
+            myFlightsTitle.setText(getText(R.string.menuOptionUserFlightsTitleKey));
+        }
 
         RecyclerView list = $(R.id.flights_list);
         LinearLayoutManager manager = new LinearLayoutManager(getBaseActivity());
@@ -53,6 +73,9 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
             }
         });
         list.setAdapter(adapter);
+
+        salidas.setOnClickListener(this);
+        llegadas.setOnClickListener(this);
     }
 
     private List<FlightsItem> generateFakeFlights() {
@@ -65,6 +88,17 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
-
+        switch (v.getId()) {
+            case R.id.flights_salidas_container:
+                salidas.setSelected(true);
+                llegadas.setSelected(false);
+                origen.setText(getText(R.string.flightHeaderOriginTitleKey));
+                break;
+            case R.id.flights_llegadas_container:
+                salidas.setSelected(false);
+                llegadas.setSelected(true);
+                origen.setText(getText(R.string.flightHeaderDestinationTitleKey));
+                break;
+        }
     }
 }

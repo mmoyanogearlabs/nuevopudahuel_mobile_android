@@ -21,7 +21,8 @@
             android:text="@string/flightHeaderFlightTitleKey"
             android:textSize="@dimen/textSize20"
             android:textColor="@color/softBlue"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:id="@+id/flights_tittle"/>
 
         <ImageButton
             android:layout_width="wrap_content"
@@ -66,7 +67,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/flights_salidas_llegadas"
+        android:id="@+id/flights_container"
         android:layout_gravity="center_horizontal"
         android:layout_alignParentBottom="true"
         android:layout_below="@id/flights_editText_container">
@@ -82,7 +83,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/btnsalidasvueloson"
+            android:background="@drawable/btn_flights_selector"
             android:id="@+id/flights_salidas_container"
             android:gravity="center">
 
@@ -115,7 +116,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/btnsalidasvuelosoff"
+            android:background="@drawable/btn_flights_selector"
             android:id="@+id/flights_llegadas_container"
             android:gravity="center">
 
@@ -128,7 +129,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/btniconllegadasvuelos" />
+                    android:src="@drawable/btniconllegadasvuelos" />
 
                 <TextView
                     fontPath="@string/economica_bold"
