@@ -24,6 +24,9 @@ public class AlertActivity extends BaseActivity implements View.OnClickListener 
 
     @Override
     protected void configView() {
+        $(R.id.btn_alerta_btncrear).setOnClickListener(this);
+        $(R.id.btn_alerta_compartir).setOnClickListener(this);
+
         currentFlight = getIntent().getParcelableExtra(EXTRA_FLIGHT);
 
         vuelo = $(R.id.alerta_vuelo);

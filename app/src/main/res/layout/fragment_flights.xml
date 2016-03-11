@@ -51,7 +51,8 @@
             android:textSize="@dimen/textSize15"
             android:layout_marginLeft="@dimen/padding_5"
             android:padding="@dimen/padding_5"
-            android:singleLine="true"/>
+            android:singleLine="true"
+            android:id="@+id/flights_editText"/>
 
         <ImageButton
             android:layout_width="wrap_content"

@@ -204,8 +204,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/padding_10"
-            android:background="@drawable/btnalerta"
-            android:id="@+id/alerta_btncrear">
+            android:background="@drawable/btn_alerta_selector"
+            android:id="@+id/btn_alerta_btncrear">
 
             <TextView
                 fontPath="@string/avenir_roman"
@@ -234,7 +234,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/padding_10"
-            android:background="@drawable/btncompartir">
+            android:background="@drawable/btn_compartir_selector"
+            android:id="@+id/btn_alerta_compartir">
 
             <TextView
                 fontPath="@string/avenir_roman"

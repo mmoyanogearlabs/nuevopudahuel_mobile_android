@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.cleverox.nuevopudahuel.R;
@@ -22,6 +23,7 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
 
     public static final int EXTRA_MY_FLIGHTS = 0;
     public static final int EXTRA_FLIGTHS = 1;
+    public static final int EXTRA_LLEGADAS = 2;
 
     private int currentScreen;
     private FlightsAdapter adapter;
@@ -29,6 +31,15 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
     LinearLayout salidas;
     LinearLayout llegadas;
     TextView origen, myFlightsTitle;
+    EditText flights;
+    private String searchText;
+
+    public static FlightsFragment newInstance(String searchText) {
+        FlightsFragment fragment = new FlightsFragment();
+        fragment.currentScreen = EXTRA_FLIGTHS;
+        fragment.searchText = searchText;
+        return fragment;
+    }
 
     public static FlightsFragment newInstance(int currentScreen) {
         FlightsFragment fragment = new FlightsFragment();
@@ -47,14 +58,21 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
         salidas = $(R.id.flights_salidas_container);
         llegadas = $(R.id.flights_llegadas_container);
         origen = $(R.id.flights_origen_button);
-        myFlightsTitle = $(R.id.flights_tittle);
-
         $(R.id.flights_salidas_container).setSelected(true);
 
-        if(currentScreen == 0){
+        flights = $(R.id.flights_editText);
+        if (searchText != null){
+            flights.setText(searchText);
+        }
+
+        if(currentScreen == EXTRA_MY_FLIGHTS){
             $(R.id.flights_editText_container).setVisibility(View.GONE);
             $(R.id.flights_a).setVisibility(View.GONE);
             myFlightsTitle.setText(getText(R.string.menuOptionUserFlightsTitleKey));
+        }
+        else if(currentScreen == EXTRA_LLEGADAS){
+            $(R.id.flights_salidas_container).setSelected(false);
+            $(R.id.flights_llegadas_container).setSelected(true);
         }
 
         RecyclerView list = $(R.id.flights_list);

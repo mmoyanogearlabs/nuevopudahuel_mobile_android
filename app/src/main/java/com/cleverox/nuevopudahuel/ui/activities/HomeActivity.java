@@ -129,10 +129,9 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
 
     public void closeMenu() {
         drawer.closeDrawer(Gravity.RIGHT);
-
     }
 
-    private void changeFragment(Fragment targetFragment) {
+    public void changeFragment(Fragment targetFragment) {
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.menuMain_fragment, targetFragment, targetFragment.getClass().getName())
@@ -148,7 +147,6 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
         else
             super.onBackPressed();
     }
-
 
     @Override
     public void onClick(View v) {

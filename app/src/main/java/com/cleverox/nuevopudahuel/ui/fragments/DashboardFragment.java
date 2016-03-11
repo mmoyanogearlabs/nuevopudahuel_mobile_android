@@ -1,14 +1,20 @@
 package com.cleverox.nuevopudahuel.ui.fragments;
 
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.text.TextUtils;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import com.cleverox.nuevopudahuel.R;
 import com.cleverox.nuevopudahuel.base.HomeFragment;
+
 
 /**
  * Created by moddity on 29/2/16.
@@ -31,7 +37,7 @@ public class DashboardFragment extends HomeFragment implements View.OnClickListe
     protected void configView(View parentView) {
         $(R.id.dash_salidas_container).setOnClickListener(this);
         $(R.id.dash_llegadas_container).setOnClickListener(this);
-        $(R.id.dash_editText).setOnClickListener(this);
+        $(R.id.dash_icon_lupa).setOnClickListener(this);
         $(R.id.dash_button_myflights).setOnClickListener(this);
 
         LinearLayout searchContainer = $(R.id.dash_search_container);
@@ -41,10 +47,39 @@ public class DashboardFragment extends HomeFragment implements View.OnClickListe
         searchContainerParams.gravity = Gravity.CENTER_HORIZONTAL;
         searchContainerParams.setMargins(0, (int) getResources().getDimension(R.dimen.padding_10), 0, (int) getResources().getDimension(R.dimen.padding_15));
         searchContainer.setLayoutParams(searchContainerParams);
+
+        searchFly.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
+        searchFly.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH)
+                    searchFlights();
+                return false;
+            }
+        });
     }
 
     @Override
     public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.dash_button_myflights:
+                getHomeActivity().changeFragment(FlightsFragment.newInstance(FlightsFragment.EXTRA_MY_FLIGHTS));
+                break;
+            case R.id.dash_icon_lupa:
+                searchFlights();
+                break;
+            case R.id.dash_salidas_container:
+                getHomeActivity().changeFragment(FlightsFragment.newInstance(FlightsFragment.EXTRA_FLIGTHS));
+                break;
+            case R.id.dash_llegadas_container:
+                getHomeActivity().changeFragment(FlightsFragment.newInstance(FlightsFragment.EXTRA_LLEGADAS));
+                break;
+        }
+    }
 
+    private void searchFlights() {
+        String vol = searchFly.getText().toString();
+        if (!TextUtils.isEmpty(vol))
+            getHomeActivity().changeFragment(FlightsFragment.newInstance(vol));
     }
 }
