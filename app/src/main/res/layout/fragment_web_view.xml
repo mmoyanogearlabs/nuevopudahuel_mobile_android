@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <WebView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/webview">
+
+    </WebView>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btnmenu"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/padding_10"
+        android:layout_marginTop="@dimen/padding_10"
+        android:layout_marginBottom="@dimen/padding_20"
+        android:id="@+id/home_menu_button"/>
+
+</RelativeLayout>
