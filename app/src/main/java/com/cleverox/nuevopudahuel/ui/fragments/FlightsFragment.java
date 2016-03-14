@@ -3,7 +3,9 @@ package com.cleverox.nuevopudahuel.ui.fragments;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -27,7 +29,6 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
 
     private int currentScreen;
     private FlightsAdapter adapter;
-    boolean click = true;
     LinearLayout salidas;
     LinearLayout llegadas;
     TextView origen, myFlightsTitle;
@@ -58,6 +59,7 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
         salidas = $(R.id.flights_salidas_container);
         llegadas = $(R.id.flights_llegadas_container);
         origen = $(R.id.flights_origen_button);
+        myFlightsTitle = $(R.id.flights_tittle);
         $(R.id.flights_salidas_container).setSelected(true);
 
         flights = $(R.id.flights_editText);
@@ -73,7 +75,18 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
         else if(currentScreen == EXTRA_LLEGADAS){
             $(R.id.flights_salidas_container).setSelected(false);
             $(R.id.flights_llegadas_container).setSelected(true);
+            origen.setText(getText(R.string.flightHeaderDestinationTitleKey));
         }
+
+        flights = $(R.id.flights_editText);
+        flights.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
+        flights.setOnEditorActionListener(new TextView.OnEditorActionListener(){
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                return false;
+            }
+        });
+
 
         RecyclerView list = $(R.id.flights_list);
         LinearLayoutManager manager = new LinearLayoutManager(getBaseActivity());

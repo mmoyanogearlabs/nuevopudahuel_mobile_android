@@ -14,12 +14,16 @@ public abstract class HomeFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        $(R.id.home_menu_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getHomeActivity().openMenu();
-            }
-        });
+        if (getActivity() instanceof HomeActivity) {
+            $(R.id.home_menu_button).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    getHomeActivity().openMenu();
+                }
+            });
+        } else {
+            $(R.id.home_menu_button).setVisibility(View.GONE);
+        }
     }
 
     protected HomeActivity getHomeActivity() {

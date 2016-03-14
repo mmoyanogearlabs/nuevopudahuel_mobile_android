@@ -48,6 +48,7 @@ public class DashboardFragment extends HomeFragment implements View.OnClickListe
         searchContainerParams.setMargins(0, (int) getResources().getDimension(R.dimen.padding_10), 0, (int) getResources().getDimension(R.dimen.padding_15));
         searchContainer.setLayoutParams(searchContainerParams);
 
+        searchFly = $(R.id.dash_editText);
         searchFly.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
         searchFly.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -63,7 +64,7 @@ public class DashboardFragment extends HomeFragment implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.dash_button_myflights:
-                getHomeActivity().changeFragment(FlightsFragment.newInstance(FlightsFragment.EXTRA_MY_FLIGHTS));
+                getHomeActivity().changeFragment(FlightsFragment.newInstance(FlightsFragment.EXTRA_FLIGTHS));
                 break;
             case R.id.dash_icon_lupa:
                 searchFlights();

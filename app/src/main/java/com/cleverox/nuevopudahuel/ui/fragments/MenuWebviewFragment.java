@@ -1,9 +1,11 @@
 package com.cleverox.nuevopudahuel.ui.fragments;
+import android.content.Intent;
 import android.view.View;
 import android.webkit.WebView;
 
 import com.cleverox.nuevopudahuel.R;
 import com.cleverox.nuevopudahuel.base.HomeFragment;
+import com.cleverox.nuevopudahuel.ui.activities.DetailWebViewActivity;
 
 
 /**
