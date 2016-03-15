@@ -29,6 +29,27 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            resValue "string", "api_url", ""
+            resValue "string", "banners_api_url", ""
+        }
+        debug {
+            resValue "string", "api_url", "http://54.191.135.153/flightsApi/v1"
+            resValue "string", "banners_api_url", "http://54.191.135.153/bannersApi/v1"
+        }
+    }
+    signingConfigs {
+        release {
+            storeFile file('NuevoPudahuelKeystore.jks')
+            storePassword 'pass4android'
+            keyAlias 'nuevopudahuel'
+            keyPassword 'pass4android'
+        }
+        debug {
+            storeFile file('NuevoPudahuelKeystore.jks')
+            storePassword 'pass4android'
+            keyAlias 'nuevopudahuel'
+            keyPassword 'pass4android'
         }
     }
 }
