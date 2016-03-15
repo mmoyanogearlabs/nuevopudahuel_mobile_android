@@ -31,7 +31,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
     @Override
     public MenuAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new ViewHolder(baseActivity.getLayoutInflater().inflate(R.layout.activity_menu, null));
-    }
+        }
 
     @Override
     public void onBindViewHolder(MenuAdapter.ViewHolder holder, int position) {
@@ -55,7 +55,6 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
     public void setOnItemListener(View.OnClickListener onItemListener) {
         this.onItemListener = onItemListener;
     }
-
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 

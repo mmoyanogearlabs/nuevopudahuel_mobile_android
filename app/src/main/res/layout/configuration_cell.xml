@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/configuration_cell"
+        android:padding="@dimen/padding_5">
+
+    <TextView
+        fontPath="@string/avenir_roman"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/padding_5"
+        android:id="@+id/configuration_text"/>
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/configuration_check"
+        android:layout_alignParentRight="true"
+        android:layout_toLeftOf="@id/configuration_text"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,15 +1,10 @@
 package com.cleverox.nuevopudahuel.ui.activities;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-
 import com.cleverox.nuevopudahuel.R;
 import com.cleverox.nuevopudahuel.base.BaseActivity;
 import com.cleverox.nuevopudahuel.ui.fragments.MenuWebviewFragment;
-
-import java.net.URI;
 
 /**
  * Created by moddity on 14/3/16.

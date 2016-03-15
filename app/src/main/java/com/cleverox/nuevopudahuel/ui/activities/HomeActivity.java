@@ -16,6 +16,7 @@ import com.cleverox.nuevopudahuel.R;
 import com.cleverox.nuevopudahuel.base.BaseActivity;
 import com.cleverox.nuevopudahuel.model.MenuItem;
 import com.cleverox.nuevopudahuel.ui.adapter.MenuAdapter;
+import com.cleverox.nuevopudahuel.ui.fragments.ConfigurationFragment;
 import com.cleverox.nuevopudahuel.ui.fragments.DashboardFragment;
 import com.cleverox.nuevopudahuel.ui.fragments.FlightsFragment;
 import com.cleverox.nuevopudahuel.ui.fragments.MenuWebviewFragment;
@@ -89,6 +90,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
                     case 6: // PROMOCIONES
                         break;
                     case 7: // CONFIGURACIÓN
+                        changeFragment(ConfigurationFragment.newInstance());
                         break;
                     case 8: // NUEVOPUDAHUEL
                         changeFragment(NuevoPudahuelFragment.newInstance());

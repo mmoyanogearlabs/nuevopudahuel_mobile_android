@@ -63,9 +63,6 @@
 
         </LinearLayout>
 
-
-
-
     </LinearLayout>
     <Button
         fontPath="@string/economica_bold"

@@ -1,0 +1,77 @@
+package com.cleverox.nuevopudahuel.ui.adapter;
+
+import android.graphics.Color;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import com.cleverox.nuevopudahuel.R;
+import com.cleverox.nuevopudahuel.base.BaseActivity;
+import com.cleverox.nuevopudahuel.model.ConfigurationItem;
+
+import java.util.List;
+
+/**
+ * Created by moddity on 15/3/16.
+ */
+public class ConfigurationAdapter extends RecyclerView.Adapter<ConfigurationAdapter.ViewHolder> {
+
+    private BaseActivity baseActivity;
+    private List<ConfigurationItem> items;
+    private CompoundButton.OnCheckedChangeListener checkedChangeListener;
+
+    public ConfigurationAdapter(BaseActivity baseActivity) {
+        this.baseActivity = baseActivity;
+    }
+
+    @Override
+    public ConfigurationAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return new ViewHolder(baseActivity.getLayoutInflater().inflate(R.layout.configuration_cell, null));
+    }
+
+    @Override
+    public void onBindViewHolder(ConfigurationAdapter.ViewHolder holder, int position) {
+        ConfigurationItem item = items.get(position);
+        if (position == 0 || position == 1)
+            holder.cell.setBackgroundColor(ContextCompat.getColor(baseActivity, R.color.hardGrey));
+        else
+            holder.cell.setBackgroundColor(Color.WHITE);
+        holder.text.setText(item.getText());
+        holder.check.setChecked(item.isChecked());
+        holder.check.setTag(position);
+        holder.check.setOnCheckedChangeListener(checkedChangeListener);
+    }
+
+    @Override
+    public int getItemCount() {
+        if (items != null) return items.size();
+        return 0;
+    }
+
+    public void setItems(List<ConfigurationItem> items) {
+        this.items = items;
+    }
+
+    public void setCheckedChangeListener(CompoundButton.OnCheckedChangeListener checkedChangeListener) {
+        this.checkedChangeListener = checkedChangeListener;
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
+
+        private TextView text;
+        private CheckBox check;
+        private RelativeLayout cell;
+
+        public ViewHolder(View itemView) {
+            super(itemView);
+            text = (TextView) itemView.findViewById(R.id.configuration_text);
+            check = (CheckBox) itemView.findViewById(R.id.configuration_check);
+            cell = (RelativeLayout) itemView.findViewById(R.id.configuration_cell);
+        }
+    }
+}
