@@ -1,12 +1,12 @@
 package com.cleverox.nuevopudahuel.ui.activities;
 
 import android.content.Intent;
-import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.Handler;
 
 import com.cleverox.nuevopudahuel.R;
 import com.cleverox.nuevopudahuel.base.BaseActivity;
+import com.cleverox.nuevopudahuel.controllers.UserController;
 
 public class SplashActivity extends BaseActivity {
 
@@ -28,11 +28,12 @@ public class SplashActivity extends BaseActivity {
     }
 
     private void initApp() {
+        UserController.getInstance().startSyncProcess(this);
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(SplashActivity.this, SocialStartUpActivity.class));
+                startActivity(new Intent(SplashActivity.this, VideoSplashActivity.class));
                 finish();
             }
         }, 1500);

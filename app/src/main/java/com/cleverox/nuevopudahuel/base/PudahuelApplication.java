@@ -1,6 +1,7 @@
 package com.cleverox.nuevopudahuel.base;
 
 import android.app.Application;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.View;
@@ -10,6 +11,7 @@ import com.cleverox.nuevopudahuel.R;
 import com.cleverox.nuevopudahuel.api.RestService;
 import com.cleverox.nuevopudahuel.banners.BannerService;
 import com.cleverox.nuevopudahuel.constants.Constants;
+import com.cleverox.nuevopudahuel.constants.PudahuelPrefs;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
@@ -167,6 +169,18 @@ public class PudahuelApplication extends Application {
             }
         });
 
+    }
+
+    private SharedPreferences getPreferences() {
+        return getSharedPreferences(PudahuelPrefs.SHARED_PREFS_NAME, MODE_PRIVATE);
+    }
+
+    public void storeString(String key, String value) {
+        getPreferences().edit().putString(key, value).commit();
+    }
+
+    public String getStoredString(String key, String defaultValue) {
+        return getPreferences().getString(key, defaultValue);
     }
 
 }

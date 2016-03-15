@@ -2,10 +2,13 @@ package com.cleverox.nuevopudahuel.base;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+
+import com.cleverox.nuevopudahuel.R;
 
 import io.realm.Realm;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -75,6 +78,12 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
 
         return realm;
+    }
+
+    @Override
+    public void startActivity(Intent intent) {
+        super.startActivity(intent);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 
     protected abstract int getLayoutResource();
