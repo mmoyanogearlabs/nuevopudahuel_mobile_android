@@ -1,7 +1,5 @@
 package com.cleverox.nuevopudahuel.api.response;
 
-import com.cleverox.nuevopudahuel.model.Flight;
-
 import java.util.List;
 
 /**
@@ -9,14 +7,14 @@ import java.util.List;
  */
 public class FavoritesResponse extends BaseResponse {
 
-    private List<Flight> arrivals;
-    private List<Flight> departures;
+    private List<FlightResponse> arrivals;
+    private List<FlightResponse> departures;
 
-    public List<Flight> getArrivals() {
+    public List<FlightResponse> getArrivals() {
         return arrivals;
     }
 
-    public List<Flight> getDepartures() {
+    public List<FlightResponse> getDepartures() {
         return departures;
     }
 }

@@ -2,11 +2,15 @@ package com.cleverox.nuevopudahuel.controllers;
 
 import com.cleverox.nuevopudahuel.api.RestCallback;
 import com.cleverox.nuevopudahuel.api.response.FavoritesResponse;
+import com.cleverox.nuevopudahuel.api.response.FlightResponse;
 import com.cleverox.nuevopudahuel.base.PudahuelApplication;
 import com.cleverox.nuevopudahuel.model.Flight;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import io.realm.Realm;
+import io.realm.RealmResults;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
@@ -23,13 +27,8 @@ public class FlightsController {
     private FlightsController() {
     }
 
-    private List<Flight> arrivals;
-    private List<Flight> departures;
-    private List<Flight> favoriteArrivals;
-    private List<Flight> favoriteDepartures;
-
-    public void requestArrivals(PudahuelApplication application, final RestCallback<List<Flight>> callback) {
-        application.getService().getArrivals(UserController.getInstance().getFlightsAPIToken(application), new RestCallback<List<Flight>>() {
+    public void requestArrivals(final PudahuelApplication application, final RestCallback<List<FlightResponse>> callback) {
+        application.getService().getArrivals(UserController.getInstance().getFlightsAPIToken(application), new RestCallback<List<FlightResponse>>() {
             @Override
             public void failure(RetrofitError error) {
                 super.failure(error);
@@ -37,16 +36,16 @@ public class FlightsController {
             }
 
             @Override
-            public void success(List<Flight> flights, Response response) {
+            public void success(List<FlightResponse> flights, Response response) {
                 super.success(flights, response);
-                setArrivals(flights);
+                storeFlights(application, flights);
                 callback.success(flights, response);
             }
         });
     }
 
-    public void requestDepartures(PudahuelApplication application, final RestCallback<List<Flight>> callback) {
-        application.getService().getDepartures(UserController.getInstance().getFlightsAPIToken(application), new RestCallback<List<Flight>>() {
+    public void requestDepartures(final PudahuelApplication application, final RestCallback<List<FlightResponse>> callback) {
+        application.getService().getDepartures(UserController.getInstance().getFlightsAPIToken(application), new RestCallback<List<FlightResponse>>() {
             @Override
             public void failure(RetrofitError error) {
                 super.failure(error);
@@ -54,15 +53,15 @@ public class FlightsController {
             }
 
             @Override
-            public void success(List<Flight> flights, Response response) {
+            public void success(List<FlightResponse> flights, Response response) {
                 super.success(flights, response);
-                setDepartures(flights);
+                storeFlights(application, flights);
                 callback.success(flights, response);
             }
         });
     }
 
-    public void requestFavorites(PudahuelApplication application, final RestCallback<FavoritesResponse> callback) {
+    public void requestFavorites(final PudahuelApplication application, final RestCallback<FavoritesResponse> callback) {
         application.getService().getFavorites(UserController.getInstance().getFlightsAPIToken(application), new RestCallback<FavoritesResponse>() {
             @Override
             public void failure(RetrofitError error) {
@@ -73,26 +72,34 @@ public class FlightsController {
             @Override
             public void success(FavoritesResponse flights, Response response) {
                 super.success(flights, response);
-                setFavoriteArrivals(flights.getArrivals());
-                setFavoriteDepartures(flights.getDepartures());
                 callback.success(flights, response);
             }
         });
     }
 
-    public void setArrivals(List<Flight> arrivals) {
-        this.arrivals = arrivals;
+    private void storeFlights(PudahuelApplication application, List<FlightResponse> response) {
+        List<Flight> flights = new ArrayList<>();
+        long timeStamp = System.currentTimeMillis();
+        boolean arrivals = false;
+        for (FlightResponse flightResponse : response) {
+            Flight flight = flightResponse.toFlight();
+            arrivals = flight.isArrival();
+            flight.setTimestamp(timeStamp);
+            flights.add(flight);
+        }
+        Realm realm = Realm.getInstance(application.getRealmConfiguration());
+        realm.beginTransaction();
+        realm.copyToRealmOrUpdate(flights);
+        realm.where(Flight.class).equalTo("arrival", arrivals).notEqualTo("timestamp", timeStamp).findAll().clear();
+        realm.commitTransaction();
+        realm.close();
     }
 
-    public void setDepartures(List<Flight> departures) {
-        this.departures = departures;
+    public RealmResults<Flight> getArrivals(Realm realm) {
+        return realm.where(Flight.class).equalTo("arrival", true).findAll();
     }
 
-    public void setFavoriteArrivals(List<Flight> favoriteArrivals) {
-        this.favoriteArrivals = favoriteArrivals;
-    }
-
-    public void setFavoriteDepartures(List<Flight> favoriteDepartures) {
-        this.favoriteDepartures = favoriteDepartures;
+    public RealmResults<Flight> getDepartures(Realm realm) {
+        return realm.where(Flight.class).equalTo("arrival", false).findAll();
     }
 }

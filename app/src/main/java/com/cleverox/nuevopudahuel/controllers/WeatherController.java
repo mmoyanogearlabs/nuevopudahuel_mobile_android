@@ -45,6 +45,7 @@ public class WeatherController {
         realm.beginTransaction();
         realm.copyToRealmOrUpdate(currentWeather);
         realm.commitTransaction();
+        realm.close();
     }
 
     public Weather getWeather(Realm realm) {

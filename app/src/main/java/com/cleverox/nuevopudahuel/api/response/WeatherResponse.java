@@ -7,13 +7,17 @@ import com.cleverox.nuevopudahuel.model.Weather;
  */
 public class WeatherResponse {
 
-    private int temperature;
+    private Double temperature;
     private String icon;
 
     public Weather getWeather() {
         Weather weather = new Weather();
         weather.setIcon(icon);
-        weather.setTemperature(temperature);
+        try {
+            weather.setTemperature(temperature.intValue());
+        } catch (Exception e) {
+            weather.setTemperature(0);
+        }
         return weather;
     }
 }

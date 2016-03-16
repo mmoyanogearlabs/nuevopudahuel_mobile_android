@@ -5,8 +5,8 @@ import android.os.AsyncTask;
 import com.bzutils.LogBZ;
 import com.cleverox.nuevopudahuel.api.RestCallback;
 import com.cleverox.nuevopudahuel.api.response.FavoritesResponse;
+import com.cleverox.nuevopudahuel.api.response.FlightResponse;
 import com.cleverox.nuevopudahuel.base.PudahuelApplication;
-import com.cleverox.nuevopudahuel.model.Flight;
 import com.cleverox.nuevopudahuel.model.Weather;
 
 import java.util.List;
@@ -62,7 +62,7 @@ public class SyncController {
     }
 
     private void syncArrivals(final PudahuelApplication application) {
-        FlightsController.getInstance().requestArrivals(application, new RestCallback<List<Flight>>() {
+        FlightsController.getInstance().requestArrivals(application, new RestCallback<List<FlightResponse>>() {
             @Override
             public void failure(RetrofitError error) {
                 super.failure(error);
@@ -70,7 +70,7 @@ public class SyncController {
             }
 
             @Override
-            public void success(List<Flight> flights, Response response) {
+            public void success(List<FlightResponse> flights, Response response) {
                 super.success(flights, response);
                 syncDepartures(application);
             }
@@ -78,7 +78,7 @@ public class SyncController {
     }
 
     private void syncDepartures(final PudahuelApplication application) {
-        FlightsController.getInstance().requestDepartures(application, new RestCallback<List<Flight>>() {
+        FlightsController.getInstance().requestDepartures(application, new RestCallback<List<FlightResponse>>() {
             @Override
             public void failure(RetrofitError error) {
                 super.failure(error);
@@ -86,7 +86,7 @@ public class SyncController {
             }
 
             @Override
-            public void success(List<Flight> flights, Response response) {
+            public void success(List<FlightResponse> flights, Response response) {
                 super.success(flights, response);
                 syncFavorites(application);
             }
