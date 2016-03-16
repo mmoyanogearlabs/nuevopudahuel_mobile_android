@@ -5,7 +5,7 @@ import android.os.AsyncTask;
 import com.bzutils.LogBZ;
 import com.cleverox.nuevopudahuel.api.RestCallback;
 import com.cleverox.nuevopudahuel.api.response.FavoritesResponse;
-import com.cleverox.nuevopudahuel.base.BaseActivity;
+import com.cleverox.nuevopudahuel.base.PudahuelApplication;
 import com.cleverox.nuevopudahuel.model.Flight;
 import com.cleverox.nuevopudahuel.model.Weather;
 
@@ -27,26 +27,31 @@ public class SyncController {
     private SyncController() {
     }
 
+    public interface OnSyncListener {
+        void onSyncCompleted();
+    }
+
     private static final long SYNC_WAIT_MINUTES = 5;
     private static final long SYNC_WAIT_TIME = SYNC_WAIT_MINUTES * 60 * 1000;
     private long nextSyncTime;
     private boolean syncing;
     private boolean hasToSync = true;
+    private OnSyncListener onSyncListener;
 
-    public void startSync(final BaseActivity activity) {
+    public void startSync(final PudahuelApplication application) {
         if (!syncing) {
             syncing = true;
-            WeatherController.getInstance().requestWeather(activity, new RestCallback<Weather>() {
+            WeatherController.getInstance().requestWeather(application, new RestCallback<Weather>() {
                 @Override
                 public void failure(RetrofitError error) {
                     super.failure(error);
-                    resetNextSync(activity);
+                    resetNextSync(application);
                 }
 
                 @Override
                 public void success(Weather weather, Response response) {
                     super.success(weather, response);
-                    syncArrivals(activity);
+                    syncArrivals(application);
                 }
             });
         }
@@ -56,70 +61,74 @@ public class SyncController {
         hasToSync = false;
     }
 
-    private void syncArrivals(final BaseActivity activity) {
-        FlightsController.getInstance().requestArrivals(activity, new RestCallback<List<Flight>>() {
+    private void syncArrivals(final PudahuelApplication application) {
+        FlightsController.getInstance().requestArrivals(application, new RestCallback<List<Flight>>() {
             @Override
             public void failure(RetrofitError error) {
                 super.failure(error);
-                resetNextSync(activity);
+                resetNextSync(application);
             }
 
             @Override
             public void success(List<Flight> flights, Response response) {
                 super.success(flights, response);
-                syncDepartures(activity);
+                syncDepartures(application);
             }
         });
     }
 
-    private void syncDepartures(final BaseActivity activity) {
-        FlightsController.getInstance().requestDepartures(activity, new RestCallback<List<Flight>>() {
+    private void syncDepartures(final PudahuelApplication application) {
+        FlightsController.getInstance().requestDepartures(application, new RestCallback<List<Flight>>() {
             @Override
             public void failure(RetrofitError error) {
                 super.failure(error);
-                resetNextSync(activity);
+                resetNextSync(application);
             }
 
             @Override
             public void success(List<Flight> flights, Response response) {
                 super.success(flights, response);
-                syncFavorites(activity);
+                syncFavorites(application);
             }
         });
     }
 
-    private void syncFavorites(final BaseActivity activity) {
-        FlightsController.getInstance().requestFavorites(activity, new RestCallback<FavoritesResponse>() {
+    private void syncFavorites(final PudahuelApplication application) {
+        FlightsController.getInstance().requestFavorites(application, new RestCallback<FavoritesResponse>() {
             @Override
             public void failure(RetrofitError error) {
                 super.failure(error);
-                resetNextSync(activity);
+                resetNextSync(application);
             }
 
             @Override
             public void success(FavoritesResponse favoritesResponse, Response response) {
                 super.success(favoritesResponse, response);
-                resetNextSync(activity);
+                resetNextSync(application);
             }
         });
     }
 
-    private void resetNextSync(BaseActivity activity) {
+    private void resetNextSync(PudahuelApplication application) {
         syncing = false;
         if (nextSyncTime == 0) {
-            new nextSync().execute(activity);
+            new nextSync().execute(application);
         } else {
             nextSyncTime = System.currentTimeMillis() + SYNC_WAIT_TIME;
         }
     }
 
-    private class nextSync extends AsyncTask<BaseActivity, Void, Boolean> {
+    public void setOnSyncListener(OnSyncListener onSyncListener) {
+        this.onSyncListener = onSyncListener;
+    }
 
-        private BaseActivity activity;
+    private class nextSync extends AsyncTask<PudahuelApplication, Void, Boolean> {
+
+        private PudahuelApplication application;
 
         @Override
-        protected Boolean doInBackground(BaseActivity... params) {
-            activity = params[0];
+        protected Boolean doInBackground(PudahuelApplication... params) {
+            application = params[0];
             nextSyncTime = System.currentTimeMillis() + SYNC_WAIT_TIME;
             while (System.currentTimeMillis() < nextSyncTime) {}
             return hasToSync;
@@ -131,7 +140,9 @@ public class SyncController {
             LogBZ.d("SyncController: finish countdown");
             if (hasToSync) {
                 nextSyncTime = 0;
-                startSync(activity);
+                if (onSyncListener != null)
+                    onSyncListener.onSyncCompleted();
+                startSync(application);
             }
         }
     }

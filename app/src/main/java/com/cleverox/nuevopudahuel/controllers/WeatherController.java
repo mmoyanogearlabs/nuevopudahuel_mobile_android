@@ -1,9 +1,10 @@
 package com.cleverox.nuevopudahuel.controllers;
 
 import com.cleverox.nuevopudahuel.api.RestCallback;
-import com.cleverox.nuevopudahuel.base.BaseActivity;
+import com.cleverox.nuevopudahuel.base.PudahuelApplication;
 import com.cleverox.nuevopudahuel.model.Weather;
 
+import io.realm.Realm;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
@@ -21,10 +22,8 @@ public class WeatherController {
     private WeatherController() {
     }
 
-    private Weather currentWeather;
-
-    public void requestWeather(BaseActivity activity, final RestCallback<Weather> callback) {
-        activity.getPudahuelApplication().getService().getWeather(UserController.getInstance().getFlightsAPIToken(activity), new RestCallback<Weather>() {
+    public void requestWeather(final PudahuelApplication application, final RestCallback<Weather> callback) {
+        application.getService().getWeather(UserController.getInstance().getFlightsAPIToken(application), new RestCallback<Weather>() {
             @Override
             public void failure(RetrofitError error) {
                 super.failure(error);
@@ -34,17 +33,16 @@ public class WeatherController {
             @Override
             public void success(Weather weather, Response response) {
                 super.success(weather, response);
-                setCurrentWeather(weather);
+                storeWeather(application, weather);
                 callback.success(weather, response);
             }
         });
     }
 
-    public Weather getCurrentWeather() {
-        return currentWeather;
-    }
-
-    public void setCurrentWeather(Weather currentWeather) {
-        this.currentWeather = currentWeather;
+    private void storeWeather(PudahuelApplication application, Weather currentWeather) {
+        Realm realm = Realm.getInstance(application.getRealmConfiguration());
+        realm.beginTransaction();
+        realm.copyToRealmOrUpdate(currentWeather);
+        realm.commitTransaction();
     }
 }

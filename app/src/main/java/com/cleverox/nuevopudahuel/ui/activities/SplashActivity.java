@@ -28,7 +28,7 @@ public class SplashActivity extends BaseActivity {
     }
 
     private void initApp() {
-        UserController.getInstance().startSyncProcess(this);
+        UserController.getInstance().startSyncProcess(getPudahuelApplication());
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override

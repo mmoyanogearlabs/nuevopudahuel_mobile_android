@@ -25,6 +25,7 @@ import com.squareup.okhttp.OkHttpClient;
 
 import java.util.concurrent.TimeUnit;
 
+import io.realm.RealmConfiguration;
 import retrofit.RestAdapter;
 import retrofit.client.OkClient;
 import retrofit.converter.GsonConverter;
@@ -35,6 +36,7 @@ public class PudahuelApplication extends Application {
     private RestService mService;
     private BannerService mBannerService;
     private OkClient mHttpClient;
+    private RealmConfiguration configuration;
 
     @Override
     public void onCreate() {
@@ -43,7 +45,11 @@ public class PudahuelApplication extends Application {
         initImageLoaderConfiguration();
         initAPI();
         initBannersAPI();
+        initRealm();
+    }
 
+    private void initRealm() {
+        configuration = new RealmConfiguration.Builder(this).deleteRealmIfMigrationNeeded().build();
     }
 
     private void initCalligraphy() {
@@ -184,6 +190,10 @@ public class PudahuelApplication extends Application {
 
     public String getStoredString(String key, String defaultValue) {
         return getPreferences().getString(key, defaultValue);
+    }
+
+    public RealmConfiguration getRealmConfiguration() {
+        return configuration;
     }
 
 }
