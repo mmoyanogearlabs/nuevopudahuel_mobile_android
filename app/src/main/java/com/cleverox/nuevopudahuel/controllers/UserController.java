@@ -36,7 +36,6 @@ public class UserController {
             new getGoolgeAIDAsync().execute(context);
         else
             getAPIToken(context);
-        //TODO: get Weather Info
         //TODO: get Flights Info
         //TODO: init MOCA config
     }
@@ -53,6 +52,7 @@ public class UserController {
             public void success(TokenResponse tokenResponse, Response response) {
                 super.success(tokenResponse, response);
                 storedFlightsAPIToken(activity, tokenResponse.getAccessToken());
+                SyncController.getInstance().startSync(activity);
             }
         });
     }
@@ -62,7 +62,7 @@ public class UserController {
     }
 
     public String getFlightsAPIToken(BaseActivity activity) {
-        return activity.getPudahuelApplication().getStoredString(PudahuelPrefs.FLIGHTS_API_TOKEN, null);
+        return "Bearer " + activity.getPudahuelApplication().getStoredString(PudahuelPrefs.FLIGHTS_API_TOKEN, null);
     }
 
     private void storeGoogleAID(BaseActivity activity, String aid) {

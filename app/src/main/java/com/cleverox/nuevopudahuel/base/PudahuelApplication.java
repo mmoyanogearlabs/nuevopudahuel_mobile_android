@@ -43,6 +43,7 @@ public class PudahuelApplication extends Application {
         initImageLoaderConfiguration();
         initAPI();
         initBannersAPI();
+
     }
 
     private void initCalligraphy() {
@@ -54,7 +55,9 @@ public class PudahuelApplication extends Application {
     }
 
     private void initAPI() {
-        Gson gson = new GsonBuilder().create();
+        Gson gson = new GsonBuilder()
+                .setDateFormat("yyyy-MM-dd\'T\'HH:mm:ss.SSS\'Z\'")
+                .create();
         RestAdapter restAdapter = new RestAdapter.Builder()
                 .setEndpoint(getString(R.string.api_url))
                 .setLogLevel(RestAdapter.LogLevel.FULL)

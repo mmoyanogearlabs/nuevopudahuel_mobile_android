@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.View;
 import com.cleverox.nuevopudahuel.R;
 import com.cleverox.nuevopudahuel.base.BaseActivity;
+import com.cleverox.nuevopudahuel.controllers.SyncController;
 
 
 /**
@@ -40,5 +41,11 @@ public class SocialStartUpActivity extends BaseActivity implements View.OnClickL
             case R.id.social_instagram:
                 break;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        SyncController.getInstance().stopSync();
+        super.onBackPressed();
     }
 }
