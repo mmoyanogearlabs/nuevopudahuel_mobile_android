@@ -3,8 +3,8 @@ package com.cleverox.nuevopudahuel.api;
 import com.cleverox.nuevopudahuel.api.requestModel.TokenRequestBody;
 import com.cleverox.nuevopudahuel.api.response.FavoritesResponse;
 import com.cleverox.nuevopudahuel.api.response.TokenResponse;
+import com.cleverox.nuevopudahuel.api.response.WeatherResponse;
 import com.cleverox.nuevopudahuel.model.Flight;
-import com.cleverox.nuevopudahuel.model.Weather;
 
 import java.util.List;
 
@@ -24,7 +24,7 @@ public interface RestService {
     void getAccessToken(@Body TokenRequestBody requestBody, RestCallback<TokenResponse> callback);
 
     @GET("/weather")
-    void getWeather(@Header(HEADER_AUTHORIZATION) String token, RestCallback<Weather> callback);
+    void getWeather(@Header(HEADER_AUTHORIZATION) String token, RestCallback<WeatherResponse> callback);
 
     @GET("/arrivals")
     void getArrivals(@Header(HEADER_AUTHORIZATION) String token, RestCallback<List<Flight>> callback);

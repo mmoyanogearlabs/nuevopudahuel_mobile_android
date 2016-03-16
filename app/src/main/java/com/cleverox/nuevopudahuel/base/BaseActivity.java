@@ -84,7 +84,7 @@ public abstract class BaseActivity extends AppCompatActivity implements SyncCont
 
     public Realm getRealm() {
         if (realm == null) {
-            realm = Realm.getInstance(this);
+            realm = Realm.getInstance(getPudahuelApplication().getRealmConfiguration());
         }
 
         return realm;

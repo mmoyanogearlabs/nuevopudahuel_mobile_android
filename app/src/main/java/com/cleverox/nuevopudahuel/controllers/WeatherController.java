@@ -1,6 +1,7 @@
 package com.cleverox.nuevopudahuel.controllers;
 
 import com.cleverox.nuevopudahuel.api.RestCallback;
+import com.cleverox.nuevopudahuel.api.response.WeatherResponse;
 import com.cleverox.nuevopudahuel.base.PudahuelApplication;
 import com.cleverox.nuevopudahuel.model.Weather;
 
@@ -23,7 +24,7 @@ public class WeatherController {
     }
 
     public void requestWeather(final PudahuelApplication application, final RestCallback<Weather> callback) {
-        application.getService().getWeather(UserController.getInstance().getFlightsAPIToken(application), new RestCallback<Weather>() {
+        application.getService().getWeather(UserController.getInstance().getFlightsAPIToken(application), new RestCallback<WeatherResponse>() {
             @Override
             public void failure(RetrofitError error) {
                 super.failure(error);
@@ -31,10 +32,10 @@ public class WeatherController {
             }
 
             @Override
-            public void success(Weather weather, Response response) {
+            public void success(WeatherResponse weather, Response response) {
                 super.success(weather, response);
-                storeWeather(application, weather);
-                callback.success(weather, response);
+                storeWeather(application, weather.getWeather());
+                callback.success(weather.getWeather(), response);
             }
         });
     }
@@ -44,5 +45,9 @@ public class WeatherController {
         realm.beginTransaction();
         realm.copyToRealmOrUpdate(currentWeather);
         realm.commitTransaction();
+    }
+
+    public Weather getWeather(Realm realm) {
+        return realm.where(Weather.class).findFirst();
     }
 }
