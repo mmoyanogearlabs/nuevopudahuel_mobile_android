@@ -38,8 +38,12 @@ public class FlightsAdapter extends RecyclerView.Adapter<FlightsAdapter.ViewHold
         holder.id.setText(vol.getFlightCode());
         holder.origen.setText(vol.isArrival() ? vol.getOrigin() : vol.getDestination());
         holder.tiempo.setText(BZUtils.dateToString(vol.getEstimated(), "HH:mm"));
+<<<<<<< HEAD
         holder.estado.setText(vol.getStatusText());
         holder.favorite.setImageResource(vol.isFavorite() ? R.drawable.iconalertaenvuelo : R.drawable.iconarrowvuelos);
+=======
+        holder.estado.setText(vol.isFavorite() ? "Favorito" : vol.getStatusText());
+>>>>>>> b55386636abc1e1cae759a3c7f34535548f235bf
         holder.cell.setTag(vol);
         holder.cell.setOnClickListener(this.onItemListener);
 
