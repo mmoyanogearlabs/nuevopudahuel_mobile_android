@@ -8,15 +8,18 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:id="@+id/list_cell"
-        android:padding="@dimen/padding_5"
-        android:layout_marginLeft="@dimen/padding_5">
+        android:paddingTop="@dimen/padding_15"
+        android:paddingBottom="@dimen/padding_15"
+        android:layout_marginLeft="@dimen/padding_5"
+        android:layout_marginRight="@dimen/padding_5">
 
         <TextView
             fontPath="@string/economica_boldItalic"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="@dimen/textSize10"
+            android:textSize="@dimen/textSize12"
+            android:textStyle="bold"
             android:id="@+id/list_id"
             android:layout_marginRight="@dimen/padding_10"/>
 
@@ -24,8 +27,8 @@
             fontPath="@string/avenir_roman"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2.5"
-            android:textSize="@dimen/textSize10"
+            android:layout_weight="2.3"
+            android:textSize="@dimen/textSize12"
             android:id="@+id/list_origen"/>
 
         <TextView
@@ -33,19 +36,20 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="@dimen/textSize10"
+            android:textSize="@dimen/textSize12"
             android:id="@+id/list_tiempo"/>
 
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1.8">
+            android:layout_weight="2">
 
             <TextView
                 fontPath="@string/avenir_roman"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/textSize10"
+                android:textSize="@dimen/textSize12"
+                android:singleLine="true"
                 android:id="@+id/list_estado" />
 
             <ImageView
@@ -58,5 +62,10 @@
         </RelativeLayout>
 
     </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:src="@color/softGrey"/>
 
 </RelativeLayout>

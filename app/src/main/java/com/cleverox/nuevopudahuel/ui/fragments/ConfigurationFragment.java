@@ -1,12 +1,9 @@
 package com.cleverox.nuevopudahuel.ui.fragments;
 
-import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.CompoundButton;
-
 import com.cleverox.nuevopudahuel.R;
 import com.cleverox.nuevopudahuel.base.HomeFragment;
 import com.cleverox.nuevopudahuel.model.ConfigurationItem;
