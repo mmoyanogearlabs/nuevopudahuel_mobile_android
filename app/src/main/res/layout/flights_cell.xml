@@ -9,34 +9,53 @@
         android:orientation="horizontal"
         android:id="@+id/list_cell"
         android:padding="@dimen/padding_5"
-        android:layout_marginLeft="@dimen/padding_15">
+        android:layout_marginLeft="@dimen/padding_5">
 
         <TextView
+            fontPath="@string/economica_boldItalic"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textStyle="bold"
-            android:id="@+id/list_id"/>
+            android:textSize="@dimen/textSize10"
+            android:id="@+id/list_id"
+            android:layout_marginRight="@dimen/padding_10"/>
 
         <TextView
+            fontPath="@string/avenir_roman"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2.5"
+            android:textSize="@dimen/textSize10"
             android:id="@+id/list_origen"/>
 
         <TextView
+            fontPath="@string/avenir_roman"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1.3"
+            android:layout_weight="1"
+            android:textSize="@dimen/textSize10"
             android:id="@+id/list_tiempo"/>
 
-        <TextView
+        <RelativeLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1.5"
-            android:id="@+id/list_estado"/>
+            android:layout_height="match_parent"
+            android:layout_weight="1.8">
 
+            <TextView
+                fontPath="@string/avenir_roman"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/textSize10"
+                android:id="@+id/list_estado" />
 
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:id="@+id/list_img"/>
+
+        </RelativeLayout>
 
     </LinearLayout>
 

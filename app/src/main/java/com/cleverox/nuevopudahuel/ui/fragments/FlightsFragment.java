@@ -92,7 +92,6 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
             }
         });
 
-
         RecyclerView list = $(R.id.flights_list);
         LinearLayoutManager manager = new LinearLayoutManager(getBaseActivity());
         manager.setOrientation(LinearLayoutManager.VERTICAL);

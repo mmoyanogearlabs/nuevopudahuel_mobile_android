@@ -95,7 +95,7 @@ public class DashboardFragment extends HomeFragment implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.dash_button_myflights:
-                getHomeActivity().changeFragment(FlightsFragment.newInstance(FlightsFragment.EXTRA_FLIGTHS));
+                getHomeActivity().changeFragment(FlightsFragment.newInstance(FlightsFragment.EXTRA_MY_FLIGHTS));
                 break;
             case R.id.dash_icon_lupa:
                 searchFlights();

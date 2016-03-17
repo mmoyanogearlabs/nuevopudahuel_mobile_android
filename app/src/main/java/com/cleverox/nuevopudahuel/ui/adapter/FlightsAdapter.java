@@ -3,6 +3,7 @@ package com.cleverox.nuevopudahuel.ui.adapter;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -38,6 +39,7 @@ public class FlightsAdapter extends RecyclerView.Adapter<FlightsAdapter.ViewHold
         holder.origen.setText(vol.isArrival() ? vol.getOrigin() : vol.getDestination());
         holder.tiempo.setText(BZUtils.dateToString(vol.getEstimated(), "HH:mm"));
         holder.estado.setText(vol.getStatusText());
+        holder.favorite.setImageResource(vol.isFavorite() ? R.drawable.iconalertaenvuelo : R.drawable.iconarrowvuelos);
         holder.cell.setTag(vol);
         holder.cell.setOnClickListener(this.onItemListener);
 
@@ -61,6 +63,7 @@ public class FlightsAdapter extends RecyclerView.Adapter<FlightsAdapter.ViewHold
 
         private TextView id, origen, tiempo, estado;
         private LinearLayout cell;
+        private ImageView favorite;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -69,6 +72,7 @@ public class FlightsAdapter extends RecyclerView.Adapter<FlightsAdapter.ViewHold
             tiempo = (TextView) itemView.findViewById(R.id.list_tiempo);
             estado = (TextView) itemView.findViewById(R.id.list_estado);
             cell = (LinearLayout) itemView.findViewById(R.id.list_cell);
+            favorite = (ImageView) itemView.findViewById(R.id.list_img);
         }
     }
 }
