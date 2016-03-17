@@ -205,7 +205,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/padding_10"
             android:background="@drawable/btn_alerta_selector"
-            android:id="@+id/btn_alerta_btncrear">
+            android:id="@+id/btn_alerta_btncrear"
+            android:layout_gravity="center_horizontal">
 
             <TextView
                 fontPath="@string/avenir_roman"

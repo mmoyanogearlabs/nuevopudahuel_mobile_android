@@ -14,7 +14,6 @@ import com.cleverox.nuevopudahuel.R;
 import com.cleverox.nuevopudahuel.base.HomeFragment;
 import com.cleverox.nuevopudahuel.controllers.FlightsController;
 import com.cleverox.nuevopudahuel.model.Flight;
-import com.cleverox.nuevopudahuel.model.FlightsItem;
 import com.cleverox.nuevopudahuel.ui.activities.AlertActivity;
 import com.cleverox.nuevopudahuel.ui.adapter.FlightsAdapter;
 
@@ -108,9 +107,9 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
         adapter.setOnItemListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FlightsItem vol = (FlightsItem) v.getTag();
+                Flight vol = (Flight) v.getTag();
                 Intent intent = new Intent(getBaseActivity(), AlertActivity.class);
-                intent.putExtra(AlertActivity.EXTRA_FLIGHT, vol);
+                intent.putExtra(AlertActivity.EXTRA_FLIGHT, vol.getId());
                 startActivity(intent);
             }
         });
