@@ -140,6 +140,8 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
     }
 
     private RealmResults<Flight> configFlights() {
+        if (flightsResults != null)
+            flightsResults.removeChangeListener(this);
         switch (currentScreen) {
             case EXTRA_FLIGTHS:
                 if (!TextUtils.isEmpty(searchText))
@@ -157,7 +159,8 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
                 flightsResults = FlightsController.getInstance().getAllFavorites(getBaseActivity().getRealm());
                 break;
         }
-
+        if (flightsResults != null)
+            flightsResults.addChangeListener(this);
         return flightsResults;
     }
 

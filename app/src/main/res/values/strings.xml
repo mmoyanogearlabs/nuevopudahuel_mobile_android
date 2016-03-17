@@ -52,6 +52,7 @@
     <string name="flightDetailShareErrorTwitterMsgKey">No puede enviar un tweet ahora, compruebe que su dispositivo tiene conexión a internet y tiene configurada una cuenta de Twitter.</string>
     <string name="flightDetailShareErrorCancelTitleKey">OK</string>
     <string name="flightDetailAlertCreatedTitleKey">Alerta activa para este vuelo</string>
+    <string name="airportSantiagoChile">Santiago De Chile</string>
     <!-- Config -->
     <string name="configHeaderTitleKey">Acá puedes habilitar las notificaciones que te enviaremos, ya sea información general de Nuevo Pudahuel o contenidos de nuestras tiendas</string>
     <!-- Config-Categories -->

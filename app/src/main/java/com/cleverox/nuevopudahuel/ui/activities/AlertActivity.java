@@ -1,5 +1,7 @@
 package com.cleverox.nuevopudahuel.ui.activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.view.View;
 import android.widget.TextView;
 
@@ -48,9 +50,16 @@ public class AlertActivity extends BaseActivity implements View.OnClickListener,
     }
 
     private void configFlight() {
-        vuelo.setText(currentFlight.getId() + "");
+        $(R.id.alerta_created_layout).setVisibility(currentFlight.isFavorite() ? View.VISIBLE : View.INVISIBLE);
+        vuelo.setText(currentFlight.getFlightCode() + "");
         tiempo.setText(BZUtils.dateToString(currentFlight.getEstimated(), "HH:mm"));
         estado.setText(currentFlight.getStatusText());
+        TextView createAlert = $(R.id.alerta_create_text);
+        createAlert.setText(currentFlight.isFavorite() ? getString(R.string.flightDetailDisableAlertTitleKey) : getString(R.string.flightDetailCreateAlertTitleKey));
+        TextView origin = $(R.id.alerta_origin);
+        origin.setText(currentFlight.isArrival() ? currentFlight.getOrigin() : getString(R.string.airportSantiagoChile));
+        TextView destination = $(R.id.alerta_destination);
+        destination.setText(currentFlight.isArrival() ? getString(R.string.airportSantiagoChile) : currentFlight.getDestination());
     }
 
     private void configFavorito() {
@@ -66,8 +75,23 @@ public class AlertActivity extends BaseActivity implements View.OnClickListener,
             public void success(FavoritesResponse favoritesResponse, Response response) {
                 super.success(favoritesResponse, response);
                 dismissProgressDialog();
+                showFavoriteAlert();
             }
         });
+    }
+
+    private void showFavoriteAlert() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(currentFlight.isFavorite() ? R.string.flightDetailAlertCreateTitleKey : R.string.flightDetailAlertDisableTitleKey);
+        builder.setIcon(R.drawable.iconalertacreada);
+        builder.setMessage(currentFlight.isFavorite() ? R.string.flightDetailAlertCreateMsgKey : R.string.flightDetailAlertDisableMsgKey);
+        builder.setPositiveButton(R.string.flightDetailAlertCreateOkTitleKey, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.create().show();
     }
 
     @Override
