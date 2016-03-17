@@ -13,14 +13,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.cleverox.nuevopudahuel.R;
 import com.cleverox.nuevopudahuel.base.HomeFragment;
 import com.cleverox.nuevopudahuel.controllers.WeatherController;
-import com.cleverox.nuevopudahuel.model.Flight;
 import com.cleverox.nuevopudahuel.model.Weather;
 
 import io.realm.RealmChangeListener;
-import io.realm.RealmResults;
 
 
 /**
@@ -59,7 +58,6 @@ public class DashboardFragment extends HomeFragment implements View.OnClickListe
             configWeather();
         }
 
-        RealmResults<Flight> flights = getBaseActivity().getRealm().allObjects(Flight.class);
         LinearLayout searchContainer = $(R.id.dash_search_container);
         Bitmap roundedLeft = BitmapFactory.decodeResource(getResources(), R.drawable.btnsalidashome);
         Bitmap roundedRight = BitmapFactory.decodeResource(getResources(), R.drawable.btnllegadashome);

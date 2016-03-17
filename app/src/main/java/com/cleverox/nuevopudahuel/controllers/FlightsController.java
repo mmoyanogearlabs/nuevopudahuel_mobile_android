@@ -77,6 +77,25 @@ public class FlightsController {
         });
     }
 
+    public void setFavorite(final PudahuelApplication application, final Flight flight, final RestCallback<FavoritesResponse> callback) {
+        String type = flight.isArrival() ? "arrivals" : "departures";
+        String favorite = flight.isFavorite() != null && flight.isFavorite() ? "unsubscribe" : "subscribe";
+        application.getService().setFavorite(UserController.getInstance().getFlightsAPIToken(application), type, flight.getId(), favorite, new RestCallback<FavoritesResponse>() {
+            @Override
+            public void failure(RetrofitError error) {
+                super.failure(error);
+                callback.failure(error);
+            }
+
+            @Override
+            public void success(FavoritesResponse favoritesResponse, Response response) {
+                super.success(favoritesResponse, response);
+//                storeFavorite(application, flight);
+                callback.success(favoritesResponse, response);
+            }
+        });
+    }
+
     private void storeFlights(PudahuelApplication application, List<FlightResponse> response) {
         List<Flight> flights = new ArrayList<>();
         long timeStamp = System.currentTimeMillis();
@@ -91,6 +110,14 @@ public class FlightsController {
         realm.beginTransaction();
         realm.copyToRealmOrUpdate(flights);
         realm.where(Flight.class).equalTo("arrival", arrivals).notEqualTo("timestamp", timeStamp).findAll().clear();
+        realm.commitTransaction();
+        realm.close();
+    }
+
+    private void storeFavorite(PudahuelApplication application, Flight flight) {
+        Realm realm = Realm.getInstance(application.getRealmConfiguration());
+        realm.beginTransaction();
+        flight.setFavorite(!flight.isFavorite());
         realm.commitTransaction();
         realm.close();
     }
