@@ -25,8 +25,8 @@ public class Flight extends RealmObject {
     private String belt;
     private String statusText;
     private boolean arrival;
-    private Boolean favorite;
-    private Long timestamp;
+    private boolean favorite;
+    private long timestamp;
 
     public String getId() {
         return id;
@@ -140,19 +140,19 @@ public class Flight extends RealmObject {
         this.arrival = arrival;
     }
 
-    public Boolean isFavorite() {
+    public boolean isFavorite() {
         return favorite;
     }
 
-    public void setFavorite(Boolean favorite) {
+    public void setFavorite(boolean favorite) {
         this.favorite = favorite;
     }
 
-    public Long getTimestamp() {
+    public long getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(Long timestamp) {
+    public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
     }
 }

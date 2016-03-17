@@ -72,6 +72,8 @@ public class FlightsController {
             @Override
             public void success(FavoritesResponse flights, Response response) {
                 super.success(flights, response);
+                storeFavorites(application, flights.getArrivals(), true);
+                storeFavorites(application, flights.getDepartures(), false);
                 callback.success(flights, response);
             }
         });
@@ -79,7 +81,7 @@ public class FlightsController {
 
     public void setFavorite(final PudahuelApplication application, final Flight flight, final RestCallback<FavoritesResponse> callback) {
         String type = flight.isArrival() ? "arrivals" : "departures";
-        String favorite = flight.isFavorite() != null && flight.isFavorite() ? "unsubscribe" : "subscribe";
+        String favorite = flight.isFavorite() ? "unsubscribe" : "subscribe";
         application.getService().setFavorite(UserController.getInstance().getFlightsAPIToken(application), type, flight.getId(), favorite, new RestCallback<FavoritesResponse>() {
             @Override
             public void failure(RetrofitError error) {
@@ -90,7 +92,7 @@ public class FlightsController {
             @Override
             public void success(FavoritesResponse favoritesResponse, Response response) {
                 super.success(favoritesResponse, response);
-//                storeFavorite(application, flight);
+                storeFavorite(application, flight);
                 callback.success(favoritesResponse, response);
             }
         });
@@ -98,18 +100,51 @@ public class FlightsController {
 
     private void storeFlights(PudahuelApplication application, List<FlightResponse> response) {
         List<Flight> flights = new ArrayList<>();
+        List<String> favoritesId = new ArrayList<>();
+        Realm realm = Realm.getInstance(application.getRealmConfiguration());
+        RealmResults<Flight> favorites = getAllFavorites(realm);
+        if (favorites != null) {
+            for (Flight favorite : favorites) {
+                favoritesId.add(favorite.getId());
+            }
+        }
         long timeStamp = System.currentTimeMillis();
         boolean arrivals = false;
         for (FlightResponse flightResponse : response) {
             Flight flight = flightResponse.toFlight();
             arrivals = flight.isArrival();
+            flight.setFavorite(favoritesId.contains(flight.getId()));
             flight.setTimestamp(timeStamp);
             flights.add(flight);
         }
-        Realm realm = Realm.getInstance(application.getRealmConfiguration());
         realm.beginTransaction();
         realm.copyToRealmOrUpdate(flights);
         realm.where(Flight.class).equalTo("arrival", arrivals).notEqualTo("timestamp", timeStamp).findAll().clear();
+        realm.commitTransaction();
+        realm.close();
+    }
+
+    private void storeFavorites(PudahuelApplication application, List<FlightResponse> response, boolean arrivals) {
+        Realm realm = Realm.getInstance(application.getRealmConfiguration());
+        RealmResults<Flight> allFlights = realm.where(Flight.class).equalTo("arrival", arrivals).equalTo("favorite", true).findAll();
+        if (allFlights != null) {
+            List<Flight> flights = new ArrayList<>();
+            flights.addAll(allFlights);
+            realm.beginTransaction();
+            for (Flight flight : flights) {
+                flight.setFavorite(false);
+            }
+            realm.copyToRealmOrUpdate(flights);
+            realm.commitTransaction();
+        }
+        List<Flight> flights = new ArrayList<>();
+        for (FlightResponse flightResponse : response) {
+            Flight flight = flightResponse.toFlight();
+            flight.setFavorite(true);
+            flights.add(flight);
+        }
+        realm.beginTransaction();
+        realm.copyToRealmOrUpdate(flights);
         realm.commitTransaction();
         realm.close();
     }
@@ -128,5 +163,9 @@ public class FlightsController {
 
     public RealmResults<Flight> getDepartures(Realm realm) {
         return realm.where(Flight.class).equalTo("arrival", false).findAll();
+    }
+
+    public RealmResults<Flight> getAllFavorites(Realm realm) {
+        return realm.where(Flight.class).equalTo("favorite", true).findAll();
     }
 }
