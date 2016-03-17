@@ -5,7 +5,7 @@ import android.os.AsyncTask;
 import com.cleverox.nuevopudahuel.api.RestCallback;
 import com.cleverox.nuevopudahuel.api.requestModel.TokenRequestBody;
 import com.cleverox.nuevopudahuel.api.response.TokenResponse;
-import com.cleverox.nuevopudahuel.base.BaseActivity;
+import com.cleverox.nuevopudahuel.base.PudahuelApplication;
 import com.cleverox.nuevopudahuel.constants.Constants;
 import com.cleverox.nuevopudahuel.constants.PudahuelPrefs;
 import com.google.android.gms.ads.identifier.AdvertisingIdClient;
@@ -31,19 +31,18 @@ public class UserController {
         return instance;
     }
 
-    public void startSyncProcess(BaseActivity context) {
+    public void startSyncProcess(PudahuelApplication context) {
         if (getStoredGoogleAID(context) == null)
             new getGoolgeAIDAsync().execute(context);
         else
             getAPIToken(context);
-        //TODO: get Weather Info
         //TODO: get Flights Info
         //TODO: init MOCA config
     }
 
-    private void getAPIToken(final BaseActivity activity) {
-        TokenRequestBody requestBody = new TokenRequestBody(getStoredGoogleAID(activity), Constants.FLIGHTS_API_CLIENT_ID, Constants.FLIGHTS_API_CLIENT_SECRET);
-        activity.getPudahuelApplication().getService().getAccessToken(requestBody, new RestCallback<TokenResponse>() {
+    private void getAPIToken(final PudahuelApplication application) {
+        TokenRequestBody requestBody = new TokenRequestBody(getStoredGoogleAID(application), Constants.FLIGHTS_API_CLIENT_ID, Constants.FLIGHTS_API_CLIENT_SECRET);
+        application.getService().getAccessToken(requestBody, new RestCallback<TokenResponse>() {
             @Override
             public void failure(RetrofitError error) {
                 super.failure(error);
@@ -52,37 +51,38 @@ public class UserController {
             @Override
             public void success(TokenResponse tokenResponse, Response response) {
                 super.success(tokenResponse, response);
-                storedFlightsAPIToken(activity, tokenResponse.getAccessToken());
+                storedFlightsAPIToken(application, tokenResponse.getAccessToken());
+                SyncController.getInstance().startSync(application);
             }
         });
     }
 
-    private void storedFlightsAPIToken(BaseActivity activity, String token) {
-        activity.getPudahuelApplication().storeString(PudahuelPrefs.FLIGHTS_API_TOKEN, token);
+    private void storedFlightsAPIToken(PudahuelApplication application, String token) {
+        application.storeString(PudahuelPrefs.FLIGHTS_API_TOKEN, token);
     }
 
-    public String getFlightsAPIToken(BaseActivity activity) {
-        return activity.getPudahuelApplication().getStoredString(PudahuelPrefs.FLIGHTS_API_TOKEN, null);
+    public String getFlightsAPIToken(PudahuelApplication pudahuelApplication) {
+        return "Bearer " + pudahuelApplication.getStoredString(PudahuelPrefs.FLIGHTS_API_TOKEN, null);
     }
 
-    private void storeGoogleAID(BaseActivity activity, String aid) {
-        activity.getPudahuelApplication().storeString(PudahuelPrefs.STORED_AID, aid);
+    private void storeGoogleAID(PudahuelApplication application, String aid) {
+        application.storeString(PudahuelPrefs.STORED_AID, aid);
     }
 
-    public String getStoredGoogleAID(BaseActivity activity) {
-        return activity.getPudahuelApplication().getStoredString(PudahuelPrefs.STORED_AID, null);
+    public String getStoredGoogleAID(PudahuelApplication application) {
+        return application.getStoredString(PudahuelPrefs.STORED_AID, null);
     }
 
-    private class getGoolgeAIDAsync extends AsyncTask<BaseActivity, Void, String> {
+    private class getGoolgeAIDAsync extends AsyncTask<PudahuelApplication, Void, String> {
 
-        private BaseActivity activity;
+        private PudahuelApplication application;
 
         @Override
-        protected String doInBackground(BaseActivity... params) {
-            activity = params[0];
+        protected String doInBackground(PudahuelApplication... params) {
+            application = params[0];
             AdvertisingIdClient.Info idInfo = null;
             try {
-                idInfo = AdvertisingIdClient.getAdvertisingIdInfo(activity);
+                idInfo = AdvertisingIdClient.getAdvertisingIdInfo(application);
             } catch (GooglePlayServicesNotAvailableException e) {
                 e.printStackTrace();
             } catch (GooglePlayServicesRepairableException e) {
@@ -105,8 +105,8 @@ public class UserController {
             if (res == null) {
                 res = UUID.randomUUID().toString();
             }
-            storeGoogleAID(activity, res);
-            getAPIToken(activity);
+            storeGoogleAID(application, res);
+            getAPIToken(application);
         }
     }
 

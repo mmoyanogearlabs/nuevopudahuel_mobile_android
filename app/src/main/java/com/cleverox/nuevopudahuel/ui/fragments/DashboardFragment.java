@@ -10,18 +10,28 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.cleverox.nuevopudahuel.R;
 import com.cleverox.nuevopudahuel.base.HomeFragment;
+import com.cleverox.nuevopudahuel.controllers.WeatherController;
+import com.cleverox.nuevopudahuel.model.Flight;
+import com.cleverox.nuevopudahuel.model.Weather;
+
+import io.realm.RealmChangeListener;
+import io.realm.RealmResults;
 
 
 /**
  * Created by moddity on 29/2/16.
  */
-public class DashboardFragment extends HomeFragment implements View.OnClickListener {
+public class DashboardFragment extends HomeFragment implements View.OnClickListener, RealmChangeListener {
 
     private EditText searchFly;
+    private ImageView weatherIcon;
+    private TextView weatherText;
+    private Weather weather;
 
     public static DashboardFragment newInstance() {
         DashboardFragment fragment = new DashboardFragment();
@@ -40,6 +50,16 @@ public class DashboardFragment extends HomeFragment implements View.OnClickListe
         $(R.id.dash_icon_lupa).setOnClickListener(this);
         $(R.id.dash_button_myflights).setOnClickListener(this);
 
+        weatherIcon = $(R.id.dashboard_weather_icon);
+        weatherText = $(R.id.dashboard_weather_text);
+
+        weather = WeatherController.getInstance().getWeather(getBaseActivity().getRealm());
+        if (weather != null) {
+            weather.addChangeListener(this);
+            configWeather();
+        }
+
+        RealmResults<Flight> flights = getBaseActivity().getRealm().allObjects(Flight.class);
         LinearLayout searchContainer = $(R.id.dash_search_container);
         Bitmap roundedLeft = BitmapFactory.decodeResource(getResources(), R.drawable.btnsalidashome);
         Bitmap roundedRight = BitmapFactory.decodeResource(getResources(), R.drawable.btnllegadashome);
@@ -58,6 +78,17 @@ public class DashboardFragment extends HomeFragment implements View.OnClickListe
                 return false;
             }
         });
+    }
+
+    private void configWeather() {
+        weatherText.setText(weather.getTemperature() + "º");
+        try {
+            weatherIcon.setImageResource(getResources().getIdentifier("w" + weather.getIcon(), "drawable", getBaseActivity().getPackageName()));
+            weatherIcon.setVisibility(View.VISIBLE);
+        } catch (Exception e) {
+            e.printStackTrace();
+            weatherIcon.setVisibility(View.INVISIBLE);
+        }
     }
 
     @Override
@@ -82,5 +113,16 @@ public class DashboardFragment extends HomeFragment implements View.OnClickListe
         String vol = searchFly.getText().toString();
         if (!TextUtils.isEmpty(vol))
             getHomeActivity().changeFragment(FlightsFragment.newInstance(vol));
+    }
+
+    @Override
+    public void onChange() {
+        configWeather();
+    }
+
+    @Override
+    public void onDestroy() {
+        weather.removeChangeListener(this);
+        super.onDestroy();
     }
 }

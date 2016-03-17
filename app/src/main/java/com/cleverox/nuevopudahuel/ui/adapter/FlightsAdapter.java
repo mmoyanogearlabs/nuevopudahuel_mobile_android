@@ -6,11 +6,12 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bzutils.BZUtils;
 import com.cleverox.nuevopudahuel.R;
 import com.cleverox.nuevopudahuel.base.BaseActivity;
-import com.cleverox.nuevopudahuel.model.FlightsItem;
+import com.cleverox.nuevopudahuel.model.Flight;
 
-import java.util.List;
+import io.realm.RealmResults;
 
 /**
  * Created by moddity on 7/3/16.
@@ -18,7 +19,7 @@ import java.util.List;
 public class FlightsAdapter extends RecyclerView.Adapter<FlightsAdapter.ViewHolder> {
 
     private BaseActivity activity;
-    private List<FlightsItem> vols;
+    private RealmResults<Flight> vols;
     private View.OnClickListener onItemListener;
 
     public FlightsAdapter(BaseActivity activity) {
@@ -32,11 +33,11 @@ public class FlightsAdapter extends RecyclerView.Adapter<FlightsAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        FlightsItem vol = vols.get(position);
-        holder.id.setText(vol.getId() + "");
-        holder.origen.setText(vol.getOrigen());
-        holder.tiempo.setText(vol.getTiempo());
-        holder.estado.setText(vol.getEstado());
+        Flight vol = vols.get(position);
+        holder.id.setText(vol.getFlightCode());
+        holder.origen.setText(vol.isArrival() ? vol.getOrigin() : vol.getDestination());
+        holder.tiempo.setText(BZUtils.dateToString(vol.getEstimated(), "HH:mm"));
+        holder.estado.setText(vol.getStatusText());
         holder.cell.setTag(vol);
         holder.cell.setOnClickListener(this.onItemListener);
 
@@ -48,7 +49,7 @@ public class FlightsAdapter extends RecyclerView.Adapter<FlightsAdapter.ViewHold
            return 0;
     }
 
-    public void setVols(List<FlightsItem> vols){
+    public void setVols(RealmResults<Flight> vols){
         this.vols = vols;
     }
 

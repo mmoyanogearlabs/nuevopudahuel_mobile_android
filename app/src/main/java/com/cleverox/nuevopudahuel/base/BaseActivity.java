@@ -9,6 +9,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.cleverox.nuevopudahuel.R;
+import com.cleverox.nuevopudahuel.controllers.SyncController;
+import com.cleverox.nuevopudahuel.ui.activities.SplashActivity;
+import com.cleverox.nuevopudahuel.ui.activities.VideoSplashActivity;
 
 import io.realm.Realm;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -16,7 +19,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 /**
  * Created by iaguila on 9/2/16.
  */
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity implements SyncController.OnSyncListener {
     private ProgressDialog dialog;
 
     private Realm realm;
@@ -59,6 +62,13 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        if (!(this instanceof SplashActivity) && !(this instanceof VideoSplashActivity))
+            SyncController.getInstance().setOnSyncListener(this);
+    }
+
+    @Override
     protected void onDestroy() {
         if (dialog != null && dialog.isShowing()) {
             dialog.cancel();
@@ -74,10 +84,15 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     public Realm getRealm() {
         if (realm == null) {
-            realm = Realm.getInstance(this);
+            realm = Realm.getInstance(getPudahuelApplication().getRealmConfiguration());
         }
 
         return realm;
+    }
+
+    @Override
+    public void onSyncCompleted() {
+//        WeatherController.getInstance().storeWeather(this);
     }
 
     @Override

@@ -27,20 +27,21 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:gravity="center">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/tiempothunderstorm_"/>
+                android:id="@+id/dashboard_weather_icon"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/padding_10"
-                android:text="25º"
                 android:textColor="@color/white"
-                android:textSize="@dimen/textSize50"/>
+                android:textSize="@dimen/textSize50"
+                android:id="@+id/dashboard_weather_text"/>
         </LinearLayout>
 
         <ImageView

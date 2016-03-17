@@ -14,6 +14,7 @@ import android.widget.ImageButton;
 
 import com.cleverox.nuevopudahuel.R;
 import com.cleverox.nuevopudahuel.base.BaseActivity;
+import com.cleverox.nuevopudahuel.controllers.SyncController;
 import com.cleverox.nuevopudahuel.model.MenuItem;
 import com.cleverox.nuevopudahuel.ui.adapter.MenuAdapter;
 import com.cleverox.nuevopudahuel.ui.fragments.ConfigurationFragment;
@@ -157,6 +158,12 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
                 closeMenu();
                 break;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SyncController.getInstance().stopSync();
     }
 }
 

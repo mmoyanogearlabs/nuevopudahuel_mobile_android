@@ -1,0 +1,105 @@
+package com.cleverox.nuevopudahuel.controllers;
+
+import com.cleverox.nuevopudahuel.api.RestCallback;
+import com.cleverox.nuevopudahuel.api.response.FavoritesResponse;
+import com.cleverox.nuevopudahuel.api.response.FlightResponse;
+import com.cleverox.nuevopudahuel.base.PudahuelApplication;
+import com.cleverox.nuevopudahuel.model.Flight;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import io.realm.Realm;
+import io.realm.RealmResults;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+
+/**
+ * Created by iaguila on 15/3/16.
+ */
+public class FlightsController {
+    private static FlightsController ourInstance = new FlightsController();
+
+    public static FlightsController getInstance() {
+        return ourInstance;
+    }
+
+    private FlightsController() {
+    }
+
+    public void requestArrivals(final PudahuelApplication application, final RestCallback<List<FlightResponse>> callback) {
+        application.getService().getArrivals(UserController.getInstance().getFlightsAPIToken(application), new RestCallback<List<FlightResponse>>() {
+            @Override
+            public void failure(RetrofitError error) {
+                super.failure(error);
+                callback.failure(error);
+            }
+
+            @Override
+            public void success(List<FlightResponse> flights, Response response) {
+                super.success(flights, response);
+                storeFlights(application, flights);
+                callback.success(flights, response);
+            }
+        });
+    }
+
+    public void requestDepartures(final PudahuelApplication application, final RestCallback<List<FlightResponse>> callback) {
+        application.getService().getDepartures(UserController.getInstance().getFlightsAPIToken(application), new RestCallback<List<FlightResponse>>() {
+            @Override
+            public void failure(RetrofitError error) {
+                super.failure(error);
+                callback.failure(error);
+            }
+
+            @Override
+            public void success(List<FlightResponse> flights, Response response) {
+                super.success(flights, response);
+                storeFlights(application, flights);
+                callback.success(flights, response);
+            }
+        });
+    }
+
+    public void requestFavorites(final PudahuelApplication application, final RestCallback<FavoritesResponse> callback) {
+        application.getService().getFavorites(UserController.getInstance().getFlightsAPIToken(application), new RestCallback<FavoritesResponse>() {
+            @Override
+            public void failure(RetrofitError error) {
+                super.failure(error);
+                callback.failure(error);
+            }
+
+            @Override
+            public void success(FavoritesResponse flights, Response response) {
+                super.success(flights, response);
+                callback.success(flights, response);
+            }
+        });
+    }
+
+    private void storeFlights(PudahuelApplication application, List<FlightResponse> response) {
+        List<Flight> flights = new ArrayList<>();
+        long timeStamp = System.currentTimeMillis();
+        boolean arrivals = false;
+        for (FlightResponse flightResponse : response) {
+            Flight flight = flightResponse.toFlight();
+            arrivals = flight.isArrival();
+            flight.setTimestamp(timeStamp);
+            flights.add(flight);
+        }
+        Realm realm = Realm.getInstance(application.getRealmConfiguration());
+        realm.beginTransaction();
+        realm.copyToRealmOrUpdate(flights);
+        realm.where(Flight.class).equalTo("arrival", arrivals).notEqualTo("timestamp", timeStamp).findAll().clear();
+        realm.commitTransaction();
+        realm.close();
+    }
+
+    public RealmResults<Flight> getArrivals(Realm realm) {
+        return realm.where(Flight.class).equalTo("arrival", true).findAll();
+    }
+
+    public RealmResults<Flight> getDepartures(Realm realm) {
+        return realm.where(Flight.class).equalTo("arrival", false).findAll();
+    }
+}
