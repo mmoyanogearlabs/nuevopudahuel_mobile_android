@@ -30,6 +30,8 @@
             android:id="@+id/configuration_check"
             android:layout_alignParentRight="true"
             android:thumb="@drawable/custom_switch_shape"
+            android:track="@drawable/custom_switch_selector"
+            android:switchMinWidth="@dimen/padding_15"
             android:textOn=""
             android:textOff=""/>
 
@@ -38,7 +40,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:src="#BB3D3C3C"/>
+            android:src="@color/softGrey" />
 
     </LinearLayout>
 
