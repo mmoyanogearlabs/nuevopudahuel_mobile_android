@@ -158,11 +158,11 @@ public class FlightsController {
     }
 
     public RealmResults<Flight> getArrivals(Realm realm) {
-        return realm.where(Flight.class).equalTo("arrival", true).findAll();
+        return realm.where(Flight.class).equalTo("arrival", true).findAllSorted("estimated");
     }
 
     public RealmResults<Flight> getDepartures(Realm realm) {
-        return realm.where(Flight.class).equalTo("arrival", false).findAll();
+        return realm.where(Flight.class).equalTo("arrival", false).findAllSorted("estimated");
     }
 
     public RealmResults<Flight> getAllFavorites(Realm realm) {

@@ -17,6 +17,8 @@ import com.cleverox.nuevopudahuel.model.Flight;
 import com.cleverox.nuevopudahuel.ui.activities.AlertActivity;
 import com.cleverox.nuevopudahuel.ui.adapter.FlightsAdapter;
 
+import java.util.Date;
+
 import io.realm.RealmChangeListener;
 import io.realm.RealmResults;
 
@@ -38,6 +40,7 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
     TextView origen, myFlightsTitle;
     EditText flights;
     private String searchText;
+    private RecyclerView list;
 
     public static FlightsFragment newInstance(String searchText) {
         FlightsFragment fragment = new FlightsFragment();
@@ -92,7 +95,7 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
         });
 
 
-        RecyclerView list = $(R.id.flights_list);
+        list = $(R.id.flights_list);
         LinearLayoutManager manager = new LinearLayoutManager(getBaseActivity());
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         list.setLayoutManager(manager);
@@ -114,7 +117,7 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
             }
         });
         list.setAdapter(adapter);
-
+        scrollToNextFlight();
         salidas.setOnClickListener(this);
         llegadas.setOnClickListener(this);
     }
@@ -132,6 +135,18 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
         return FlightsController.getInstance().getArrivals(getBaseActivity().getRealm());
     }
 
+    private void scrollToNextFlight() {
+        if (adapter.getVols() != null) {
+            for (int i = 0; i < adapter.getItemCount(); i++) {
+                Flight flight = adapter.getVols().get(i);
+                if (flight.getEstimated().after(new Date())) {
+                    list.scrollToPosition(i);
+                    break;
+                }
+            }
+        }
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -142,6 +157,7 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
                 currentScreen = EXTRA_FLIGTHS;
                 adapter.setVols(configFlights());
                 adapter.notifyDataSetChanged();
+                scrollToNextFlight();
                 break;
             case R.id.flights_llegadas_container:
                 salidas.setSelected(false);
@@ -150,6 +166,7 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
                 currentScreen = EXTRA_LLEGADAS;
                 adapter.setVols(configFlights());
                 adapter.notifyDataSetChanged();
+                scrollToNextFlight();
                 break;
         }
     }

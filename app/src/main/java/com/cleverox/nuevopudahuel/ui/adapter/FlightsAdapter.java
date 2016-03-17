@@ -53,6 +53,10 @@ public class FlightsAdapter extends RecyclerView.Adapter<FlightsAdapter.ViewHold
         this.vols = vols;
     }
 
+    public RealmResults<Flight> getVols() {
+        return vols;
+    }
+
     public void setOnItemListener(View.OnClickListener onItemListener){
         this.onItemListener = onItemListener;
     }
