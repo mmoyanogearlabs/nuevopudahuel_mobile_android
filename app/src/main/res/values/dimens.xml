@@ -1,7 +1,9 @@
 <resources>
 
     <!--Text Size-->
+    <dimen name="textSize8">8sp</dimen>
     <dimen name="textSize10">10sp</dimen>
+    <dimen name="textSize12">12sp</dimen>
     <dimen name="textSize14">14sp</dimen>
     <dimen name="textSize15">15sp</dimen>
     <dimen name="textSize16">16sp</dimen>
