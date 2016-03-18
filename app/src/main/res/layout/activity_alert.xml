@@ -21,13 +21,10 @@
             android:id="@+id/alert_btnback"
             android:layout_alignParentLeft="true"/>
 
-        <TextView
-            fontPath="@string/avenir_roman"
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/flightDetailAlertTitleKey"
-            android:textSize="@dimen/textSize20"
-            android:textColor="@color/softBlue"
+            android:src="@drawable/logonavbar"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"/>
 
@@ -39,16 +36,43 @@
         android:orientation="vertical"
         android:layout_margin="@dimen/padding_20">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#313030">
+            android:orientation="horizontal"
+            android:id="@+id/alerta_created_layout"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="@dimen/padding_20">
 
-            <LinearLayout
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:src="@drawable/iconalertaactiva"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/grey"
+                android:text="@string/flightDetailAlertCreatedTitleKey"
                 android:layout_marginLeft="@dimen/padding_15"
-                android:orientation="vertical">
+                android:textSize="@dimen/textSize16"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#313030"
+            android:padding="@dimen/padding_10">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:layout_marginRight="@dimen/padding_15"
+                android:orientation="vertical"
+                android:layout_gravity="center_vertical"
+                android:gravity="center">
 
                 <TextView
                     fontPath="@string/economica_bold"
@@ -56,50 +80,40 @@
                     android:layout_height="wrap_content"
                     android:text="SSL"
                     android:textColor="@color/white"
-                    android:textSize="20sp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="SSL"
-                    android:textColor="@color/white"/>
+                    android:textSize="18sp"
+                    android:id="@+id/alerta_origin"
+                    android:gravity="center"/>
 
             </LinearLayout>
 
             <ImageView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="@drawable/iconavionalerta"
-                android:layout_gravity="center_vertical"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true" />
+                android:layout_weight="1"
+                android:src="@drawable/iconavionalerta"
+                android:layout_gravity="center"/>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="2"
                 android:orientation="vertical"
-                android:layout_marginRight="@dimen/padding_15"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true">
+                android:layout_marginLeft="@dimen/padding_15"
+                android:layout_gravity="center_vertical"
+                android:gravity="center">
 
                 <TextView
-                    fontPath="@string/economica_boldItalic"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="CBB"
-                    android:textColor="@color/white"
-                    android:textSize="20sp" />
-
-                <TextView
+                    fontPath="@string/economica_bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
-                    android:text="cbb"/>
+                    android:textSize="18sp"
+                    android:id="@+id/alerta_destination"
+                    android:gravity="center"/>
 
             </LinearLayout>
 
-        </RelativeLayout>
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -217,7 +231,7 @@
                 android:layout_centerVertical="true"
                 android:layout_alignParentLeft="true"
                 android:layout_marginLeft="@dimen/padding_15"
-                android:id="@+id/textView2" />
+                android:id="@+id/alerta_create_text" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -226,7 +240,7 @@
                 android:layout_centerVertical="true"
                 android:id="@+id/alerta_icon"
                 android:layout_marginLeft="@dimen/padding_10"
-                android:layout_toRightOf="@+id/textView2" />
+                android:layout_toRightOf="@+id/alerta_create_text" />
 
         </RelativeLayout>
 
@@ -243,7 +257,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/flightDetailShareTitleKey"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="@dimen/padding_15"
                 android:layout_marginRight="@dimen/padding_10"/>

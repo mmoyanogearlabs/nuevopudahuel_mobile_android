@@ -14,6 +14,13 @@ import com.cleverox.nuevopudahuel.constants.Constants;
 import com.cleverox.nuevopudahuel.constants.PudahuelPrefs;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
 import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -23,6 +30,11 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.squareup.okhttp.OkHttpClient;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 import io.realm.RealmConfiguration;
@@ -54,15 +66,15 @@ public class PudahuelApplication extends Application {
 
     private void initCalligraphy() {
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                        .setDefaultFontPath(getString(R.string.khand_regular))
-                        .setFontAttrId(R.attr.fontPath)
-                        .build()
+                .setDefaultFontPath(getString(R.string.khand_regular))
+                .setFontAttrId(R.attr.fontPath)
+                .build()
         );
     }
 
     private void initAPI() {
         Gson gson = new GsonBuilder()
-                .setDateFormat("yyyy-MM-dd\'T\'HH:mm:ss.SSS\'Z\'")
+                .registerTypeAdapter(Date.class, new gsonUTCdateAdapter())
                 .create();
         RestAdapter restAdapter = new RestAdapter.Builder()
                 .setEndpoint(getString(R.string.api_url))
@@ -111,16 +123,16 @@ public class PudahuelApplication extends Application {
         return mHttpClient;
     }
 
-    private void initImageLoaderConfiguration(){
+    private void initImageLoaderConfiguration() {
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this.getApplicationContext())
-                .defaultDisplayImageOptions(makeImageOptions(0,false))
+                .defaultDisplayImageOptions(makeImageOptions(0, false))
                 .memoryCache(new WeakMemoryCache())
                 .build();
 
         ImageLoader.getInstance().init(config);
     }
 
-    private DisplayImageOptions makeImageOptions(int placeHolderImage,boolean hasPlaceHolder){
+    private DisplayImageOptions makeImageOptions(int placeHolderImage, boolean hasPlaceHolder) {
 
         boolean cacheInMemory = true;
         boolean cacheOnDisc = true;
@@ -148,12 +160,11 @@ public class PudahuelApplication extends Application {
         }
 
 
-
         return optionsBuilder.build();
 
     }
 
-    public void loadImageUrl(final String url,final ImageView image,final int placeHolderImage){
+    public void loadImageUrl(final String url, final ImageView image, final int placeHolderImage) {
 
 
         ImageLoader.getInstance().displayImage(url, image, makeImageOptions(placeHolderImage, true), new ImageLoadingListener() {
@@ -196,4 +207,27 @@ public class PudahuelApplication extends Application {
         return configuration;
     }
 
+    public static class gsonUTCdateAdapter implements JsonSerializer<Date>, JsonDeserializer<Date> {
+
+        private final DateFormat dateFormat;
+
+        public gsonUTCdateAdapter() {
+            dateFormat = new SimpleDateFormat("yyyy-MM-dd\'T\'HH:mm:ss.SSS\'Z\'");      //This is the format I need
+            dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));                               //This is the key line which converts the date to UTC which cannot be accessed with the default serializer
+        }
+
+        @Override
+        public Date deserialize(JsonElement json, java.lang.reflect.Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+            try {
+                return dateFormat.parse(json.getAsString());
+            } catch (ParseException e) {
+                throw new JsonParseException(e);
+            }
+        }
+
+        @Override
+        public JsonElement serialize(Date src, java.lang.reflect.Type typeOfSrc, JsonSerializationContext context) {
+            return new JsonPrimitive(dateFormat.format(src));
+        }
+    }
 }

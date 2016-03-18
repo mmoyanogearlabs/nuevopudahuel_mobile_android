@@ -3,6 +3,9 @@ package com.cleverox.nuevopudahuel.ui.fragments;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -10,12 +13,15 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bzutils.BZUtils;
 import com.cleverox.nuevopudahuel.R;
 import com.cleverox.nuevopudahuel.base.HomeFragment;
 import com.cleverox.nuevopudahuel.controllers.FlightsController;
 import com.cleverox.nuevopudahuel.model.Flight;
 import com.cleverox.nuevopudahuel.ui.activities.AlertActivity;
 import com.cleverox.nuevopudahuel.ui.adapter.FlightsAdapter;
+
+import java.util.Date;
 
 import io.realm.RealmChangeListener;
 import io.realm.RealmResults;
@@ -29,7 +35,7 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
     public static final int EXTRA_FLIGTHS = 1;
     public static final int EXTRA_LLEGADAS = 2;
 
-    private RealmResults<Flight> arrivals, departures;
+    private RealmResults<Flight> flightsResults;
 
     private int currentScreen;
     private FlightsAdapter adapter;
@@ -38,6 +44,7 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
     TextView origen, myFlightsTitle;
     EditText flights;
     private String searchText;
+    private RecyclerView list;
 
     public static FlightsFragment newInstance(String searchText) {
         FlightsFragment fragment = new FlightsFragment();
@@ -65,44 +72,58 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
         origen = $(R.id.flights_origen_button);
         myFlightsTitle = $(R.id.flights_tittle);
         $(R.id.flights_salidas_container).setSelected(true);
+        $(R.id.flights_search).setOnClickListener(this);
 
         flights = $(R.id.flights_editText);
-        if (searchText != null){
+        if (searchText != null) {
             flights.setText(searchText);
         }
-
         if(currentScreen == EXTRA_MY_FLIGHTS){
             $(R.id.flights_editText_container).setVisibility(View.GONE);
             $(R.id.flights_a).setVisibility(View.GONE);
             myFlightsTitle.setText(getText(R.string.menuOptionUserFlightsTitleKey));
+            origen.setText(getString(R.string.flightHeaderOriginTitleKey) + "/" + getString(R.string.flightHeaderDestinationTitleKey));
         }
         else if(currentScreen == EXTRA_LLEGADAS){
             $(R.id.flights_salidas_container).setSelected(false);
             $(R.id.flights_llegadas_container).setSelected(true);
-            origen.setText(getText(R.string.flightHeaderDestinationTitleKey));
+            origen.setText(getString(R.string.flightHeaderOriginTitleKey));
         }
 
-        flights = $(R.id.flights_editText);
         flights.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
         flights.setOnEditorActionListener(new TextView.OnEditorActionListener(){
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                BZUtils.hideKeyboard(getBaseActivity());
                 return false;
             }
         });
 
-        RecyclerView list = $(R.id.flights_list);
+        flights.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                searchText = flights.getText().toString();
+                adapter.setVols(configFlights());
+                adapter.notifyDataSetChanged();
+            }
+        });
+
+        list = $(R.id.flights_list);
         LinearLayoutManager manager = new LinearLayoutManager(getBaseActivity());
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         list.setLayoutManager(manager);
 
-        arrivals = FlightsController.getInstance().getArrivals(getBaseActivity().getRealm());
-        arrivals.addChangeListener(this);
-        departures = FlightsController.getInstance().getDepartures(getBaseActivity().getRealm());
-        departures.addChangeListener(this);
-
         adapter = new FlightsAdapter(getBaseActivity());
-        adapter.setVols(configFlights());
         adapter.setOnItemListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,22 +134,53 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
             }
         });
         list.setAdapter(adapter);
-
+        refreshList();
         salidas.setOnClickListener(this);
         llegadas.setOnClickListener(this);
     }
 
     private RealmResults<Flight> configFlights() {
+        if (flightsResults != null)
+            flightsResults.removeChangeListener(this);
         switch (currentScreen) {
             case EXTRA_FLIGTHS:
-                return departures;
+                if (!TextUtils.isEmpty(searchText))
+                    flightsResults = FlightsController.getInstance().searchDepartures(getBaseActivity().getRealm(), searchText);
+                else
+                    flightsResults = FlightsController.getInstance().getDepartures(getBaseActivity().getRealm());
+                break;
             case EXTRA_LLEGADAS:
-                return arrivals;
+                if (!TextUtils.isEmpty(searchText))
+                    flightsResults = FlightsController.getInstance().searchArrivals(getBaseActivity().getRealm(), searchText);
+                else
+                    flightsResults = FlightsController.getInstance().getArrivals(getBaseActivity().getRealm());
+                break;
             case EXTRA_MY_FLIGHTS:
+                flightsResults = FlightsController.getInstance().getAllFavorites(getBaseActivity().getRealm());
                 break;
         }
+        if (flightsResults != null)
+            flightsResults.addChangeListener(this);
+        return flightsResults;
+    }
 
-        return FlightsController.getInstance().getArrivals(getBaseActivity().getRealm());
+    private void scrollToNextFlight() {
+        if (adapter.getVols() != null) {
+            for (int i = 0; i < adapter.getItemCount(); i++) {
+                Flight flight = adapter.getVols().get(i);
+                if (flight.getEstimated().after(new Date())) {
+                    final int finalI = i;
+                    list.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            list.scrollToPosition(finalI);
+                            list.setVisibility(View.VISIBLE);
+                        }
+                    });
+                    break;
+                }
+            }
+        }
     }
 
     @Override
@@ -137,20 +189,28 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
             case R.id.flights_salidas_container:
                 salidas.setSelected(true);
                 llegadas.setSelected(false);
-                origen.setText(getText(R.string.flightHeaderOriginTitleKey));
+                origen.setText(getText(R.string.flightHeaderDestinationTitleKey));
                 currentScreen = EXTRA_FLIGTHS;
-                adapter.setVols(configFlights());
-                adapter.notifyDataSetChanged();
+                refreshList();
                 break;
             case R.id.flights_llegadas_container:
                 salidas.setSelected(false);
                 llegadas.setSelected(true);
-                origen.setText(getText(R.string.flightHeaderDestinationTitleKey));
+                origen.setText(getText(R.string.flightHeaderOriginTitleKey));
                 currentScreen = EXTRA_LLEGADAS;
-                adapter.setVols(configFlights());
-                adapter.notifyDataSetChanged();
+                refreshList();
+                break;
+            case R.id.flights_search:
+                BZUtils.hideKeyboard(getBaseActivity());
                 break;
         }
+    }
+
+    private void refreshList() {
+        list.setVisibility(View.GONE);
+        adapter.setVols(configFlights());
+        adapter.notifyDataSetChanged();
+        scrollToNextFlight();
     }
 
     @Override
@@ -161,8 +221,8 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
 
     @Override
     public void onDestroy() {
-        arrivals.removeChangeListener(this);
-        departures.removeChangeListener(this);
+        if (flightsResults != null)
+            flightsResults.removeChangeListener(this);
         super.onDestroy();
     }
 }

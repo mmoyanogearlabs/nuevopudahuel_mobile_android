@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bzutils.BZUtils;
 import com.cleverox.nuevopudahuel.R;
 import com.cleverox.nuevopudahuel.base.HomeFragment;
 import com.cleverox.nuevopudahuel.controllers.WeatherController;
@@ -71,8 +72,10 @@ public class DashboardFragment extends HomeFragment implements View.OnClickListe
         searchFly.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_SEARCH)
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     searchFlights();
+                    BZUtils.hideKeyboard(getBaseActivity());
+                }
                 return false;
             }
         });

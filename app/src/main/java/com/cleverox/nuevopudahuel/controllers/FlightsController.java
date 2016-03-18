@@ -9,6 +9,7 @@ import com.cleverox.nuevopudahuel.model.Flight;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.realm.Case;
 import io.realm.Realm;
 import io.realm.RealmResults;
 import retrofit.RetrofitError;
@@ -158,14 +159,36 @@ public class FlightsController {
     }
 
     public RealmResults<Flight> getArrivals(Realm realm) {
-        return realm.where(Flight.class).equalTo("arrival", true).findAll();
+        return realm.where(Flight.class).equalTo("arrival", true).findAllSorted("estimated");
     }
 
     public RealmResults<Flight> getDepartures(Realm realm) {
-        return realm.where(Flight.class).equalTo("arrival", false).findAll();
+        return realm.where(Flight.class).equalTo("arrival", false).findAllSorted("estimated");
     }
 
     public RealmResults<Flight> getAllFavorites(Realm realm) {
         return realm.where(Flight.class).equalTo("favorite", true).findAll();
+    }
+
+    public RealmResults<Flight> searchArrivals(Realm realm, String searchText) {
+        return realm.where(Flight.class).equalTo("arrival", true)
+                .beginGroup()
+                    .contains("origin", searchText, Case.INSENSITIVE).or()
+                    .contains("stopOver", searchText, Case.INSENSITIVE).or()
+                    .contains("destination", searchText, Case.INSENSITIVE).or()
+                    .contains("flightCode", searchText, Case.INSENSITIVE)
+                .endGroup()
+                .findAllSorted("estimated");
+    }
+
+    public RealmResults<Flight> searchDepartures(Realm realm, String searchText) {
+        return realm.where(Flight.class).equalTo("arrival", false)
+                .beginGroup()
+                .contains("origin", searchText, Case.INSENSITIVE).or()
+                .contains("stopOver", searchText, Case.INSENSITIVE).or()
+                .contains("destination", searchText, Case.INSENSITIVE).or()
+                .contains("flightCode", searchText, Case.INSENSITIVE)
+                .endGroup()
+                .findAllSorted("estimated");
     }
 }

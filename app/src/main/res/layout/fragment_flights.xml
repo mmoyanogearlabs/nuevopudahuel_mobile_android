@@ -60,7 +60,8 @@
             android:layout_centerVertical="true"
             android:background="@drawable/iconlupa"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/padding_10"/>
+            android:layout_marginRight="@dimen/padding_10"
+            android:id="@+id/flights_search"/>
 
     </RelativeLayout>
 
@@ -170,7 +171,7 @@
                 android:layout_weight="2.3"
                 android:padding="@dimen/padding_10"
                 android:background="@android:color/transparent"
-                android:text="@string/flightHeaderOriginTitleKey"
+                android:text="@string/flightHeaderDestinationTitleKey"
                 android:textColor="@color/white"
                 android:id="@+id/flights_origen_button"
                 android:textAllCaps="false"/>
