@@ -82,4 +82,7 @@ dependencies {
 
     compile 'io.realm:realm-android:0.87.4'
     compile 'com.parse.bolts:bolts-tasks:1.4.0'
+
+    //FACEBOOK
+    compile 'com.facebook.android:facebook-android-sdk:4.+'
 }

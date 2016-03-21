@@ -191,4 +191,12 @@ public class FlightsController {
                 .endGroup()
                 .findAllSorted("estimated");
     }
+
+    public String capitalizeFirstLetter(String text) {
+        if (text == null) return null;
+        if (text.length() == 0) return "";
+        String lower = text.toLowerCase();
+        String upper =lower.substring(0,1).toUpperCase() + lower.substring(1);
+        return upper;
+    }
 }

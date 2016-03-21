@@ -12,6 +12,7 @@ import com.cleverox.nuevopudahuel.R;
 import com.cleverox.nuevopudahuel.controllers.SyncController;
 import com.cleverox.nuevopudahuel.ui.activities.SplashActivity;
 import com.cleverox.nuevopudahuel.ui.activities.VideoSplashActivity;
+import com.facebook.appevents.AppEventsLogger;
 
 import io.realm.Realm;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -66,6 +67,13 @@ public abstract class BaseActivity extends AppCompatActivity implements SyncCont
         super.onResume();
         if (!(this instanceof SplashActivity) && !(this instanceof VideoSplashActivity))
             SyncController.getInstance().setOnSyncListener(this);
+        AppEventsLogger.activateApp(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        AppEventsLogger.deactivateApp(this);
     }
 
     @Override

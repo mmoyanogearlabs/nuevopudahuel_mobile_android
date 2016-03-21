@@ -1,5 +1,7 @@
 package com.cleverox.nuevopudahuel.model;
 
+import com.cleverox.nuevopudahuel.controllers.FlightsController;
+
 import java.util.Date;
 
 import io.realm.RealmObject;
@@ -77,7 +79,7 @@ public class Flight extends RealmObject {
     }
 
     public String getOrigin() {
-        return origin;
+        return FlightsController.getInstance().capitalizeFirstLetter(origin);
     }
 
     public void setOrigin(String origin) {
@@ -117,7 +119,7 @@ public class Flight extends RealmObject {
     }
 
     public String getStopOver() {
-        return stopOver;
+        return FlightsController.getInstance().capitalizeFirstLetter(stopOver);
     }
 
     public void setStopOver(String stopOver) {
@@ -125,7 +127,7 @@ public class Flight extends RealmObject {
     }
 
     public String getDestination() {
-        return destination;
+        return FlightsController.getInstance().capitalizeFirstLetter(destination);
     }
 
     public void setDestination(String destination) {
@@ -155,4 +157,5 @@ public class Flight extends RealmObject {
     public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
     }
+
 }

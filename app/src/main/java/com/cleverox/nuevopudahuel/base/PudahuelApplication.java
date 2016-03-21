@@ -1,6 +1,5 @@
 package com.cleverox.nuevopudahuel.base;
 
-import android.app.Application;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -8,11 +7,13 @@ import android.support.multidex.MultiDexApplication;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.bzutils.BZUtils;
 import com.cleverox.nuevopudahuel.R;
 import com.cleverox.nuevopudahuel.api.RestService;
 import com.cleverox.nuevopudahuel.banners.BannerService;
 import com.cleverox.nuevopudahuel.constants.Constants;
 import com.cleverox.nuevopudahuel.constants.PudahuelPrefs;
+import com.facebook.FacebookSdk;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializationContext;
@@ -59,6 +60,8 @@ public class PudahuelApplication extends MultiDexApplication {
         initAPI();
         initBannersAPI();
         initRealm();
+        BZUtils.printSignature(this);
+        FacebookSdk.sdkInitialize(this);
     }
 
     private void initRealm() {

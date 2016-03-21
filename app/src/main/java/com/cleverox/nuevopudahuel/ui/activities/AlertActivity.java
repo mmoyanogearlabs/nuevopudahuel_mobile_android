@@ -23,6 +23,9 @@ import com.cleverox.nuevopudahuel.api.response.FavoritesResponse;
 import com.cleverox.nuevopudahuel.base.BaseActivity;
 import com.cleverox.nuevopudahuel.controllers.FlightsController;
 import com.cleverox.nuevopudahuel.model.Flight;
+import com.facebook.share.model.SharePhoto;
+import com.facebook.share.model.SharePhotoContent;
+import com.facebook.share.widget.ShareDialog;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -164,7 +167,7 @@ public class AlertActivity extends BaseActivity implements View.OnClickListener,
                         shareViaEmail(Html.fromHtml(getMailBody()));
                         break;
                     case 1: //FACEBOOK
-
+                        shareViaFacebook();
                         break;
                     case 2: //TWITTER
                         shareViaTwitter();
@@ -195,6 +198,24 @@ public class AlertActivity extends BaseActivity implements View.OnClickListener,
 
         } catch (final ActivityNotFoundException e) {
             Toast.makeText(this, "You don't seem to have twitter installed on this device", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void shareViaFacebook() {
+        if (ShareDialog.canShow(SharePhotoContent.class)) {
+            Bitmap image = flightDetail.getDrawingCache();
+            SharePhoto photo = new SharePhoto.Builder()
+                    .setBitmap(image)
+                    .setCaption(getTextToShare())
+                    .build();
+            SharePhotoContent content = new SharePhotoContent.Builder()
+                    .addPhoto(photo)
+                    .setRef(getTextToShare())
+                    .build();
+            ShareDialog dialog = new ShareDialog(this);
+            dialog.show(content);
+        } else {
+            Toast.makeText(this, "You don't seem to have facebook installed on this device", Toast.LENGTH_SHORT).show();
         }
     }
 
