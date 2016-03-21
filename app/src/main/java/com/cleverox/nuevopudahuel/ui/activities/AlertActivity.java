@@ -1,6 +1,7 @@
 package com.cleverox.nuevopudahuel.ui.activities;
 
 import android.app.AlertDialog;
+import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -13,6 +14,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bzutils.BZUtils;
 import com.cleverox.nuevopudahuel.R;
@@ -44,6 +46,7 @@ public class AlertActivity extends BaseActivity implements View.OnClickListener,
 
     private Flight currentFlight;
     private TextView vuelo, tiempo, estado;
+    private LinearLayout flightDetail;
 
     private String flightsDetailShareImageUri = null;
 
@@ -66,7 +69,8 @@ public class AlertActivity extends BaseActivity implements View.OnClickListener,
         configFlight();
 
         $(R.id.alert_btnback).setOnClickListener(this);
-
+        flightDetail = $(R.id.alerta_flight_layout);
+        flightDetail.setDrawingCacheEnabled(true);
     }
 
     private void configFlight() {
@@ -160,8 +164,10 @@ public class AlertActivity extends BaseActivity implements View.OnClickListener,
                         shareViaEmail(Html.fromHtml(getMailBody()));
                         break;
                     case 1: //FACEBOOK
+
                         break;
                     case 2: //TWITTER
+                        shareViaTwitter();
                         break;
                 }
                 dialog.dismiss();
@@ -176,6 +182,20 @@ public class AlertActivity extends BaseActivity implements View.OnClickListener,
         i.setPackage("com.google.android.gm");
         i.putExtra(Intent.EXTRA_TEXT, htmlBody);
         startActivity(i);
+    }
+
+    private void shareViaTwitter() {
+        try {
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setType("/*");
+            intent.setClassName("com.twitter.android", "com.twitter.android.composer.ComposerActivity");
+            intent.putExtra(Intent.EXTRA_TEXT, getTextToShare());
+            intent.putExtra(Intent.EXTRA_STREAM, Uri.parse(saveFlightDetailImage(flightDetail.getDrawingCache())));
+            startActivity(intent);
+
+        } catch (final ActivityNotFoundException e) {
+            Toast.makeText(this, "You don't seem to have twitter installed on this device", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private String saveFlightDetailImage(Bitmap bitmap) {
