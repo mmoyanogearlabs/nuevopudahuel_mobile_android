@@ -1,6 +1,7 @@
 package com.cleverox.nuevopudahuel.ui.fragments;
 
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.text.TextUtils;
@@ -9,6 +10,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -99,6 +101,7 @@ public class DashboardFragment extends HomeFragment implements View.OnClickListe
                 getHomeActivity().changeFragment(FlightsFragment.newInstance(FlightsFragment.EXTRA_MY_FLIGHTS));
                 break;
             case R.id.dash_icon_lupa:
+                hideSoftKeyboard(searchFly);
                 searchFlights();
                 break;
             case R.id.dash_salidas_container:
@@ -125,5 +128,11 @@ public class DashboardFragment extends HomeFragment implements View.OnClickListe
     public void onDestroy() {
         weather.removeChangeListener(this);
         super.onDestroy();
+    }
+
+    public void hideSoftKeyboard(EditText input) {
+        input.setInputType(0);
+        InputMethodManager imm = (InputMethodManager) getBaseActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(input.getWindowToken(), 0);
     }
 }

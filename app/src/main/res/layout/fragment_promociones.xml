@@ -15,7 +15,7 @@
             fontPath="@string/avenir_roman"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/menuOptionConfigTitleKey"
+            android:text="@string/menuOptionPromosTitleKey"
             android:textSize="@dimen/textSize20"
             android:textColor="@color/softBlue"
             android:layout_centerInParent="true"
@@ -31,29 +31,12 @@
 
     </RelativeLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@color/softBlue"
-        android:padding="@dimen/padding_10">
-
-        <TextView
-            fontPath="@string/avenir_roman"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/configHeaderTitleKey"
-            android:textColor="@color/white"
-            android:textSize="@dimen/textSize12" />
-
-    </LinearLayout>
-
-    <android.support.v7.widget.RecyclerView
+    <com.cleverox.nuevopudahuel.ui.scanner.ScannerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/configuration_list">
+        android:id="@+id/promociones_scanner">
 
-    </android.support.v7.widget.RecyclerView>
+    </com.cleverox.nuevopudahuel.ui.scanner.ScannerView>
+
 
 </LinearLayout>

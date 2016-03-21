@@ -7,7 +7,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="?attr/actionBarSize"
         android:orientation="horizontal"
         android:padding="@dimen/padding_10"
         android:background="@color/grey"
@@ -16,10 +16,13 @@
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/btnatras"
+            android:src="@drawable/btnatras"
+            android:background="@android:color/transparent"
             android:layout_centerVertical="true"
             android:id="@+id/alert_btnback"
-            android:layout_alignParentLeft="true"/>
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+             />
 
         <ImageView
             android:layout_width="wrap_content"
