@@ -156,7 +156,7 @@
                     android:paddingRight="@dimen/padding_10"
                     android:singleLine="true"
                     android:id="@+id/dash_editText"
-                    android:layout_toLeftOf="@+id/dash_icon_lupa"/>
+                    android:layout_toLeftOf="@+id/dash_icon_lupa" />
 
                 <ImageView
                     android:layout_width="wrap_content"
