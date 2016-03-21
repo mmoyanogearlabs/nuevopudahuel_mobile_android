@@ -1,6 +1,7 @@
 package com.cleverox.nuevopudahuel.ui.adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -40,7 +41,10 @@ public class FlightsAdapter extends RecyclerView.Adapter<FlightsAdapter.ViewHold
         holder.tiempo.setText(BZUtils.dateToString(vol.getEstimated(), "HH:mm"));
         holder.estado.setText(vol.getStatusText());
         holder.favorite.setImageResource(vol.isFavorite() ? R.drawable.iconalertaenvuelo : R.drawable.iconarrowvuelos);
-        holder.estado.setText(vol.isFavorite() ? "Favorito" : vol.getStatusText());
+        holder.estado.setText(vol.getStatusText());
+        holder.stopoverLayout.setVisibility(TextUtils.isEmpty(vol.getStopOver()) ? View.INVISIBLE : View.VISIBLE);
+        holder.stopover.setText(vol.getStopOver());
+        holder.mainFlight.setText(vol.getMainFlightCode());
         holder.cell.setTag(vol);
         holder.cell.setOnClickListener(this.onItemListener);
 
@@ -66,8 +70,8 @@ public class FlightsAdapter extends RecyclerView.Adapter<FlightsAdapter.ViewHold
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView id, origen, tiempo, estado;
-        private LinearLayout cell;
+        private TextView id, origen, tiempo, estado, stopover, mainFlight;
+        private LinearLayout cell, stopoverLayout;
         private ImageView favorite;
 
         public ViewHolder(View itemView) {
@@ -78,6 +82,9 @@ public class FlightsAdapter extends RecyclerView.Adapter<FlightsAdapter.ViewHold
             estado = (TextView) itemView.findViewById(R.id.list_estado);
             cell = (LinearLayout) itemView.findViewById(R.id.list_cell);
             favorite = (ImageView) itemView.findViewById(R.id.list_img);
+            stopover = (TextView) itemView.findViewById(R.id.flights_cell_stopover);
+            stopoverLayout = (LinearLayout) itemView.findViewById(R.id.flights_cell_stopover_layout);
+            mainFlight = (TextView) itemView.findViewById(R.id.list_id_main_flight);
         }
     }
 }

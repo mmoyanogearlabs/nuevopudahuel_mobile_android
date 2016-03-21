@@ -24,6 +24,8 @@ public class Flight extends RealmObject {
     private String destination;
     private boolean international;
     private String flightCode;
+    private String mainFlightCode;
+    private String gate;
     private String belt;
     private String statusText;
     private boolean arrival;
@@ -158,4 +160,19 @@ public class Flight extends RealmObject {
         this.timestamp = timestamp;
     }
 
+    public String getMainFlightCode() {
+        return mainFlightCode;
+    }
+
+    public void setMainFlightCode(String mainFlightCode) {
+        this.mainFlightCode = mainFlightCode;
+    }
+
+    public String getGate() {
+        return gate;
+    }
+
+    public void setGate(String gate) {
+        this.gate = gate;
+    }
 }

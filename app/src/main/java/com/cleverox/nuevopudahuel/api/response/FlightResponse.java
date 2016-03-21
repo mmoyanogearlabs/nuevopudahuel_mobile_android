@@ -24,6 +24,8 @@ public class FlightResponse extends BaseResponse {
     private String flightCode;
     private String belt;
     private String statusText;
+    private String mainFlightCode;
+    private String gate;
 
     public Flight toFlight() {
         Flight flight = new Flight();
@@ -41,6 +43,8 @@ public class FlightResponse extends BaseResponse {
         flight.setBelt(belt);
         flight.setStatusText(statusText);
         flight.setArrival(origin != null);
+        flight.setMainFlightCode(mainFlightCode);
+        flight.setGate(gate);
         return flight;
     }
 }

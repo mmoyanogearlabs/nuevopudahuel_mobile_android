@@ -1,35 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:ignore="MissingPrefix" >
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:orientation="horizontal"
         android:id="@+id/list_cell"
-        android:paddingTop="@dimen/padding_15"
-        android:paddingBottom="@dimen/padding_15"
         android:layout_marginLeft="@dimen/padding_5"
-        android:layout_marginRight="@dimen/padding_5">
+        android:layout_marginRight="@dimen/padding_5"
+        android:background="@color/white">
 
-        <TextView
-            fontPath="@string/economica_boldItalic"
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:layout_weight="1"
-            android:textSize="@dimen/textSize12"
-            android:textStyle="bold"
-            android:id="@+id/list_id"
-            android:layout_marginRight="@dimen/padding_10"/>
+            android:layout_marginRight="@dimen/padding_10"
+            android:layout_marginTop="@dimen/padding_15">
 
-        <TextView
-            fontPath="@string/avenir_roman"
+            <TextView
+                fontPath="@string/economica_boldItalic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/textSize12"
+                android:id="@+id/list_id" />
+
+            <TextView
+                fontPath="@string/economica_boldItalic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/textSize12"
+                android:id="@+id/list_id_main_flight" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2.3"
-            android:textSize="@dimen/textSize12"
-            android:id="@+id/list_origen"/>
+            android:orientation="vertical">
+
+            <TextView
+                fontPath="@string/avenir_roman"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/textSize12"
+                android:id="@+id/list_origen"
+                android:layout_marginTop="@dimen/padding_15"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/flights_cell_stopover_layout"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/flights_cell_stopover_icon"
+                    android:src="@drawable/iconstopover"/>
+
+                <TextView
+                    fontPath="@string/economica_italic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/flights_cell_stopover"
+                    android:textColor="@color/darkGrey"
+                    android:paddingRight="@dimen/padding_5"
+                    android:paddingLeft="@dimen/padding_5"/>
+
+            </LinearLayout>
+        </LinearLayout>
 
         <TextView
             fontPath="@string/avenir_roman"
@@ -37,12 +83,14 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textSize="@dimen/textSize12"
-            android:id="@+id/list_tiempo"/>
+            android:id="@+id/list_tiempo"
+            android:layout_marginTop="@dimen/padding_15"/>
 
         <RelativeLayout
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2">
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:layout_marginTop="@dimen/padding_15">
 
             <TextView
                 fontPath="@string/avenir_roman"
@@ -50,7 +98,10 @@
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/textSize12"
                 android:singleLine="true"
-                android:id="@+id/list_estado" />
+                android:id="@+id/list_estado"
+                android:layout_toLeftOf="@+id/list_img"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/padding_5"/>
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -66,6 +117,6 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:src="@color/softGrey"/>
+        android:src="@color/darkGrey"/>
 
 </RelativeLayout>

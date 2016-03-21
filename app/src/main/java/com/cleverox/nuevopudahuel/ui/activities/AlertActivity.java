@@ -87,6 +87,9 @@ public class AlertActivity extends BaseActivity implements View.OnClickListener,
         origin.setText(currentFlight.isArrival() ? currentFlight.getOrigin() : getString(R.string.airportSantiagoChile));
         TextView destination = $(R.id.alerta_destination);
         destination.setText(currentFlight.isArrival() ? getString(R.string.airportSantiagoChile) : currentFlight.getDestination());
+        TextView stopOver = $(R.id.alerta_stopover_text);
+        stopOver.setText(currentFlight.getStopOver());
+        $(R.id.alerta_stopcover).setVisibility(TextUtils.isEmpty(currentFlight.getStopOver()) ? View.INVISIBLE : View.VISIBLE);
     }
 
     private void configFavorito() {

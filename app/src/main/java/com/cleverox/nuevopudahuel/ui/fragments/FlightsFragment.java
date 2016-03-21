@@ -228,8 +228,10 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
 
     @Override
     public void onDestroy() {
-        if (flightsResults != null)
-            flightsResults.removeChangeListener(this);
+        try {
+            if (flightsResults != null)
+                flightsResults.removeChangeListener(this);
+        } catch (Exception e) {}
         super.onDestroy();
     }
 
