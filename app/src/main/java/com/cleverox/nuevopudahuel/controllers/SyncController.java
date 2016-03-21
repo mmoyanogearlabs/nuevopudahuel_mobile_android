@@ -45,7 +45,7 @@ public class SyncController {
                 @Override
                 public void failure(RetrofitError error) {
                     super.failure(error);
-                    resetNextSync(application);
+                    syncArrivals(application);
                 }
 
                 @Override
@@ -66,7 +66,7 @@ public class SyncController {
             @Override
             public void failure(RetrofitError error) {
                 super.failure(error);
-                resetNextSync(application);
+                syncDepartures(application);
             }
 
             @Override
@@ -82,7 +82,7 @@ public class SyncController {
             @Override
             public void failure(RetrofitError error) {
                 super.failure(error);
-                resetNextSync(application);
+                syncFavorites(application);
             }
 
             @Override
@@ -110,6 +110,8 @@ public class SyncController {
     }
 
     private void resetNextSync(PudahuelApplication application) {
+        if (onSyncListener != null)
+            onSyncListener.onSyncCompleted();
         syncing = false;
         if (nextSyncTime == 0) {
             new nextSync().execute(application);
@@ -119,6 +121,7 @@ public class SyncController {
     }
 
     public void setOnSyncListener(OnSyncListener onSyncListener) {
+        LogBZ.d("setOnSyncListener: " + onSyncListener);
         this.onSyncListener = onSyncListener;
     }
 
@@ -140,8 +143,6 @@ public class SyncController {
             LogBZ.d("SyncController: finish countdown");
             if (hasToSync) {
                 nextSyncTime = 0;
-                if (onSyncListener != null)
-                    onSyncListener.onSyncCompleted();
                 startSync(application);
             }
         }

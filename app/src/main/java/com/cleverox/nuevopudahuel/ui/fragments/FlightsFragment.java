@@ -1,7 +1,7 @@
 package com.cleverox.nuevopudahuel.ui.fragments;
 
-import android.content.Context;
 import android.content.Intent;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -10,15 +10,16 @@ import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bzutils.BZUtils;
+import com.bzutils.LogBZ;
 import com.cleverox.nuevopudahuel.R;
 import com.cleverox.nuevopudahuel.base.HomeFragment;
 import com.cleverox.nuevopudahuel.controllers.FlightsController;
+import com.cleverox.nuevopudahuel.controllers.SyncController;
 import com.cleverox.nuevopudahuel.model.Flight;
 import com.cleverox.nuevopudahuel.ui.activities.AlertActivity;
 import com.cleverox.nuevopudahuel.ui.adapter.FlightsAdapter;
@@ -31,7 +32,7 @@ import io.realm.RealmResults;
 /**
  * Created by moddity on 3/3/16.
  */
-public class FlightsFragment extends HomeFragment implements View.OnClickListener, RealmChangeListener {
+public class FlightsFragment extends HomeFragment implements View.OnClickListener, RealmChangeListener, SwipeRefreshLayout.OnRefreshListener, SyncController.OnSyncListener {
 
     public static final int EXTRA_MY_FLIGHTS = 0;
     public static final int EXTRA_FLIGTHS = 1;
@@ -47,6 +48,7 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
     EditText flights;
     private String searchText;
     private RecyclerView list;
+    private SwipeRefreshLayout refreshLayout;
 
     public static FlightsFragment newInstance(String searchText) {
         FlightsFragment fragment = new FlightsFragment();
@@ -139,6 +141,9 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
         refreshList();
         salidas.setOnClickListener(this);
         llegadas.setOnClickListener(this);
+
+        refreshLayout = $(R.id.flightsRefreshLayout);
+        refreshLayout.setOnRefreshListener(this);
     }
 
     private RealmResults<Flight> configFlights() {
@@ -226,5 +231,18 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
         if (flightsResults != null)
             flightsResults.removeChangeListener(this);
         super.onDestroy();
+    }
+
+    @Override
+    public void onRefresh() {
+        refreshLayout.setRefreshing(true);
+        SyncController.getInstance().setOnSyncListener(this);
+        SyncController.getInstance().startSync(getBaseActivity().getPudahuelApplication());
+    }
+
+    @Override
+    public void onSyncCompleted() {
+        LogBZ.d("onSyncCompleted");
+        refreshLayout.setRefreshing(false);
     }
 }
