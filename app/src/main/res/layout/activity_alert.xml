@@ -63,7 +63,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#313030"
-            android:padding="@dimen/padding_10">
+            android:padding="@dimen/padding_10"
+            android:id="@+id/alerta_flight_layout">
 
             <LinearLayout
                 android:layout_width="0dp"
