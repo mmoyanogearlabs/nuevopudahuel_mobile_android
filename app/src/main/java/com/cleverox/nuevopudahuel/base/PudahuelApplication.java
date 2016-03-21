@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.support.multidex.MultiDexApplication;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -43,7 +44,7 @@ import retrofit.client.OkClient;
 import retrofit.converter.GsonConverter;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
-public class PudahuelApplication extends Application {
+public class PudahuelApplication extends MultiDexApplication {
 
     private RestService mService;
     private BannerService mBannerService;

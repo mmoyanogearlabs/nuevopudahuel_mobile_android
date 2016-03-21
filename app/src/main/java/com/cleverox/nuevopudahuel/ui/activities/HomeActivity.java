@@ -22,6 +22,7 @@ import com.cleverox.nuevopudahuel.ui.fragments.DashboardFragment;
 import com.cleverox.nuevopudahuel.ui.fragments.FlightsFragment;
 import com.cleverox.nuevopudahuel.ui.fragments.MenuWebviewFragment;
 import com.cleverox.nuevopudahuel.ui.fragments.NuevoPudahuelFragment;
+import com.cleverox.nuevopudahuel.ui.fragments.PromocionesFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -89,6 +90,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
                         changeFragment(MenuWebviewFragment.newInstance(getString(R.string.menuOptionAirportUrlKey)));
                         break;
                     case 6: // PROMOCIONES
+                        changeFragment(PromocionesFragment.newInstance());
                         break;
                     case 7: // CONFIGURACIÓN
                         changeFragment(ConfigurationFragment.newInstance());
