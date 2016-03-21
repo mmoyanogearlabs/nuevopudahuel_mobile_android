@@ -5,12 +5,12 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.bzutils.BZScreenHelper;
 import com.cleverox.nuevopudahuel.R;
 import com.cleverox.nuevopudahuel.base.BaseActivity;
 import com.cleverox.nuevopudahuel.model.ConfigurationItem;
@@ -43,12 +43,12 @@ public class ConfigurationAdapter extends RecyclerView.Adapter<ConfigurationAdap
         if (position == 0 || position == 1) {
             holder.cell.setBackgroundColor(ContextCompat.getColor(baseActivity, R.color.hardGrey));
             holder.text.setTextColor(ContextCompat.getColor(baseActivity, R.color.white));
-            holder.text.setTextSize(baseActivity.getResources().getDimension(R.dimen.textSize12));
+            holder.text.setTextSize(BZScreenHelper.dpFromPx(baseActivity.getResources().getDimension(R.dimen.textSize16), baseActivity));
         }
         else {
             holder.cell.setBackgroundColor(Color.WHITE);
             holder.text.setTextColor(ContextCompat.getColor(baseActivity, R.color.black));
-            holder.text.setTextSize(baseActivity.getResources().getDimension(R.dimen.textSize10));
+            holder.text.setTextSize(BZScreenHelper.dpFromPx(baseActivity.getResources().getDimension(R.dimen.textSize14), baseActivity));
         }
         holder.text.setText(item.getText());
         holder.check.setChecked(item.isChecked());

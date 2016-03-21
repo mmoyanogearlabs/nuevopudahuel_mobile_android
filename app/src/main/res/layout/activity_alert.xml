@@ -62,158 +62,164 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#313030"
-            android:padding="@dimen/padding_10"
-            android:id="@+id/alerta_flight_layout">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:layout_marginRight="@dimen/padding_15"
-                android:orientation="vertical"
-                android:layout_gravity="center_vertical"
-                android:gravity="center">
-
-                <TextView
-                    fontPath="@string/economica_bold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="SSL"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    android:id="@+id/alerta_origin"
-                    android:gravity="center"/>
-
-            </LinearLayout>
-
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/iconavionalerta"
-                android:layout_gravity="center"/>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:orientation="vertical"
-                android:layout_marginLeft="@dimen/padding_15"
-                android:layout_gravity="center_vertical"
-                android:gravity="center">
-
-                <TextView
-                    fontPath="@string/economica_bold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    android:id="@+id/alerta_destination"
-                    android:gravity="center"/>
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:id="@+id/alerta_subtitle"
-            android:background="@color/softBlue"
-            android:padding="@dimen/padding_5">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/padding_5"
-                android:layout_gravity="center_vertical"
-                android:background="@drawable/iconstopoveralerta"
-                android:id="@+id/alerta_stopcover"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Text de prova"
-                android:textColor="@color/white"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="@dimen/padding_10"/>
-
-        </LinearLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="@drawable/alert_container_shape"
-            android:id="@+id/alerta_container">
-
+            android:id="@+id/alerta_flight_layout">
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/padding_5"
-                android:layout_centerVertical="true">
+                android:background="#313030"
+                android:padding="@dimen/padding_10">
 
-                <TextView
-                    fontPath="@string/avenir_medium"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/flightDetailFlightTitleKey"
-                    android:textSize="@dimen/textSize15"
-                    android:layout_marginBottom="@dimen/padding_10"/>
+                    android:layout_weight="2"
+                    android:layout_marginRight="@dimen/padding_15"
+                    android:orientation="vertical"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center">
 
-                <TextView
-                    fontPath="@string/avenir_medium"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/flightDetailTimeTitleKey"
-                    android:textSize="@dimen/textSize15"
-                    android:layout_marginBottom="@dimen/padding_10"/>
+                    <TextView
+                        fontPath="@string/economica_bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="SSL"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        android:id="@+id/alerta_origin"
+                        android:gravity="center"/>
 
-                <TextView
-                    fontPath="@string/avenir_medium"
-                    android:layout_width="wrap_content"
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/flightDetailStatusTitleKey"
-                    android:textSize="@dimen/textSize15" />
+                    android:layout_weight="1"
+                    android:src="@drawable/iconavionalerta"
+                    android:layout_gravity="center"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="@dimen/padding_15"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center">
+
+                    <TextView
+                        fontPath="@string/economica_bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        android:id="@+id/alerta_destination"
+                        android:gravity="center"/>
+
+                </LinearLayout>
 
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true">
+                android:orientation="horizontal"
+                android:id="@+id/alerta_subtitle"
+                android:background="@color/softBlue"
+                android:padding="@dimen/padding_5">
 
-                <TextView
-                    fontPath="@string/avenir_roman"
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/textSize15"
-                    android:layout_marginBottom="@dimen/padding_10"
-                    android:id="@+id/alerta_vuelo"/>
+                    android:layout_marginLeft="@dimen/padding_5"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/iconstopoveralerta"
+                    android:id="@+id/alerta_stopcover"/>
 
                 <TextView
-                    fontPath="@string/avenir_roman"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/textSize15"
-                    android:layout_marginBottom="@dimen/padding_10"
-                    android:id="@+id/alerta_tiempo"/>
-
-                <TextView
-                    fontPath="@string/avenir_roman"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/textSize15"
-                    android:id="@+id/alerta_estado"/>
+                    android:text="Text de prova"
+                    android:textColor="@color/white"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/padding_10"/>
 
             </LinearLayout>
 
-        </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/alert_container_shape"
+                android:id="@+id/alerta_container">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/padding_5"
+                    android:layout_centerVertical="true">
+
+                    <TextView
+                        fontPath="@string/avenir_medium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/flightDetailFlightTitleKey"
+                        android:textSize="@dimen/textSize15"
+                        android:layout_marginBottom="@dimen/padding_10"/>
+
+                    <TextView
+                        fontPath="@string/avenir_medium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/flightDetailTimeTitleKey"
+                        android:textSize="@dimen/textSize15"
+                        android:layout_marginBottom="@dimen/padding_10"/>
+
+                    <TextView
+                        fontPath="@string/avenir_medium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/flightDetailStatusTitleKey"
+                        android:textSize="@dimen/textSize15" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true">
+
+                    <TextView
+                        fontPath="@string/avenir_roman"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/textSize15"
+                        android:layout_marginBottom="@dimen/padding_10"
+                        android:id="@+id/alerta_vuelo"/>
+
+                    <TextView
+                        fontPath="@string/avenir_roman"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/textSize15"
+                        android:layout_marginBottom="@dimen/padding_10"
+                        android:id="@+id/alerta_tiempo"/>
+
+                    <TextView
+                        fontPath="@string/avenir_roman"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/textSize15"
+                        android:id="@+id/alerta_estado"/>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </LinearLayout>
 
         <RelativeLayout
             android:layout_width="wrap_content"
