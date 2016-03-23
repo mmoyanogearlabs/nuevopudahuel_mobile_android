@@ -1,6 +1,7 @@
 package com.cleverox.nuevopudahuel.ui.fragments;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -77,6 +78,14 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
         myFlightsTitle = $(R.id.flights_tittle);
         $(R.id.flights_salidas_container).setSelected(true);
         $(R.id.flights_search).setOnClickListener(this);
+
+        TextView flightCode = $(R.id.flights_vuelos_button);
+        flightCode.setTextColor(Color.WHITE);
+        TextView time = $(R.id.flights_tiempo_button);
+        time.setTextColor(Color.WHITE);
+        TextView status = $(R.id.flights_estado_button);
+        status.setTextColor(Color.WHITE);
+        origen.setTextColor(Color.WHITE);
 
         flights = $(R.id.flights_editText);
         if (searchText != null) {

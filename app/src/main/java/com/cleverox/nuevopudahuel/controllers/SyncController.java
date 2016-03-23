@@ -1,6 +1,7 @@
 package com.cleverox.nuevopudahuel.controllers;
 
 import android.os.AsyncTask;
+import android.os.Process;
 
 import com.bzutils.LogBZ;
 import com.cleverox.nuevopudahuel.api.RestCallback;
@@ -10,6 +11,8 @@ import com.cleverox.nuevopudahuel.base.PudahuelApplication;
 import com.cleverox.nuevopudahuel.model.Weather;
 
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -37,6 +40,7 @@ public class SyncController {
     private boolean syncing;
     private boolean hasToSync = true;
     private OnSyncListener onSyncListener;
+    private Timer timer;
 
     public void startSync(final PudahuelApplication application) {
         if (!syncing) {
@@ -59,6 +63,10 @@ public class SyncController {
 
     public void stopSync() {
         hasToSync = false;
+        if (timer != null) {
+            timer.cancel();
+            timer = null;
+        }
     }
 
     private void syncArrivals(final PudahuelApplication application) {
@@ -109,15 +117,21 @@ public class SyncController {
         });
     }
 
-    private void resetNextSync(PudahuelApplication application) {
+    private void resetNextSync(final PudahuelApplication application) {
         if (onSyncListener != null)
             onSyncListener.onSyncCompleted();
         syncing = false;
-        if (nextSyncTime == 0) {
-            new nextSync().execute(application);
-        } else {
-            nextSyncTime = System.currentTimeMillis() + SYNC_WAIT_TIME;
+        if (timer != null) {
+            timer.cancel();
+            timer = null;
         }
+        timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                if (hasToSync) startSync(application);
+            }
+        }, SYNC_WAIT_TIME);
     }
 
     public void setOnSyncListener(OnSyncListener onSyncListener) {
@@ -131,6 +145,7 @@ public class SyncController {
 
         @Override
         protected Boolean doInBackground(PudahuelApplication... params) {
+            Process.setThreadPriority(Process.THREAD_PRIORITY_LOWEST);
             application = params[0];
             nextSyncTime = System.currentTimeMillis() + SYNC_WAIT_TIME;
             while (System.currentTimeMillis() < nextSyncTime) {}

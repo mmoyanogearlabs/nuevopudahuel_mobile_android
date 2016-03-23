@@ -5,6 +5,7 @@ import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Environment;
@@ -83,12 +84,16 @@ public class AlertActivity extends BaseActivity implements View.OnClickListener,
         estado.setText(currentFlight.getStatusText());
         TextView createAlert = $(R.id.alerta_create_text);
         createAlert.setText(currentFlight.isFavorite() ? getString(R.string.flightDetailDisableAlertTitleKey) : getString(R.string.flightDetailCreateAlertTitleKey));
+        createAlert.setTextColor(Color.WHITE);
         TextView origin = $(R.id.alerta_origin);
         origin.setText(currentFlight.isArrival() ? currentFlight.getOrigin() : getString(R.string.airportSantiagoChile));
+        origin.setTextColor(Color.WHITE);
         TextView destination = $(R.id.alerta_destination);
         destination.setText(currentFlight.isArrival() ? getString(R.string.airportSantiagoChile) : currentFlight.getDestination());
+        destination.setTextColor(Color.WHITE);
         TextView stopOver = $(R.id.alerta_stopover_text);
         stopOver.setText(currentFlight.getStopOver());
+        stopOver.setTextColor(Color.WHITE);
         $(R.id.alerta_stopcover).setVisibility(TextUtils.isEmpty(currentFlight.getStopOver()) ? View.INVISIBLE : View.VISIBLE);
     }
 

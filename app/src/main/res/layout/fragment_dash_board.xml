@@ -185,7 +185,8 @@
                     android:layout_toLeftOf="@+id/dash_img_myflights"
                     android:text="@string/homeMyFlightsButtonTitleKey"
                     android:textSize="@dimen/textSize14"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/white"
+                    android:id="@+id/dashboard_myflights_text"/>
 
                 <ImageView
                     android:layout_width="wrap_content"

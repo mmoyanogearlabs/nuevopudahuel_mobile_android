@@ -42,6 +42,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
 
         configMenu();
         changeFragment(DashboardFragment.newInstance());
+
     }
 
     @Override
@@ -167,5 +168,6 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
         super.onDestroy();
         SyncController.getInstance().stopSync();
     }
+
 }
 

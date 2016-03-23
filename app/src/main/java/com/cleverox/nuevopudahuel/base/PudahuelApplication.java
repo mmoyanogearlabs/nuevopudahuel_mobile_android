@@ -23,6 +23,7 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
+import com.innoquant.moca.MOCA;
 import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -55,6 +56,8 @@ public class PudahuelApplication extends MultiDexApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        initMoca();
         initCalligraphy();
         initImageLoaderConfiguration();
         initAPI();
@@ -62,6 +65,10 @@ public class PudahuelApplication extends MultiDexApplication {
         initRealm();
         BZUtils.printSignature(this);
         FacebookSdk.sdkInitialize(this);
+    }
+
+    private void initMoca() {
+        MOCA.initializeSDK (this);
     }
 
     private void initRealm() {

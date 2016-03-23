@@ -34,10 +34,10 @@ public class UserController {
     public void startSyncProcess(PudahuelApplication context) {
         if (getStoredGoogleAID(context) == null)
             new getGoolgeAIDAsync().execute(context);
-        else
+        else {
             getAPIToken(context);
-        //TODO: get Flights Info
-        //TODO: init MOCA config
+            ConfigurationCategoriesController.getInstance().getCategoriesConfig(context);
+        }
     }
 
     private void getAPIToken(final PudahuelApplication application) {
@@ -107,6 +107,7 @@ public class UserController {
             }
             storeGoogleAID(application, res);
             getAPIToken(application);
+            ConfigurationCategoriesController.getInstance().initCategoriesConfig(application);
         }
     }
 

@@ -6,12 +6,12 @@
     <color name="softBlue">#006998</color>
     <color name="blue">#0C3E7B</color>
 
-    <color name="white">#FFFFFFFF</color>
-    <color name="hardWhite">#FFD9D9D9</color>
+    <color name="white">@android:color/white</color>
+    <color name="hardWhite">#D9D9D9</color>
     <color name="black">#000000</color>
-    <color name="softGrey">#FFEEEEEE</color>
+    <color name="softGrey">#EEEEEE</color>
     <color name="grey">#DDDDDF</color>
-    <color name="hardGrey">#FF28282A</color>
+    <color name="hardGrey">#28282A</color>
     <color name="green">#21C932</color>
     <color name="darkGrey">#9D9D9D</color>
 

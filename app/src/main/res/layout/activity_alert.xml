@@ -87,7 +87,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="SSL"
-                        android:textColor="@color/white"
+                        android:textColor="#FFFFFF"
                         android:textSize="18sp"
                         android:id="@+id/alerta_origin"
                         android:gravity="center"/>

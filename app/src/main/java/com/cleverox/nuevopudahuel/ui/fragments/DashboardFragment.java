@@ -4,6 +4,7 @@ package com.cleverox.nuevopudahuel.ui.fragments;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -54,6 +55,10 @@ public class DashboardFragment extends HomeFragment implements View.OnClickListe
 
         weatherIcon = $(R.id.dashboard_weather_icon);
         weatherText = $(R.id.dashboard_weather_text);
+        weatherText.setTextColor(Color.WHITE);
+
+        TextView myFlights = $(R.id.dashboard_myflights_text);
+        myFlights.setTextColor(Color.WHITE);
 
         weather = WeatherController.getInstance().getWeather(getBaseActivity().getRealm());
         if (weather != null) {
@@ -126,7 +131,11 @@ public class DashboardFragment extends HomeFragment implements View.OnClickListe
 
     @Override
     public void onDestroy() {
-        weather.removeChangeListener(this);
+        try {
+            weather.removeChangeListener(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         super.onDestroy();
     }
 
