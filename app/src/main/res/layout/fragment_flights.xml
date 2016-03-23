@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:ignore="MissingPrefix" >
+    tools:ignore="MissingPrefix">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -68,10 +70,9 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:id="@+id/flights_container"
         android:layout_gravity="center_horizontal"
-        android:layout_alignParentBottom="true"
         android:layout_below="@id/flights_editText_container">
 
     <LinearLayout
@@ -215,5 +216,13 @@
         </android.support.v4.widget.SwipeRefreshLayout>
 
     </LinearLayout>
+
+    <com.cleverox.nuevopudahuel.banners.BannerView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:screenName="@string/banner_screen_flight"
+        app:autoLoad="true"
+        app:changeSize="true"
+        android:id="@+id/flights_banner"/>
 
 </RelativeLayout>

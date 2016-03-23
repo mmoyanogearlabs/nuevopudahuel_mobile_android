@@ -23,6 +23,7 @@ public class FlightsAdapter extends RecyclerView.Adapter<FlightsAdapter.ViewHold
     private BaseActivity activity;
     private RealmResults<Flight> vols;
     private View.OnClickListener onItemListener;
+    private int bottomOffset = 0;
 
     public FlightsAdapter(BaseActivity activity) {
         this.activity = activity;
@@ -47,6 +48,9 @@ public class FlightsAdapter extends RecyclerView.Adapter<FlightsAdapter.ViewHold
         holder.mainFlight.setText(vol.getMainFlightCode());
         holder.cell.setTag(vol);
         holder.cell.setOnClickListener(this.onItemListener);
+        LinearLayout.LayoutParams offsetParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, bottomOffset);
+        holder.bottomOffset.setLayoutParams(offsetParams);
+        holder.bottomOffset.setVisibility(position == getItemCount() - 1 ? View.VISIBLE : View.GONE);
 
     }
 
@@ -68,10 +72,14 @@ public class FlightsAdapter extends RecyclerView.Adapter<FlightsAdapter.ViewHold
         this.onItemListener = onItemListener;
     }
 
+    public void setBottomOffset(int bottomOffset) {
+        this.bottomOffset = bottomOffset;
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView id, origen, tiempo, estado, stopover, mainFlight;
-        private LinearLayout cell, stopoverLayout;
+        private LinearLayout cell, stopoverLayout, bottomOffset;
         private ImageView favorite;
 
         public ViewHolder(View itemView) {
@@ -85,6 +93,7 @@ public class FlightsAdapter extends RecyclerView.Adapter<FlightsAdapter.ViewHold
             stopover = (TextView) itemView.findViewById(R.id.flights_cell_stopover);
             stopoverLayout = (LinearLayout) itemView.findViewById(R.id.flights_cell_stopover_layout);
             mainFlight = (TextView) itemView.findViewById(R.id.list_id_main_flight);
+            bottomOffset = (LinearLayout) itemView.findViewById(R.id.list_bottom_offset);
         }
     }
 }

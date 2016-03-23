@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.bzutils.BZUtils;
 import com.bzutils.LogBZ;
 import com.cleverox.nuevopudahuel.R;
+import com.cleverox.nuevopudahuel.banners.BannerView;
 import com.cleverox.nuevopudahuel.base.HomeFragment;
 import com.cleverox.nuevopudahuel.controllers.FlightsController;
 import com.cleverox.nuevopudahuel.controllers.SyncController;
@@ -50,6 +51,7 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
     private String searchText;
     private RecyclerView list;
     private SwipeRefreshLayout refreshLayout;
+    private BannerView banner;
 
     public static FlightsFragment newInstance(String searchText) {
         FlightsFragment fragment = new FlightsFragment();
@@ -153,6 +155,9 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
 
         refreshLayout = $(R.id.flightsRefreshLayout);
         refreshLayout.setOnRefreshListener(this);
+
+        banner = $(R.id.flights_banner);
+        banner.setBannerInterface(this);
     }
 
     private RealmResults<Flight> configFlights() {
@@ -227,6 +232,13 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
         adapter.setVols(configFlights());
         adapter.notifyDataSetChanged();
         scrollToNextFlight();
+    }
+
+    @Override
+    public void onBannerSizeChanged(int height) {
+        super.onBannerSizeChanged(height);
+        adapter.setBottomOffset(height);
+        adapter.notifyDataSetChanged();
     }
 
     @Override
