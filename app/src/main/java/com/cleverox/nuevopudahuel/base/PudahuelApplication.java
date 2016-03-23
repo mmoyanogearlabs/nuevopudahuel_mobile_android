@@ -9,8 +9,8 @@ import android.widget.ImageView;
 
 import com.bzutils.BZUtils;
 import com.cleverox.nuevopudahuel.R;
-import com.cleverox.nuevopudahuel.api.RestService;
-import com.cleverox.nuevopudahuel.banners.BannerService;
+import com.cleverox.nuevopudahuel.api.services.FlightsService;
+import com.cleverox.nuevopudahuel.api.services.BannerService;
 import com.cleverox.nuevopudahuel.constants.Constants;
 import com.cleverox.nuevopudahuel.constants.PudahuelPrefs;
 import com.facebook.FacebookSdk;
@@ -48,7 +48,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 public class PudahuelApplication extends MultiDexApplication {
 
-    private RestService mService;
+    private FlightsService mService;
     private BannerService mBannerService;
     private OkClient mHttpClient;
     private RealmConfiguration configuration;
@@ -94,7 +94,7 @@ public class PudahuelApplication extends MultiDexApplication {
                 .setConverter(new GsonConverter(gson))
                 .build();
 
-        mService = restAdapter.create(RestService.class);
+        mService = restAdapter.create(FlightsService.class);
     }
 
     private void initBannersAPI() {
@@ -116,7 +116,7 @@ public class PudahuelApplication extends MultiDexApplication {
         mHttpClient = new OkClient(okHttpClient);
     }
 
-    public RestService getService() {
+    public FlightsService getService() {
         if (mService == null)
             initAPI();
         return mService;
@@ -200,6 +200,10 @@ public class PudahuelApplication extends MultiDexApplication {
             }
         });
 
+    }
+
+    public void loadImageUrl(String url, ImageLoadingListener listener) {
+        ImageLoader.getInstance().loadImage(url, listener);
     }
 
     private SharedPreferences getPreferences() {

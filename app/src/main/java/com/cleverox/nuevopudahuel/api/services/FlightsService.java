@@ -1,5 +1,6 @@
-package com.cleverox.nuevopudahuel.api;
+package com.cleverox.nuevopudahuel.api.services;
 
+import com.cleverox.nuevopudahuel.api.RestCallback;
 import com.cleverox.nuevopudahuel.api.requestModel.TokenRequestBody;
 import com.cleverox.nuevopudahuel.api.response.FavoritesResponse;
 import com.cleverox.nuevopudahuel.api.response.FlightResponse;
@@ -17,7 +18,7 @@ import retrofit.http.Path;
 /**
  * Created by iaguila on 02/02/2016.
  */
-public interface RestService {
+public interface FlightsService {
 
     String HEADER_AUTHORIZATION = "Authorization";
 

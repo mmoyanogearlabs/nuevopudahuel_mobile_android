@@ -9,7 +9,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.cleverox.nuevopudahuel.R;
+import com.cleverox.nuevopudahuel.banners.BannerView;
 import com.cleverox.nuevopudahuel.controllers.SyncController;
+import com.cleverox.nuevopudahuel.ui.activities.DetailWebViewActivity;
 import com.cleverox.nuevopudahuel.ui.activities.SplashActivity;
 import com.cleverox.nuevopudahuel.ui.activities.VideoSplashActivity;
 import com.facebook.appevents.AppEventsLogger;
@@ -20,7 +22,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 /**
  * Created by iaguila on 9/2/16.
  */
-public abstract class BaseActivity extends AppCompatActivity implements SyncController.OnSyncListener {
+public abstract class BaseActivity extends AppCompatActivity implements SyncController.OnSyncListener, BannerView.BannerInterface {
     private ProgressDialog dialog;
 
     private Realm realm;
@@ -96,6 +98,18 @@ public abstract class BaseActivity extends AppCompatActivity implements SyncCont
         }
 
         return realm;
+    }
+
+    @Override
+    public void onBannerClicked(String url) {
+        Intent intent = new Intent(this, DetailWebViewActivity.class);
+        intent.putExtra(DetailWebViewActivity.EXTRA_URL, url);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onBannerSizeChanged(int height) {
+
     }
 
     @Override

@@ -8,10 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.cleverox.nuevopudahuel.banners.BannerView;
+
 /**
  * Created by iaguila on 9/2/16.
  */
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment extends Fragment implements BannerView.BannerInterface {
 
     private View parentView;
 
@@ -31,6 +33,15 @@ public abstract class BaseFragment extends Fragment {
         return null;
     }
 
+    @Override
+    public void onBannerClicked(String url) {
+        getBaseActivity().onBannerClicked(url);
+    }
+
+    @Override
+    public void onBannerSizeChanged(int height) {
+
+    }
 
     protected BaseActivity getBaseActivity() {
         return (BaseActivity) getActivity();

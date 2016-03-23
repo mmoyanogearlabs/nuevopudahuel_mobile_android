@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import com.cleverox.nuevopudahuel.api.RestCallback;
 import com.cleverox.nuevopudahuel.api.requestModel.TokenRequestBody;
 import com.cleverox.nuevopudahuel.api.response.TokenResponse;
+import com.cleverox.nuevopudahuel.banners.BannerController;
 import com.cleverox.nuevopudahuel.base.PudahuelApplication;
 import com.cleverox.nuevopudahuel.constants.Constants;
 import com.cleverox.nuevopudahuel.constants.PudahuelPrefs;
@@ -41,6 +42,7 @@ public class UserController {
     }
 
     private void getAPIToken(final PudahuelApplication application) {
+        BannerController.getInstance().getAPIToken(application);
         TokenRequestBody requestBody = new TokenRequestBody(getStoredGoogleAID(application), Constants.FLIGHTS_API_CLIENT_ID, Constants.FLIGHTS_API_CLIENT_SECRET);
         application.getService().getAccessToken(requestBody, new RestCallback<TokenResponse>() {
             @Override

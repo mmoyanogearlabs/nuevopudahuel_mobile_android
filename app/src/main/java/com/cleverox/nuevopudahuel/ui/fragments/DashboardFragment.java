@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.bzutils.BZUtils;
 import com.cleverox.nuevopudahuel.R;
+import com.cleverox.nuevopudahuel.banners.BannerView;
 import com.cleverox.nuevopudahuel.base.HomeFragment;
 import com.cleverox.nuevopudahuel.controllers.WeatherController;
 import com.cleverox.nuevopudahuel.model.Weather;
@@ -35,6 +36,7 @@ public class DashboardFragment extends HomeFragment implements View.OnClickListe
     private ImageView weatherIcon;
     private TextView weatherText;
     private Weather weather;
+    private BannerView banner;
 
     public static DashboardFragment newInstance() {
         DashboardFragment fragment = new DashboardFragment();
@@ -86,6 +88,9 @@ public class DashboardFragment extends HomeFragment implements View.OnClickListe
                 return false;
             }
         });
+
+        banner = $(R.id.dashboard_banner);
+        banner.setBannerInterface(this);
     }
 
     private void configWeather() {
@@ -144,4 +149,5 @@ public class DashboardFragment extends HomeFragment implements View.OnClickListe
         InputMethodManager imm = (InputMethodManager) getBaseActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(input.getWindowToken(), 0);
     }
+
 }
