@@ -15,6 +15,7 @@ import com.cleverox.nuevopudahuel.ui.activities.DetailWebViewActivity;
 import com.cleverox.nuevopudahuel.ui.activities.SplashActivity;
 import com.cleverox.nuevopudahuel.ui.activities.VideoSplashActivity;
 import com.facebook.appevents.AppEventsLogger;
+import com.flurry.android.FlurryAgent;
 
 import io.realm.Realm;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -76,6 +77,18 @@ public abstract class BaseActivity extends AppCompatActivity implements SyncCont
     protected void onPause() {
         super.onPause();
         AppEventsLogger.deactivateApp(this);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FlurryAgent.onStartSession(this);
+    }
+
+    @Override
+    protected void onStop() {
+        FlurryAgent.onEndSession(this);
+        super.onStop();
     }
 
     @Override

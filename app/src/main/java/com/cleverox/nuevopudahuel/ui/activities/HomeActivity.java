@@ -15,6 +15,7 @@ import android.widget.ImageButton;
 import com.cleverox.nuevopudahuel.R;
 import com.cleverox.nuevopudahuel.base.BaseActivity;
 import com.cleverox.nuevopudahuel.controllers.SyncController;
+import com.cleverox.nuevopudahuel.controllers.TrackingController;
 import com.cleverox.nuevopudahuel.model.MenuItem;
 import com.cleverox.nuevopudahuel.ui.adapter.MenuAdapter;
 import com.cleverox.nuevopudahuel.ui.fragments.ConfigurationFragment;
@@ -73,6 +74,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
                 switch (position) {
 
                     case 0: // HOME
+                        TrackingController.trackEvent(TrackingController.FLURRY_HOME_EVENT);
                         changeFragment(DashboardFragment.newInstance());
                         break;
                     case 1: // MIS VUELOS
@@ -82,21 +84,27 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
                         changeFragment(FlightsFragment.newInstance(FlightsFragment.EXTRA_FLIGTHS));
                         break;
                     case 3: // PARKING
+                        TrackingController.trackEvent(TrackingController.FLURRY_PARKING_EVENT);
                         changeFragment(MenuWebviewFragment.newInstance(getString(R.string.menuOptionParkingTitleKey), getString(R.string.menuOptionParkingUrlKey)));
                         break;
                     case 4: // ANTES DEL VUELO
+                        TrackingController.trackEvent(TrackingController.FLURRY_ANTES_EVENT);
                         changeFragment(MenuWebviewFragment.newInstance(getString(R.string.menuOptionBeforeFlightTitleKey), getString(R.string.menuOptionBeforeUrlKey)));
                         break;
                     case 5: //EN EL AEROPUERTO
+                        TrackingController.trackEvent(TrackingController.FLURRY_AEROPUERTO_EVENT);
                         changeFragment(MenuWebviewFragment.newInstance(getString(R.string.menuOptionAirportTitleKey), getString(R.string.menuOptionAirportUrlKey)));
                         break;
                     case 6: // PROMOCIONES
+                        TrackingController.trackEvent(TrackingController.FLURRY_PROMOS_EVENT);
                         changeFragment(PromocionesFragment.newInstance());
                         break;
                     case 7: // CONFIGURACIÓN
+                        TrackingController.trackEvent(TrackingController.FLURRY_CONFIG_EVENT);
                         changeFragment(ConfigurationFragment.newInstance());
                         break;
                     case 8: // NUEVOPUDAHUEL
+                        TrackingController.trackEvent(TrackingController.FLURRY_NEW_EVENT);
                         changeFragment(NuevoPudahuelFragment.newInstance());
                         break;
                 }

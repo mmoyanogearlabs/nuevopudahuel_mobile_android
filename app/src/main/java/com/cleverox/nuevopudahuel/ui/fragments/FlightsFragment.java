@@ -22,6 +22,7 @@ import com.cleverox.nuevopudahuel.banners.BannerView;
 import com.cleverox.nuevopudahuel.base.HomeFragment;
 import com.cleverox.nuevopudahuel.controllers.FlightsController;
 import com.cleverox.nuevopudahuel.controllers.SyncController;
+import com.cleverox.nuevopudahuel.controllers.TrackingController;
 import com.cleverox.nuevopudahuel.model.Flight;
 import com.cleverox.nuevopudahuel.ui.activities.AlertActivity;
 import com.cleverox.nuevopudahuel.ui.adapter.FlightsAdapter;
@@ -103,6 +104,9 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
             $(R.id.flights_salidas_container).setSelected(false);
             $(R.id.flights_llegadas_container).setSelected(true);
             origen.setText(getString(R.string.flightHeaderOriginTitleKey));
+            TrackingController.trackEvent(TrackingController.FLURRY_LLEGADAS_EVENT);
+        } else {
+            TrackingController.trackEvent(TrackingController.FLURRY_SALIDAS_EVENT);
         }
 
         flights.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
@@ -212,6 +216,7 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
                 llegadas.setSelected(false);
                 origen.setText(getText(R.string.flightHeaderDestinationTitleKey));
                 currentScreen = EXTRA_FLIGTHS;
+                TrackingController.trackEvent(TrackingController.FLURRY_SALIDAS_EVENT);
                 refreshList();
                 break;
             case R.id.flights_llegadas_container:
@@ -219,6 +224,7 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
                 llegadas.setSelected(true);
                 origen.setText(getText(R.string.flightHeaderOriginTitleKey));
                 currentScreen = EXTRA_LLEGADAS;
+                TrackingController.trackEvent(TrackingController.FLURRY_LLEGADAS_EVENT);
                 refreshList();
                 break;
             case R.id.flights_search:

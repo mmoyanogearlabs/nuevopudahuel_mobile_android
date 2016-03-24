@@ -96,4 +96,7 @@ dependencies {
 
     //MOCA
     compile project(':moca-sdk-android-1.8.10')
+
+    //TRACKING
+    compile 'com.flurry.android:analytics:6.2.0'
 }
