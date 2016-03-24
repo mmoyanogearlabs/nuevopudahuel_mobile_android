@@ -45,6 +45,7 @@ public class SyncController {
     public void startSync(final PudahuelApplication application) {
         if (!syncing) {
             syncing = true;
+            UserController.getInstance().registerPushToken(application);
             WeatherController.getInstance().requestWeather(application, new RestCallback<Weather>() {
                 @Override
                 public void failure(RetrofitError error) {

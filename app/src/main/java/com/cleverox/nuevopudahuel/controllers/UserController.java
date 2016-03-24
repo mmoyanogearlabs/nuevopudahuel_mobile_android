@@ -3,7 +3,9 @@ package com.cleverox.nuevopudahuel.controllers;
 import android.os.AsyncTask;
 
 import com.cleverox.nuevopudahuel.api.RestCallback;
+import com.cleverox.nuevopudahuel.api.requestModel.RegisterPushRequestBody;
 import com.cleverox.nuevopudahuel.api.requestModel.TokenRequestBody;
+import com.cleverox.nuevopudahuel.api.response.BaseResponse;
 import com.cleverox.nuevopudahuel.api.response.TokenResponse;
 import com.cleverox.nuevopudahuel.banners.BannerController;
 import com.cleverox.nuevopudahuel.base.PudahuelApplication;
@@ -12,6 +14,7 @@ import com.cleverox.nuevopudahuel.constants.PudahuelPrefs;
 import com.google.android.gms.ads.identifier.AdvertisingIdClient;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.innoquant.moca.MOCA;
 
 import java.io.IOException;
 import java.util.UUID;
@@ -38,6 +41,32 @@ public class UserController {
         else {
             getAPIToken(context);
             ConfigurationCategoriesController.getInstance().getCategoriesConfig(context);
+        }
+    }
+
+    public void registerPushToken(final PudahuelApplication application) {
+        final String token = MOCA.getInstance().getStringProperty("push.token");
+        String finalToken = null;
+        if (token != null) {
+            try {
+                finalToken = token.split(":") [1];
+            } catch (Exception e) {}
+        }
+        if (finalToken != null && !finalToken.equals(getStoredPushToken(application))) {
+            RegisterPushRequestBody body = new RegisterPushRequestBody(finalToken);
+            final String finalToken1 = finalToken;
+            application.getService().registerPush(getFlightsAPIToken(application), body, new RestCallback<BaseResponse>() {
+                @Override
+                public void failure(RetrofitError error) {
+                    super.failure(error);
+                }
+
+                @Override
+                public void success(BaseResponse baseResponse, Response response) {
+                    super.success(baseResponse, response);
+                    storedPushToken(application, finalToken1);
+                }
+            });
         }
     }
 
@@ -73,6 +102,14 @@ public class UserController {
 
     public String getStoredGoogleAID(PudahuelApplication application) {
         return application.getStoredString(PudahuelPrefs.STORED_AID, null);
+    }
+
+    private void storedPushToken(PudahuelApplication application, String token) {
+        application.storeString(PudahuelPrefs.PUSH_TOKEN, token);
+    }
+
+    private String getStoredPushToken(PudahuelApplication application) {
+        return application.getStoredString(PudahuelPrefs.PUSH_TOKEN, null);
     }
 
     private class getGoolgeAIDAsync extends AsyncTask<PudahuelApplication, Void, String> {

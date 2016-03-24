@@ -9,5 +9,6 @@ public abstract class PudahuelPrefs {
     public static final String STORED_AID = "STORED_AID";
     public static final String FLIGHTS_API_TOKEN = "FLIGHTS_API_TOKEN";
     public static final String BANNERS_API_TOKEN = "BANNERS_API_TOKEN";
+    public static final String PUSH_TOKEN = "PUSH_TOKEN";
     public static final String CONFIG_CATEGORIES = "CONFIG_CATEGORIES";
 }

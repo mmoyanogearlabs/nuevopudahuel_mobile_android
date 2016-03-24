@@ -44,6 +44,8 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
         configMenu();
         changeFragment(DashboardFragment.newInstance());
 
+
+
     }
 
     @Override

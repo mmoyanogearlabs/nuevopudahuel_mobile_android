@@ -30,4 +30,6 @@ public interface BannerService {
 
     @GET("/carrousel")
     void getCarrousel(@Header(HEADER_AUTHORIZATION) String token, RestCallback<List<CarrouselItemResponse>> callback);
+
+
 }

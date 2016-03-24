@@ -1,7 +1,9 @@
 package com.cleverox.nuevopudahuel.api.services;
 
 import com.cleverox.nuevopudahuel.api.RestCallback;
+import com.cleverox.nuevopudahuel.api.requestModel.RegisterPushRequestBody;
 import com.cleverox.nuevopudahuel.api.requestModel.TokenRequestBody;
+import com.cleverox.nuevopudahuel.api.response.BaseResponse;
 import com.cleverox.nuevopudahuel.api.response.FavoritesResponse;
 import com.cleverox.nuevopudahuel.api.response.FlightResponse;
 import com.cleverox.nuevopudahuel.api.response.TokenResponse;
@@ -40,4 +42,7 @@ public interface FlightsService {
     @POST("/{type}/{flight_id}/{favorite}")
     void setFavorite(@Header(HEADER_AUTHORIZATION) String token, @Path("type") String type, @Path("flight_id") String flightId, @Path("favorite") String favorite,
                      RestCallback<FavoritesResponse> callback);
+
+    @POST("/register_push")
+    void registerPush(@Header(HEADER_AUTHORIZATION) String token, @Body RegisterPushRequestBody body, RestCallback<BaseResponse> callback);
 }
