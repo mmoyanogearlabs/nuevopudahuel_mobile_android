@@ -1,16 +1,19 @@
 package com.cleverox.nuevopudahuel.ui.fragments;
 
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+
 import com.cleverox.nuevopudahuel.R;
+import com.cleverox.nuevopudahuel.banners.model.CarrouselItem;
 import com.cleverox.nuevopudahuel.base.HomeFragment;
-import java.util.ArrayList;
-import java.util.List;
+import com.cleverox.nuevopudahuel.controllers.CarrouselController;
+
+import io.realm.RealmResults;
 
 
 /**
@@ -21,14 +24,10 @@ public class NuevoPudahuelFragment extends HomeFragment {
     private ViewPager viewPager;
     private ScreenSlidePagerAdapter pagerAdapter;
 
-    private List<String> urls;
+    private RealmResults<CarrouselItem> items;
 
     public static NuevoPudahuelFragment newInstance(){
         NuevoPudahuelFragment fragment = new NuevoPudahuelFragment();
-        fragment.urls = new ArrayList<>();
-        fragment.urls.add("http://www.publimetro.cl/_internal/gxml!0/r0dc21o2f3vste5s7ezej9x3a10rp3w$mqonqhwdtut6p7w66p97v4zmvnwrre4/airportmerino.jpeg");
-        fragment.urls.add("http://www.tropezon.cl/wp-content/uploads/2010/04/neruda_aeropuerto-1.jpg");
-        fragment.urls.add("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGKY90F8dBJHLDH9Y3E0ljiW8VVxJEUqvL3IMKoG9xNtSTd1ZL");
         return fragment;
     }
 
@@ -40,6 +39,7 @@ public class NuevoPudahuelFragment extends HomeFragment {
 
     @Override
     protected void configView(View parentView) {
+        items = CarrouselController.getInstance().getStoredItems(getBaseActivity().getRealm());
         viewPager = $(R.id.view_pager);
         pagerAdapter = new ScreenSlidePagerAdapter(getChildFragmentManager());
         viewPager.setAdapter(pagerAdapter);
@@ -66,12 +66,14 @@ public class NuevoPudahuelFragment extends HomeFragment {
         LinearLayout container = $(R.id.pager_indicator_container);
         container.removeAllViews();
         int padding = (int) getResources().getDimension(R.dimen.padding_5);
-        for (int i = 0; i < urls.size(); i++) {
-            ImageView image = new ImageView(getBaseActivity());
-            image.setImageResource(R.drawable.circle_indicator_selector);
-            image.setPadding(padding, 0, padding, 0);
-            image.setSelected(i == viewPager.getCurrentItem());
-            container.addView(image);
+        if (items != null) {
+            for (int i = 0; i < items.size(); i++) {
+                ImageView image = new ImageView(getBaseActivity());
+                image.setImageResource(R.drawable.circle_indicator_selector);
+                image.setPadding(padding, 0, padding, 0);
+                image.setSelected(i == viewPager.getCurrentItem());
+                container.addView(image);
+            }
         }
     }
 
@@ -84,13 +86,13 @@ public class NuevoPudahuelFragment extends HomeFragment {
 
         @Override
         public Fragment getItem(int position) {
-            return ScreenSlidePageFragment.newInstance(urls.get(position));
+            return ScreenSlidePageFragment.newInstance(items.get(position));
         }
 
         @Override
         public int getCount() {
-            if (urls == null) return 0;
-            return urls.size();
+            if (items == null) return 0;
+            return items.size();
         }
     }
 }

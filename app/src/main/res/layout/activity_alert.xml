@@ -1,287 +1,306 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:ignore="MissingPrefix" >
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:orientation="horizontal"
-        android:padding="@dimen/padding_10"
-        android:background="@color/grey"
-        android:id="@+id/alerta_header">
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/btnatras"
-            android:background="@android:color/transparent"
-            android:layout_centerVertical="true"
-            android:id="@+id/alert_btnback"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-             />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/logonavbar"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"/>
-
-    </RelativeLayout>
+    tools:ignore="MissingPrefix">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_margin="@dimen/padding_20">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
             android:orientation="horizontal"
-            android:id="@+id/alerta_created_layout"
-            android:gravity="center_vertical"
-            android:layout_marginBottom="@dimen/padding_20">
+            android:padding="@dimen/padding_10"
+            android:background="@color/grey"
+            android:id="@+id/alerta_header">
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/btnatras"
+                android:background="@android:color/transparent"
+                android:layout_centerVertical="true"
+                android:id="@+id/alert_btnback"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                 />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/iconalertaactiva"/>
+                android:src="@drawable/logonavbar"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/grey"
-                android:text="@string/flightDetailAlertCreatedTitleKey"
-                android:layout_marginLeft="@dimen/padding_15"
-                android:textSize="@dimen/textSize16"/>
-
-        </LinearLayout>
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:id="@+id/alerta_flight_layout">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#313030"
-                android:padding="@dimen/padding_10">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:layout_marginRight="@dimen/padding_15"
-                    android:orientation="vertical"
-                    android:layout_gravity="center_vertical"
-                    android:gravity="center">
-
-                    <TextView
-                        fontPath="@string/economica_bold"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="SSL"
-                        android:textColor="#FFFFFF"
-                        android:textSize="18sp"
-                        android:id="@+id/alerta_origin"
-                        android:gravity="center"/>
-
-                </LinearLayout>
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:src="@drawable/iconavionalerta"
-                    android:layout_gravity="center"/>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:orientation="vertical"
-                    android:layout_marginLeft="@dimen/padding_15"
-                    android:layout_gravity="center_vertical"
-                    android:gravity="center">
-
-                    <TextView
-                        fontPath="@string/economica_bold"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/white"
-                        android:textSize="18sp"
-                        android:id="@+id/alerta_destination"
-                        android:gravity="center"/>
-
-                </LinearLayout>
-
-            </LinearLayout>
+            android:layout_marginTop="@dimen/padding_5"
+            android:layout_marginLeft="@dimen/padding_20"
+            android:layout_marginRight="@dimen/padding_20">
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:id="@+id/alerta_subtitle"
-                android:background="@color/softBlue"
-                android:padding="@dimen/padding_5">
+                android:id="@+id/alerta_created_layout"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="@dimen/padding_5">
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/padding_5"
-                    android:layout_gravity="center_vertical"
-                    android:background="@drawable/iconstopoveralerta"
-                    android:id="@+id/alerta_stopcover"/>
+                    android:src="@drawable/iconalertaactiva"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/alerta_stopover_text"
-                    android:textColor="@color/white"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="@dimen/padding_10"/>
+                    android:textColor="@color/grey"
+                    android:text="@string/flightDetailAlertCreatedTitleKey"
+                    android:layout_marginLeft="@dimen/padding_15"
+                    android:textSize="@dimen/textSize16"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/alerta_flight_layout">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#313030"
+                    android:padding="@dimen/padding_5">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:layout_marginRight="@dimen/padding_15"
+                        android:orientation="vertical"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center">
+
+                        <TextView
+                            fontPath="@string/economica_bold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="SSL"
+                            android:textColor="#FFFFFF"
+                            android:textSize="18sp"
+                            android:id="@+id/alerta_origin"
+                            android:gravity="center"/>
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:src="@drawable/iconavionalerta"
+                        android:layout_gravity="center"/>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:orientation="vertical"
+                        android:layout_marginLeft="@dimen/padding_15"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center">
+
+                        <TextView
+                            fontPath="@string/economica_bold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"
+                            android:textSize="18sp"
+                            android:id="@+id/alerta_destination"
+                            android:gravity="center"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:id="@+id/alerta_subtitle"
+                    android:background="@color/softBlue"
+                    android:paddingTop="@dimen/padding_3"
+                    android:paddingBottom="@dimen/padding_3"
+                    android:paddingLeft="@dimen/padding_15"
+                    android:paddingRight="@dimen/padding_15">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/padding_5"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/iconstopoveralerta"
+                        android:id="@+id/alerta_stopcover"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/alerta_stopover_text"
+                        android:textColor="@color/white"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/padding_10"/>
+
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@drawable/alert_container_shape"
+                    android:id="@+id/alerta_container">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingLeft="@dimen/padding_5"
+                        android:paddingRight="@dimen/padding_5"
+                        android:layout_centerVertical="true">
+
+                        <TextView
+                            fontPath="@string/avenir_medium"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/flightDetailFlightTitleKey"
+                            android:textSize="@dimen/textSize15"/>
+
+                        <TextView
+                            fontPath="@string/avenir_medium"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/flightDetailTimeTitleKey"
+                            android:textSize="@dimen/textSize15"/>
+
+                        <TextView
+                            fontPath="@string/avenir_medium"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/flightDetailStatusTitleKey"
+                            android:textSize="@dimen/textSize15" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_centerHorizontal="true"
+                        android:paddingLeft="@dimen/padding_5"
+                        android:paddingRight="@dimen/padding_5"
+                        android:layout_centerVertical="true">
+
+                        <TextView
+                            fontPath="@string/avenir_roman"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/textSize15"
+                            android:id="@+id/alerta_vuelo"/>
+
+                        <TextView
+                            fontPath="@string/avenir_roman"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/textSize15"
+                            android:id="@+id/alerta_tiempo"/>
+
+                        <TextView
+                            fontPath="@string/avenir_roman"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/textSize15"
+                            android:id="@+id/alerta_estado"/>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
 
             </LinearLayout>
 
             <RelativeLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@drawable/alert_container_shape"
-                android:id="@+id/alerta_container">
+                android:layout_margin="@dimen/padding_3"
+                android:background="@drawable/btn_alerta_selector"
+                android:id="@+id/btn_alerta_btncrear"
+                android:layout_gravity="center_horizontal">
 
-                <LinearLayout
+                <TextView
+                    fontPath="@string/avenir_roman"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="@dimen/padding_5"
-                    android:layout_centerVertical="true">
+                    android:text="@string/flightDetailCreateAlertTitleKey"
+                    android:textColor="@color/white"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="@dimen/padding_15"
+                    android:id="@+id/alerta_create_text" />
 
-                    <TextView
-                        fontPath="@string/avenir_medium"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/flightDetailFlightTitleKey"
-                        android:textSize="@dimen/textSize15"
-                        android:layout_marginBottom="@dimen/padding_10"/>
-
-                    <TextView
-                        fontPath="@string/avenir_medium"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/flightDetailTimeTitleKey"
-                        android:textSize="@dimen/textSize15"
-                        android:layout_marginBottom="@dimen/padding_10"/>
-
-                    <TextView
-                        fontPath="@string/avenir_medium"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/flightDetailStatusTitleKey"
-                        android:textSize="@dimen/textSize15" />
-
-                </LinearLayout>
-
-                <LinearLayout
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true">
-
-                    <TextView
-                        fontPath="@string/avenir_roman"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/textSize15"
-                        android:layout_marginBottom="@dimen/padding_10"
-                        android:id="@+id/alerta_vuelo"/>
-
-                    <TextView
-                        fontPath="@string/avenir_roman"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/textSize15"
-                        android:layout_marginBottom="@dimen/padding_10"
-                        android:id="@+id/alerta_tiempo"/>
-
-                    <TextView
-                        fontPath="@string/avenir_roman"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/textSize15"
-                        android:id="@+id/alerta_estado"/>
-
-                </LinearLayout>
+                    android:src="@drawable/iconalertahome"
+                    android:layout_centerVertical="true"
+                    android:id="@+id/alerta_icon"
+                    android:layout_marginLeft="@dimen/padding_10"
+                    android:layout_toRightOf="@+id/alerta_create_text" />
 
             </RelativeLayout>
 
-        </LinearLayout>
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/padding_10"
-            android:background="@drawable/btn_alerta_selector"
-            android:id="@+id/btn_alerta_btncrear"
-            android:layout_gravity="center_horizontal">
-
-            <TextView
-                fontPath="@string/avenir_roman"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/flightDetailCreateAlertTitleKey"
-                android:textColor="@color/white"
-                android:layout_centerVertical="true"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="@dimen/padding_15"
-                android:id="@+id/alerta_create_text" />
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/padding_3"
+                android:background="@drawable/btn_compartir_selector"
+                android:id="@+id/btn_alerta_compartir">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/iconalertahome"
-                android:layout_centerVertical="true"
-                android:id="@+id/alerta_icon"
-                android:layout_marginLeft="@dimen/padding_10"
-                android:layout_toRightOf="@+id/alerta_create_text" />
+                <TextView
+                    fontPath="@string/avenir_roman"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/flightDetailShareTitleKey"
+                    android:textColor="@color/black"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/padding_15"
+                    android:layout_marginRight="@dimen/padding_10"/>
 
-        </RelativeLayout>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/btniconcompartir"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="@dimen/padding_10"
+                    android:id="@+id/alerta_iconcomp" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/padding_10"
-            android:background="@drawable/btn_compartir_selector"
-            android:id="@+id/btn_alerta_compartir">
-
-            <TextView
-                fontPath="@string/avenir_roman"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/flightDetailShareTitleKey"
-                android:textColor="@color/black"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="@dimen/padding_15"
-                android:layout_marginRight="@dimen/padding_10"/>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/btniconcompartir"
-                android:layout_gravity="center_vertical"
-                android:layout_marginRight="@dimen/padding_10"
-                android:id="@+id/alerta_iconcomp" />
+            </LinearLayout>
 
         </LinearLayout>
 
     </LinearLayout>
 
-</LinearLayout>
+    <com.cleverox.nuevopudahuel.banners.BannerView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:screenName="@string/banner_screen_detail"
+        app:autoLoad="true"
+        app:changeSize="false" />
+
+</RelativeLayout>

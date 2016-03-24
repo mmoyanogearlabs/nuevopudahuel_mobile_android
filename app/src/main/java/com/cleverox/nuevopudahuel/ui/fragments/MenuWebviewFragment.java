@@ -1,11 +1,11 @@
 package com.cleverox.nuevopudahuel.ui.fragments;
-import android.content.Intent;
+import android.text.TextUtils;
 import android.view.View;
 import android.webkit.WebView;
+import android.widget.TextView;
 
 import com.cleverox.nuevopudahuel.R;
 import com.cleverox.nuevopudahuel.base.HomeFragment;
-import com.cleverox.nuevopudahuel.ui.activities.DetailWebViewActivity;
 
 
 /**
@@ -14,11 +14,13 @@ import com.cleverox.nuevopudahuel.ui.activities.DetailWebViewActivity;
 public class MenuWebviewFragment extends HomeFragment {
 
     private String currentUrl;
+    private String title;
     private WebView webview;
 
-    public static MenuWebviewFragment newInstance(String url) {
+    public static MenuWebviewFragment newInstance(String title, String url) {
 
         MenuWebviewFragment fragment = new MenuWebviewFragment();
+        fragment.title = title;
         fragment.currentUrl = url;
         return fragment;
     }
@@ -33,5 +35,9 @@ public class MenuWebviewFragment extends HomeFragment {
         webview = $(R.id.webview);
         webview.getSettings().setJavaScriptEnabled(true);
         webview.loadUrl(currentUrl);
+
+        TextView viewTitle = $(R.id.flights_tittle);
+        viewTitle.setText(title);
+        $(R.id.flights_header_container).setVisibility(TextUtils.isEmpty(title) ? View.GONE : View.VISIBLE);
     }
 }

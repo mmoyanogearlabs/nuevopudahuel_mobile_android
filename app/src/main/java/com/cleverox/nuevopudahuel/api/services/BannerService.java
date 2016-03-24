@@ -2,8 +2,11 @@ package com.cleverox.nuevopudahuel.api.services;
 
 import com.cleverox.nuevopudahuel.api.RestCallback;
 import com.cleverox.nuevopudahuel.api.requestModel.TokenRequestBody;
+import com.cleverox.nuevopudahuel.api.response.CarrouselItemResponse;
 import com.cleverox.nuevopudahuel.api.response.TokenResponse;
 import com.cleverox.nuevopudahuel.banners.model.APIBanner;
+
+import java.util.List;
 
 import retrofit.http.Body;
 import retrofit.http.GET;
@@ -24,4 +27,7 @@ public interface BannerService {
 
     @GET(RANDOM_AD + "{screen}")
     void getBanner(@Header(HEADER_AUTHORIZATION) String token, @Path("screen") String screen, RestCallback<APIBanner> callback);
+
+    @GET("/carrousel")
+    void getCarrousel(@Header(HEADER_AUTHORIZATION) String token, RestCallback<List<CarrouselItemResponse>> callback);
 }

@@ -23,7 +23,7 @@ public class DetailWebViewActivity extends BaseActivity implements View.OnClickL
     @Override
     protected void configView() {
         $(R.id.webview_btnback).setOnClickListener(this);
-        Fragment targetFragment = MenuWebviewFragment.newInstance(getIntent().getStringExtra(EXTRA_URL));
+        Fragment targetFragment = MenuWebviewFragment.newInstance("", getIntent().getStringExtra(EXTRA_URL));
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.webview_fragment, targetFragment, targetFragment.getClass().getName())

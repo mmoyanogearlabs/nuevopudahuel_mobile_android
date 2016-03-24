@@ -7,6 +7,7 @@ import com.cleverox.nuevopudahuel.banners.model.APIBanner;
 import com.cleverox.nuevopudahuel.base.PudahuelApplication;
 import com.cleverox.nuevopudahuel.constants.Constants;
 import com.cleverox.nuevopudahuel.constants.PudahuelPrefs;
+import com.cleverox.nuevopudahuel.controllers.CarrouselController;
 import com.cleverox.nuevopudahuel.controllers.UserController;
 
 import retrofit.RetrofitError;
@@ -38,6 +39,7 @@ public class BannerController {
             public void success(TokenResponse tokenResponse, Response response) {
                 super.success(tokenResponse, response);
                 storedBannersAPIToken(application, tokenResponse.getAccessToken());
+                CarrouselController.getInstance().requestCarrousel(application);
             }
         });
     }
@@ -64,4 +66,5 @@ public class BannerController {
             }
         });
     }
+
 }

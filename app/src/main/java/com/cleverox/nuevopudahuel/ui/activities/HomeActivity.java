@@ -82,13 +82,13 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
                         changeFragment(FlightsFragment.newInstance(FlightsFragment.EXTRA_FLIGTHS));
                         break;
                     case 3: // PARKING
-                        changeFragment(MenuWebviewFragment.newInstance(getString(R.string.menuOptionParkingUrlKey)));
+                        changeFragment(MenuWebviewFragment.newInstance(getString(R.string.menuOptionParkingTitleKey), getString(R.string.menuOptionParkingUrlKey)));
                         break;
                     case 4: // ANTES DEL VUELO
-                        changeFragment(MenuWebviewFragment.newInstance(getString(R.string.menuOptionBeforeUrlKey)));
+                        changeFragment(MenuWebviewFragment.newInstance(getString(R.string.menuOptionBeforeFlightTitleKey), getString(R.string.menuOptionBeforeUrlKey)));
                         break;
                     case 5: //EN EL AEROPUERTO
-                        changeFragment(MenuWebviewFragment.newInstance(getString(R.string.menuOptionAirportUrlKey)));
+                        changeFragment(MenuWebviewFragment.newInstance(getString(R.string.menuOptionAirportTitleKey), getString(R.string.menuOptionAirportUrlKey)));
                         break;
                     case 6: // PROMOCIONES
                         changeFragment(PromocionesFragment.newInstance());
