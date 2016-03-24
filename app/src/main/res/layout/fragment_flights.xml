@@ -20,7 +20,7 @@
             fontPath="@string/avenir_roman"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/flightHeaderFlightTitleKey"
+            android:text="@string/menuOptionFlightsTitleKey"
             android:textSize="@dimen/textSize20"
             android:textColor="@color/softBlue"
             android:layout_centerInParent="true"
@@ -54,7 +54,9 @@
             android:layout_marginLeft="@dimen/padding_5"
             android:padding="@dimen/padding_5"
             android:singleLine="true"
-            android:id="@+id/flights_editText"/>
+            android:id="@+id/flights_editText"
+            android:layout_marginRight="@dimen/padding_10"
+            android:layout_toLeftOf="@+id/flights_search"/>
 
         <ImageButton
             android:layout_width="wrap_content"

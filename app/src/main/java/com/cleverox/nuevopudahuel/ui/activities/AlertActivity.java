@@ -82,6 +82,7 @@ public class AlertActivity extends BaseActivity implements View.OnClickListener,
         vuelo.setText(currentFlight.getFlightCode() + "");
         tiempo.setText(BZUtils.dateToString(currentFlight.getEstimated(), "HH:mm"));
         estado.setText(currentFlight.getStatusText());
+        estado.setTextColor(getResources().getColor(FlightsController.getInstance().getStatusColor(this, currentFlight)));
         TextView createAlert = $(R.id.alerta_create_text);
         createAlert.setText(currentFlight.isFavorite() ? getString(R.string.flightDetailDisableAlertTitleKey) : getString(R.string.flightDetailCreateAlertTitleKey));
         createAlert.setTextColor(Color.WHITE);

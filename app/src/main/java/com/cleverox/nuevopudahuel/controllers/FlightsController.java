@@ -1,5 +1,7 @@
 package com.cleverox.nuevopudahuel.controllers;
 
+import android.content.Context;
+
 import com.cleverox.nuevopudahuel.api.RestCallback;
 import com.cleverox.nuevopudahuel.api.response.FavoritesResponse;
 import com.cleverox.nuevopudahuel.api.response.FlightResponse;
@@ -198,5 +200,13 @@ public class FlightsController {
         String lower = text.toLowerCase();
         String upper =lower.substring(0,1).toUpperCase() + lower.substring(1);
         return upper;
+    }
+
+    public int getStatusColor(Context context, Flight flight) {
+        try {
+            return context.getResources().getIdentifier("flight_status_" + flight.getStatusId(), "color", context.getPackageName());
+        } catch (Exception e) {
+            return context.getResources().getIdentifier("flight_status_1", "color", context.getPackageName());
+        }
     }
 }

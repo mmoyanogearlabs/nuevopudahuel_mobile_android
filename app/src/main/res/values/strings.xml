@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-  <resources xmlns:tools="http://schemas.android.com/tools">
-  <string name="app_name">NuevoPudahuel</string>
-  <string name="facebook_app_id">792522407519173</string>
-    <!-- Initial -->
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">NuevoPudahuel</string>
+    <string name="facebook_app_id">792522407519173</string>
   <string name="airportSantiagoChile">Santiago De Chile</string>
   <!-- Initial -->
   <string name="initialTitleKey">Síguenos</string>
@@ -12,7 +11,7 @@
   <string name="homeDepartureButtonTitleKey">SALIDAS</string>
   <string name="homeArribalButtonTitleKey">LLEGADAS</string>
   <string name="homeMyFlightsButtonTitleKey">MIS VUELOS</string>
-  <string name="homeSearchFlightPlaceholderTextKey">Busca un vuelo...</string>
+  <string name="homeSearchFlightPlaceholderTextKey">Busca un vuelo (Línea Aérea, Número, Origen/destino)</string>
   <!-- Menu -->
   <string name="menuOptionHomeTitleKey">Home</string>
   <string name="menuOptionUserFlightsTitleKey">Mis Vuelos</string>

@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.bzutils.BZUtils;
 import com.cleverox.nuevopudahuel.R;
 import com.cleverox.nuevopudahuel.base.BaseActivity;
+import com.cleverox.nuevopudahuel.controllers.FlightsController;
 import com.cleverox.nuevopudahuel.model.Flight;
 
 import io.realm.RealmResults;
@@ -43,6 +44,7 @@ public class FlightsAdapter extends RecyclerView.Adapter<FlightsAdapter.ViewHold
         holder.estado.setText(vol.getStatusText());
         holder.favorite.setImageResource(vol.isFavorite() ? R.drawable.iconalertaenvuelo : R.drawable.iconarrowvuelos);
         holder.estado.setText(vol.getStatusText());
+        holder.estado.setTextColor(activity.getResources().getColor(FlightsController.getInstance().getStatusColor(activity, vol)));
         holder.stopoverLayout.setVisibility(TextUtils.isEmpty(vol.getStopOver()) ? View.INVISIBLE : View.VISIBLE);
         holder.stopover.setText(vol.getStopOver());
         holder.mainFlight.setText(vol.getMainFlightCode());

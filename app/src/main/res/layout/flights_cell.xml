@@ -28,6 +28,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/textSize12"
+                android:textColor="@color/black"
                 android:id="@+id/list_id" />
 
             <TextView
@@ -35,6 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/textSize12"
+                android:textColor="@color/black"
                 android:id="@+id/list_id_main_flight" />
 
         </LinearLayout>
@@ -51,6 +53,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/textSize12"
                 android:id="@+id/list_origen"
+                android:textColor="@color/black"
                 android:layout_marginTop="@dimen/padding_15"/>
 
             <LinearLayout
@@ -85,6 +88,7 @@
             android:layout_weight="1"
             android:textSize="@dimen/textSize12"
             android:id="@+id/list_tiempo"
+            android:textColor="@color/black"
             android:layout_marginTop="@dimen/padding_15"/>
 
         <RelativeLayout
