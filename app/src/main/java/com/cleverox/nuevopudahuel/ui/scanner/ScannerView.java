@@ -29,8 +29,13 @@ import java.io.IOException;
  */
 public class ScannerView extends RelativeLayout {
 
+    private boolean started;
     public void setBarcodeDetectorInterface(BarcodeDetectorInterface barcodeDetectorInterface) {
         this.barcodeDetectorInterface = barcodeDetectorInterface;
+    }
+
+    public boolean isStarted() {
+        return started;
     }
 
     public interface BarcodeDetectorInterface {
@@ -84,7 +89,8 @@ public class ScannerView extends RelativeLayout {
         mGraphicOverlay = (GraphicOverlay) findViewById(R.id.graphicOverlay);
     }
 
-    private void startCamera(final boolean autoFocus, final boolean useFlash) {
+    public void startCamera(final boolean autoFocus, final boolean useFlash) {
+        started = true;
         final Context context = getContext();
 
         // A barcode detector is created to track barcodes.  An associated multi-processor instance
@@ -170,6 +176,7 @@ public class ScannerView extends RelativeLayout {
     }
 
     public void stop() {
+        started = false;
         if (mPreview != null) {
             mPreview.stop();
         }

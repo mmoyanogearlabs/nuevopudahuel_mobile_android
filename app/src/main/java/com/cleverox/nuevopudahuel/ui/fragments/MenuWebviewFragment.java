@@ -1,7 +1,9 @@
 package com.cleverox.nuevopudahuel.ui.fragments;
 import android.text.TextUtils;
 import android.view.View;
+import android.webkit.WebChromeClient;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.TextView;
 
 import com.cleverox.nuevopudahuel.R;
@@ -34,6 +36,8 @@ public class MenuWebviewFragment extends HomeFragment {
     protected void configView(View parentView) {
         webview = $(R.id.webview);
         webview.getSettings().setJavaScriptEnabled(true);
+        webview.setWebChromeClient(new WebChromeClient());
+        webview.setWebViewClient(new WebViewClient());
         webview.loadUrl(currentUrl);
 
         TextView viewTitle = $(R.id.flights_tittle);
