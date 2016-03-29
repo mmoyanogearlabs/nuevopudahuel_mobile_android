@@ -210,13 +210,13 @@ public class BannerView extends ImageView {
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(bannerWidth, bannerHeight);
         params.addRule(RelativeLayout.CENTER_HORIZONTAL);
         params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        if (bannerInterface != null)
+            bannerInterface.onBannerSizeChanged(bannerHeight);
         setLayoutParams(params);
         setImageBitmap(loadBitmap);
         Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.fade_in);
         animation.setFillAfter(true);
         startAnimation(animation);
-        if (bannerInterface != null)
-            bannerInterface.onBannerSizeChanged(bannerHeight);
     }
 
     public void setBannerInterface(BannerInterface bannerInterface) {

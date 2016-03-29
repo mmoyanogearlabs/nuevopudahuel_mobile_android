@@ -5,11 +5,15 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.animation.Animation;
+import android.view.animation.Transformation;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -18,6 +22,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bzutils.BZUtils;
+import com.bzutils.LogBZ;
 import com.cleverox.nuevopudahuel.R;
 import com.cleverox.nuevopudahuel.banners.BannerView;
 import com.cleverox.nuevopudahuel.base.HomeFragment;
@@ -37,6 +42,7 @@ public class DashboardFragment extends HomeFragment implements View.OnClickListe
     private TextView weatherText;
     private Weather weather;
     private BannerView banner;
+    private int bannerHeight = 0;
 
     public static DashboardFragment newInstance() {
         DashboardFragment fragment = new DashboardFragment();
@@ -89,6 +95,12 @@ public class DashboardFragment extends HomeFragment implements View.OnClickListe
             }
         });
 
+        Rect rectangle= new Rect();
+        Window window= getBaseActivity().getWindow();
+        window.getDecorView().getWindowVisibleDisplayFrame(rectangle);
+        int statusBarHeight= rectangle.top;
+        $(R.id.dashboard_container).getLayoutParams().height = (BZUtils.getScreenHeight(getBaseActivity()) - bannerHeight - statusBarHeight);
+
         banner = $(R.id.dashboard_banner);
         banner.setBannerInterface(this);
     }
@@ -135,6 +147,31 @@ public class DashboardFragment extends HomeFragment implements View.OnClickListe
     }
 
     @Override
+    public void onBannerSizeChanged(int height) {
+        super.onBannerSizeChanged(height);
+        if (getBaseActivity() != null) {
+            LinearLayout weatherContainer = $(R.id.dashboard_container);
+            Rect rectangle= new Rect();
+            Window window= getBaseActivity().getWindow();
+            window.getDecorView().getWindowVisibleDisplayFrame(rectangle);
+            int statusBarHeight= rectangle.top;
+
+            ResizeAnimation a = new ResizeAnimation(weatherContainer);
+            a.setDuration(500);
+            // set the starting height (the current height) and the new height that the view should have after the animation
+            int currentHeight = (BZUtils.getScreenHeight(getBaseActivity()) - bannerHeight - statusBarHeight);
+            int newHeight = (BZUtils.getScreenHeight(getBaseActivity()) - height - statusBarHeight);
+
+            LogBZ.d("onBannerSizeChanged: " + currentHeight + " - " + newHeight);
+
+            a.setParams(currentHeight, newHeight);
+
+            weatherContainer.startAnimation(a);
+            bannerHeight = height;
+        }
+    }
+
+    @Override
     public void onDestroy() {
         try {
             weather.removeChangeListener(this);
@@ -148,6 +185,55 @@ public class DashboardFragment extends HomeFragment implements View.OnClickListe
         input.setInputType(0);
         InputMethodManager imm = (InputMethodManager) getBaseActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(input.getWindowToken(), 0);
+    }
+
+    public class ResizeAnimation extends Animation {
+
+        private int startHeight;
+        private int deltaHeight; // distance between start and end height
+        private View view;
+
+        /**
+         * constructor, do not forget to use the setParams(int, int) method before
+         * starting the animation
+         * @param v
+         */
+        public ResizeAnimation (View v) {
+            this.view = v;
+        }
+
+        @Override
+        protected void applyTransformation(float interpolatedTime, Transformation t) {
+
+            view.getLayoutParams().height = (int) (startHeight + deltaHeight * interpolatedTime);
+            view.requestLayout();
+        }
+
+        /**
+         * set the starting and ending height for the resize animation
+         * starting height is usually the views current height, the end height is the height
+         * we want to reach after the animation is completed
+         * @param start height in pixels
+         * @param end height in pixels
+         */
+        public void setParams(int start, int end) {
+
+            this.startHeight = start;
+            deltaHeight = end - startHeight;
+        }
+
+        /**
+         * set the duration for the hideshowanimation
+         */
+        @Override
+        public void setDuration(long durationMillis) {
+            super.setDuration(durationMillis);
+        }
+
+        @Override
+        public boolean willChangeBounds() {
+            return false;
+        }
     }
 
 }
