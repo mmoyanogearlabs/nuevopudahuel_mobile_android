@@ -169,7 +169,7 @@ public class FlightsController {
     }
 
     public RealmResults<Flight> getAllFavorites(Realm realm) {
-        return realm.where(Flight.class).equalTo("favorite", true).findAll();
+        return realm.where(Flight.class).equalTo("favorite", true).findAllSorted("estimated");
     }
 
     public RealmResults<Flight> searchArrivals(Realm realm, String searchText) {

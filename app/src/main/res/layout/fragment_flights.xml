@@ -199,7 +199,8 @@
                 android:text="@string/flightHeaderStatusTitleKey"
                 android:textColor="@color/white"
                 android:id="@+id/flights_estado_button"
-                android:textAllCaps="false"/>
+                android:textAllCaps="false"
+                android:gravity="right"/>
 
         </LinearLayout>
 

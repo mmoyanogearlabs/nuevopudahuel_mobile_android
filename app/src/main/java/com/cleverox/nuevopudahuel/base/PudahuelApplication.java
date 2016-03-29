@@ -14,6 +14,7 @@ import com.cleverox.nuevopudahuel.api.services.BannerService;
 import com.cleverox.nuevopudahuel.constants.Constants;
 import com.cleverox.nuevopudahuel.constants.PudahuelPrefs;
 import com.cleverox.nuevopudahuel.controllers.TrackingController;
+import com.crashlytics.android.Crashlytics;
 import com.facebook.FacebookSdk;
 import com.flurry.android.FlurryAgent;
 import com.google.gson.Gson;
@@ -35,6 +36,7 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.squareup.okhttp.OkHttpClient;
 
+import io.fabric.sdk.android.Fabric;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -58,6 +60,7 @@ public class PudahuelApplication extends MultiDexApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+        Fabric.with(this, new Crashlytics());
 
         initMoca();
         initCalligraphy();
