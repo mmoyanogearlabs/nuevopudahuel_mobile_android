@@ -37,6 +37,9 @@ public class ConfigurationFragment extends HomeFragment implements CompoundButto
     @Override
     protected void configView(View parentView) {
         configList();
+
+        TextView info = $(R.id.configuration_info);
+        info.setTextColor(Color.WHITE);
     }
 
     private void configList() {
