@@ -37,25 +37,39 @@
                 android:gravity="center"
                 android:id="@+id/dashboard_weather_container">
 
-                <LinearLayout
+                <RelativeLayout
                     android:orientation="horizontal"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center">
+                    android:layout_height="wrap_content">
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/dashboard_weather_icon"/>
+                        android:id="@+id/dashboard_weather_icon"
+                        android:layout_marginTop="@dimen/padding_20"/>
 
                     <TextView
+                        fontPath="@string/avenir_book"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/padding_10"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/textSize50"
-                        android:id="@+id/dashboard_weather_text"/>
-                </LinearLayout>
+                        android:textSize="@dimen/textSize75"
+                        android:id="@+id/dashboard_weather_text"
+                        android:layout_toRightOf="@+id/dashboard_weather_icon"/>
+
+                    <TextView
+                        fontPath="@string/avenir_book"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/textSize30"
+                        android:id="@+id/dashboard_weather_degrees"
+                        android:text="º"
+                        android:layout_toRightOf="@+id/dashboard_weather_text"
+                        android:layout_marginTop="@dimen/padding_10"/>
+
+                </RelativeLayout>
 
                 <ImageView
                     android:layout_width="wrap_content"

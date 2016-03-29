@@ -8,8 +8,10 @@
     <dimen name="textSize15">15sp</dimen>
     <dimen name="textSize16">16sp</dimen>
     <dimen name="textSize20">20sp</dimen>
+    <dimen name="textSize30">30sp</dimen>
+    <dimen name="textSize40">40sp</dimen>
     <dimen name="textSize50">50sp</dimen>
-
+    <dimen name="textSize75">75sp</dimen>
 
     <!-- Standard padding dimen -->
     <dimen name="padding_3">3dp</dimen>

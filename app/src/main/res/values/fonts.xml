@@ -11,4 +11,5 @@
     <string name="economica_regular">fonts/Economica-Regular.ttf</string>
     <string name="avenir_medium">fonts/Avenir-Medium.ttf</string>
     <string name="avenir_roman">fonts/Avenir-Roman.ttf</string>
+    <string name="avenir_book">fonts/Avenir-Book.ttf</string>
 </resources>

@@ -65,6 +65,8 @@ public class DashboardFragment extends HomeFragment implements View.OnClickListe
         weatherText = $(R.id.dashboard_weather_text);
         weatherText.setTextColor(Color.WHITE);
 
+        TextView degrees = $(R.id.dashboard_weather_degrees);
+        degrees.setTextColor(Color.WHITE);
         TextView myFlights = $(R.id.dashboard_myflights_text);
         myFlights.setTextColor(Color.WHITE);
 
@@ -106,7 +108,7 @@ public class DashboardFragment extends HomeFragment implements View.OnClickListe
     }
 
     private void configWeather() {
-        weatherText.setText(weather.getTemperature() + "º");
+        weatherText.setText(weather.getTemperature() + "");
         try {
             weatherIcon.setImageResource(getResources().getIdentifier("w" + weather.getIcon(), "drawable", getBaseActivity().getPackageName()));
             weatherIcon.setVisibility(View.VISIBLE);
