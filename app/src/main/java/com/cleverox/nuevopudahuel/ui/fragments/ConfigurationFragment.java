@@ -1,21 +1,28 @@
 package com.cleverox.nuevopudahuel.ui.fragments;
 
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.graphics.Color;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import com.bzutils.BZScreenHelper;
 import com.cleverox.nuevopudahuel.R;
 import com.cleverox.nuevopudahuel.base.HomeFragment;
 import com.cleverox.nuevopudahuel.controllers.ConfigurationCategoriesController;
-import com.cleverox.nuevopudahuel.ui.adapter.ConfigurationAdapter;
+import com.cleverox.nuevopudahuel.model.ConfigCategory;
+import com.cleverox.nuevopudahuel.ui.custom.NPSwitch;
+
+import java.util.List;
 
 /**
  * Created by moddity on 15/3/16.
  */
 public class ConfigurationFragment extends HomeFragment implements CompoundButton.OnCheckedChangeListener, View.OnClickListener {
 
-    private ConfigurationAdapter adapter;
+    private List<ConfigCategory> items;
 
     public static ConfigurationFragment newInstance() {
         ConfigurationFragment fragment = new ConfigurationFragment();
@@ -29,56 +36,95 @@ public class ConfigurationFragment extends HomeFragment implements CompoundButto
 
     @Override
     protected void configView(View parentView) {
-        RecyclerView list = $(R.id.configuration_list);
-        LinearLayoutManager manager = new LinearLayoutManager(getBaseActivity());
-        manager.setOrientation(LinearLayoutManager.VERTICAL);
-        list.setLayoutManager(manager);
-        adapter = new ConfigurationAdapter(getBaseActivity());
-        adapter.setItems(ConfigurationCategoriesController.getInstance().getStoredCategories(getBaseActivity().getPudahuelApplication()));
-        adapter.setClickListener(this);
-        list.setAdapter(adapter);
+        configList();
     }
 
-    @Override
-    public void onClick(View v) {
-        Integer position = (Integer) v.getTag();
-        boolean isChecked = !adapter.getItems().get(position).isValue();
-        adapter.getItems().get(position).setValue(isChecked);
+    private void configList() {
+        LinearLayout list = $(R.id.configuration_list);
+        if (items == null)
+            items = ConfigurationCategoriesController.getInstance().getStoredCategories(getBaseActivity().getPudahuelApplication());
+        if (items != null) {
+            for (int i = 0; i < items.size(); i ++) {
+                ConfigCategory category = items.get(i);
+
+                View itemView = null;
+                boolean needToAdd = false;
+                if (list.getChildCount() < items.size()) {
+                    itemView = getBaseActivity().getLayoutInflater().inflate(R.layout.configuration_cell, null);
+                    needToAdd = true;
+                } else {
+                    itemView = list.getChildAt(i);
+                }
+
+                TextView text = (TextView) itemView.findViewById(R.id.configuration_text);
+                NPSwitch check = (NPSwitch) itemView.findViewById(R.id.configuration_check);
+                RelativeLayout cell = (RelativeLayout) itemView.findViewById(R.id.configuration_cell);
+
+                if (i == 0 || i == 1) {
+                    cell.setBackgroundColor(ContextCompat.getColor(getBaseActivity(), R.color.hardGrey));
+                    text.setTextColor(ContextCompat.getColor(getBaseActivity(), R.color.white));
+                    text.setTextSize(BZScreenHelper.dpFromPx(getBaseActivity().getResources().getDimension(R.dimen.textSize16), getBaseActivity()));
+                }
+                else {
+                    cell.setBackgroundColor(Color.WHITE);
+                    text.setTextColor(ContextCompat.getColor(getBaseActivity(), R.color.black));
+                    text.setTextSize(BZScreenHelper.dpFromPx(getBaseActivity().getResources().getDimension(R.dimen.textSize14), getBaseActivity()));
+                }
+                text.setText(category.getText(getBaseActivity()));
+                check.setChecked(category.isValue());
+                check.setTag(i);
+                check.setCheckedChangeListener(this);
+
+                if (needToAdd)
+                    list.addView(itemView);
+            }
+        }
+    }
+
+    private void updateSwitches(View view) {
+        Integer position = (Integer) view.getTag();
+        boolean isChecked = !items.get(position).isValue();
+        items.get(position).setValue(isChecked);
         switch (position) {
             case 0:
                 break;
             case 1:
-                for (int i = 2; i < adapter.getItemCount(); i ++) {
-                    adapter.getItems().get(i).setValue(isChecked);
+                for (int i = 2; i < items.size(); i ++) {
+                    items.get(i).setValue(isChecked);
                 }
                 break;
             default:
                 if (!isChecked)
-                    adapter.getItems().get(1).setValue(false);
+                    items.get(1).setValue(false);
                 else {
                     boolean allChecked = true;
-                    for (int i = 2; i < adapter.getItemCount(); i ++) {
-                        if (!adapter.getItems().get(i).isValue()) {
+                    for (int i = 2; i < items.size(); i ++) {
+                        if (!items.get(i).isValue()) {
                             allChecked = false;
                             break;
                         }
                     }
                     if (allChecked)
-                        adapter.getItems().get(1).setValue(true);
+                        items.get(1).setValue(true);
                 }
                 break;
         }
-        adapter.notifyDataSetChanged();
+        configList();
+    }
+
+    @Override
+    public void onClick(View v) {
+//        updateSwitches(v);
     }
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
+        updateSwitches(buttonView);
     }
 
     @Override
     public void onPause() {
-        ConfigurationCategoriesController.getInstance().uploadCategoriesToMOCA(getBaseActivity().getPudahuelApplication(), adapter.getItems());
+        ConfigurationCategoriesController.getInstance().uploadCategoriesToMOCA(getBaseActivity().getPudahuelApplication(), items);
         super.onPause();
     }
 }

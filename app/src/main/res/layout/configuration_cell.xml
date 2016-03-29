@@ -25,7 +25,7 @@
             android:id="@+id/configuration_text"
             android:layout_toLeftOf="@+id/configuration_check" />
 
-        <Switch
+        <com.cleverox.nuevopudahuel.ui.custom.NPSwitch
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
