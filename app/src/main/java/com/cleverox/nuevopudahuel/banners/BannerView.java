@@ -9,6 +9,8 @@ import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -26,7 +28,7 @@ import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 public class BannerView extends ImageView {
 
     private static final int BANNER_WIDTH = 320;
-    private static final int IPHONE6_WIDHT = 375;
+    private static final int IPHONE6_WIDHT = 425;
     private static final int TIME_BETWEEN = 5000;
 
     private String screen;
@@ -110,7 +112,7 @@ public class BannerView extends ImageView {
     }
 
     private boolean isSmallScreen() {
-        return BZUtils.getScreenWidht((BaseActivity) getContext()) <= 480;
+        return BZUtils.getScreenWidht((BaseActivity) getContext()) < 720;
     }
 
     private void loadBigBanner() {
@@ -174,14 +176,45 @@ public class BannerView extends ImageView {
         });
     }
 
-    private void scaleBannerImg(Bitmap loadBitmap) {
+    private void scaleBannerImg(final Bitmap loadBitmap) {
+        Animation animation = null;
+        if (getVisibility() == VISIBLE) {
+            animation = AnimationUtils.loadAnimation(getContext(), R.anim.fade_out);
+            animation.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    reloadView(loadBitmap);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+        }
+        setAnimation(animation);
+        setVisibility(INVISIBLE);
+        if (animation == null) {
+            reloadView(loadBitmap);
+        }
+    }
+
+    private void reloadView(Bitmap loadBitmap) {
         int bannerWidth = BANNER_WIDTH * BZUtils.getScreenWidht((BaseActivity) getContext()) / IPHONE6_WIDHT;
-        int bannerHeight = bannerWidth * loadBitmap.getHeight() / BANNER_WIDTH;
+        final int bannerHeight = bannerWidth * loadBitmap.getHeight() / BANNER_WIDTH;
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(bannerWidth, bannerHeight);
         params.addRule(RelativeLayout.CENTER_HORIZONTAL);
         params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
         setLayoutParams(params);
         setImageBitmap(loadBitmap);
+        Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.fade_in);
+        animation.setFillAfter(true);
+        startAnimation(animation);
         if (bannerInterface != null)
             bannerInterface.onBannerSizeChanged(bannerHeight);
     }
