@@ -6,7 +6,7 @@ package com.cleverox.nuevopudahuel.api.requestModel;
 public class RegisterPushRequestBody {
 
     private String pushToken;
-    private int platform = 0;
+    private int platform = 1;
 
     public RegisterPushRequestBody(String pushToken) {
         this.pushToken = pushToken;
