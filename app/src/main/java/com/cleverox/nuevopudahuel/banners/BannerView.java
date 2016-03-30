@@ -177,31 +177,31 @@ public class BannerView extends ImageView {
     }
 
     private void scaleBannerImg(final Bitmap loadBitmap) {
-        Animation animation = null;
-        if (getVisibility() == VISIBLE) {
-            animation = AnimationUtils.loadAnimation(getContext(), R.anim.fade_out);
-            animation.setAnimationListener(new Animation.AnimationListener() {
-                @Override
-                public void onAnimationStart(Animation animation) {
-
-                }
-
-                @Override
-                public void onAnimationEnd(Animation animation) {
-                    reloadView(loadBitmap);
-                }
-
-                @Override
-                public void onAnimationRepeat(Animation animation) {
-
-                }
-            });
-        }
-        setAnimation(animation);
-        setVisibility(INVISIBLE);
-        if (animation == null) {
-            reloadView(loadBitmap);
-        }
+//        Animation animation = null;
+//        if (getVisibility() == VISIBLE) {
+//            animation = AnimationUtils.loadAnimation(getContext(), R.anim.fade_out);
+//            animation.setAnimationListener(new Animation.AnimationListener() {
+//                @Override
+//                public void onAnimationStart(Animation animation) {
+//
+//                }
+//
+//                @Override
+//                public void onAnimationEnd(Animation animation) {
+//                    reloadView(loadBitmap);
+//                }
+//
+//                @Override
+//                public void onAnimationRepeat(Animation animation) {
+//
+//                }
+//            });
+//        }
+//        setAnimation(animation);
+//        setVisibility(INVISIBLE);
+//        if (animation == null) {
+//        }
+        reloadView(loadBitmap);
     }
 
     private void reloadView(Bitmap loadBitmap) {
@@ -217,6 +217,12 @@ public class BannerView extends ImageView {
         Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.fade_in);
         animation.setFillAfter(true);
         startAnimation(animation);
+        postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        }, 500);
     }
 
     public void setBannerInterface(BannerInterface bannerInterface) {
