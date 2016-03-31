@@ -58,6 +58,7 @@ public class PudahuelApplication extends MultiDexApplication {
     private RealmConfiguration configuration;
 
     private boolean alive = false;
+    private boolean homeAlive = false;
 
     @Override
     public void onCreate() {
@@ -242,6 +243,14 @@ public class PudahuelApplication extends MultiDexApplication {
 
     public boolean isAlive() {
         return alive;
+    }
+
+    public boolean isHomeAlive() {
+        return homeAlive;
+    }
+
+    public void setHomeAlive(boolean homeAlive) {
+        this.homeAlive = homeAlive;
     }
 
     public static class gsonUTCdateAdapter implements JsonSerializer<Date>, JsonDeserializer<Date> {

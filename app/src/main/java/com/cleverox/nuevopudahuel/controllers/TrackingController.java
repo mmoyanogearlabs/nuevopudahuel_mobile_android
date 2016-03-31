@@ -1,5 +1,7 @@
 package com.cleverox.nuevopudahuel.controllers;
 
+import com.flurry.android.FlurryAgent;
+
 /**
  * Created by iaguila on 24/3/16.
  */
@@ -22,6 +24,6 @@ public class TrackingController {
     }
 
     private static void trackFlurry(String eventKey) {
-
+        FlurryAgent.logEvent(eventKey);
     }
 }

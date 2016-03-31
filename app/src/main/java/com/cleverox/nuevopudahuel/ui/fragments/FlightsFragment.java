@@ -99,6 +99,7 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
             $(R.id.flights_a).setVisibility(View.GONE);
             myFlightsTitle.setText(getText(R.string.menuOptionUserFlightsTitleKey));
             origen.setText(getString(R.string.flightHeaderOriginTitleKey) + "/" + getString(R.string.flightHeaderDestinationTitleKey));
+            TrackingController.trackEvent(TrackingController.FLURRY_MISVUELOS_EVENT);
         }
         else if(currentScreen == EXTRA_LLEGADAS){
             $(R.id.flights_salidas_container).setSelected(false);

@@ -1,8 +1,5 @@
 package com.cleverox.nuevopudahuel.controllers;
 
-import android.os.AsyncTask;
-import android.os.Process;
-
 import com.bzutils.LogBZ;
 import com.cleverox.nuevopudahuel.api.RestCallback;
 import com.cleverox.nuevopudahuel.api.response.FavoritesResponse;
@@ -36,7 +33,6 @@ public class SyncController {
 
     private static final long SYNC_WAIT_MINUTES = 5;
     private static final long SYNC_WAIT_TIME = SYNC_WAIT_MINUTES * 60 * 1000;
-    private long nextSyncTime;
     private boolean syncing;
     private boolean hasToSync = true;
     private OnSyncListener onSyncListener;
@@ -140,27 +136,4 @@ public class SyncController {
         this.onSyncListener = onSyncListener;
     }
 
-    private class nextSync extends AsyncTask<PudahuelApplication, Void, Boolean> {
-
-        private PudahuelApplication application;
-
-        @Override
-        protected Boolean doInBackground(PudahuelApplication... params) {
-            Process.setThreadPriority(Process.THREAD_PRIORITY_LOWEST);
-            application = params[0];
-            nextSyncTime = System.currentTimeMillis() + SYNC_WAIT_TIME;
-            while (System.currentTimeMillis() < nextSyncTime) {}
-            return hasToSync;
-        }
-
-        @Override
-        protected void onPostExecute(Boolean aBoolean) {
-            super.onPostExecute(aBoolean);
-            LogBZ.d("SyncController: finish countdown");
-            if (hasToSync) {
-                nextSyncTime = 0;
-                startSync(application);
-            }
-        }
-    }
 }

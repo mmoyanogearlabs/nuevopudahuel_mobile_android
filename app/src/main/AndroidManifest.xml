@@ -95,6 +95,8 @@
         <meta-data android:name="moca.MOCA_DRIVER_ENABLED"
             android:value="true" />
 
+
+        <meta-data android:name="moca.CUSTOM_PUSH_ICON" android:resource="@drawable/push_icon" />
         <receiver android:name="com.innoquant.moca.push.MOCAPushReceiver"
             android:exported="true"
             android:permission="com.google.android.c2dm.permission.SEND" >
@@ -109,16 +111,6 @@
         <meta-data android:name="moca.GCM_SENDER"
             android:value="\ 950762352762" />
 
-        <!-- REQUIRED by MOCA to handle push notifications -->
-        <receiver android:name="com.innoquant.moca.push.GcmPushReceiver"
-            android:permission="com.google.android.c2dm.permission.SEND">
-            <intent-filter>
-                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
-                <category android:name="com.cleverox.nuevopudahuel" />
-            </intent-filter>
-        </receiver>
-
         <!-- MOCA GcmTokenListener listens to token registrations/updates -->
         <service android:name="com.innoquant.moca.push.GcmTokenListener"
             android:exported="false">
@@ -128,7 +120,7 @@
         </service>
 
         <receiver
-            android:name="com.google.android.gms.gcm.GcmReceiver"
+            android:name=".push.NPPushReceiver"
             android:exported="true"
             android:permission="com.google.android.c2dm.permission.SEND" >
             <intent-filter>

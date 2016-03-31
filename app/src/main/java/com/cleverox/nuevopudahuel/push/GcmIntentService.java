@@ -8,6 +8,8 @@ import android.os.Bundle;
 import com.bzutils.LogBZ;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 
+import java.util.Iterator;
+
 /**
  * Created by Adrian on 17/5/15.
  */
@@ -24,8 +26,14 @@ public class GcmIntentService extends IntentService {
         GoogleCloudMessaging gcm = GoogleCloudMessaging.getInstance(this);
 
         String messageType = gcm.getMessageType(intent);
+
         try {
             if (!extras.isEmpty()) {
+                Iterator<String> iterator = extras.keySet().iterator();
+                while (iterator.hasNext()) {
+                    String key = iterator.next();
+                    LogBZ.d("PushExtra_GcmIntentService " + key + ": " + extras.get(key));
+                }
 
                 if (GoogleCloudMessaging.
                         MESSAGE_TYPE_SEND_ERROR.equals(messageType)) {
@@ -76,7 +84,7 @@ public class GcmIntentService extends IntentService {
                 }
             }
 
-            NPPushReceiver.completeWakefulIntent(intent);
+//            NPPushReceiver.completeWakefulIntent(intent);
         }catch (Exception e){
             LogBZ.printStackTrace(e);
         }

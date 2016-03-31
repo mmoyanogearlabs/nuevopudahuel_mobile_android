@@ -41,11 +41,10 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        getPudahuelApplication().setHomeAlive(true);
+
         configMenu();
         changeFragment(DashboardFragment.newInstance());
-
-
-
     }
 
     @Override
@@ -181,8 +180,9 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
+        getPudahuelApplication().setHomeAlive(false);
         SyncController.getInstance().stopSync();
+        super.onDestroy();
     }
 
 }

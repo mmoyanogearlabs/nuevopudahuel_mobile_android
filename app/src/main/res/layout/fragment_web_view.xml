@@ -26,7 +26,8 @@
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/btnmenu"
+            android:src="@drawable/btnmenu"
+            android:background="@android:color/transparent"
             android:layout_centerVertical="true"
             android:id="@+id/home_menu_button"
             android:layout_alignParentRight="true"

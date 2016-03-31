@@ -33,6 +33,11 @@ public class SplashActivity extends BaseActivity {
         startService(intent);
         UserController.getInstance().startSyncProcess(getPudahuelApplication());
 
+        if (getIntent().getBooleanExtra("fromPush", false) && getPudahuelApplication().isHomeAlive()) {
+            finish();
+            return;
+        }
+
         if (getPudahuelApplication().isAlive()) {
             startActivity(new Intent(SplashActivity.this, HomeActivity.class));
             finish();
