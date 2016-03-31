@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.bzutils.BZUtils;
 import com.cleverox.nuevopudahuel.R;
 import com.cleverox.nuevopudahuel.base.BaseActivity;
 import com.cleverox.nuevopudahuel.model.MenuItem;
@@ -40,6 +42,8 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
         holder.text.setText(item.getTitle());
         holder.cell.setTag(position);
         holder.cell.setOnClickListener(onItemListener);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(BZUtils.getScreenWidht(baseActivity) * 4 / 5, ViewGroup.LayoutParams.WRAP_CONTENT);
+        holder.cell.setLayoutParams(params);
     }
 
     @Override
