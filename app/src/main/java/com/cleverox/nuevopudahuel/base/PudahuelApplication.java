@@ -9,8 +9,8 @@ import android.widget.ImageView;
 
 import com.bzutils.BZUtils;
 import com.cleverox.nuevopudahuel.R;
-import com.cleverox.nuevopudahuel.api.services.FlightsService;
 import com.cleverox.nuevopudahuel.api.services.BannerService;
+import com.cleverox.nuevopudahuel.api.services.FlightsService;
 import com.cleverox.nuevopudahuel.constants.Constants;
 import com.cleverox.nuevopudahuel.constants.PudahuelPrefs;
 import com.cleverox.nuevopudahuel.controllers.TrackingController;
@@ -36,7 +36,6 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.squareup.okhttp.OkHttpClient;
 
-import io.fabric.sdk.android.Fabric;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -44,6 +43,7 @@ import java.util.Date;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
+import io.fabric.sdk.android.Fabric;
 import io.realm.RealmConfiguration;
 import retrofit.RestAdapter;
 import retrofit.client.OkClient;
@@ -56,6 +56,8 @@ public class PudahuelApplication extends MultiDexApplication {
     private BannerService mBannerService;
     private OkClient mHttpClient;
     private RealmConfiguration configuration;
+
+    private boolean alive = false;
 
     @Override
     public void onCreate() {
@@ -232,6 +234,14 @@ public class PudahuelApplication extends MultiDexApplication {
 
     public RealmConfiguration getRealmConfiguration() {
         return configuration;
+    }
+
+    public void setAlive(boolean alive) {
+        this.alive = alive;
+    }
+
+    public boolean isAlive() {
+        return alive;
     }
 
     public static class gsonUTCdateAdapter implements JsonSerializer<Date>, JsonDeserializer<Date> {

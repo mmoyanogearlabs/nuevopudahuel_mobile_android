@@ -160,8 +160,14 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
     public void onBackPressed() {
         if (drawer.isDrawerOpen(Gravity.RIGHT))
             closeMenu();
-        else
-            super.onBackPressed();
+        else {
+            Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.menuMain_fragment);
+            if (!(fragment instanceof DashboardFragment)) {
+                changeFragment(DashboardFragment.newInstance());
+            } else {
+                super.onBackPressed();
+            }
+        }
     }
 
     @Override

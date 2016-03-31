@@ -11,10 +11,10 @@
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/btnmenu"
+        android:src="@drawable/btnmenu"
+        android:background="@android:color/transparent"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="@dimen/padding_10"
-        android:layout_marginTop="@dimen/padding_10"
+        android:padding="@dimen/padding_10"
         android:id="@+id/home_menu_button" />
 
     <RelativeLayout

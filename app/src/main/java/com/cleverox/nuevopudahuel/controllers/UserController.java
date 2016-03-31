@@ -14,7 +14,6 @@ import com.cleverox.nuevopudahuel.constants.PudahuelPrefs;
 import com.google.android.gms.ads.identifier.AdvertisingIdClient;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
-import com.innoquant.moca.MOCA;
 
 import java.io.IOException;
 import java.util.UUID;
@@ -45,16 +44,10 @@ public class UserController {
     }
 
     public void registerPushToken(final PudahuelApplication application) {
-        final String token = MOCA.getInstance().getStringProperty("push.token");
-        String finalToken = null;
-        if (token != null) {
-            try {
-                finalToken = token.split(":") [1];
-            } catch (Exception e) {}
-        }
-        if (finalToken != null && !finalToken.equals(getStoredPushToken(application))) {
-            RegisterPushRequestBody body = new RegisterPushRequestBody(finalToken);
-            final String finalToken1 = finalToken;
+        final String token = application.getStoredString(PudahuelPrefs.PUSH_TOKEN, null);
+        if (token != null && getFlightsAPIToken(application) != null) {
+            RegisterPushRequestBody body = new RegisterPushRequestBody(token);
+            final String finalToken1 = token;
             application.getService().registerPush(getFlightsAPIToken(application), body, new RestCallback<BaseResponse>() {
                 @Override
                 public void failure(RetrofitError error) {
