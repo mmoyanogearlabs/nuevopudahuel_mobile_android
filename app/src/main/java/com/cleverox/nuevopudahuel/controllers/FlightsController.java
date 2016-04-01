@@ -115,7 +115,7 @@ public class FlightsController {
         boolean arrivals = false;
         for (FlightResponse flightResponse : response) {
             Flight flight = flightResponse.toFlight();
-            arrivals = flight.isArrival();
+            arrivals = arrivals || flight.isArrival();
             flight.setFavorite(favoritesId.contains(flight.getId()));
             flight.setTimestamp(timeStamp);
             flights.add(flight);

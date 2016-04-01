@@ -191,21 +191,24 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
     }
 
     private void scrollToNextFlight() {
-        if (adapter.getVols() != null) {
-            for (int i = 0; i < adapter.getItemCount(); i++) {
-                Flight flight = adapter.getVols().get(i);
+        if (flightsResults != null) {
+            boolean found = false;
+            for (int i = 0; i < flightsResults.size(); i++) {
+                Flight flight = flightsResults.get(i);
                 if (flight.getEstimated().after(new Date())) {
+                    found = true;
                     final int finalI = i;
                     list.post(new Runnable() {
                         @Override
                         public void run() {
-                            list.scrollToPosition(finalI);
+                            ((LinearLayoutManager)list.getLayoutManager()).scrollToPositionWithOffset(finalI, 0);
                             list.setVisibility(View.VISIBLE);
                         }
                     });
                     break;
                 }
             }
+            if (!found) list.setVisibility(View.VISIBLE);
         }
     }
 
