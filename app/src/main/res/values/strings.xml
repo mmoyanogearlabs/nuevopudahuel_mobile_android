@@ -64,6 +64,7 @@
   <string name="shareEmail3TitleKey">y para Android desde</string>
   <!-- Config -->
   <string name="configHeaderTitleKey">Acá puedes habilitar las notificaciones que te enviaremos, ya sea información general de Nuevo Pudahuel o contenidos de nuestras tiendas</string>
+  <string name="aboutTextKey">- Concepto diseñado por: Cleverox.com\n- Desarrollado por: Moddity.net\n- Un App: Massiva.cl\n- Políticas de Privacidad: http://www.nuevopudahuel.cl/pol-ticas-de-privacidad</string>
   <!-- Config-Categories -->
   <string name="categoryKeyAll">Todas las categorias</string>
   <string name="categoryKeyGeneral">Información General</string>

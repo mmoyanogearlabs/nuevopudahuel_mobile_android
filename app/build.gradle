@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'realm-android'
 
 repositories {
     maven { url 'https://maven.fabric.io/public' }
@@ -98,9 +99,6 @@ dependencies {
     compile 'com.squareup.okhttp:okhttp:2.2.0'
     compile 'com.google.code.gson:gson:2.4'
 
-    //REALM
-    compile 'io.realm:realm-android:0.87.4'
-    
     //FACEBOOK
     compile 'com.facebook.android:facebook-android-sdk:4.+'
 

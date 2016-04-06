@@ -2,6 +2,8 @@ package com.cleverox.nuevopudahuel.ui.fragments;
 
 import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
@@ -81,6 +83,26 @@ public class ConfigurationFragment extends HomeFragment implements CompoundButto
                 if (needToAdd)
                     list.addView(itemView);
             }
+
+            View aboutView = getBaseActivity().getLayoutInflater().inflate(R.layout.about_cell, null);
+
+            TextView textView = (TextView) aboutView.findViewById(R.id.about_info);
+            textView.setTextColor(ContextCompat.getColor(getBaseActivity(), R.color.white));
+            textView.setLinkTextColor(ContextCompat.getColor(getBaseActivity(), R.color.white));
+
+            String text = getString(R.string.aboutTextKey);
+
+            text = text.replaceAll("\\n", "<br>");
+
+            text = text.replace("Massiva.cl", "<a href=\"http://www.massiva.cl\">Massiva.cl</a>");
+            text = text.replace("Cleverox.com", "<a href=\"http://www.cleverox.com\">Cleverox.com</a>");
+            text = text.replace("Moddity.net", "<a href=\"http://www.moddity.net\">Moddity.net</a>");
+            text = text.replace("http://www.nuevopudahuel.cl/pol-ticas-de-privacidad", "<a href=\"http://www.nuevopudahuel.cl/pol-ticas-de-privacidad\">http://www.nuevopudahuel.cl/pol-ticas-de-privacidad</a>");
+
+            textView.setMovementMethod(LinkMovementMethod.getInstance());
+            textView.setText(Html.fromHtml(text));
+
+            list.addView(aboutView);
         }
     }
 
