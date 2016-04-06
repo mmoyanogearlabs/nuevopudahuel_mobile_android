@@ -171,13 +171,13 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
         switch (currentScreen) {
             case EXTRA_FLIGTHS:
                 if (!TextUtils.isEmpty(searchText))
-                    flightsResults = FlightsController.getInstance().searchDepartures(getBaseActivity().getRealm(), searchText);
+                    flightsResults = FlightsController.getInstance().searchDepartures(getBaseActivity().getRealm(), searchText.trim());
                 else
                     flightsResults = FlightsController.getInstance().getDepartures(getBaseActivity().getRealm());
                 break;
             case EXTRA_LLEGADAS:
                 if (!TextUtils.isEmpty(searchText))
-                    flightsResults = FlightsController.getInstance().searchArrivals(getBaseActivity().getRealm(), searchText);
+                    flightsResults = FlightsController.getInstance().searchArrivals(getBaseActivity().getRealm(), searchText.trim());
                 else
                     flightsResults = FlightsController.getInstance().getArrivals(getBaseActivity().getRealm());
                 break;
