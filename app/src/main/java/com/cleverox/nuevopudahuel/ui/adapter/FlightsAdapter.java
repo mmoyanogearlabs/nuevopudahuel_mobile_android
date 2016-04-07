@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bzutils.BZUtils;
+import com.bzutils.LogBZ;
 import com.cleverox.nuevopudahuel.R;
 import com.cleverox.nuevopudahuel.base.BaseActivity;
 import com.cleverox.nuevopudahuel.controllers.FlightsController;

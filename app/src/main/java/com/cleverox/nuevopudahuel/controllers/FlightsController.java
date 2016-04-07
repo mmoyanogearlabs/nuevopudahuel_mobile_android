@@ -204,7 +204,11 @@ public class FlightsController {
 
     public int getStatusColor(Context context, Flight flight) {
         try {
-            return context.getResources().getIdentifier("flight_status_" + flight.getStatusId(), "color", context.getPackageName());
+            int i = context.getResources().getIdentifier("flight_status_" + flight.getStatusId(), "color", context.getPackageName());
+            if (i == 0) {
+                return context.getResources().getIdentifier("flight_status_1", "color", context.getPackageName());
+            }
+            return i;
         } catch (Exception e) {
             return context.getResources().getIdentifier("flight_status_1", "color", context.getPackageName());
         }
