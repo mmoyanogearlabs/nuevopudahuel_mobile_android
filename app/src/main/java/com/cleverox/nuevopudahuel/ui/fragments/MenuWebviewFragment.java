@@ -37,11 +37,23 @@ public class MenuWebviewFragment extends HomeFragment {
         webview = $(R.id.webview);
         webview.getSettings().setJavaScriptEnabled(true);
         webview.setWebChromeClient(new WebChromeClient());
-        webview.setWebViewClient(new WebViewClient());
+        getBaseActivity().showProgressDialog("");
+        webview.setWebViewClient(new NPWebViewClient());
         webview.loadUrl(currentUrl);
 
         TextView viewTitle = $(R.id.flights_tittle);
         viewTitle.setText(title);
         $(R.id.flights_header_container).setVisibility(TextUtils.isEmpty(title) ? View.GONE : View.VISIBLE);
+
+    }
+
+    class NPWebViewClient extends WebViewClient {
+
+        @Override
+        public void onPageFinished(WebView view, String url) {
+            super.onPageFinished(view, url);
+
+            getBaseActivity().dismissProgressDialog();
+        }
     }
 }
