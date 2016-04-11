@@ -85,7 +85,7 @@
         <meta-data android:name="moca.PROXIMITY_SERVICE_ENABLED"
             android:value="true" />
         <meta-data android:name="moca.GEOLOCATION_SERVICE_ENABLED"
-            android:value="true" />
+            android:value="false" />
         <meta-data android:name="moca.BACKGROUND_LOCATION_ENABLED"
             android:value="true" />
         <meta-data android:name="moca.DATA_FETCH_INTERVAL_MS"

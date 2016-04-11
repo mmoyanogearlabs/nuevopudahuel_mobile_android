@@ -1,9 +1,11 @@
 package com.cleverox.nuevopudahuel.base;
 
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.multidex.MultiDexApplication;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -275,5 +277,9 @@ public class PudahuelApplication extends MultiDexApplication {
         public JsonElement serialize(Date src, java.lang.reflect.Type typeOfSrc, JsonSerializationContext context) {
             return new JsonPrimitive(dateFormat.format(src));
         }
+    }
+
+    public boolean isPermissionGranted(String permission) {
+        return ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED;
     }
 }

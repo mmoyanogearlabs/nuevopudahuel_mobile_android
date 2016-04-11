@@ -1,13 +1,20 @@
 package com.cleverox.nuevopudahuel.ui.activities;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 
 import com.cleverox.nuevopudahuel.R;
 import com.cleverox.nuevopudahuel.base.BaseActivity;
+import com.cleverox.nuevopudahuel.base.PudahuelApplication;
 import com.cleverox.nuevopudahuel.controllers.UserController;
 import com.cleverox.nuevopudahuel.push.GcmRegistrationIntentService;
+import com.innoquant.moca.MOCA;
 
 public class SplashActivity extends BaseActivity {
 
@@ -15,7 +22,13 @@ public class SplashActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        initApp();
+        if (((PudahuelApplication) getApplicationContext()).isPermissionGranted(Manifest.permission.ACCESS_FINE_LOCATION)) {
+            initApp(true);
+        } else if (Build.VERSION.SDK_INT >= 23 && !shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)) {
+            ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, 11);
+        } else {
+            initApp(true);
+        }
     }
 
     @Override
@@ -28,7 +41,22 @@ public class SplashActivity extends BaseActivity {
 
     }
 
-    private void initApp() {
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 11) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                initApp(true);
+            } else {
+                initApp(false);
+            }
+        }
+    }
+
+    private void initApp(boolean locationPermission) {
+
+        MOCA.setGeoTrackingEnabled(locationPermission);
+
         Intent intent = new Intent(this, GcmRegistrationIntentService.class);
         startService(intent);
         UserController.getInstance().startSyncProcess(getPudahuelApplication());

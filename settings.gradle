@@ -1,1 +1,1 @@
-include ':app', ':moca-sdk-android-1.8.10'
+include ':app', ':moca-sdk-android-1.8.11'
