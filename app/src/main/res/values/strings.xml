@@ -87,4 +87,8 @@
   <string name="categoryKeyMinimarket">Minimarket</string>
   <string name="categoryKeyVestuarioAccesorios">Vestuario y Accesorios</string>
   <string name="categoryKeyChocolateriaDutyFree">Chocolatería Duty Free</string>
+
+  <string name="permissionDeniedLocation">La app no tiene permiso de ubicación, por favor revisa los permisos en Ajustes del dispositivo</string>
+  <string name="permissionDeniedCamera">La app no tiene permiso de cámara, por favor revisa los permisos en Ajustes del dispositivo</string>
+
 </resources>

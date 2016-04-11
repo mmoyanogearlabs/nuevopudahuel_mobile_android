@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 
+import com.bzutils.BZUtils;
 import com.cleverox.nuevopudahuel.R;
 import com.cleverox.nuevopudahuel.base.BaseActivity;
 import com.cleverox.nuevopudahuel.base.PudahuelApplication;
@@ -24,10 +25,8 @@ public class SplashActivity extends BaseActivity {
 
         if (((PudahuelApplication) getApplicationContext()).isPermissionGranted(Manifest.permission.ACCESS_FINE_LOCATION)) {
             initApp(true);
-        } else if (Build.VERSION.SDK_INT >= 23 && !shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)) {
+        } else if (Build.VERSION.SDK_INT >= 23) {
             ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, 11);
-        } else {
-            initApp(true);
         }
     }
 
@@ -48,6 +47,7 @@ public class SplashActivity extends BaseActivity {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 initApp(true);
             } else {
+                BZUtils.showSimpleMessage(this, getString(R.string.permissionDeniedLocation));
                 initApp(false);
             }
         }
