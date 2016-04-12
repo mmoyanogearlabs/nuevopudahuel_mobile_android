@@ -53,7 +53,9 @@ public class MenuWebviewFragment extends HomeFragment {
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
 
-            getBaseActivity().dismissProgressDialog();
+            if (getBaseActivity()!=null) {
+                getBaseActivity().dismissProgressDialog();
+            }
         }
     }
 }
