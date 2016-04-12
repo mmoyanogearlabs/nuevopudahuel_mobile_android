@@ -31,5 +31,9 @@
     <color name="flight_status_10">@color/black</color>
     <color name="flight_status_11">@color/black</color>
     <color name="flight_status_12">@color/red</color>
+    <color name="flight_status_13">@color/black</color>
+    <color name="flight_status_14">@color/black</color>
+    <color name="flight_status_15">@color/black</color>
+    <color name="flight_status_16">@color/red</color>
 
 </resources>
