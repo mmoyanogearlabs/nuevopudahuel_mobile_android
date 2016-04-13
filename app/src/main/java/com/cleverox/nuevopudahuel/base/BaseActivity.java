@@ -3,10 +3,14 @@ package com.cleverox.nuevopudahuel.base;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.Window;
+import android.widget.ProgressBar;
 
 import com.cleverox.nuevopudahuel.R;
 import com.cleverox.nuevopudahuel.banners.BannerView;
@@ -14,6 +18,7 @@ import com.cleverox.nuevopudahuel.controllers.SyncController;
 import com.cleverox.nuevopudahuel.ui.activities.DetailWebViewActivity;
 import com.cleverox.nuevopudahuel.ui.activities.SplashActivity;
 import com.cleverox.nuevopudahuel.ui.activities.VideoSplashActivity;
+import com.cleverox.nuevopudahuel.ui.custom.CustomProgressDialog;
 import com.facebook.appevents.AppEventsLogger;
 import com.flurry.android.FlurryAgent;
 
@@ -24,7 +29,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
  * Created by iaguila on 9/2/16.
  */
 public abstract class BaseActivity extends AppCompatActivity implements SyncController.OnSyncListener, BannerView.BannerInterface {
-    private ProgressDialog dialog;
+    private CustomProgressDialog dialog;
 
     private Realm realm;
 
@@ -51,16 +56,14 @@ public abstract class BaseActivity extends AppCompatActivity implements SyncCont
         return (T) findViewById(viewId);
     }
 
-    public void showProgressDialog(String message) {
-        dialog = new ProgressDialog(this);
-        dialog.setCancelable(false);
-        dialog.setMessage(message);
+    public void showProgressDialog() {
+        dialog = new CustomProgressDialog(this);
         dialog.show();
     }
 
     public void dismissProgressDialog() {
         if (dialog != null && dialog.isShowing()) {
-            dialog.dismiss();
+            dialog.dismissDialog();
             dialog = null;
         }
     }

@@ -37,7 +37,7 @@ public class MenuWebviewFragment extends HomeFragment {
         webview = $(R.id.webview);
         webview.getSettings().setJavaScriptEnabled(true);
         webview.setWebChromeClient(new WebChromeClient());
-        getBaseActivity().showProgressDialog("");
+        getBaseActivity().showProgressDialog();
         webview.setWebViewClient(new NPWebViewClient());
         webview.loadUrl(currentUrl);
 

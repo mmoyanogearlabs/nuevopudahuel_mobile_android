@@ -99,7 +99,7 @@ public class AlertActivity extends BaseActivity implements View.OnClickListener,
     }
 
     private void configFavorito() {
-        showProgressDialog(null);
+        showProgressDialog();
         FlightsController.getInstance().setFavorite(getPudahuelApplication(), currentFlight, new RestCallback<FavoritesResponse>() {
             @Override
             public void failure(RetrofitError error) {

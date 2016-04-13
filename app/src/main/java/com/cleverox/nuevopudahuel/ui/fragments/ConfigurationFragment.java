@@ -49,60 +49,68 @@ public class ConfigurationFragment extends HomeFragment implements CompoundButto
         if (items == null)
             items = ConfigurationCategoriesController.getInstance().getStoredCategories(getBaseActivity().getPudahuelApplication());
         if (items != null) {
-            for (int i = 0; i < items.size(); i ++) {
-                ConfigCategory category = items.get(i);
+            for (int i = 0; i < items.size() + 1; i ++) {
+                if (i < items.size()) {
+                    ConfigCategory category = items.get(i);
 
-                View itemView = null;
-                boolean needToAdd = false;
-                if (list.getChildCount() < items.size()) {
-                    itemView = getBaseActivity().getLayoutInflater().inflate(R.layout.configuration_cell, null);
-                    needToAdd = true;
+                    View itemView = null;
+                    boolean needToAdd = false;
+                    if (list.getChildCount() < items.size()) {
+                        itemView = getBaseActivity().getLayoutInflater().inflate(R.layout.configuration_cell, null);
+                        needToAdd = true;
+                    } else {
+                        itemView = list.getChildAt(i);
+                    }
+
+                    TextView text = (TextView) itemView.findViewById(R.id.configuration_text);
+                    NPSwitch check = (NPSwitch) itemView.findViewById(R.id.configuration_check);
+                    RelativeLayout cell = (RelativeLayout) itemView.findViewById(R.id.configuration_cell);
+
+                    if (i == 0 || i == 1) {
+                        cell.setBackgroundColor(ContextCompat.getColor(getBaseActivity(), R.color.hardGrey));
+                        text.setTextColor(ContextCompat.getColor(getBaseActivity(), R.color.white));
+                        text.setTextSize(BZScreenHelper.dpFromPx(getBaseActivity().getResources().getDimension(R.dimen.textSize16), getBaseActivity()));
+                    } else {
+                        cell.setBackgroundColor(Color.WHITE);
+                        text.setTextColor(ContextCompat.getColor(getBaseActivity(), R.color.black));
+                        text.setTextSize(BZScreenHelper.dpFromPx(getBaseActivity().getResources().getDimension(R.dimen.textSize14), getBaseActivity()));
+                    }
+                    text.setText(category.getText(getBaseActivity()));
+                    check.setChecked(category.isValue());
+                    check.setTag(i);
+                    check.setCheckedChangeListener(this);
+
+                    if (needToAdd)
+                        list.addView(itemView);
                 } else {
-                    itemView = list.getChildAt(i);
-                }
+                    View aboutView = null;
+                    boolean needToAdd = false;
+                    if (list.getChildCount() < items.size() +1) {
+                        aboutView = getBaseActivity().getLayoutInflater().inflate(R.layout.about_cell, null);
+                        needToAdd = true;
+                    } else {
+                        aboutView = list.getChildAt(i);
+                    }
 
-                TextView text = (TextView) itemView.findViewById(R.id.configuration_text);
-                NPSwitch check = (NPSwitch) itemView.findViewById(R.id.configuration_check);
-                RelativeLayout cell = (RelativeLayout) itemView.findViewById(R.id.configuration_cell);
+                    TextView textView = (TextView) aboutView.findViewById(R.id.about_info);
+                    textView.setTextColor(ContextCompat.getColor(getBaseActivity(), R.color.white));
+                    textView.setLinkTextColor(ContextCompat.getColor(getBaseActivity(), R.color.white));
 
-                if (i == 0 || i == 1) {
-                    cell.setBackgroundColor(ContextCompat.getColor(getBaseActivity(), R.color.hardGrey));
-                    text.setTextColor(ContextCompat.getColor(getBaseActivity(), R.color.white));
-                    text.setTextSize(BZScreenHelper.dpFromPx(getBaseActivity().getResources().getDimension(R.dimen.textSize16), getBaseActivity()));
-                }
-                else {
-                    cell.setBackgroundColor(Color.WHITE);
-                    text.setTextColor(ContextCompat.getColor(getBaseActivity(), R.color.black));
-                    text.setTextSize(BZScreenHelper.dpFromPx(getBaseActivity().getResources().getDimension(R.dimen.textSize14), getBaseActivity()));
-                }
-                text.setText(category.getText(getBaseActivity()));
-                check.setChecked(category.isValue());
-                check.setTag(i);
-                check.setCheckedChangeListener(this);
+                    String text = getString(R.string.aboutTextKey);
 
-                if (needToAdd)
-                    list.addView(itemView);
+                    text = text.replaceAll("\\n", "<br>");
+
+                    text = text.replace("Cleverox.com", "<a href=\"http://www.cleverox.com\">Cleverox.com</a>");
+                    text = text.replace("Moddity.net", "<a href=\"http://www.moddity.net\">Moddity.net</a>");
+                    text = text.replace("http://www.nuevopudahuel.cl/pol-ticas-de-privacidad", "<a href=\"http://www.nuevopudahuel.cl/pol-ticas-de-privacidad\">http://www.nuevopudahuel.cl/pol-ticas-de-privacidad</a>");
+
+                    textView.setMovementMethod(LinkMovementMethod.getInstance());
+                    textView.setText(Html.fromHtml(text));
+
+                    if (needToAdd)
+                        list.addView(aboutView);
+                }
             }
-
-            View aboutView = getBaseActivity().getLayoutInflater().inflate(R.layout.about_cell, null);
-
-            TextView textView = (TextView) aboutView.findViewById(R.id.about_info);
-            textView.setTextColor(ContextCompat.getColor(getBaseActivity(), R.color.white));
-            textView.setLinkTextColor(ContextCompat.getColor(getBaseActivity(), R.color.white));
-
-            String text = getString(R.string.aboutTextKey);
-
-            text = text.replaceAll("\\n", "<br>");
-
-            text = text.replace("Massiva.cl", "<a href=\"http://www.massiva.cl\">Massiva.cl</a>");
-            text = text.replace("Cleverox.com", "<a href=\"http://www.cleverox.com\">Cleverox.com</a>");
-            text = text.replace("Moddity.net", "<a href=\"http://www.moddity.net\">Moddity.net</a>");
-            text = text.replace("http://www.nuevopudahuel.cl/pol-ticas-de-privacidad", "<a href=\"http://www.nuevopudahuel.cl/pol-ticas-de-privacidad\">http://www.nuevopudahuel.cl/pol-ticas-de-privacidad</a>");
-
-            textView.setMovementMethod(LinkMovementMethod.getInstance());
-            textView.setText(Html.fromHtml(text));
-
-            list.addView(aboutView);
         }
     }
 
