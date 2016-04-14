@@ -53,11 +53,15 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
     private RecyclerView list;
     private SwipeRefreshLayout refreshLayout;
     private BannerView banner;
+    private boolean searchFromHome;
 
     public static FlightsFragment newInstance(String searchText) {
         FlightsFragment fragment = new FlightsFragment();
         fragment.currentScreen = EXTRA_FLIGTHS;
         fragment.searchText = searchText;
+
+        fragment.searchFromHome = !(searchText == null || searchText == "");
+
         return fragment;
     }
 
@@ -174,6 +178,13 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
                     flightsResults = FlightsController.getInstance().searchDepartures(getBaseActivity().getRealm(), searchText.trim());
                 else
                     flightsResults = FlightsController.getInstance().getDepartures(getBaseActivity().getRealm());
+
+                if (searchFromHome && flightsResults.size() == 0){
+                    searchFromHome = false;
+                    changeTabFromId(R.id.flights_llegadas_container);
+                }
+                searchFromHome = false;
+
                 break;
             case EXTRA_LLEGADAS:
                 if (!TextUtils.isEmpty(searchText))
@@ -214,7 +225,12 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
+        changeTabFromId(v.getId());
+    }
+
+    private void changeTabFromId(int type) {
+
+        switch (type) {
             case R.id.flights_salidas_container:
                 salidas.setSelected(true);
                 llegadas.setSelected(false);
