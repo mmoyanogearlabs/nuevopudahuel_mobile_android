@@ -19,18 +19,12 @@ public class CustomProgressDialog extends ProgressDialog {
     public CustomProgressDialog(Context context) {
         super(context, R.style.CustomProgressDialog);
         setCanceledOnTouchOutside(false);
-//        setCancelable(false);
     }
-
 
     @Override
     public void show() {
         super.show();
         setContentView(R.layout.view_progress_dialog);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
-    }
-
-    public void dismissDialog() {
-        dismiss();
     }
 }

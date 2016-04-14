@@ -63,7 +63,7 @@ public abstract class BaseActivity extends AppCompatActivity implements SyncCont
 
     public void dismissProgressDialog() {
         if (dialog != null && dialog.isShowing()) {
-            dialog.dismissDialog();
+            dialog.dismiss();
             dialog = null;
         }
     }

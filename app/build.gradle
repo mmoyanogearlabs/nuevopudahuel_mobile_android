@@ -27,7 +27,7 @@ android {
         applicationId "com.cleverox.nuevopudahuel"
         minSdkVersion 16
         targetSdkVersion 23
-        versionCode 12
+        versionCode 13
         versionName "1.0"
         multiDexEnabled true
     }
@@ -36,15 +36,15 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 
-            resValue "string", "api_url", "http://54.233.106.209/flightsApi/v1"
-            resValue "string", "banners_api_url", "http://54.233.106.209/bannersApi/v1"
+            resValue "string", "api_url", "http://54.233.145.28/flightsApi/v1"
+            resValue "string", "banners_api_url", "http://54.233.145.28/bannersApi/v1"
 
             resValue "string", "moca_app_key", "KQNtJe6-SO-vRGdg3zAYgQ"
             resValue "string", "moca_app_secret", "3G31ZMiYxuQLXZLZoQjUcWkN88U="
         }
         debug {
-            resValue "string", "api_url", "http://54.233.106.209/flightsApi/v1"
-            resValue "string", "banners_api_url", "http://54.233.106.209/bannersApi/v1"
+            resValue "string", "api_url", "http://54.233.145.28/flightsApi/v1"
+            resValue "string", "banners_api_url", "http://54.233.145.28/bannersApi/v1"
 
             resValue "string", "moca_app_key", "KQNtJe6-SO-vRGdg3zAYgQ"
             resValue "string", "moca_app_secret", "3G31ZMiYxuQLXZLZoQjUcWkN88U="

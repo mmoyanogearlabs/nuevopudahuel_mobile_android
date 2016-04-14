@@ -21,11 +21,15 @@ public class VideoSplashActivity extends BaseActivity implements MediaPlayer.OnC
     @Override
     protected void configView() {
 
-        VideoView videoView = $(R.id.video_splash);
+        final VideoView videoView = $(R.id.video_splash);
         String path = "android.resource://" + getPackageName() + "/" + R.raw.intro_aplicacion_np_android_324;
         videoView.setVideoURI(Uri.parse(path));
         videoView.setOnCompletionListener(this);
-        videoView.start();
+        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            public void onPrepared(MediaPlayer mp) {
+                videoView.start();
+            }
+        });
     }
 
     @Override
