@@ -31,13 +31,23 @@ public class DetailWebViewActivity extends BaseActivity implements View.OnClickL
                 .commit();
     }
 
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.webview_btnback:
                 onBackPressed();
                 break;
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.webview_fragment);
+        if (((MenuWebviewFragment) fragment).webview.canGoBack()) {
+            ((MenuWebviewFragment) fragment).webview.goBack();
+        }else{
+            super.onBackPressed();
         }
     }
 }

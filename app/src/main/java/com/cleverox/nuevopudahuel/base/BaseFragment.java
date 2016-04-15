@@ -8,7 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.cleverox.nuevopudahuel.R;
 import com.cleverox.nuevopudahuel.banners.BannerView;
+import com.cleverox.nuevopudahuel.ui.activities.HomeActivity;
+import com.cleverox.nuevopudahuel.ui.fragments.DashboardFragment;
 
 /**
  * Created by iaguila on 9/2/16.
@@ -22,6 +25,13 @@ public abstract class BaseFragment extends Fragment implements BannerView.Banner
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         parentView = inflater.inflate(getLayoutResource(), container, false);
 
+        if ($(R.id.bar_home_button) != null)
+            $(R.id.bar_home_button).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ((HomeActivity) getBaseActivity()).changeFragment(DashboardFragment.newInstance());
+                }
+            });
         configView(parentView);
 
         return parentView;

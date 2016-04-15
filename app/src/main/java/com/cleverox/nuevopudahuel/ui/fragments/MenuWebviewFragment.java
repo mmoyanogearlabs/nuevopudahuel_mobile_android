@@ -17,7 +17,7 @@ public class MenuWebviewFragment extends HomeFragment {
 
     private String currentUrl;
     private String title;
-    private WebView webview;
+    public WebView webview;
 
     public static MenuWebviewFragment newInstance(String title, String url) {
 

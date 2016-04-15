@@ -187,7 +187,9 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
             closeMenu();
         else {
             Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.menuMain_fragment);
-            if (!(fragment instanceof DashboardFragment)) {
+            if (fragment instanceof MenuWebviewFragment && ((MenuWebviewFragment) fragment).webview.canGoBack()) {
+                ((MenuWebviewFragment) fragment).webview.goBack();
+            } else if (!(fragment instanceof DashboardFragment)) {
                 changeFragment(DashboardFragment.newInstance());
             } else {
                 super.onBackPressed();
