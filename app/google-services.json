@@ -8,10 +8,10 @@
     {
       "client_info": {
         "mobilesdk_app_id": "1:950762352762:android:050485245bafb9fd",
-        "client_id": "android:com.cleverox.nuevopudahuel",
+        "client_id": "android:com.massiva.nuevopudahuel",
         "client_type": 1,
         "android_client_info": {
-          "package_name": "com.cleverox.nuevopudahuel",
+          "package_name": "com.massiva.nuevopudahuel",
           "certificate_hash": []
         }
       },

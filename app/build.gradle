@@ -24,10 +24,10 @@ android {
     buildToolsVersion "23.0.2"
 
     defaultConfig {
-        applicationId "com.cleverox.nuevopudahuel"
+        applicationId "com.massiva.nuevopudahuel"
         minSdkVersion 16
         targetSdkVersion 23
-        versionCode 15
+        versionCode 100
         versionName "1.0"
         multiDexEnabled true
     }

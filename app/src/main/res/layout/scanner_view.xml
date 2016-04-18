@@ -7,17 +7,17 @@
     android:layout_height="match_parent"
     android:keepScreenOn="true">
 
-    <com.cleverox.nuevopudahuel.ui.scanner.CameraSourcePreview
+    <com.massiva.nuevopudahuel.ui.scanner.CameraSourcePreview
         android:id="@+id/preview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="10dp">
 
-        <com.cleverox.nuevopudahuel.ui.scanner.GraphicOverlay
+        <com.massiva.nuevopudahuel.ui.scanner.GraphicOverlay
             android:id="@+id/graphicOverlay"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-    </com.cleverox.nuevopudahuel.ui.scanner.CameraSourcePreview>
+    </com.massiva.nuevopudahuel.ui.scanner.CameraSourcePreview>
 
 </RelativeLayout>

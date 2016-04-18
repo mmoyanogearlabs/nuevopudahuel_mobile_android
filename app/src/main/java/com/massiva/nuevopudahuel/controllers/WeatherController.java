@@ -1,0 +1,54 @@
+package com.massiva.nuevopudahuel.controllers;
+
+import com.massiva.nuevopudahuel.api.RestCallback;
+import com.massiva.nuevopudahuel.api.response.WeatherResponse;
+import com.massiva.nuevopudahuel.base.PudahuelApplication;
+import com.massiva.nuevopudahuel.model.Weather;
+
+import io.realm.Realm;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+
+/**
+ * Created by iaguila on 15/3/16.
+ */
+public class WeatherController {
+
+    private static WeatherController ourInstance = new WeatherController();
+
+    public static WeatherController getInstance() {
+        return ourInstance;
+    }
+
+    private WeatherController() {
+    }
+
+    public void requestWeather(final PudahuelApplication application, final RestCallback<Weather> callback) {
+        application.getService().getWeather(UserController.getInstance().getFlightsAPIToken(application), new RestCallback<WeatherResponse>() {
+            @Override
+            public void failure(RetrofitError error) {
+                super.failure(error);
+                callback.failure(error);
+            }
+
+            @Override
+            public void success(WeatherResponse weather, Response response) {
+                super.success(weather, response);
+                storeWeather(application, weather.getWeather());
+                callback.success(weather.getWeather(), response);
+            }
+        });
+    }
+
+    private void storeWeather(PudahuelApplication application, Weather currentWeather) {
+        Realm realm = Realm.getInstance(application.getRealmConfiguration());
+        realm.beginTransaction();
+        realm.copyToRealmOrUpdate(currentWeather);
+        realm.commitTransaction();
+        realm.close();
+    }
+
+    public Weather getWeather(Realm realm) {
+        return realm.where(Weather.class).findFirst();
+    }
+}

@@ -233,7 +233,7 @@
 
         </LinearLayout>
 
-        <com.cleverox.nuevopudahuel.banners.BannerView
+        <com.massiva.nuevopudahuel.banners.BannerView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:screenName="@string/banner_screen_home"

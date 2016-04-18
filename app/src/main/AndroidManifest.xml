@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.cleverox.nuevopudahuel">
+    package="com.massiva.nuevopudahuel">
 
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-feature android:name="android.hardware.camera" />
@@ -9,7 +9,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
-    <permission android:name="com.cleverox.nuevopudahuel.permission.C2D_MESSAGE"
+    <permission android:name="com.massiva.nuevopudahuel.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
     <uses-permission android:name="com.cleverox.nuevopudahuel.permission.C2D_MESSAGE" />
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
@@ -126,7 +126,7 @@
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
                 <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
-                <category android:name="com.cleverox.nuevopudahuel" />
+                <category android:name="com.massiva.nuevopudahuel" />
             </intent-filter>
         </receiver>
         <service

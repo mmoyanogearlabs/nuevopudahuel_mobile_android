@@ -44,12 +44,12 @@
 
     </RelativeLayout>
 
-    <com.cleverox.nuevopudahuel.ui.scanner.ScannerView
+    <com.massiva.nuevopudahuel.ui.scanner.ScannerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/promociones_scanner">
 
-    </com.cleverox.nuevopudahuel.ui.scanner.ScannerView>
+    </com.massiva.nuevopudahuel.ui.scanner.ScannerView>
 
 
 </LinearLayout>
