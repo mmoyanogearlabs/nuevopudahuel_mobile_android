@@ -66,7 +66,7 @@
                 "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:theme="@style/AppTheme.NoActionBar"
             android:label="@string/app_name" />
-        <provider android:authorities="com.facebook.app.FacebookContentProvider792522407519173"
+        <provider android:authorities="com.facebook.app.FacebookContentProvider1043604535723233"
             android:name="com.facebook.FacebookContentProvider"
             android:exported="true" />
 

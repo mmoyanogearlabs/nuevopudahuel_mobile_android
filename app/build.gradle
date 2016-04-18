@@ -39,15 +39,20 @@ android {
             resValue "string", "api_url", "http://54.233.145.28/flightsApi/v1"
             resValue "string", "banners_api_url", "http://54.233.145.28/bannersApi/v1"
 
-            resValue "string", "moca_app_key", "KQNtJe6-SO-vRGdg3zAYgQ"
-            resValue "string", "moca_app_secret", "3G31ZMiYxuQLXZLZoQjUcWkN88U="
+            resValue "string", "moca_app_key", "30fG6xGjSqKoHPlRADloKw"
+            resValue "string", "moca_app_secret", "BD2Hdenm8emN/9VRIcKn8RNGKSs="
         }
         debug {
             resValue "string", "api_url", "http://54.233.145.28/flightsApi/v1"
             resValue "string", "banners_api_url", "http://54.233.145.28/bannersApi/v1"
 
-            resValue "string", "moca_app_key", "KQNtJe6-SO-vRGdg3zAYgQ"
-            resValue "string", "moca_app_secret", "3G31ZMiYxuQLXZLZoQjUcWkN88U="
+//            MOCA PRO
+            resValue "string", "moca_app_key", "30fG6xGjSqKoHPlRADloKw"
+            resValue "string", "moca_app_secret", "BD2Hdenm8emN/9VRIcKn8RNGKSs="
+
+//            MOCA TEST
+//            resValue "string", "moca_app_key", "KQNtJe6-SO-vRGdg3zAYgQ"
+//            resValue "string", "moca_app_secret", "3G31ZMiYxuQLXZLZoQjUcWkN88U="
         }
     }
     signingConfigs {
