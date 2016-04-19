@@ -34,7 +34,9 @@ public class PromocionesFragment extends HomeFragment implements ScannerView.Bar
 
     @Override
     public void onBarcodeDetected(String barcode) {
-        if (barcode != null && barcode.startsWith("http") && !barcodeScanned) {
+        if (barcode != null && !barcodeScanned) {
+            if (!barcode.startsWith("http"))
+                barcode = "http://" + barcode;
             barcodeScanned = true;
             Intent intent = new Intent(getBaseActivity(), DetailWebViewActivity.class);
             intent.putExtra(DetailWebViewActivity.EXTRA_URL, barcode);

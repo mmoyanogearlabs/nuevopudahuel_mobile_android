@@ -1,5 +1,6 @@
 package com.massiva.nuevopudahuel.controllers;
 
+import com.bzutils.LogBZ;
 import com.massiva.nuevopudahuel.base.PudahuelApplication;
 import com.massiva.nuevopudahuel.constants.PudahuelPrefs;
 import com.massiva.nuevopudahuel.model.ConfigCategory;
@@ -93,15 +94,28 @@ public class ConfigurationCategoriesController {
         });
     }
 
-    private void storeCategories(PudahuelApplication application, MOCAUser user) {
-        List<ConfigCategory> categories = new ArrayList<>();
-        for (String key : categoryKeys) {
-            ConfigCategory category = new ConfigCategory();
-            category.setKey(key);
-            category.setValue(user.getBoolProperty(key));
-            categories.add(category);
+    public boolean checkMOCAConfig(final PudahuelApplication application) {
+        MOCAUser user = MOCA.getInstance().login(UserController.getInstance().getStoredGoogleAID(application));
+        if (user.getProperty(categoryKeys[0]) == null) {
+            initCategoriesConfig(application);
+            return false;
         }
-        application.storeString(PudahuelPrefs.CONFIG_CATEGORIES, new Gson().toJson(categories));
+        return true;
+    }
+
+    private void storeCategories(PudahuelApplication application, MOCAUser user) {
+        try {
+            List<ConfigCategory> categories = new ArrayList<>();
+            for (String key : categoryKeys) {
+                ConfigCategory category = new ConfigCategory();
+                category.setKey(key);
+                category.setValue(user.getBoolProperty(key));
+                categories.add(category);
+            }
+            application.storeString(PudahuelPrefs.CONFIG_CATEGORIES, new Gson().toJson(categories));
+        } catch (Exception e) {
+            LogBZ.printStackTrace(e);
+        }
     }
 
     public List<ConfigCategory> getStoredCategories(PudahuelApplication application) {

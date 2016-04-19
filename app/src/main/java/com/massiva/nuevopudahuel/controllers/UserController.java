@@ -39,7 +39,8 @@ public class UserController {
             new getGoolgeAIDAsync().execute(context);
         else {
             getAPIToken(context);
-            ConfigurationCategoriesController.getInstance().getCategoriesConfig(context);
+            if (ConfigurationCategoriesController.getInstance().checkMOCAConfig(context))
+                ConfigurationCategoriesController.getInstance().getCategoriesConfig(context);
         }
     }
 
