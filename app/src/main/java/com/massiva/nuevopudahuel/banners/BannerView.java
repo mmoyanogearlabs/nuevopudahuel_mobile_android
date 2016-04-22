@@ -27,7 +27,7 @@ public class BannerView extends ImageView {
 
     private static final int BANNER_WIDTH = 320;
     private static final int IPHONE6_WIDHT = 425;
-    private static final int TIME_BETWEEN = 5000;
+    private static final int TIME_BETWEEN = 3000;
 
     private String screen;
     private boolean changeSize;

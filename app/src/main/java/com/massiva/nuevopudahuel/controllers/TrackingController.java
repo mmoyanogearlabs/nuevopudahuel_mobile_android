@@ -7,7 +7,7 @@ import com.flurry.android.FlurryAgent;
  */
 public class TrackingController {
 
-    public static final String FLURRY_KEY = "W7DWR4XWDY77JY7C49QF";
+    public static final String FLURRY_KEY = "KK6C7PV5DHNKSNWQ6VC2";
     public static final String FLURRY_HOME_EVENT = "Home";
     public static final String FLURRY_SALIDAS_EVENT = "Vuelos/salidas";
     public static final String FLURRY_LLEGADAS_EVENT = "Vuelos/llegadas";
