@@ -301,6 +301,7 @@
         android:layout_height="wrap_content"
         app:screenName="@string/banner_screen_detail"
         app:autoLoad="true"
-        app:changeSize="false" />
+        app:changeSize="false"
+        android:id="@+id/alert_banner"/>
 
 </RelativeLayout>

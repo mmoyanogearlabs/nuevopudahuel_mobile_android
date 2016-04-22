@@ -21,6 +21,7 @@ import com.bzutils.BZUtils;
 import com.massiva.nuevopudahuel.R;
 import com.massiva.nuevopudahuel.api.RestCallback;
 import com.massiva.nuevopudahuel.api.response.FavoritesResponse;
+import com.massiva.nuevopudahuel.banners.BannerView;
 import com.massiva.nuevopudahuel.base.BaseActivity;
 import com.massiva.nuevopudahuel.controllers.FlightsController;
 import com.massiva.nuevopudahuel.model.Flight;
@@ -48,6 +49,7 @@ public class AlertActivity extends BaseActivity implements View.OnClickListener,
     private static final String LINK_APP_STORE = "https://itunes.apple.com/us/app/aeropuerto-scl-chile-aplicacion/id1104983979?l=ca&ls=1&mt=8";
     private static final String LING_GOOGLE_PLAY = "https://play.google.com/store/apps/details?id=com.massiva.nuevopudahuel";
 
+    private BannerView currentBanner;
     private Flight currentFlight;
     private TextView vuelo, tiempo, estado;
     private LinearLayout flightDetail;
@@ -63,6 +65,9 @@ public class AlertActivity extends BaseActivity implements View.OnClickListener,
     protected void configView() {
         $(R.id.btn_alerta_btncrear).setOnClickListener(this);
         $(R.id.btn_alerta_compartir).setOnClickListener(this);
+
+        currentBanner = $(R.id.alert_banner);
+        currentBanner.setBannerInterface(this);
 
         currentFlight = getRealm().where(Flight.class).equalTo("id", getIntent().getStringExtra(EXTRA_FLIGHT)).findFirst();
         currentFlight.addChangeListener(this);
