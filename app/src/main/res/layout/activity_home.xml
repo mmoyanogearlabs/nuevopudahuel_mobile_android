@@ -7,7 +7,8 @@
     <android.support.v4.widget.DrawerLayout
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:weightSum="5">
 
         <FrameLayout
             android:id="@+id/menuMain_fragment"
@@ -17,18 +18,17 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/padding_30"
             android:orientation="vertical"
             android:layout_gravity="right"
+            android:layout_weight="4"
             android:background="@android:color/white">
 
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/btnmenu"
-                android:layout_marginLeft="@dimen/padding_10"
-                android:layout_marginTop="@dimen/padding_10"
-                android:layout_marginBottom="@dimen/padding_20"
+                android:src="@drawable/btnmenu"
+                android:background="@android:color/transparent"
+                android:padding="@dimen/padding_10"
                 android:id="@+id/close_menu_button"/>
 
             <android.support.v7.widget.RecyclerView
@@ -37,6 +37,7 @@
                 android:id="@+id/menu_list">
 
             </android.support.v7.widget.RecyclerView>
+
         </LinearLayout>
 
     </android.support.v4.widget.DrawerLayout>

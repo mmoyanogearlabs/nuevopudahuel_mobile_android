@@ -1,12 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#F5F5F8</color>
-    <color name="colorPrimaryDark">#F5F5F8</color>
+    <color name="colorPrimary">#ffffff</color>
+    <color name="colorPrimaryDark">#636998</color>
     <color name="colorAccent">#636998</color>
     <color name="softBlue">#006998</color>
     <color name="blue">#0C3E7B</color>
 
-    <color name="white">#FFFFFFFF</color>
+    <color name="white">@android:color/white</color>
+    <color name="hardWhite">#D9D9D9</color>
     <color name="black">#000000</color>
+    <color name="softGrey">#EEEEEE</color>
     <color name="grey">#DDDDDF</color>
+    <color name="hardGrey">#28282A</color>
+    <color name="green">#21C932</color>
+    <color name="darkGrey">#9D9D9D</color>
+
+    <color name="red">#CF2F0B</color>
+    <color name="status_green">#43969A</color>
+    <color name="status_blue">#022373</color>
+
+    <color name="flight_status_1">@color/black</color>
+    <color name="flight_status_2">@color/status_blue</color>
+    <color name="flight_status_3">@color/red</color>
+    <color name="flight_status_4">@color/status_green</color>
+    <color name="flight_status_5">@color/black</color>
+    <color name="flight_status_6">@color/status_green</color>
+    <color name="flight_status_7">@color/red</color>
+    <color name="flight_status_8">@color/red</color>
+    <color name="flight_status_9">@color/status_green</color>
+    <color name="flight_status_10">@color/black</color>
+    <color name="flight_status_11">@color/black</color>
+    <color name="flight_status_12">@color/red</color>
+    <color name="flight_status_13">@color/black</color>
+    <color name="flight_status_14">@color/black</color>
+    <color name="flight_status_15">@color/black</color>
+    <color name="flight_status_16">@color/red</color>
+
 </resources>

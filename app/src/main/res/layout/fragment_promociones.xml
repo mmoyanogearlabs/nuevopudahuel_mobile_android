@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="MissingPrefix" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:orientation="horizontal"
+        android:background="@color/grey"
+        android:id="@+id/flights_header_container">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/iconbarhome"
+            android:background="@android:color/transparent"
+            android:layout_centerVertical="true"
+            android:id="@+id/bar_home_button"
+            android:layout_alignParentLeft="true"
+            android:padding="@dimen/padding_10"/>
+
+        <TextView
+            fontPath="@string/avenir_roman"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/menuOptionPromosTitleKey"
+            android:textSize="@dimen/textSize20"
+            android:textColor="@color/softBlue"
+            android:layout_centerInParent="true"
+            android:id="@+id/flights_tittle" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/btnmenu"
+            android:background="@android:color/transparent"
+            android:layout_centerVertical="true"
+            android:id="@+id/home_menu_button"
+            android:layout_alignParentRight="true"
+            android:padding="@dimen/padding_10"/>
+
+    </RelativeLayout>
+
+    <com.massiva.nuevopudahuel.ui.scanner.ScannerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/promociones_scanner">
+
+    </com.massiva.nuevopudahuel.ui.scanner.ScannerView>
+
+
+</LinearLayout>

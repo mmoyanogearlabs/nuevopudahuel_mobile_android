@@ -1,0 +1,2 @@
+configurations.maybeCreate("default")
+artifacts.add("default", file('moca-sdk-android-1.8.11.aar'))

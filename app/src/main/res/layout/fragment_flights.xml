@@ -1,36 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:ignore="MissingPrefix" >
+    tools:ignore="MissingPrefix">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="?attr/actionBarSize"
         android:orientation="horizontal"
         android:layout_alignParentTop="true"
-        android:padding="@dimen/padding_10"
         android:background="@color/grey"
         android:id="@+id/flights_header_container">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/iconbarhome"
+            android:background="@android:color/transparent"
+            android:layout_centerVertical="true"
+            android:id="@+id/bar_home_button"
+            android:layout_alignParentLeft="true"
+            android:padding="@dimen/padding_10"/>
 
         <TextView
             fontPath="@string/avenir_roman"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/flightHeaderFlightTitleKey"
+            android:text="@string/menuOptionFlightsTitleKey"
             android:textSize="@dimen/textSize20"
             android:textColor="@color/softBlue"
-            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="true"
             android:id="@+id/flights_tittle"/>
 
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/btnmenu"
+            android:src="@drawable/btnmenu"
+            android:background="@android:color/transparent"
             android:layout_centerVertical="true"
             android:id="@+id/home_menu_button"
-            android:layout_alignParentRight="true"/>
+            android:layout_alignParentRight="true"
+            android:padding="@dimen/padding_10"/>
 
     </RelativeLayout>
 
@@ -52,7 +65,9 @@
             android:layout_marginLeft="@dimen/padding_5"
             android:padding="@dimen/padding_5"
             android:singleLine="true"
-            android:id="@+id/flights_editText"/>
+            android:id="@+id/flights_editText"
+            android:layout_marginRight="@dimen/padding_10"
+            android:layout_toLeftOf="@+id/flights_search"/>
 
         <ImageButton
             android:layout_width="wrap_content"
@@ -60,17 +75,17 @@
             android:layout_centerVertical="true"
             android:background="@drawable/iconlupa"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/padding_10"/>
+            android:layout_marginRight="@dimen/padding_10"
+            android:id="@+id/flights_search"/>
 
     </RelativeLayout>
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:id="@+id/flights_container"
         android:layout_gravity="center_horizontal"
-        android:layout_alignParentBottom="true"
         android:layout_below="@id/flights_editText_container">
 
     <LinearLayout
@@ -167,10 +182,10 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
+                android:layout_weight="2.3"
                 android:padding="@dimen/padding_10"
                 android:background="@android:color/transparent"
-                android:text="@string/flightHeaderOriginTitleKey"
+                android:text="@string/flightHeaderDestinationTitleKey"
                 android:textColor="@color/white"
                 android:id="@+id/flights_origen_button"
                 android:textAllCaps="false"/>
@@ -178,7 +193,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="1.2"
                 android:padding="@dimen/padding_10"
                 android:background="@android:color/transparent"
                 android:text="@string/flightHeaderTimeTitleKey"
@@ -189,23 +204,39 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1.5"
+                android:layout_weight="2"
                 android:padding="@dimen/padding_10"
                 android:background="@android:color/transparent"
                 android:text="@string/flightHeaderStatusTitleKey"
                 android:textColor="@color/white"
                 android:id="@+id/flights_estado_button"
-                android:textAllCaps="false"/>
+                android:textAllCaps="false"
+                android:gravity="right"/>
 
         </LinearLayout>
 
-        <android.support.v7.widget.RecyclerView
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/flightsRefreshLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/flights_list">
+            android:layout_height="match_parent">
 
-        </android.support.v7.widget.RecyclerView>
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/flights_list">
+
+            </android.support.v7.widget.RecyclerView>
+
+        </android.support.v4.widget.SwipeRefreshLayout>
 
     </LinearLayout>
+
+    <com.massiva.nuevopudahuel.banners.BannerView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:screenName="@string/banner_screen_flight"
+        app:autoLoad="true"
+        app:changeSize="true"
+        android:id="@+id/flights_banner"/>
 
 </RelativeLayout>

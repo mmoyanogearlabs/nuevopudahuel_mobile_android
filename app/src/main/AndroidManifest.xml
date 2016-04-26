@@ -1,8 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.cleverox.nuevopudahuel">
+    package="com.massiva.nuevopudahuel">
 
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus"/>
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <permission android:name="com.massiva.nuevopudahuel.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+    <uses-permission android:name="com.cleverox.nuevopudahuel.permission.C2D_MESSAGE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
     <application
         android:name=".base.PudahuelApplication"
@@ -22,6 +32,11 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".ui.activities.VideoSplashActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
             android:name=".ui.activities.SocialStartUpActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
@@ -30,7 +45,8 @@
             android:name=".ui.activities.HomeActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden"/>
         <activity
             android:name=".ui.activities.AlertActivity"
             android:label="@string/app_name"
@@ -42,6 +58,102 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"/>
 
+
+        <!-- FACEBOOK -->
+        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+        <activity android:name="com.facebook.FacebookActivity"
+            android:configChanges=
+                "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:label="@string/app_name" />
+        <provider android:authorities="com.facebook.app.FacebookContentProvider1043604535723233"
+            android:name="com.facebook.FacebookContentProvider"
+            android:exported="true" />
+
+        <!-- MOCA -->
+        <meta-data android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <meta-data android:name="moca.APP_KEY"
+            android:value="@string/moca_app_key"/>
+        <meta-data android:name="moca.APP_SECRET"
+            android:value="@string/moca_app_secret"/>
+        <meta-data android:name="moca.LOG_LEVEL"
+            android:value="none"/>
+        <meta-data android:name="moca.AUTOMATIC_PUSH_SETUP_ENABLED"
+            android:value="true"/>
+        <meta-data android:name="moca.PROXIMITY_SERVICE_ENABLED"
+            android:value="true" />
+        <meta-data android:name="moca.GEOLOCATION_SERVICE_ENABLED"
+            android:value="false" />
+        <meta-data android:name="moca.BACKGROUND_LOCATION_ENABLED"
+            android:value="true" />
+        <meta-data android:name="moca.DATA_FETCH_INTERVAL_MS"
+            android:value="auto" />
+        <meta-data android:name="moca.EVENT_UPLOAD_INTERVAL_MS"
+            android:value="auto" />
+        <meta-data android:name="moca.MOCA_DRIVER_ENABLED"
+            android:value="true" />
+
+
+        <meta-data android:name="moca.CUSTOM_PUSH_ICON" android:resource="@drawable/push_icon" />
+        <receiver android:name="com.innoquant.moca.push.MOCAPushReceiver"
+            android:exported="true"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.innoquant.moca.push.ACTION_PUSH_RECEIVE" />
+                <action android:name="com.innoquant.moca.push.ACTION_PUSH_DISMISSED" />
+            </intent-filter>
+        </receiver>
+
+        <!--Optional: Include it for remote push notifications-->
+        <!--Be careful with the space before the number-->
+        <meta-data android:name="moca.GCM_SENDER"
+            android:value="\ 950762352762" />
+
+        <!-- MOCA GcmTokenListener listens to token registrations/updates -->
+        <service android:name="com.innoquant.moca.push.GcmTokenListener"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.android.gms.iid.InstanceID"/>
+            </intent-filter>
+        </service>
+
+        <receiver
+            android:name=".push.NPPushReceiver"
+            android:exported="true"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+                <category android:name="com.massiva.nuevopudahuel" />
+            </intent-filter>
+        </receiver>
+        <service
+            android:name=".push.GcmIntentService"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".push.GcmRegistrationIntentService"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".push.NPInstanceIDListenerService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.android.gms.iid.InstanceID" />
+            </intent-filter>
+        </service>
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="1e14c430ceb6ed00eb4766b5b7e4e6e745dfb54c" />
     </application>
 
 </manifest>

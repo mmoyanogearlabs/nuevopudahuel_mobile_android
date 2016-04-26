@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-  <resources xmlns:tools="http://schemas.android.com/tools">
-  <string name="app_name">NuevoPudahuel</string>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">Airport AMB</string>
+    <string name="facebook_app_id">1043604535723233</string>
+
+    <string name="airportSantiagoChile">Santiago De Chile</string>
     <!-- Initial -->
     <string name="initialTitleKey">Síguenos</string>
     <string name="initialSubTitleKey">Lo compartimos todo contigo</string>
@@ -9,7 +12,7 @@
     <string name="homeDepartureButtonTitleKey">SALIDAS</string>
     <string name="homeArribalButtonTitleKey">LLEGADAS</string>
     <string name="homeMyFlightsButtonTitleKey">MIS VUELOS</string>
-    <string name="homeSearchFlightPlaceholderTextKey">Busca un vuelo...</string>
+    <string name="homeSearchFlightPlaceholderTextKey">Busca un vuelo (Línea Aérea, Número, Origen/destino)</string>
     <!-- Menu -->
     <string name="menuOptionHomeTitleKey">Home</string>
     <string name="menuOptionUserFlightsTitleKey">Mis Vuelos</string>
@@ -17,7 +20,7 @@
     <string name="menuOptionParkingTitleKey">Parking</string>
     <string name="menuOptionBeforeFlightTitleKey">Antes del Vuelo</string>
     <string name="menuOptionAirportTitleKey">En el Aeropuerto</string>
-    <string name="menuOptionPromosTitleKey">Promociones</string>
+    <string name="menuOptionPromosTitleKey">Informaciones QR</string>
     <string name="menuOptionConfigTitleKey">Configuración</string>
     <string name="menuOptionNewTitleKey">Nuevo Pudahuel</string>
     <string name="menuOptionParkingUrlKey">http://www.nuevopudahuel.cl/plano-del-aeropuerto</string>
@@ -52,8 +55,17 @@
     <string name="flightDetailShareErrorTwitterMsgKey">No puede enviar un tweet ahora, compruebe que su dispositivo tiene conexión a internet y tiene configurada una cuenta de Twitter.</string>
     <string name="flightDetailShareErrorCancelTitleKey">OK</string>
     <string name="flightDetailAlertCreatedTitleKey">Alerta activa para este vuelo</string>
+    <!-- Share-FlightDetail -->
+    <string name="shareDestination1TitleKey">Mi vuelo a</string>
+    <string name="shareDestination2TitleKey">despega a las</string>
+    <string name="shareOrigin1TitleKey">Mi vuelo desde</string>
+    <string name="shareOrigin2TitleKey">arriva</string>
+    <string name="shareEmail1TitleKey">Descarga la App para Iphone desde</string>
+    <string name="shareEmail2TitleKey">aquí</string>
+    <string name="shareEmail3TitleKey">y para Android desde</string>
     <!-- Config -->
     <string name="configHeaderTitleKey">Acá puedes habilitar las notificaciones que te enviaremos, ya sea información general de Nuevo Pudahuel o contenidos de nuestras tiendas</string>
+    <string name="aboutTextKey">- Concepto diseñado por: Cleverox.com\n- Desarrollado por: Moddity.net\n- Políticas de Privacidad: http://www.nuevopudahuel.cl/pol-ticas-de-privacidad</string>
     <!-- Config-Categories -->
     <string name="categoryKeyAll">Todas las categorias</string>
     <string name="categoryKeyGeneral">Información General</string>
@@ -76,4 +88,8 @@
     <string name="categoryKeyMinimarket">Minimarket</string>
     <string name="categoryKeyVestuarioAccesorios">Vestuario y Accesorios</string>
     <string name="categoryKeyChocolateriaDutyFree">Chocolatería Duty Free</string>
+    <!-- Android-Permisison -->
+    <string name="permissionDeniedLocation">La app no tiene permiso de ubicación, por favor revisa los permisos en Ajustes del dispositivo</string>
+    <string name="permissionDeniedCamera">La app no tiene permiso de cámara, por favor revisa los permisos en Ajustes del dispositivo</string>
+
 </resources>
