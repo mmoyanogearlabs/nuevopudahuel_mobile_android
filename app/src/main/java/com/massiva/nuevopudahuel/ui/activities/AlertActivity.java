@@ -1,14 +1,19 @@
 package com.massiva.nuevopudahuel.ui.activities;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.text.Html;
 import android.text.Spanned;
 import android.text.TextUtils;
@@ -18,6 +23,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bzutils.BZUtils;
+import com.facebook.share.model.SharePhoto;
+import com.facebook.share.model.SharePhotoContent;
+import com.facebook.share.widget.ShareDialog;
 import com.massiva.nuevopudahuel.R;
 import com.massiva.nuevopudahuel.api.RestCallback;
 import com.massiva.nuevopudahuel.api.response.FavoritesResponse;
@@ -25,9 +33,6 @@ import com.massiva.nuevopudahuel.banners.BannerView;
 import com.massiva.nuevopudahuel.base.BaseActivity;
 import com.massiva.nuevopudahuel.controllers.FlightsController;
 import com.massiva.nuevopudahuel.model.Flight;
-import com.facebook.share.model.SharePhoto;
-import com.facebook.share.model.SharePhotoContent;
-import com.facebook.share.widget.ShareDialog;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -280,14 +285,34 @@ public class AlertActivity extends BaseActivity implements View.OnClickListener,
                 configFavorito();
                 break;
             case R.id.btn_alerta_compartir:
-                LinearLayout flightContainer = $(R.id.alerta_flight_layout);
-                flightContainer.setDrawingCacheEnabled(true);
-                flightsDetailShareImageUri = saveFlightDetailImage(flightContainer.getDrawingCache());
-                if (flightsDetailShareImageUri != null)
-                    showChooserPicker(new String[]{getString(R.string.flightDetailShareEmailTitleKey), getString(R.string.flightDetailShareFacebookTitleKey),
-                            getString(R.string.flightDetailShareTwitterTitleKey)});
+                if (getPudahuelApplication().isPermissionGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                    saveImage();
+                } else if (Build.VERSION.SDK_INT >= 23) {
+                    ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, 11);
+                }
                 break;
         }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 11) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                saveImage();
+            } else {
+                BZUtils.showSimpleMessage(this, getString(R.string.permissionDeniedStorage));
+            }
+        }
+    }
+
+    private void saveImage() {
+        LinearLayout flightContainer = $(R.id.alerta_flight_layout);
+        flightContainer.setDrawingCacheEnabled(true);
+        flightsDetailShareImageUri = saveFlightDetailImage(flightContainer.getDrawingCache());
+        if (flightsDetailShareImageUri != null)
+            showChooserPicker(new String[]{getString(R.string.flightDetailShareEmailTitleKey), getString(R.string.flightDetailShareFacebookTitleKey),
+                    getString(R.string.flightDetailShareTwitterTitleKey)});
     }
 
     @Override
