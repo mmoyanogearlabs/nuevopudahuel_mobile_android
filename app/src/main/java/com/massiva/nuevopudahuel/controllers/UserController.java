@@ -95,7 +95,7 @@ public class UserController {
     }
 
     public String getStoredGoogleAID(PudahuelApplication application) {
-        return application.getStoredString(PudahuelPrefs.STORED_AID, null);
+        return application.getStoredString(PudahuelPrefs.STORED_AID, UUID.randomUUID().toString());
     }
 
     private void storedPushToken(PudahuelApplication application, String token) {

@@ -32,7 +32,8 @@ public class ScreenSlidePageFragment extends BaseFragment implements View.OnClic
         //Declarar imageview
         ImageView img = $(R.id.slide_image);
         img.setOnClickListener(this);
-        getBaseActivity().getPudahuelApplication().loadImageUrl(item.getImageUrl(), img, 0);
+        if (getBaseActivity() != null && getBaseActivity().getPudahuelApplication() != null && item != null)
+            getBaseActivity().getPudahuelApplication().loadImageUrl(item.getImageUrl(), img, 0);
     }
 
     @Override
