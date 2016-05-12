@@ -206,11 +206,11 @@ public class FlightsController {
         try {
             int i = context.getResources().getIdentifier("flight_status_" + flight.getStatusId(), "color", context.getPackageName());
             if (i == 0) {
-                return context.getResources().getIdentifier("flight_status_1", "color", context.getPackageName());
+                return context.getResources().getIdentifier("flight_status_0", "color", context.getPackageName());
             }
             return i;
         } catch (Exception e) {
-            return context.getResources().getIdentifier("flight_status_1", "color", context.getPackageName());
+            return context.getResources().getIdentifier("flight_status_0", "color", context.getPackageName());
         }
     }
 }
