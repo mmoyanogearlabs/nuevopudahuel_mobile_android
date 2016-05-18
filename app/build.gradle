@@ -108,7 +108,7 @@ dependencies {
     compile 'com.facebook.android:facebook-android-sdk:4.+'
 
     //MOCA
-    compile project(':moca-sdk-android-1.8.11')
+    compile project(':moca-sdk-android-1.9.0-beta')
 
     //TRACKING
     compile 'com.flurry.android:analytics:6.2.0'
