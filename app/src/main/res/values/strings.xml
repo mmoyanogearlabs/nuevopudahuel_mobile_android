@@ -93,4 +93,5 @@
     <string name="permissionDeniedCamera">La app no tiene permiso de cámara, por favor revisa los permisos en Ajustes del dispositivo</string>
     <string name="permissionDeniedStorage">La app no tiene permiso de almacenaje, por favor revisa los permisos en Ajustes del dispositivo</string>
 
+    <string name="bluetoothDisableNotification">Enciende tu Bluetooth y te sorprenderás</string>
 </resources>
