@@ -177,7 +177,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
                 .beginTransaction()
                 .replace(R.id.menuMain_fragment, targetFragment, targetFragment.getClass().getName())
                 .setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                .commit();
+                .commitAllowingStateLoss();
         closeMenu();
     }
 

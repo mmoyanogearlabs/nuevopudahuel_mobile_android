@@ -19,6 +19,7 @@
     <color name="status_green">#43969A</color>
     <color name="status_blue">#022373</color>
 
+    <color name="flight_status_0">@color/black</color>
     <color name="flight_status_1">@color/black</color>
     <color name="flight_status_2">@color/status_blue</color>
     <color name="flight_status_3">@color/red</color>
@@ -35,5 +36,6 @@
     <color name="flight_status_14">@color/black</color>
     <color name="flight_status_15">@color/black</color>
     <color name="flight_status_16">@color/red</color>
+    <color name="flight_status_17">@color/black</color>
 
 </resources>

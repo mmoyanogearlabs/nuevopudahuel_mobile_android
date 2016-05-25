@@ -10,12 +10,6 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.bzutils.BZUtils;
-import com.massiva.nuevopudahuel.R;
-import com.massiva.nuevopudahuel.api.services.BannerService;
-import com.massiva.nuevopudahuel.api.services.FlightsService;
-import com.massiva.nuevopudahuel.constants.Constants;
-import com.massiva.nuevopudahuel.constants.PudahuelPrefs;
-import com.massiva.nuevopudahuel.controllers.TrackingController;
 import com.crashlytics.android.Crashlytics;
 import com.facebook.FacebookSdk;
 import com.flurry.android.FlurryAgent;
@@ -29,6 +23,14 @@ import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import com.innoquant.moca.MOCA;
+import com.innoquant.moca.MOCAProximityService;
+import com.massiva.nuevopudahuel.R;
+import com.massiva.nuevopudahuel.api.services.BannerService;
+import com.massiva.nuevopudahuel.api.services.FlightsService;
+import com.massiva.nuevopudahuel.constants.Constants;
+import com.massiva.nuevopudahuel.constants.PudahuelPrefs;
+import com.massiva.nuevopudahuel.controllers.TrackingController;
+import com.massiva.nuevopudahuel.moca.MocaEventListener;
 import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -80,6 +82,9 @@ public class PudahuelApplication extends MultiDexApplication {
 
     private void initMoca() {
         MOCA.initializeSDK (this);
+        MocaEventListener listener = new MocaEventListener(this);
+        MOCAProximityService proximityService = MOCA.getProximityService();
+        proximityService.setActionListener(listener);
     }
 
     private void initRealm() {

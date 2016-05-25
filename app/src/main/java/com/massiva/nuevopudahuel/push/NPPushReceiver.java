@@ -44,7 +44,7 @@ public class NPPushReceiver extends GcmPushReceiver {
 
     }
 
-    private void sendNotification(Context context, String message, String title) {
+    public static void sendNotification(Context context, String message, String title) {
         NotificationManager mNotificationManager = (NotificationManager)
                 context.getSystemService(Context.NOTIFICATION_SERVICE);
 
