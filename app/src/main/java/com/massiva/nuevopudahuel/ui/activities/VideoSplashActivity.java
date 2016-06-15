@@ -7,6 +7,8 @@ import android.widget.VideoView;
 
 import com.massiva.nuevopudahuel.R;
 import com.massiva.nuevopudahuel.base.BaseActivity;
+import com.massiva.nuevopudahuel.base.PudahuelApplication;
+import com.massiva.nuevopudahuel.constants.PudahuelPrefs;
 
 /**
  * Created by iaguila on 15/3/16.
@@ -34,8 +36,15 @@ public class VideoSplashActivity extends BaseActivity implements MediaPlayer.OnC
 
     @Override
     public void onCompletion(MediaPlayer mp) {
-        Intent intent = new Intent(this, SocialStartUpActivity.class);
-        startActivity(intent);
-        finish();
+        String dontShowSocial = ((PudahuelApplication) this.getApplication()).getStoredString(PudahuelPrefs.DONT_SHOW_SOCIAL, "false");
+
+        if (dontShowSocial.equals("true")) {
+            startActivity(new Intent(this, HomeActivity.class));
+            finish();
+        } else {
+            Intent intent = new Intent(this, SocialStartUpActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 }
