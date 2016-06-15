@@ -8,6 +8,7 @@
     <string name="initialTitleKey">Síguenos</string>
     <string name="initialSubTitleKey">Lo compartimos todo contigo</string>
     <string name="initialButtonTitleKey">Recordar más tarde</string>
+    <string name="noRememberButtonKey">No recordar</string>
     <!-- Home -->
     <string name="homeDepartureButtonTitleKey">SALIDAS</string>
     <string name="homeArribalButtonTitleKey">LLEGADAS</string>
