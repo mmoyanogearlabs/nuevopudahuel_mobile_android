@@ -36,6 +36,7 @@ public class SocialStartUpActivity extends BaseActivity implements View.OnClickL
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.social_remember:
+                ((PudahuelApplication)this.getApplication()).storeString(PudahuelPrefs.DONT_SHOW_SOCIAL, "false");
                 startActivity(new Intent(this, HomeActivity.class));
                 finish();
                 return;
