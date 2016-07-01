@@ -11,4 +11,5 @@ public abstract class PudahuelPrefs {
     public static final String BANNERS_API_TOKEN = "BANNERS_API_TOKEN";
     public static final String PUSH_TOKEN = "PUSH_TOKEN";
     public static final String CONFIG_CATEGORIES = "CONFIG_CATEGORIES";
+    public static final String DONT_SHOW_SOCIAL = "DONT_SHOW_SOCIAL";
 }

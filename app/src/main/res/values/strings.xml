@@ -8,6 +8,7 @@
     <string name="initialTitleKey">Síguenos</string>
     <string name="initialSubTitleKey">Lo compartimos todo contigo</string>
     <string name="initialButtonTitleKey">Recordar más tarde</string>
+    <string name="noRememberButtonKey">No recordar</string>
     <!-- Home -->
     <string name="homeDepartureButtonTitleKey">SALIDAS</string>
     <string name="homeArribalButtonTitleKey">LLEGADAS</string>
@@ -66,6 +67,8 @@
     <!-- Config -->
     <string name="configHeaderTitleKey">Acá puedes habilitar las notificaciones que te enviaremos, ya sea información general de Nuevo Pudahuel o contenidos de nuestras tiendas</string>
     <string name="aboutTextKey">- Concepto diseñado por: Cleverox.com\n- Desarrollado por: Moddity.net\n- Políticas de Privacidad: http://www.nuevopudahuel.cl/pol-ticas-de-privacidad</string>
+    <string name="socialNetworksConfig">Redes sociales</string>
+    <string name="socialNetworksConfigAction">Setup</string>
     <!-- Config-Categories -->
     <string name="categoryKeyAll">Todas las categorias</string>
     <string name="categoryKeyGeneral">Información General</string>

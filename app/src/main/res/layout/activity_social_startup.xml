@@ -64,16 +64,35 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <Button
+        fontPath="@string/economica_bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/noRememberButtonKey"
+        android:textColor="@color/softBlue"
+        android:textSize="@dimen/textSize14"
+        android:background="@android:color/transparent"
+        android:layout_below="@+id/linearLayout"
+        android:id="@+id/social_dont_remember"
+        android:layout_alignStart="@id/linearLayout"
+        android:layout_alignLeft="@+id/linearLayout"
+        android:textAlignment="textStart" />
+
     <Button
         fontPath="@string/economica_bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/initialButtonTitleKey"
         android:textColor="@color/softBlue"
-        android:textSize="@dimen/padding_10"
+        android:textSize="@dimen/textSize14"
+        android:layout_marginLeft="@dimen/padding_15"
         android:layout_below="@+id/linearLayout"
-        android:layout_centerHorizontal="true"
         android:background="@android:color/transparent"
-        android:id="@+id/social_remember"/>
+        android:id="@+id/social_remember"
+        android:layout_alignEnd="@id/linearLayout"
+        android:layout_alignRight="@+id/linearLayout"
+        android:textAlignment="textEnd" />
+
 
 </RelativeLayout>

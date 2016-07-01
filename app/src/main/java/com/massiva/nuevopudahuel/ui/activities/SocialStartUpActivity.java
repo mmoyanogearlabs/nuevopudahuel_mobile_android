@@ -8,6 +8,8 @@ import android.view.View;
 
 import com.massiva.nuevopudahuel.R;
 import com.massiva.nuevopudahuel.base.BaseActivity;
+import com.massiva.nuevopudahuel.base.PudahuelApplication;
+import com.massiva.nuevopudahuel.constants.PudahuelPrefs;
 import com.massiva.nuevopudahuel.controllers.SyncController;
 
 
@@ -27,13 +29,19 @@ public class SocialStartUpActivity extends BaseActivity implements View.OnClickL
         $(R.id.social_twitter).setOnClickListener(this);
         $(R.id.social_instagram).setOnClickListener(this);
         $(R.id.social_remember).setOnClickListener(this);
-
+        $(R.id.social_dont_remember).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.social_remember:
+                ((PudahuelApplication)this.getApplication()).storeString(PudahuelPrefs.DONT_SHOW_SOCIAL, "false");
+                startActivity(new Intent(this, HomeActivity.class));
+                finish();
+                return;
+            case R.id.social_dont_remember:
+                ((PudahuelApplication)this.getApplication()).storeString(PudahuelPrefs.DONT_SHOW_SOCIAL, "true");
                 startActivity(new Intent(this, HomeActivity.class));
                 finish();
                 return;

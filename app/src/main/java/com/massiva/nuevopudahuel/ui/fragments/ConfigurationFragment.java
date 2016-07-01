@@ -1,5 +1,6 @@
 package com.massiva.nuevopudahuel.ui.fragments;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 import android.text.Html;
@@ -13,8 +14,11 @@ import android.widget.TextView;
 import com.bzutils.BZScreenHelper;
 import com.massiva.nuevopudahuel.R;
 import com.massiva.nuevopudahuel.base.HomeFragment;
+import com.massiva.nuevopudahuel.base.PudahuelApplication;
+import com.massiva.nuevopudahuel.constants.PudahuelPrefs;
 import com.massiva.nuevopudahuel.controllers.ConfigurationCategoriesController;
 import com.massiva.nuevopudahuel.model.ConfigCategory;
+import com.massiva.nuevopudahuel.ui.activities.SocialStartUpActivity;
 import com.massiva.nuevopudahuel.ui.custom.NPSwitch;
 
 import java.util.List;
@@ -42,6 +46,13 @@ public class ConfigurationFragment extends HomeFragment implements CompoundButto
 
         TextView info = $(R.id.configuration_info);
         info.setTextColor(Color.WHITE);
+
+        TextView socialTv = $(R.id.socialNetwork);
+        socialTv.setTextColor(Color.WHITE);
+        TextView socialTvSetup = $(R.id.socialNetworkSetup);
+        socialTvSetup.setTextColor(Color.WHITE);
+
+        socialTvSetup.setOnClickListener(this);
     }
 
     private void configList() {
@@ -147,7 +158,16 @@ public class ConfigurationFragment extends HomeFragment implements CompoundButto
 
     @Override
     public void onClick(View v) {
-//        updateSwitches(v);
+        switch (v.getId()) {
+            case R.id.socialNetworkSetup:
+                ((PudahuelApplication)this.getActivity().getApplication()).storeString(PudahuelPrefs.DONT_SHOW_SOCIAL, "true");
+                Intent intent = new Intent(this.getActivity(), SocialStartUpActivity.class);
+                startActivity(intent);
+                this.getActivity().finish();
+                break;
+            default:
+                break;
+        }
     }
 
     @Override

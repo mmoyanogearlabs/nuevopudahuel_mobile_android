@@ -44,6 +44,36 @@
 
     </RelativeLayout>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/social_configuration"
+        android:padding="@dimen/padding_15"
+        android:background="@color/hardGrey">
+
+        <TextView
+            fontPath="@string/avenir_roman"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/padding_5"
+            android:id="@+id/socialNetwork"
+            android:textColor="@color/white"
+            android:text="@string/socialNetworksConfig"
+            android:layout_toLeftOf="@+id/socialNetworkSetup" />
+
+        <TextView
+            fontPath="@string/avenir_roman"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textColor="@color/white"
+            android:layout_alignParentRight="true"
+            android:id="@+id/socialNetworkSetup"
+            android:text="@string/socialNetworksConfigAction"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
