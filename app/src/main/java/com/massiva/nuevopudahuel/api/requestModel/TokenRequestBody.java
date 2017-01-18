@@ -8,10 +8,12 @@ public class TokenRequestBody {
     private String vendorId;
     private String clientId;
     private String clientSecret;
+    private String locale;
 
-    public TokenRequestBody(String vendorId, String clientId, String clientSecret) {
+    public TokenRequestBody(String vendorId, String clientId, String clientSecret, String locale) {
         this.vendorId = vendorId;
         this.clientId = clientId;
         this.clientSecret = clientSecret;
+        this.locale = locale;
     }
 }

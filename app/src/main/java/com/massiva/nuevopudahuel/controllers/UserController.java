@@ -16,6 +16,7 @@ import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 
 import java.io.IOException;
+import java.util.Locale;
 import java.util.UUID;
 
 import retrofit.RetrofitError;
@@ -66,7 +67,8 @@ public class UserController {
 
     private void getAPIToken(final PudahuelApplication application) {
         BannerController.getInstance().getAPIToken(application);
-        TokenRequestBody requestBody = new TokenRequestBody(getStoredGoogleAID(application), Constants.FLIGHTS_API_CLIENT_ID, Constants.FLIGHTS_API_CLIENT_SECRET);
+        TokenRequestBody requestBody = new TokenRequestBody(getStoredGoogleAID(application), Constants.FLIGHTS_API_CLIENT_ID, Constants.FLIGHTS_API_CLIENT_SECRET,
+                Locale.getDefault().getLanguage());
         application.getService().getAccessToken(requestBody, new RestCallback<TokenResponse>() {
             @Override
             public void failure(RetrofitError error) {

@@ -10,6 +10,8 @@ import com.massiva.nuevopudahuel.constants.PudahuelPrefs;
 import com.massiva.nuevopudahuel.controllers.CarrouselController;
 import com.massiva.nuevopudahuel.controllers.UserController;
 
+import java.util.Locale;
+
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
@@ -28,7 +30,7 @@ public class BannerController {
 
     public void getAPIToken(final PudahuelApplication application) {
         TokenRequestBody requestBody = new TokenRequestBody(UserController.getInstance().getStoredGoogleAID(application),
-                Constants.BANNERS_API_CLIENT_ID, Constants.BANNERS_API_CLIENT_SECRET);
+                Constants.BANNERS_API_CLIENT_ID, Constants.BANNERS_API_CLIENT_SECRET, Locale.getDefault().getLanguage());
         application.getBannerService().getAccessToken(requestBody, new RestCallback<TokenResponse>() {
             @Override
             public void failure(RetrofitError error) {
