@@ -43,7 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="@dimen/padding_5"
+            android:layout_marginTop="@dimen/padding_3"
             android:layout_marginLeft="@dimen/padding_20"
             android:layout_marginRight="@dimen/padding_20">
 
@@ -53,7 +53,7 @@
                 android:orientation="horizontal"
                 android:id="@+id/alerta_created_layout"
                 android:gravity="center_vertical"
-                android:layout_marginBottom="@dimen/padding_5">
+                android:layout_marginBottom="@dimen/padding_3">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -79,7 +79,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#313030"
-                    android:padding="@dimen/padding_5">
+                    android:padding="@dimen/padding_3">
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -137,8 +137,8 @@
                     android:orientation="horizontal"
                     android:id="@+id/alerta_subtitle"
                     android:background="@color/softBlue"
-                    android:paddingTop="@dimen/padding_3"
-                    android:paddingBottom="@dimen/padding_3"
+                    android:paddingTop="@dimen/padding_1"
+                    android:paddingBottom="@dimen/padding_1"
                     android:paddingLeft="@dimen/padding_15"
                     android:paddingRight="@dimen/padding_15">
 
@@ -196,6 +196,13 @@
                             android:text="@string/flightDetailStatusTitleKey"
                             android:textSize="@dimen/textSize15" />
 
+                        <TextView
+                            fontPath="@string/avenir_medium"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/alerta_gate_belt_title"
+                            android:textSize="@dimen/textSize15" />
+
                     </LinearLayout>
 
                     <LinearLayout
@@ -227,6 +234,13 @@
                             android:layout_height="wrap_content"
                             android:textSize="@dimen/textSize15"
                             android:id="@+id/alerta_estado"/>
+
+                        <TextView
+                            fontPath="@string/avenir_roman"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/textSize15"
+                            android:id="@+id/alerta_gate_belt"/>
 
                     </LinearLayout>
 

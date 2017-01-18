@@ -107,6 +107,10 @@ public class AlertActivity extends BaseActivity implements View.OnClickListener,
         stopOver.setText(currentFlight.getStopOver());
         stopOver.setTextColor(Color.WHITE);
         $(R.id.alerta_stopcover).setVisibility(TextUtils.isEmpty(currentFlight.getStopOver()) ? View.INVISIBLE : View.VISIBLE);
+        TextView gateBeltTitle = $(R.id.alerta_gate_belt_title);
+        gateBeltTitle.setText(currentFlight.isArrival() ? getString(R.string.flightDetailArrivalGateTitleKey) : getString(R.string.flightDetailDepartureGateTitleKey));
+        TextView gateBelt = $(R.id.alerta_gate_belt);
+        gateBelt.setText(currentFlight.isArrival() ? currentFlight.getBelt() : currentFlight.getGate());
     }
 
     private void configFavorito() {
