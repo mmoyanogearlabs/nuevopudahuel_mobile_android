@@ -76,6 +76,84 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/logohomebig"/>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="@dimen/padding_30"
+                    android:layout_marginRight="@dimen/padding_30"
+                    android:layout_marginTop="@dimen/padding_3">
+
+                    <TextView
+                        fontPath="@string/avenir_book"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/homeWaitTimeTitleKey"
+                        android:textColor="@color/grey"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="horizontal"
+                            android:layout_marginRight="@dimen/padding_3"
+                            android:padding="@dimen/padding_3"
+                            android:background="@drawable/dashboard_wait_background"
+                            android:gravity="center">
+
+                            <TextView
+                                fontPath="@string/avenir_book"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/homeWaitTimeNationalTitleKey"
+                                android:layout_marginRight="@dimen/padding_5"/>
+
+                            <TextView
+                                fontPath="@string/avenir_book"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/red"
+                                android:id="@+id/home_wait_national"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="horizontal"
+                            android:layout_marginLeft="@dimen/padding_3"
+                            android:padding="@dimen/padding_3"
+                            android:background="@drawable/dashboard_wait_background"
+                            android:gravity="center">
+
+                            <TextView
+                                fontPath="@string/avenir_book"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/homeWaitTimeInternationalTitleKey"
+                                android:layout_marginRight="@dimen/padding_5"/>
+
+                            <TextView
+                                fontPath="@string/avenir_book"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/red"
+                                android:layout_alignParentRight="true"
+                                android:id="@+id/home_wait_international"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
             </LinearLayout>
 
             <LinearLayout

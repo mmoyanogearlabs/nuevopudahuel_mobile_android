@@ -26,7 +26,9 @@ import com.bzutils.LogBZ;
 import com.massiva.nuevopudahuel.R;
 import com.massiva.nuevopudahuel.banners.BannerView;
 import com.massiva.nuevopudahuel.base.HomeFragment;
+import com.massiva.nuevopudahuel.controllers.QueuesController;
 import com.massiva.nuevopudahuel.controllers.WeatherController;
+import com.massiva.nuevopudahuel.model.Queue;
 import com.massiva.nuevopudahuel.model.Weather;
 
 import io.realm.RealmChangeListener;
@@ -41,6 +43,7 @@ public class DashboardFragment extends HomeFragment implements View.OnClickListe
     private ImageView weatherIcon;
     private TextView weatherText;
     private Weather weather;
+    private Queue queue;
     private BannerView banner;
     private int bannerHeight = 0;
 
@@ -76,6 +79,12 @@ public class DashboardFragment extends HomeFragment implements View.OnClickListe
             configWeather();
         }
 
+        queue = QueuesController.getInstance().getQueues(getBaseActivity().getRealm());
+        if (queue != null) {
+            queue.addChangeListener(this);
+            configQueues();
+        }
+
         LinearLayout searchContainer = $(R.id.dash_search_container);
         Bitmap roundedLeft = BitmapFactory.decodeResource(getResources(), R.drawable.btnsalidashome);
         Bitmap roundedRight = BitmapFactory.decodeResource(getResources(), R.drawable.btnllegadashome);
@@ -108,13 +117,24 @@ public class DashboardFragment extends HomeFragment implements View.OnClickListe
     }
 
     private void configWeather() {
-        weatherText.setText(weather.getTemperature() + "");
-        try {
-            weatherIcon.setImageResource(getResources().getIdentifier("w" + weather.getIcon(), "drawable", getBaseActivity().getPackageName()));
-            weatherIcon.setVisibility(View.VISIBLE);
-        } catch (Exception e) {
-            e.printStackTrace();
-            weatherIcon.setVisibility(View.INVISIBLE);
+        if (weather != null) {
+            weatherText.setText(weather.getTemperature() + "");
+            try {
+                weatherIcon.setImageResource(getResources().getIdentifier("w" + weather.getIcon(), "drawable", getBaseActivity().getPackageName()));
+                weatherIcon.setVisibility(View.VISIBLE);
+            } catch (Exception e) {
+                e.printStackTrace();
+                weatherIcon.setVisibility(View.INVISIBLE);
+            }
+        }
+    }
+
+    private void configQueues() {
+        if (queue != null) {
+            TextView national = $(R.id.home_wait_national);
+            national.setText(queue.getNational() + " min.");
+            TextView international = $(R.id.home_wait_international);
+            international.setText(queue.getInternational() + " min.");
         }
     }
 
@@ -146,6 +166,7 @@ public class DashboardFragment extends HomeFragment implements View.OnClickListe
     @Override
     public void onChange() {
         configWeather();
+        configQueues();
     }
 
     @Override

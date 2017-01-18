@@ -4,6 +4,7 @@ import com.bzutils.LogBZ;
 import com.massiva.nuevopudahuel.api.RestCallback;
 import com.massiva.nuevopudahuel.api.response.FavoritesResponse;
 import com.massiva.nuevopudahuel.api.response.FlightResponse;
+import com.massiva.nuevopudahuel.api.response.QueueResponse;
 import com.massiva.nuevopudahuel.base.PudahuelApplication;
 import com.massiva.nuevopudahuel.model.Weather;
 
@@ -46,13 +47,13 @@ public class SyncController {
                 @Override
                 public void failure(RetrofitError error) {
                     super.failure(error);
-                    syncArrivals(application);
+                    syncQueues(application);
                 }
 
                 @Override
                 public void success(Weather weather, Response response) {
                     super.success(weather, response);
-                    syncArrivals(application);
+                    syncQueues(application);
                 }
             });
         }
@@ -64,6 +65,22 @@ public class SyncController {
             timer.cancel();
             timer = null;
         }
+    }
+
+    private void syncQueues(final PudahuelApplication application) {
+        QueuesController.getInstance().requestQueues(application, new RestCallback<QueueResponse>() {
+            @Override
+            public void failure(RetrofitError error) {
+                super.failure(error);
+                syncArrivals(application);
+            }
+
+            @Override
+            public void success(QueueResponse queueResponse, Response response) {
+                super.success(queueResponse, response);
+                syncArrivals(application);
+            }
+        });
     }
 
     private void syncArrivals(final PudahuelApplication application) {

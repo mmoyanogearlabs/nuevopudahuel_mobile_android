@@ -100,4 +100,8 @@
 
     <string name="flightDetailDepartureGateTitleKey">Puerta</string>
     <string name="flightDetailArrivalGateTitleKey">Cinta</string>
+
+    <string name="homeWaitTimeTitleKey">Tiempo de espera en Seguridad</string>
+    <string name="homeWaitTimeNationalTitleKey">Nacional</string>
+    <string name="homeWaitTimeInternationalTitleKey">Internacional</string>
 </resources>

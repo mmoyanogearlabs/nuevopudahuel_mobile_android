@@ -6,6 +6,7 @@ import com.massiva.nuevopudahuel.api.requestModel.TokenRequestBody;
 import com.massiva.nuevopudahuel.api.response.BaseResponse;
 import com.massiva.nuevopudahuel.api.response.FavoritesResponse;
 import com.massiva.nuevopudahuel.api.response.FlightResponse;
+import com.massiva.nuevopudahuel.api.response.QueueResponse;
 import com.massiva.nuevopudahuel.api.response.TokenResponse;
 import com.massiva.nuevopudahuel.api.response.WeatherResponse;
 
@@ -45,4 +46,7 @@ public interface FlightsService {
 
     @POST("/register_push")
     void registerPush(@Header(HEADER_AUTHORIZATION) String token, @Body RegisterPushRequestBody body, RestCallback<BaseResponse> callback);
+
+    @GET("/queues")
+    void getQueue(@Header(HEADER_AUTHORIZATION) String token, RestCallback<QueueResponse> callback);
 }
