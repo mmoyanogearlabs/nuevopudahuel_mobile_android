@@ -112,6 +112,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/homeWaitTimeNationalTitleKey"
+                                android:textColor="@color/darkGrey"
                                 android:layout_marginRight="@dimen/padding_5"/>
 
                             <TextView
@@ -138,6 +139,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/homeWaitTimeInternationalTitleKey"
+                                android:textColor="@color/darkGrey"
                                 android:layout_marginRight="@dimen/padding_5"/>
 
                             <TextView

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="airportSantiagoChile">Santiago De Chile</string>
+    <!-- Initial -->
+    <string name="initialTitleKey">Follow Us</string>
+    <string name="initialSubTitleKey">We share everything with you</string>
+    <string name="initialButtonTitleKey">Remember later</string>
+    <string name="noRememberButtonKey">Do not remember</string>
+    <!-- Home -->
+    <string name="homeDepartureButtonTitleKey">DEPARTURES</string>
+    <string name="homeArribalButtonTitleKey">ARRIVING</string>
+    <string name="homeMyFlightsButtonTitleKey">My Flights</string>
+    <string name="homeSearchFlightPlaceholderTextKey">Check for Flight (Airline, Flight, Origin/Destination)</string>
+    <string name="homeWaitTimeTitleKey">Wait time thru security</string>
+    <string name="homeWaitTimeNationalTitleKey">National</string>
+    <string name="homeWaitTimeInternationalTitleKey">International</string>
+    <!-- Menu -->
+    <string name="menuOptionHomeTitleKey">Home</string>
+    <string name="menuOptionUserFlightsTitleKey">My Flights</string>
+    <string name="menuOptionFlightsTitleKey">Flights</string>
+    <string name="menuOptionParkingTitleKey">Parking</string>
+    <string name="menuOptionBeforeFlightTitleKey">Before your Flight</string>
+    <string name="menuOptionAirportTitleKey">At the Airport</string>
+    <string name="menuOptionPromosTitleKey">QR Informations</string>
+    <string name="menuOptionConfigTitleKey">Config</string>
+    <string name="menuOptionNewTitleKey">Nuevo Pudahuel</string>
+    <string name="menuOptionViaDirectTitleKey">Floor Plans</string>
+    <string name="menuOptionParkingUrlKey">http://www.nuevopudahuel.cl/plano-del-aeropuerto</string>
+    <string name="menuOptionBeforeUrlKey">http://www.nuevopudahuel.cl/antes-del-vuelo</string>
+    <string name="menuOptionAirportUrlKey">http://www.nuevopudahuel.cl/en-el-aeropuerto</string>
+    <!-- Flight -->
+    <string name="flightHeaderFlightTitleKey">Flight</string>
+    <string name="flightHeaderOriginTitleKey">Origin</string>
+    <string name="flightHeaderDestinationTitleKey">Destination</string>
+    <string name="flightHeaderTimeTitleKey">Time</string>
+    <string name="flightHeaderStatusTitleKey">Status</string>
+    <!-- Flight Detail -->
+    <string name="flightDetailAlertTitleKey">Alerta</string>
+    <string name="flightDetailFlightTitleKey">Vuelo</string>
+    <string name="flightDetailTimeTitleKey">Time</string>
+    <string name="flightDetailStatusTitleKey">Status</string>
+    <string name="flightDetailCreateAlertTitleKey">Create an alert for this flight </string>
+    <string name="flightDetailDisableAlertTitleKey">Delete alert for this flight </string>
+    <string name="flightDetailShareTitleKey">Share this Flight</string>
+    <string name="flightDetailAlertCreateTitleKey">Alert created</string>
+    <string name="flightDetailAlertCreateMsgKey"> You can manage all your alerts from My flights.</string>
+    <string name="flightDetailAlertCreateOkTitleKey">OK</string>
+    <string name="flightDetailAlertDisableTitleKey">Removed Alert</string>
+    <string name="flightDetailAlertDisableMsgKey"> You can re-create an alert whenever you want.</string>
+    <string name="flightDetailShareEmailTitleKey">Email</string>
+    <string name="flightDetailShareFacebookTitleKey">Facebook</string>
+    <string name="flightDetailShareTwitterTitleKey">Twitter</string>
+    <string name="flightDetailShareCancelTitleKey">Cancel</string>
+    <string name="flightDetailShareErrorTitleKey">Error</string>
+    <string name="flightDetailShareErrorEmailMsgKey">You can not connect to your email now, make sure your device has an internet connection, and you have an Email account set up.</string>
+    <string name="flightDetailShareErrorFacebookMsgKey">You can not connect to Facebook now, check that your device has an internet connection and you have a Facebook account set up.</string>
+    <string name="flightDetailShareErrorTwitterMsgKey">You can not send a tweet now, check that your device has an internet connection and has a Twitter account set up.</string>
+    <string name="flightDetailShareErrorCancelTitleKey">OK</string>
+    <string name="flightDetailAlertCreatedTitleKey">Active alert for this flight</string>
+    <string name="flightDetailDepartureGateTitleKey">Gate</string>
+    <string name="flightDetailArrivalGateTitleKey">Belt</string>
+    <!-- Share-FlightDetail -->
+    <string name="shareDestination1TitleKey">My Flight to</string>
+    <string name="shareDestination2TitleKey">Takes off at</string>
+    <string name="shareOrigin1TitleKey">My Flight from</string>
+    <string name="shareOrigin2TitleKey">arrives</string>
+    <string name="shareEmail1TitleKey">Download the iPhone App from</string>
+    <string name="shareEmail2TitleKey">here</string>
+    <string name="shareEmail3TitleKey">and for Android from</string>
+    <!-- Config -->
+    <string name="configHeaderTitleKey">Here you can enable the notifications that we will send you, such as general information about Nuevo Pudahuel or contents of our stores.</string>
+    <string name="aboutTextKey">- Concept Design by: Cleverox.com\n- Develop by: Moddity.net\n- Privacy Policy: http://www.nuevopudahuel.cl/pol-ticas-de-privacidad</string>
+    <string name="socialNetworksConfig">Social Network</string>
+    <string name="socialNetworksConfigAction">Setup</string>
+    <!-- Config-Categories -->
+    <string name="categoryKeyAll">All Categories</string>
+    <string name="categoryKeyGeneral">General Information</string>
+    <string name="categoryKeyTurismo">Tourism</string>
+    <string name="categoryKeyTransporte">Transport</string>
+    <string name="categoryKeyHotel">Hotel</string>
+    <string name="categoryKeyCasasCambio">Money Exchange</string>
+    <string name="categoryKeyAsistenciaViaje">Travel Assistance</string>
+    <string name="categoryKeyJardinInfantil">Kinder garden</string>
+    <string name="categoryKeyBanco">Bank</string>
+    <string name="categoryKeyTelefonia">Telephony</string>
+    <string name="categoryKeySalud">Health</string>
+    <string name="categoryKeyFarmacias">Drugstore</string>
+    <string name="categoryKeyRestaurantes">Restaurantes</string>
+    <string name="categoryKeyCuidadoPersonal">Personal Care</string>
+    <string name="categoryKeyMusica">Music</string>
+    <string name="categoryKeyTecnologia">Tecnology</string>
+    <string name="categoryKeyVinosLicores">Wines and liqueur</string>
+    <string name="categoryKeyJugueterias">Toy Store</string>
+    <string name="categoryKeyMinimarket">Minimarket</string>
+    <string name="categoryKeyVestuarioAccesorios">Clothing and Accessories</string>
+    <string name="categoryKeyChocolateriaDutyFree">Chocolate Duty Free</string>
+    <!-- Android-Permisison -->
+    <string name="permissionDeniedLocation">App does not have location permission, please check the permissions in Device Settings</string>
+    <string name="permissionDeniedCamera">The app does not have camera permission, please check the permissions in Device Settings </string>
+    <!-- Alerts -->
+    <string name="bluetoothDisableNotification">Turn on your Bluetooth and you\'ll be surprised</string>
+</resources>
