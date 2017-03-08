@@ -27,6 +27,7 @@
     <string name="menuOptionParkingUrlKey">http://www.nuevopudahuel.cl/plano-del-aeropuerto</string>
     <string name="menuOptionBeforeUrlKey">http://www.nuevopudahuel.cl/antes-del-vuelo</string>
     <string name="menuOptionAirportUrlKey">http://www.nuevopudahuel.cl/en-el-aeropuerto</string>
+    <string name="menuOptionPlansTitleKey">Planos</string>
     <!-- Flight -->
     <string name="flightHeaderFlightTitleKey">Vuelo</string>
     <string name="flightHeaderOriginTitleKey">Origen</string>

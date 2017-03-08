@@ -40,7 +40,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
         MenuItem item = items.get(position);
         holder.image.setImageResource(item.getImgResource());
         holder.text.setText(item.getTitle());
-        holder.cell.setTag(position);
+        holder.cell.setTag(item.getId());
         holder.cell.setOnClickListener(onItemListener);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(BZUtils.getScreenWidht(baseActivity) * 4 / 5, ViewGroup.LayoutParams.WRAP_CONTENT);
         holder.cell.setLayoutParams(params);

@@ -28,6 +28,7 @@ import com.massiva.nuevopudahuel.ui.adapter.MenuAdapter;
 import com.massiva.nuevopudahuel.ui.fragments.ConfigurationFragment;
 import com.massiva.nuevopudahuel.ui.fragments.DashboardFragment;
 import com.massiva.nuevopudahuel.ui.fragments.FlightsFragment;
+import com.massiva.nuevopudahuel.ui.fragments.IndoorMapFragment;
 import com.massiva.nuevopudahuel.ui.fragments.MenuWebviewFragment;
 import com.massiva.nuevopudahuel.ui.fragments.NuevoPudahuelFragment;
 import com.massiva.nuevopudahuel.ui.fragments.PromocionesFragment;
@@ -122,6 +123,10 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
                         TrackingController.trackEvent(TrackingController.FLURRY_NEW_EVENT);
                         changeFragment(NuevoPudahuelFragment.newInstance());
                         break;
+                    case 9: // NUEVOPUDAHUEL
+                        TrackingController.trackEvent(TrackingController.FLURRY_NEW_EVENT);
+                        changeFragment(IndoorMapFragment.newInstance());
+                        break;
                 }
             }
         });
@@ -154,6 +159,8 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
         items.add(beforeFlight);
         MenuItem airport = new MenuItem(5, R.drawable.iconmenuaeropuerto, getString(R.string.menuOptionAirportTitleKey));
         items.add(airport);
+        MenuItem mapa = new MenuItem(9, R.drawable.iconmenuplanos, getString(R.string.menuOptionPlansTitleKey));
+        items.add(mapa);
         MenuItem promo = new MenuItem(6, R.drawable.iconmenuqr,getString(R.string.menuOptionPromosTitleKey));
         items.add(promo);
         MenuItem config = new MenuItem(7, R.drawable.iconmenusettings,getString(R.string.menuOptionConfigTitleKey));
