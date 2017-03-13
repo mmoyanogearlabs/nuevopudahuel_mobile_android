@@ -196,13 +196,13 @@
         endingDestinations = $.unique( endingDestinations );
         endingDestinations.sort( function(a,b){ return a.NameTranslations[0] > b.NameTranslations[0] ? 1 : -1 });
         
-        var startOptStr = "<option>" + getText(kChooseStart) + "</option>";
+        var startOptStr = "<option>" + kChooseStart + "</option>";
         for (i = 0, len = startingDestinations.length; i < len; i++) {
             startOptStr += "<option value='" + startingDestinations[i].Id + "'>" + startingDestinations[i].NameTranslations[0] + "</option>";
         }
         var endDestinationStr = "";
         if( this.params.allowChangeItineraryDestination) {
-            var endOptStr = "<option>" + getText(kChooseDestination) + "</option>";
+            var endOptStr = "<option>" + kChooseDestination + "</option>";
             for (i = 0, len = endingDestinations.length; i < len; i++) {
                 endOptStr += "<option value='" + endingDestinations[i].Id + "'>" + endingDestinations[i].NameTranslations[0] + "</option>";
             }
@@ -210,11 +210,11 @@
         } else {
             endDestinationStr = '<span class="value">' + this.model.ViadirectMap.FindDestinationById( this._currentDestination ).NameTranslations[0] +'</span>';
         }
-        var tpl = '<div class="itineraryPanel"><a href="#" class="close-button">x</a><h1>' + getText(kChooseItinerary) + '</h1><div><div><span class="label">' + getText(kStart) + '</span><select class="value" name="start-destination">' + startOptStr + '</select></div> <div><span class="label">' + getText(kArrival) + '</span>' + endDestinationStr +' </div>';
+        var tpl = '<div class="itineraryPanel"><a href="#" class="close-button">x</a><h1>' + kChooseItinerary + '</h1><div><div><span class="label">' + kStart + '</span><select class="value" name="start-destination">' + startOptStr + '</select></div> <div><span class="label">' + kArrival + '</span>' + endDestinationStr +' </div>';
         
         if( this.params.displayPMR && this.model.ViadirectMap.FloorList.length > 1) {
             // pmr 
-            tpl += '<div class="pmr-row"><input type="checkbox" name="pmr" title="Enable PRM mode" />' + getText(kEnablePRMMode) + '</div>';
+            tpl += '<div class="pmr-row"><input type="checkbox" name="pmr" title="Enable PRM mode" />' + kEnablePRMMode + '</div>';
         }
         
         tpl += '</div></div>';

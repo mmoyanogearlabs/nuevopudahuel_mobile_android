@@ -6,6 +6,9 @@ import android.webkit.WebView;
 import com.massiva.nuevopudahuel.R;
 import com.massiva.nuevopudahuel.base.BaseFragment;
 import com.massiva.nuevopudahuel.base.HomeFragment;
+import com.massiva.nuevopudahuel.controllers.UserController;
+
+import java.util.Locale;
 
 /**
  * Created by iaguila on 8/3/17.
@@ -31,7 +34,16 @@ public class IndoorMapFragment extends HomeFragment {
         String folderPath = "file:android_asset/maps/";
 
         // Get the HTML file name
-        String fileName = "index.html";
+        String language = null;
+        switch (Locale.getDefault().getLanguage().toLowerCase()) {
+            case "es":
+            case "pt":
+                language = Locale.getDefault().getLanguage().toLowerCase();
+                break;
+            default:
+                language = "en";
+        }
+        String fileName = "index-" + language + ".html";
 
         // Get the exact file location
         String file = folderPath + fileName;
