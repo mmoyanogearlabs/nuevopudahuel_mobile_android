@@ -217,12 +217,21 @@
             tpl += '<div class="pmr-row"><input type="checkbox" name="pmr" title="Enable PRM mode" />' + kEnablePRMMode + '</div>';
         }
         
+        //btn btn mostrar, para hacer la búsqueda solo apretando el boton y no siempre que se elija el selector
+        tpl+='<div class="btn-cerrar-div"><input type="button" value="Mostrar" id="btn-mostrar-itinerario" name="btn-mostrar-itinerario" /></div>';
+
         tpl += '</div></div>';
         this.itinerarySelectorPanel = $(tpl);
 
-        this.itinerarySelectorPanel.on('change', 'select', $.proxy(this.itinerarySelectChange, this));
+        //this.itinerarySelectorPanel.on('change', 'select', $.proxy(this.itinerarySelectChange, this));
         this.itinerarySelectorPanel.on('click', 'a.close-button', $.proxy(this.closeItineraryPanel, this));
-        this.itinerarySelectorPanel.on('change', ':input[name=pmr]', $.proxy( this.requestPmr, this));
+        //this.itinerarySelectorPanel.on('change', ':input[name=pmr]', $.proxy( this.requestPmr, this));
+
+        //Aplico estas acciones al botón
+        this.itinerarySelectorPanel.on('click', ':input[name=btn-mostrar-itinerario]',$.proxy(this.itinerarySelectChange, this));
+        this.itinerarySelectorPanel.on('click', ':input[name=btn-mostrar-itinerario]',$.proxy( this.requestPmr, this));
+        //Cierra el panel tambien
+        this.itinerarySelectorPanel.on('click', ':input[name=btn-mostrar-itinerario]',$.proxy(this.closeItineraryPanel, this));
     };
 
     ViewerBaseUi.prototype.requestPmr = function(ev) {
@@ -485,9 +494,13 @@
     };
 
     ViewerBaseUi.prototype._buildPathControls = function() {
-        var c = $('<ul class="path-controls"><li title="'+Drupal.t("see previous part of the path", {}, { context : 'viadirect_map_canvas' })+'" class="prev"><span>&nbsp;</span></li><li class="next"  title="'+Drupal.t("see next part of the path", {}, { context : 'viadirect_map_canvas' })+'"><span>&nbsp;</span></li></ul>');
-        c.on( 'click', "li", $.proxy( this.pathControlClicked, this ) );
-        return c;
+        try{
+            var c = $('<ul class="path-controls"><li title="'+Drupal.t("see previous part of the path", {}, { context : 'viadirect_map_canvas' })+'" class="prev"><span>&nbsp;</span></li><li class="next"  title="'+Drupal.t("see next part of the path", {}, { context : 'viadirect_map_canvas' })+'"><span>&nbsp;</span></li></ul>');
+            c.on( 'click', "li", $.proxy( this.pathControlClicked, this ) );
+            return c;
+        }catch(error){
+            console.log(error.message);
+        }
     };
     
     ViewerBaseUi.prototype.pathControlClicked = function( ev ) {
@@ -818,12 +831,21 @@ OfflineViewerUi.prototype.toString = function() {
             tpl += '<div class="pmr-row"><input type="checkbox" name="pmr" title="Enable PRM mode" />Enable PRM mode</div>';
         }
         
+        //btn btn mostrar, para hacer la búsqueda solo apretando el boton y no siempre que se elija el selector
+        tpl+='<div class="btn-cerrar-div"><input type="button" value="Mostrar" id="btn-mostrar-itinerario" name="btn-mostrar-itinerario" /></div>';
+
         tpl += '</div></div>';
         this.itinerarySelectorPanel = $(tpl);
 
-        this.itinerarySelectorPanel.on('change', 'select', $.proxy(this.itinerarySelectChange, this));
+        //this.itinerarySelectorPanel.on('change', 'select', $.proxy(this.itinerarySelectChange, this));
         this.itinerarySelectorPanel.on('click', 'a.close-button', $.proxy(this.closeItineraryPanel, this));
-        this.itinerarySelectorPanel.on('change', ':input[name=pmr]', $.proxy( this.requestPmr, this));
+        //this.itinerarySelectorPanel.on('change', ':input[name=pmr]', $.proxy( this.requestPmr, this));
+
+        //Aplico estas acciones al botón
+        this.itinerarySelectorPanel.on('click', ':input[name=btn-mostrar-itinerario]',$.proxy(this.itinerarySelectChange, this));
+        this.itinerarySelectorPanel.on('click', ':input[name=btn-mostrar-itinerario]',$.proxy( this.requestPmr, this));
+        //Cierra el panel tambien
+        this.itinerarySelectorPanel.on('click', ':input[name=btn-mostrar-itinerario]',$.proxy(this.closeItineraryPanel, this));
     };
 
     ViewerBaseUi.prototype.requestPmr = function(ev) {
