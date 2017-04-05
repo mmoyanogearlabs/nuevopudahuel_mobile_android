@@ -468,7 +468,7 @@
                     },
                     model: VDModel,
                     scaleMode: "fitInView",
-                    zoomLevel: 4.0,
+                    zoomLevel: 2.0,
                     selectedDestination: 6,
                     selectedFloor: "3",
                     displayItineraries: true,
@@ -481,10 +481,14 @@
                 };
 
                 jQuery(".vd-viewer").vdCanvasViewer(params);
+                // Hago pruebas aquí para simular pulsado 4 veces
+                // Obtención elemento
+                // $('.vdMapButton[data-action=vdUIZoomIn]').css({"background-color":"red"});
+                
             });
-
         })(jQuery, window);
     </script>
+
 </body>
 
 </html>

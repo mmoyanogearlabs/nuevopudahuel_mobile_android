@@ -310,6 +310,7 @@
             });
 
             $('.vdMapButton', this._ctx.get(0)).mouseup(function(ev) {
+                //alert("Se produce mouseup");
                 buttonPressed = false;
                 var $this = $(this);
                 if ($this.data('toggle') == undefined) {

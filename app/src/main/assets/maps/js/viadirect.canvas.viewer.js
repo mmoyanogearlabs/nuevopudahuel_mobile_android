@@ -6459,7 +6459,6 @@
      */
     function VDCanvasViewerBootstrap(pParams) {
         this.params = pParams;
-
     };
 
     VDCanvasViewerBootstrap.prototype.params = null;
@@ -6724,8 +6723,12 @@
         }
 
         if (this.params.zoomLevel !== null) {
+            //Pruebas jose
+            console.log("Se establece zoomLevel a "+this.params.zoomLevel);
+
             this._canvas.Scale = this.params.zoomLevel;
             this._canvas.DefaultScaleValue = this.params.zoomLevel;
+            
         }
 
         if (this.params.destination && this.params.destination.hiddenPrefix !== null) {
