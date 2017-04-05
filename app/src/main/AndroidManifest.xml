@@ -61,6 +61,11 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".ui.activities.IndoorMapActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppTheme.NoActionBar"/>
 
 
         <!-- FACEBOOK -->
@@ -69,6 +74,8 @@
             android:configChanges=
                 "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name" />
+        <activity android:name=".ui.activities.IndoorMapActivity" />
+
         <provider android:authorities="com.facebook.app.FacebookContentProvider1043604535723233"
             android:name="com.facebook.FacebookContentProvider"
             android:exported="true" />

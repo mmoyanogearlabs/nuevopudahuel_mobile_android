@@ -18,6 +18,7 @@ public class TrackingController {
     public static final String FLURRY_PROMOS_EVENT = "Promociones";
     public static final String FLURRY_CONFIG_EVENT = "Configuracion";
     public static final String FLURRY_NEW_EVENT = "Nuevo Pudahuel";
+    public static final String FLURRY_VIA_DIRECT = "Via Direct";
 
     public static void trackEvent(String eventKey) {
         trackFlurry(eventKey);

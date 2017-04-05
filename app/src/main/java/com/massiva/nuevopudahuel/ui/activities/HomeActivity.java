@@ -123,9 +123,9 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
                         TrackingController.trackEvent(TrackingController.FLURRY_NEW_EVENT);
                         changeFragment(NuevoPudahuelFragment.newInstance());
                         break;
-                    case 9: // NUEVOPUDAHUEL
-                        TrackingController.trackEvent(TrackingController.FLURRY_NEW_EVENT);
-                        changeFragment(IndoorMapFragment.newInstance());
+                    case 9: // PLANOS
+                        TrackingController.trackEvent(TrackingController.FLURRY_VIA_DIRECT);
+                        startActivity(IndoorMapActivity.makeIntent(HomeActivity.this));
                         break;
                 }
             }
