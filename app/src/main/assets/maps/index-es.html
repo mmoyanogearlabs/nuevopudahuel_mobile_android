@@ -447,6 +447,16 @@
     <script src="./MapData/model.js"></script>
 
     <script type="text/javascript">
+        function centerVerticallyButtons(){
+            var $vdUiButtonsComponent = $('.vdUiButtons');
+            var boxTop = ($(window).height()) / 2 - ($vdUiButtonsComponent.height() / 2);
+            var stringBoxTop = boxTop+"px !important";
+            alert("pixels centrado "+stringBoxTop);
+            $('.vdUiButtons').css({"top": stringBoxTop});
+        }
+    </script>
+    <script type="text/javascript">
+
         /**
          * Preseleccionamos la planta 3 en lugar de la 0 por defecto, y zoom 4 presiones (0.5 defecto)
          */
@@ -484,10 +494,16 @@
                 // Hago pruebas aquí para simular pulsado 4 veces
                 // Obtención elemento
                 // $('.vdMapButton[data-action=vdUIZoomIn]').css({"background-color":"red"});
+                //Cambiamos el centrado y tamaño exacto en tiempo de ejecución
+                $('.vdUiButtons').css({"height":"350px", "margin-top":"100px"}); //Prueba no valida.
+
+                //centerVerticallyButtons();
                 
             });
         })(jQuery, window);
     </script>
+
+
 
 </body>
 
