@@ -114,28 +114,30 @@ public class BannerView extends ImageView {
     }
 
     private void loadBigBanner() {
-        ((BaseActivity) getContext()).getPudahuelApplication().loadImageUrl(banner.getBigBannerUrl(), new ImageLoadingListener() {
-            @Override
-            public void onLoadingStarted(String imageUri, View view) {
+        if (banner != null) {
+            ((BaseActivity) getContext()).getPudahuelApplication().loadImageUrl(banner.getBigBannerUrl(), new ImageLoadingListener() {
+                @Override
+                public void onLoadingStarted(String imageUri, View view) {
 
-            }
+                }
 
-            @Override
-            public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                @Override
+                public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
 
-            }
+                }
 
-            @Override
-            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                scaleBannerImg(loadedImage);
-                checkChangeSize();
-            }
+                @Override
+                public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                    scaleBannerImg(loadedImage);
+                    checkChangeSize();
+                }
 
-            @Override
-            public void onLoadingCancelled(String imageUri, View view) {
+                @Override
+                public void onLoadingCancelled(String imageUri, View view) {
 
-            }
-        });
+                }
+            });
+        }
     }
 
     private void checkChangeSize() {

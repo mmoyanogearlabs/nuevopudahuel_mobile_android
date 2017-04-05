@@ -5,8 +5,7 @@ import android.webkit.WebView;
 
 import com.massiva.nuevopudahuel.R;
 import com.massiva.nuevopudahuel.base.BaseFragment;
-import com.massiva.nuevopudahuel.base.HomeFragment;
-import com.massiva.nuevopudahuel.controllers.UserController;
+
 
 import java.util.Locale;
 
@@ -14,7 +13,7 @@ import java.util.Locale;
  * Created by iaguila on 8/3/17.
  */
 
-public class IndoorMapFragment extends HomeFragment {
+public class IndoorMapFragment extends BaseFragment implements View.OnClickListener {
 
     private WebView webView;
 
@@ -29,6 +28,7 @@ public class IndoorMapFragment extends HomeFragment {
 
     @Override
     protected void configView(View parentView) {
+        $(R.id.indoor_map_close).setOnClickListener(this);
         webView = $(R.id.indoor_map_webview);
         webView.getSettings().setJavaScriptEnabled(true);
         String folderPath = "file:android_asset/maps/";
@@ -55,5 +55,14 @@ public class IndoorMapFragment extends HomeFragment {
 
         // Render the HTML file on WebView
         webView.loadUrl(file);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.indoor_map_close:
+                getBaseActivity().finish();
+                break;
+        }
     }
 }

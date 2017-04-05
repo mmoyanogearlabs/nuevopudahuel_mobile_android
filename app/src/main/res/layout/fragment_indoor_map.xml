@@ -7,15 +7,13 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:orientation="horizontal"
-        android:background="@color/grey"
-        android:id="@+id/flights_header_container">
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
         <WebView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/indoor_map_webview"></WebView>
+            android:id="@+id/indoor_map_webview"/>
 
         <ImageButton
             android:layout_width="wrap_content"
@@ -23,7 +21,8 @@
             android:layout_alignParentRight="true"
             android:layout_margin="@dimen/activity_vertical_margin"
             android:background="@android:color/transparent"
-            android:src="@drawable/indoor_map_close"/>
+            android:src="@drawable/indoor_map_close"
+            android:id="@+id/indoor_map_close"/>
 
     </RelativeLayout>
 

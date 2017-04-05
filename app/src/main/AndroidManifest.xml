@@ -67,14 +67,12 @@
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme.NoActionBar"/>
 
-
         <!-- FACEBOOK -->
         <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
         <activity android:name="com.facebook.FacebookActivity"
             android:configChanges=
                 "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name" />
-        <activity android:name=".ui.activities.IndoorMapActivity" />
 
         <provider android:authorities="com.facebook.app.FacebookContentProvider1043604535723233"
             android:name="com.facebook.FacebookContentProvider"
