@@ -7,7 +7,7 @@
     var kChooseItinerary = "Choose your itinerary";
     var kStart = "Start";
     var kArrival = "Arrival";
-    var kEnablePRMMode = "Enable PRM mode";
+    var kEnablePRMMode = "Enable people with disabilities mode";
     var kChooseStart = "Choose your starting point";
     var kChooseDestination = "Choose your destination";
  
@@ -202,7 +202,7 @@
             tpl += '<div class="pmr-row"><input type="checkbox" name="pmr" title="Enable PRM mode" />' + kEnablePRMMode + '</div>';
         }
         //btn btn mostrar, para hacer la búsqueda solo apretando el boton y no siempre que se elija el selector
-        tpl+='<div class="btn-cerrar-div"><input type="button" value="Mostrar" id="btn-mostrar-itinerario" name="btn-mostrar-itinerario" /></div>';
+        tpl+='<div class="btn-cerrar-div"><input type="button" value="Show" id="btn-mostrar-itinerario" name="btn-mostrar-itinerario" /></div>';
 
         tpl += '</div></div>';
         this.itinerarySelectorPanel = $(tpl);
@@ -815,7 +815,7 @@ OfflineViewerUi.prototype.toString = function() {
             tpl += '<div class="pmr-row"><input type="checkbox" name="pmr" title="Enable PRM mode" />Enable PRM mode</div>';
         }
         //btn btn mostrar, para hacer la búsqueda solo apretando el boton y no siempre que se elija el selector
-        tpl+='<div class="btn-cerrar-div"><input type="button" value="Mostrar" id="btn-mostrar-itinerario" name="btn-mostrar-itinerario" /></div>';
+        tpl+='<div class="btn-cerrar-div"><input type="button" value="Show" id="btn-mostrar-itinerario" name="btn-mostrar-itinerario" /></div>';
 
         tpl += '</div></div>';
         this.itinerarySelectorPanel = $(tpl);

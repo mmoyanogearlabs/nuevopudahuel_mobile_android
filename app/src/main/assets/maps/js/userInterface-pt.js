@@ -4,12 +4,12 @@
  * 
  */
 
-    var kChooseItinerary = "Choose your itinerary";
-    var kStart = "Start";
-    var kArrival = "Arrival";
-    var kEnablePRMMode = "Enable PRM mode";
-    var kChooseStart = "Choose your starting point";
-    var kChooseDestination = "Choose your destination";
+    var kChooseItinerary = "Escolha o seu caminho";
+    var kStart = "Iniciação";
+    var kArrival = "Destino";
+    var kEnablePRMMode = "Habilitar modo pessoas com deficiência";
+    var kChooseStart = "Escolha o seu ponto de partida";
+    var kChooseDestination = "Escolha o seu destino";
  
     var LOCALE_ES = {
         "Choose your itinerary": "Selecciona tu itinerario",
@@ -20,11 +20,11 @@
         "Choose your destination": "Selecciona tu destino"
     };
  
-    var CURRENT_LOCALE = LOCALE_ES;
+    //var CURRENT_LOCALE = LOCALE_ES;
  
-    function getText(string) {
+    /*function getText(string) {
         return CURRENT_LOCALE[string] || string;
-    }
+    }*/
 
     var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame
             || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;

@@ -7,7 +7,7 @@
     var kChooseItinerary = "Selecciona tu itinerario";
     var kStart = "Inicio";
     var kArrival = "Destino";
-    var kEnablePRMMode = "Activar mode PRM";
+    var kEnablePRMMode = "Habilitar modo para personas con discapacidad";
     var kChooseStart = "Selecciona el punto inicial";
     var kChooseDestination = "Selecciona tu destino";
  
