@@ -3250,7 +3250,8 @@
                 if (!bestPath)
                     bestPath = result;
 
-                if (bestPath.length > result.length)
+                //Hago check de nulls
+                if (bestPath!==null && bestPath.length > result.length)
                     bestPath = result;
             }
 

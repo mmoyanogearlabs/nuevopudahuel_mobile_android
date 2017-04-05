@@ -201,6 +201,7 @@
             // pmr 
             tpl += '<div class="pmr-row"><input type="checkbox" name="pmr" title="Enable PRM mode" />' + kEnablePRMMode + '</div>';
         }
+        
         //btn btn mostrar, para hacer la búsqueda solo apretando el boton y no siempre que se elija el selector
         tpl+='<div class="btn-cerrar-div"><input type="button" value="Mostrar" id="btn-mostrar-itinerario" name="btn-mostrar-itinerario" /></div>';
         
@@ -479,10 +480,15 @@
         }
     };
 
+    //Hacer fix de cuando Drupal no existe
     ViewerBaseUi.prototype._buildPathControls = function() {
-        var c = $('<ul class="path-controls"><li title="'+Drupal.t("see previous part of the path", {}, { context : 'viadirect_map_canvas' })+'" class="prev"><span>&nbsp;</span></li><li class="next"  title="'+Drupal.t("see next part of the path", {}, { context : 'viadirect_map_canvas' })+'"><span>&nbsp;</span></li></ul>');
-        c.on( 'click', "li", $.proxy( this.pathControlClicked, this ) );
-        return c;
+        try{
+            var c = $('<ul class="path-controls"><li title="'+Drupal.t("see previous part of the path", {}, { context : 'viadirect_map_canvas' })+'" class="prev"><span>&nbsp;</span></li><li class="next"  title="'+Drupal.t("see next part of the path", {}, { context : 'viadirect_map_canvas' })+'"><span>&nbsp;</span></li></ul>');
+            c.on( 'click', "li", $.proxy( this.pathControlClicked, this ) );
+            return c;
+        }catch(error){
+            console.log(error.messagge);
+        }
     };
     
     ViewerBaseUi.prototype.pathControlClicked = function( ev ) {
