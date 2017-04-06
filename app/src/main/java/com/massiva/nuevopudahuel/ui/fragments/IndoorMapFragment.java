@@ -1,6 +1,7 @@
 package com.massiva.nuevopudahuel.ui.fragments;
 
 import android.view.View;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import com.massiva.nuevopudahuel.R;
@@ -31,6 +32,7 @@ public class IndoorMapFragment extends BaseFragment implements View.OnClickListe
         $(R.id.indoor_map_close).setOnClickListener(this);
         webView = $(R.id.indoor_map_webview);
         webView.getSettings().setJavaScriptEnabled(true);
+
         String folderPath = "file:android_asset/maps/";
 
         // Get the HTML file name
@@ -54,7 +56,13 @@ public class IndoorMapFragment extends BaseFragment implements View.OnClickListe
                  */
 
         // Render the HTML file on WebView
+        //Se hace un scale to fit del webview para que los controles de los botones quepan
+        webView.getSettings().setLoadWithOverviewMode(true);
+        webView.getSettings().setUseWideViewPort(true);
+
         webView.loadUrl(file);
+
+
     }
 
     @Override
