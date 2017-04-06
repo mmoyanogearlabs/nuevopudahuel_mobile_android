@@ -145,6 +145,14 @@
     ViewerBaseUi.prototype._buildItineraryPanel = function() {
         var i, len, category, m, key;
         var startingDestinations = [];
+
+        //Variables para redimensional el panel de itinerario
+        var anchoCustom = $(window).width()/3;
+        var altoCustom = $(window).height()/3;
+        var stringAnchoCustom = anchoCustom+"px";
+        var stringAltoCustom = altoCustom+"px";
+        var stringMarginTopCustom = "-"+altoCustom/2+"px";
+
         m = this.model.ViadirectMap;
         
         if( this.params.startingDestinationsCategories.length ) {
@@ -195,7 +203,7 @@
         } else {
             endDestinationStr = '<span class="value">' + this.model.ViadirectMap.FindDestinationById( this._currentDestination ).NameTranslations[0] +'</span>';
         }
-        var tpl = '<div class="itineraryPanel"><a href="#" class="close-button">x</a><h1>' + kChooseItinerary + '</h1><div><div><span class="label">' + kStart + '</span><select class="value" name="start-destination">' + startOptStr + '</select></div> <div><span class="label">' + kArrival + '</span>' + endDestinationStr +' </div>';
+        var tpl = '<div class="itineraryPanel" style="width:'+stringAnchoCustom+';height:'+stringAltoCustom+'; position:absolute; margin:auto; top:50%; margin-top:'+stringMarginTopCustom+'; right:0; bottom:0; left:0;"><a href="#" class="close-button">x</a><h1>' + kChooseItinerary + '</h1><div><div><span class="label">' + kStart + '</span><select class="value" name="start-destination">' + startOptStr + '</select></div> <div><span class="label">' + kArrival + '</span>' + endDestinationStr +' </div>';
         
         if( this.params.displayPMR && this.model.ViadirectMap.FloorList.length > 1) {
             // pmr 
@@ -218,6 +226,7 @@
         this.itinerarySelectorPanel.on('click', ':input[name=btn-mostrar-itinerario]',$.proxy( this.requestPmr, this));
         //Tambien cierra el panel
         this.itinerarySelectorPanel.on('click', ':input[name=btn-mostrar-itinerario]',$.proxy(this.closeItineraryPanel, this));
+
     };
 
     ViewerBaseUi.prototype.requestPmr = function(ev) {
@@ -247,7 +256,11 @@
         if ($(ev.target).data('toggle') == 1) {
             if (!this.itinerarySelectorPanel)
                 this._buildItineraryPanel();
-            this.itinerarySelectorPanel.appendTo(this._ctx);
+                
+            //Se añade al body del documento para poder cetrar con respecto a todo el webview
+            //this.itinerarySelectorPanel.appendTo(this._ctx);
+            this.itinerarySelectorPanel.appendTo($(document.body));
+
             if (this._currentDestination) {
                 this.itinerarySelectorPanel.find('select[name="end-destination"]').val(this._currentDestination);
             }
@@ -320,7 +333,6 @@
             });
 
             $('.vdMapButton', this._ctx.get(0)).mouseup(function(ev) {
-                //alert("Se produce mouseup");
                 buttonPressed = false;
                 var $this = $(this);
                 if ($this.data('toggle') == undefined) {
@@ -485,11 +497,10 @@
         try{
             //var c = $('<ul class="path-controls"><li title="'+Drupal.t("see previous part of the path", {}, { context : 'viadirect_map_canvas' })+'" class="prev"><span>&nbsp;</span></li><li class="next"  title="'+Drupal.t("see next part of the path", {}, { context : 'viadirect_map_canvas' })+'"><span>&nbsp;</span></li></ul>');
             var c = $('<ul class="path-controls"><li title="see previous part of the path" class="prev"><span>&nbsp;</span></li><li class="next"  title="see next part of the path"><span>&nbsp;</span></li></ul>');
-
             c.on( 'click', "li", $.proxy( this.pathControlClicked, this ) );
             return c;
         }catch(error){
-            console.log(error.messagge);
+            console.log(error);
         }
     };
     
@@ -764,6 +775,14 @@ OfflineViewerUi.prototype.toString = function() {
     ViewerBaseUi.prototype._buildItineraryPanel = function() {
         var i, len, category, m, key;
         var startingDestinations = [];
+
+        //Variables para redimensional el panel de itinerario
+        var anchoCustom = $(window).width()/3;
+        var altoCustom = $(window).height()/3;
+        var stringAnchoCustom = anchoCustom+"px";
+        var stringAltoCustom = altoCustom+"px";
+        var stringMarginTopCustom = "-"+altoCustom/2+"px";
+                 
         m = this.model.ViadirectMap;
         
         if( this.params.startingDestinationsCategories.length ) {
@@ -814,7 +833,7 @@ OfflineViewerUi.prototype.toString = function() {
         } else {
             endDestinationStr = '<span class="value">' + this.model.ViadirectMap.FindDestinationById( this._currentDestination ).NameTranslations[0] +'</span>';
         }
-        var tpl = '<div class="itineraryPanel"><a href="#" class="close-button">x</a><h1>Choose your itinerary</h1><div><div><span class="label">Start :</span><select class="value" name="start-destination">' + startOptStr + '</select></div> <div><span class="label">Arrival :</span>' + endDestinationStr +' </div>';
+        var tpl = '<div class="itineraryPanel" style="width:'+stringAnchoCustom+';height:'+stringAltoCustom+'; position:absolute; margin:auto; top:50%; margin-top:'+stringMarginTopCustom+'; right:0; bottom:0; left:0;"><a href="#" class="close-button">x</a><h1>Choose your itinerary</h1><div><div><span class="label">Start :</span><select class="value" name="start-destination">' + startOptStr + '</select></div> <div><span class="label">Arrival :</span>' + endDestinationStr +' </div>';
         
         if( this.params.displayPMR && this.model.ViadirectMap.FloorList.length > 1) {
             // pmr 
@@ -838,6 +857,10 @@ OfflineViewerUi.prototype.toString = function() {
         this.itinerarySelectorPanel.on('click', ':input[name=btn-mostrar-itinerario]',$.proxy( this.requestPmr, this));
         //Cierra el panel tambien
         this.itinerarySelectorPanel.on('click', ':input[name=btn-mostrar-itinerario]',$.proxy(this.closeItineraryPanel, this));
+
+        $('.itineraryPanel').css({"color":"red !important"});
+        $('.itineraryPanel').width(anchoTotal/3);
+        $('.itineraryPanel').height(alturaTotal/3);
     };
 
     ViewerBaseUi.prototype.requestPmr = function(ev) {
@@ -867,7 +890,11 @@ OfflineViewerUi.prototype.toString = function() {
         if ($(ev.target).data('toggle') == 1) {
             if (!this.itinerarySelectorPanel)
                 this._buildItineraryPanel();
-            this.itinerarySelectorPanel.appendTo(this._ctx);
+            
+            //Se añade al body del documento en lugar del panel de control para poderlo centrar verticalmente en relación a todo el webview
+            //this.itinerarySelectorPanel.appendTo(this._ctx);
+            this.itinerarySelectorPanel.appendTo($(document.body));
+
             if (this._currentDestination) {
                 this.itinerarySelectorPanel.find('select[name="end-destination"]').val(this._currentDestination);
             }

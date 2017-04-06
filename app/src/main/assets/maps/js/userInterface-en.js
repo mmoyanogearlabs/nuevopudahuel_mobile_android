@@ -146,6 +146,13 @@
         var i, len, category, m, key;
         var startingDestinations = [];
         m = this.model.ViadirectMap;
+
+        //Variables para redimensional el panel de itinerario
+        var anchoCustom = $(window).width()/3;
+        var altoCustom = $(window).height()/3;
+        var stringAnchoCustom = anchoCustom+"px";
+        var stringAltoCustom = altoCustom+"px";
+        var stringMarginTopCustom = "-"+altoCustom/2+"px";
         
         if( this.params.startingDestinationsCategories.length ) {
             for ( key in this.params.startingDestinationsCategories ) {
@@ -195,7 +202,7 @@
         } else {
             endDestinationStr = '<span class="value">' + this.model.ViadirectMap.FindDestinationById( this._currentDestination ).NameTranslations[0] +'</span>';
         }
-        var tpl = '<div class="itineraryPanel"><a href="#" class="close-button">x</a><h1>' + kChooseItinerary + '</h1><div><div><span class="label">' + kStart + '</span><select class="value" name="start-destination">' + startOptStr + '</select></div> <div><span class="label">' + kArrival + '</span>' + endDestinationStr +' </div>';
+        var tpl = '<div class="itineraryPanel" style="width:'+stringAnchoCustom+';height:'+stringAltoCustom+'; position:absolute; margin:auto; top:50%; margin-top:'+stringMarginTopCustom+'; right:0; bottom:0; left:0;"><a href="#" class="close-button">x</a><h1>' + kChooseItinerary + '</h1><div><div><span class="label">' + kStart + '</span><select class="value" name="start-destination">' + startOptStr + '</select></div> <div><span class="label">' + kArrival + '</span>' + endDestinationStr +' </div>';
         
         if( this.params.displayPMR && this.model.ViadirectMap.FloorList.length > 1) {
             // pmr 
@@ -245,7 +252,10 @@
         if ($(ev.target).data('toggle') == 1) {
             if (!this.itinerarySelectorPanel)
                 this._buildItineraryPanel();
-            this.itinerarySelectorPanel.appendTo(this._ctx);
+            //Se añade al body y en positon absolute para poder centrarlo en pantalla
+            //this.itinerarySelectorPanel.appendTo(this._ctx);
+            this.itinerarySelectorPanel.appendTo($(document.body));
+
             if (this._currentDestination) {
                 this.itinerarySelectorPanel.find('select[name="end-destination"]').val(this._currentDestination);
             }
@@ -481,7 +491,7 @@
         try{
             //var c = $('<ul class="path-controls"><li title="'+Drupal.t("see previous part of the path", {}, { context : 'viadirect_map_canvas' })+'" class="prev"><span>&nbsp;</span></li><li class="next"  title="'+Drupal.t("see next part of the path", {}, { context : 'viadirect_map_canvas' })+'"><span>&nbsp;</span></li></ul>');
             var c = $('<ul class="path-controls"><li title="see previous part of the path" class="prev"><span>&nbsp;</span></li><li class="next"  title="see next part of the path"><span>&nbsp;</span></li></ul>');
-           
+            
             c.on( 'click', "li", $.proxy( this.pathControlClicked, this ) );
             return c;
         }catch(error){
@@ -761,6 +771,13 @@ OfflineViewerUi.prototype.toString = function() {
         var i, len, category, m, key;
         var startingDestinations = [];
         m = this.model.ViadirectMap;
+
+        //Variables para redimensional el panel de itinerario
+        var anchoCustom = $(window).width()/3;
+        var altoCustom = $(window).height()/3;
+        var stringAnchoCustom = anchoCustom+"px";
+        var stringAltoCustom = altoCustom+"px";
+        var stringMarginTopCustom = "-"+altoCustom/2+"px";
         
         if( this.params.startingDestinationsCategories.length ) {
             for ( key in this.params.startingDestinationsCategories ) {
@@ -810,7 +827,7 @@ OfflineViewerUi.prototype.toString = function() {
         } else {
             endDestinationStr = '<span class="value">' + this.model.ViadirectMap.FindDestinationById( this._currentDestination ).NameTranslations[0] +'</span>';
         }
-        var tpl = '<div class="itineraryPanel"><a href="#" class="close-button">x</a><h1>Choose your itinerary</h1><div><div><span class="label">Start :</span><select class="value" name="start-destination">' + startOptStr + '</select></div> <div><span class="label">Arrival :</span>' + endDestinationStr +' </div>';
+        var tpl = '<div class="itineraryPanel" style="width:'+stringAnchoCustom+';height:'+stringAltoCustom+'; position:absolute; margin:auto; top:50%; margin-top:'+stringMarginTopCustom+'; right:0; bottom:0; left:0;"><a href="#" class="close-button">x</a><h1>Choose your itinerary</h1><div><div><span class="label">Start :</span><select class="value" name="start-destination">' + startOptStr + '</select></div> <div><span class="label">Arrival :</span>' + endDestinationStr +' </div>';
         
         if( this.params.displayPMR && this.model.ViadirectMap.FloorList.length > 1) {
             // pmr 
@@ -860,7 +877,10 @@ OfflineViewerUi.prototype.toString = function() {
         if ($(ev.target).data('toggle') == 1) {
             if (!this.itinerarySelectorPanel)
                 this._buildItineraryPanel();
-            this.itinerarySelectorPanel.appendTo(this._ctx);
+
+            //this.itinerarySelectorPanel.appendTo(this._ctx);
+            this.itinerarySelectorPanel.appendTo($(document.body));
+
             if (this._currentDestination) {
                 this.itinerarySelectorPanel.find('select[name="end-destination"]').val(this._currentDestination);
             }
