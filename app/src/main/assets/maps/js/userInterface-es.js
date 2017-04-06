@@ -483,7 +483,9 @@
     //Hacer fix de cuando Drupal no existe
     ViewerBaseUi.prototype._buildPathControls = function() {
         try{
-            var c = $('<ul class="path-controls"><li title="'+Drupal.t("see previous part of the path", {}, { context : 'viadirect_map_canvas' })+'" class="prev"><span>&nbsp;</span></li><li class="next"  title="'+Drupal.t("see next part of the path", {}, { context : 'viadirect_map_canvas' })+'"><span>&nbsp;</span></li></ul>');
+            //var c = $('<ul class="path-controls"><li title="'+Drupal.t("see previous part of the path", {}, { context : 'viadirect_map_canvas' })+'" class="prev"><span>&nbsp;</span></li><li class="next"  title="'+Drupal.t("see next part of the path", {}, { context : 'viadirect_map_canvas' })+'"><span>&nbsp;</span></li></ul>');
+            var c = $('<ul class="path-controls"><li title="see previous part of the path" class="prev"><span>&nbsp;</span></li><li class="next"  title="see next part of the path"><span>&nbsp;</span></li></ul>');
+
             c.on( 'click', "li", $.proxy( this.pathControlClicked, this ) );
             return c;
         }catch(error){
