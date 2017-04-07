@@ -1,8 +1,8 @@
-(function($,global) {
+(function ($, global) {
 
-/**
- * 
- */
+    /**
+     * 
+     */
 
     var kChooseItinerary = "Selecciona tu itinerario";
     var kStart = "Inicio";
@@ -10,12 +10,12 @@
     var kEnablePRMMode = "Habilitar modo para personas con discapacidad";
     var kChooseStart = "Selecciona el punto inicial";
     var kChooseDestination = "Selecciona tu destino";
- 
+
     var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame
-            || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+        || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
     var cancelAnimationFrame = window.cancelAnimationFrame || window.mozCancelAnimationFrame;
-    
-    var ViewerBaseUi = function(settings) {
+
+    var ViewerBaseUi = function (settings) {
         this._cacheStore = {};
         this.params = $.extend({}, ViewerBaseUi.prototype.defaultParams, settings);
         this._currentDestination = null;
@@ -23,7 +23,7 @@
         this.loadingInterval = null;
         this.interval = null;
     };
-    
+
     /**
      * @type {Object}
      */
@@ -36,7 +36,7 @@
     }
 
     ViewerBaseUi.prototype.defaultParams = {
-        labelLoading : "loading",
+        labelLoading: "loading",
         startingDestinationsCategories: [],
         endingDestinationsCategories: [],
         displayInfoPanel: true,
@@ -54,24 +54,24 @@
      * @param dispatcher
      * @param {Object} params
      */
-    ViewerBaseUi.prototype.register = function(app, dispatcher, params) {
+    ViewerBaseUi.prototype.register = function (app, dispatcher, params) {
         /**
          * @type {VDCanvasViewerBootstrap}
          */
         this.app = app;
-//        dispatcher.bind('loadingQueueStart', $.proxy( this.loadingStart, this));
-//        dispatcher.bind('loadingQueueFinished', $.proxy( this.loadingFinished, this));
-        dispatcher.bind('vdInitializeContainer', $.proxy( this.initializeContainer, this));
-        dispatcher.bind('vdShapePicked', $.proxy( this.shapePicked, this));
-        dispatcher.bind('vdDestinationPicked', $.proxy( this.destinationPicked, this));
-        dispatcher.bind('vdDestinationRollOver', $.proxy( this.destinationRollOver, this));
-        dispatcher.bind('vdDestinationRollOut', $.proxy( this.destinationRollOut, this));
-        dispatcher.bind('vdFloorChanged', $.proxy( this.floorChanged, this));
-        dispatcher.bind('vdModelReady', $.proxy( this.modelReady, this));
-        dispatcher.bind('vdPathCalculated', $.proxy( this.pathReady, this));
-        dispatcher.bind('vdResize', $.proxy( this.resizeUi, this ));
-        
-        this.params = $.extend( true, {}, this.params, params );
+        //        dispatcher.bind('loadingQueueStart', $.proxy( this.loadingStart, this));
+        //        dispatcher.bind('loadingQueueFinished', $.proxy( this.loadingFinished, this));
+        dispatcher.bind('vdInitializeContainer', $.proxy(this.initializeContainer, this));
+        dispatcher.bind('vdShapePicked', $.proxy(this.shapePicked, this));
+        dispatcher.bind('vdDestinationPicked', $.proxy(this.destinationPicked, this));
+        dispatcher.bind('vdDestinationRollOver', $.proxy(this.destinationRollOver, this));
+        dispatcher.bind('vdDestinationRollOut', $.proxy(this.destinationRollOut, this));
+        dispatcher.bind('vdFloorChanged', $.proxy(this.floorChanged, this));
+        dispatcher.bind('vdModelReady', $.proxy(this.modelReady, this));
+        dispatcher.bind('vdPathCalculated', $.proxy(this.pathReady, this));
+        dispatcher.bind('vdResize', $.proxy(this.resizeUi, this));
+
+        this.params = $.extend(true, {}, this.params, params);
         //if( app.params.selectedDestination ) this._currentDestination = app.params.selectedDestination;
         // handling parameters
         this.pathManager = app.getPathManager();
@@ -114,109 +114,126 @@
      * @param JQueryResultSet
      *                pContext
      */
-    ViewerBaseUi.prototype.initializeContainer = function(ev, pContext) {
+    ViewerBaseUi.prototype.initializeContainer = function (ev, pContext) {
         this._ctx = $("<div class='vdUserInterface'></div>").appendTo(pContext);
         this.UiButtonBar = $('<div class="vdUiButtons"></div>');
-        this.floorsMenu = $('<div class="vdChangeFloorButtons loading"></div>').appendTo( this.UiButtonBar );
-        if( this.params.displayInfoPanel ) {
+        this.floorsMenu = $('<div class="vdChangeFloorButtons loading"></div>').appendTo(this.UiButtonBar);
+        if (this.params.displayInfoPanel) {
             this.destinationPanel = $("<div class='destinationInfoArea close'><div class='content-wrapper'></div></div>").appendTo(this._ctx);
         }
         this.zoomControls = $(
-                '<ul class="vdZoomButtons"><li class="vdMapButton vdMapZoom" data-action="vdUIZoomIn" data-pressable="1" title="Zoom in"><span>+</span></li><li class="vdMapButton vdMapZoom"  data-pressable="1" data-action="vdUIZoomOut" title="Zoom out"><span>-</span></li> '+ ( this.params.displayItineraryPanel ? '<li class="vdMapButton showItinerary" data-toggle="1" title="Show itinerary">&nbsp;</li>' : '' ) + '</ul>').appendTo( this.UiButtonBar );
+            '<ul class="vdZoomButtons"><li class="vdMapButton vdMapZoom" data-action="vdUIZoomIn" data-pressable="1" title="Zoom in"><span>+</span></li><li class="vdMapButton vdMapZoom"  data-pressable="1" data-action="vdUIZoomOut" title="Zoom out"><span>-</span></li> ' + (this.params.displayItineraryPanel ? '<li class="vdMapButton showItinerary" data-toggle="1" title="Show itinerary">&nbsp;</li>' : '') + '</ul>').appendTo(this.UiButtonBar);
         this.loaderLayer = $('<div class="vdLoader"></div>').appendTo(pContext);
 
-        if( this.params.displayToolbar ) {
+        if (this.params.displayToolbar) {
             this.UiButtonBar.appendTo(this._ctx);
         }
-        
+
         $('.vdMapButton.showItinerary', this.zoomControls.get(0)).click($.proxy(this.showItineraryPanel, this));
-        
+
         this.canvasElement = pContext.find(' > canvas.vdMap ');
     };
 
-    ViewerBaseUi.prototype._filterDestinationHasShape = function(ele) {
+    ViewerBaseUi.prototype._filterDestinationHasShape = function (ele) {
         return "ShapeList" in ele && ele.ShapeList.length;
     };
-    
+
     /**
      * 
      * @param ev
      */
-    ViewerBaseUi.prototype._buildItineraryPanel = function() {
+    ViewerBaseUi.prototype._buildItineraryPanel = function () {
         var i, len, category, m, key;
         var startingDestinations = [];
 
         //Variables para redimensional el panel de itinerario
-        var anchoCustom = Math.round($(window).width()*0.5);
-        var altoCustom = Math.round($(window).height()*0.5);
-        var stringAnchoCustom = anchoCustom+"px";
-        var stringAltoCustom = altoCustom+"px";
-        var stringMarginTopCustom = "-"+altoCustom/2+"px";
-        var stringFontSizeCustom = Math.round($(window).width()/70)+"px";
-        var stringFontSizeButtomCustom = Math.round($(window).width()/50)+"px";
-        var stringFontSizeTitleCustom = Math.round( ($(window).width()/70) * 2)+"px";
-        var stringHeightButtomCustom = Math.round( ($(window).width()/70) * 3)+"px";
-        
+        var anchoCustom = Math.round($(window).width() * 0.5);
+        var altoCustom = Math.round($(window).height() * 0.5);
+        var stringAnchoCustom = anchoCustom + "px";
+        var stringAltoCustom = altoCustom + "px";
+        var stringMarginTopCustom = "-" + altoCustom / 2 + "px";
+        var stringFontSizeCustom = Math.round($(window).width() / 70) + "px";
+        var stringFontSizeButtomCustom = Math.round($(window).width() / 50) + "px";
+        var stringFontSizeTitleCustom = Math.round(($(window).width() / 70) * 2) + "px";
+        var stringHeightButtomCustom = Math.round(($(window).width() / 70) * 3) + "px";
+
         m = this.model.ViadirectMap;
-        
-        if( this.params.startingDestinationsCategories.length ) {
-            for ( key in this.params.startingDestinationsCategories ) {
-                if( this.params.startingDestinationsCategories[key] != 0 ) {
-                    category = m.FindCategoryByName( key );
-                    if ( category )
-                        startingDestinations = startingDestinations.concat( startingDestinations, m.FindDestinationsByCategory( category.Name ) );
+
+        if (this.params.startingDestinationsCategories.length) {
+            for (key in this.params.startingDestinationsCategories) {
+                if (this.params.startingDestinationsCategories[key] != 0) {
+                    category = m.FindCategoryByName(key);
+                    if (category)
+                        startingDestinations = startingDestinations.concat(startingDestinations, m.FindDestinationsByCategory(category.Name));
                 }
             }
         } else {
             startingDestinations = this.model.ViadirectMap.DestinationList;
         }
-        startingDestinations = startingDestinations.filter(function(ele){ return ele;});
-        startingDestinations = startingDestinations.filter( this._filterDestinationHasShape );
-        startingDestinations.sort( function(a,b){ return a.NameTranslations[0] > b.NameTranslations[0] ? 1 : -1 });
+        startingDestinations = startingDestinations.filter(function (ele) { return ele; });
+        startingDestinations = startingDestinations.filter(this._filterDestinationHasShape);
+        startingDestinations.sort(function (a, b) { return a.NameTranslations[0] > b.NameTranslations[0] ? 1 : -1 });
 
         var endingDestinations = [];
-        var categories = [ 'stores', 'confort' ];
-        if( this.params.endingDestinationsCategories.length ) {
-            for ( key in this.params.endingDestinationsCategories) {
-                if( this.params.endingDestinationsCategories[key] != 0 ) {
-                    category = m.FindCategoryByName( this.params.endingDestinationsCategories[key] );
-                    if( category ) {
-                        endingDestinations = endingDestinations.concat( m.FindDestinationsByCategory( category.Name ) );
+        var categories = ['stores', 'confort'];
+        if (this.params.endingDestinationsCategories.length) {
+            for (key in this.params.endingDestinationsCategories) {
+                if (this.params.endingDestinationsCategories[key] != 0) {
+                    category = m.FindCategoryByName(this.params.endingDestinationsCategories[key]);
+                    if (category) {
+                        endingDestinations = endingDestinations.concat(m.FindDestinationsByCategory(category.Name));
                     }
                 }
             }
         } else {
             endingDestinations = this.model.ViadirectMap.DestinationList;
         }
-        
-        endingDestinations = endingDestinations.filter( this._filterDestinationHasShape );
-        endingDestinations = $.unique( endingDestinations );
-        endingDestinations.sort( function(a,b){ return a.NameTranslations[0] > b.NameTranslations[0] ? 1 : -1 });
-        
+
+        endingDestinations = endingDestinations.filter(this._filterDestinationHasShape);
+        endingDestinations = $.unique(endingDestinations);
+        endingDestinations.sort(function (a, b) { return a.NameTranslations[0] > b.NameTranslations[0] ? 1 : -1 });
+
         var startOptStr = "<option>" + kChooseStart + "</option>";
         for (i = 0, len = startingDestinations.length; i < len; i++) {
             startOptStr += "<option value='" + startingDestinations[i].Id + "'>" + startingDestinations[i].NameTranslations[0] + "</option>";
         }
         var endDestinationStr = "";
-        if( this.params.allowChangeItineraryDestination) {
-            var endOptStr = "<option style="+stringFontSizeCustom+">" + kChooseDestination + "</option>";
+        if (this.params.allowChangeItineraryDestination) {
+            var endOptStr = "<option style=" + stringFontSizeCustom + ">" + kChooseDestination + "</option>";
             for (i = 0, len = endingDestinations.length; i < len; i++) {
                 endOptStr += "<option value='" + endingDestinations[i].Id + "'>" + endingDestinations[i].NameTranslations[0] + "</option>";
             }
-            endDestinationStr = '<select class="value" name="end-destination" style="font-size:'+stringFontSizeCustom+'; margin-top:10px;">' + endOptStr + '</select>';
+            endDestinationStr = '<select class="value" name="end-destination" style="font-size:' + stringFontSizeCustom + '; margin-top:10px;">' + endOptStr + '</select>';
         } else {
-            endDestinationStr = '<span class="value">' + this.model.ViadirectMap.FindDestinationById( this._currentDestination ).NameTranslations[0] +'</span>';
+            endDestinationStr = '<span class="value">' + this.model.ViadirectMap.FindDestinationById(this._currentDestination).NameTranslations[0] + '</span>';
         }
-        var tpl = '<div class="itineraryPanel" style="width:'+stringAnchoCustom+';height:'+stringAltoCustom+'; position:absolute; margin:auto; top:50%; margin-top:'+stringMarginTopCustom+'; right:0; bottom:0; left:0;"><a href="#" class="close-button" style="font-size:'+stringFontSizeTitleCustom+'; height:'+stringHeightButtomCustom+';">x</a><h1 style="font-size:'+stringFontSizeTitleCustom+';height:'+stringHeightButtomCustom+'">' + kChooseItinerary + '</h1><div class="controles"> <div><span class="label" style="font-size:'+stringFontSizeCustom+'; width:10%;">' + kStart + '</span><select class="value" name="start-destination" style="font-size:'+stringFontSizeCustom+'">' + startOptStr + '</select></div> <div><span class="label" style="font-size:'+stringFontSizeCustom+'; margin-top:10px;margin-bottom:30px; width:10%;">' + kArrival + '</span>' + endDestinationStr +' </div>';        
-        if( this.params.displayPMR && this.model.ViadirectMap.FloorList.length > 1) {
+
+        var tpl = 
+        '<div class="itineraryPanel" style="width:' + stringAnchoCustom + ';height:' + stringAltoCustom + '; position:absolute; margin:auto; top:50%; margin-top:' + stringMarginTopCustom + '; right:0; bottom:0; left:0;"> \
+            <div class="title-controls" style="margin:0; padding:0; border:0; height:'+stringHeightButtomCustom+'; background-color:#2B2B2B;"> \
+                <a href="#" class="close-button" style="font-size:' + stringFontSizeTitleCustom + '; height:100%; line-height:1.5em; margin:0 15px 0 0; padding:0; border:0;">x</a> \
+                    <h1 style="font-size:' + stringFontSizeTitleCustom + ';height:100%; line-height:1.5em; margin:0 0 0 15px; padding:0; border:0;">' + kChooseItinerary + '</h1> \
+            </div> \
+            <div class="controles"> \
+                <div><span class="label" style="font-size:' + stringFontSizeCustom + '; width:10%;">' + kStart + '</span> \
+                    <select class="value" name="start-destination" style="font-size:' + stringFontSizeCustom + '">' + startOptStr + '</select> \
+                </div> \
+                <div> \
+                    <span class="label" style="font-size:' + stringFontSizeCustom + '; margin-top:10px;margin-bottom:30px; width:10%;">' + kArrival + '</span>' + endDestinationStr + ' \
+                </div> \
+            </div>';
+
+
+        
+        if (this.params.displayPMR && this.model.ViadirectMap.FloorList.length > 1) {
             // pmr 
-            tpl += '<div class="pmr-row" style="height:'+stringFontSizeButtomCustom+'"><input type="checkbox" name="pmr" title="Enable PRM mode" style="width:'+stringFontSizeCustom+'; height:'+stringFontSizeCustom+';" /><label style="font-size:'+stringFontSizeCustom+';">' + kEnablePRMMode + '</label></div>';
+            tpl += '<div class="pmr-row" style="height:' + stringFontSizeButtomCustom + ';"><input type="checkbox" name="pmr" title="Enable PRM mode" style="width:' + stringFontSizeCustom + '; height:' + stringFontSizeCustom + ';" /><label style="font-size:' + stringFontSizeCustom + ';">' + kEnablePRMMode + '</label></div>';
         }
-        
+
         //btn btn mostrar, para hacer la búsqueda solo apretando el boton y no siempre que se elija el selector
-        tpl+='<div class="btn-cerrar-div"><button value="Mostrar" id="btn-mostrar-itinerario" name="btn-mostrar-itinerario" style="font-size:'+stringFontSizeButtomCustom+';width:40%; height:'+stringHeightButtomCustom+'; margin: 0 auto; display:block; margin-top:40px; background-color: #555555; color:#e7e7e7;">Mostrar</button></div>';
-        
-        tpl += '</div></div>';
+        tpl += '<div class="btn-cerrar-div"><button value="Mostrar" id="btn-mostrar-itinerario" name="btn-mostrar-itinerario" style="font-size:' + stringFontSizeButtomCustom + ';width:40%; height:' + stringHeightButtomCustom + '; margin: 0 auto; display:block; margin-top:40px; background-color: #555555; color:#e7e7e7;">Mostrar</button></div>';
+
+        tpl += '</div>';
         this.itinerarySelectorPanel = $(tpl);
 
         //Funciones que habrá que desencadenar solo en mostrar
@@ -225,19 +242,19 @@
         //this.itinerarySelectorPanel.on('change', ':input[name=pmr]', $.proxy( this.requestPmr, this));
 
         //Aplico estas acciones al botón
-        this.itinerarySelectorPanel.on('click', ':input[name=btn-mostrar-itinerario]',$.proxy(this.itinerarySelectChange, this));
-        this.itinerarySelectorPanel.on('click', ':input[name=btn-mostrar-itinerario]',$.proxy( this.requestPmr, this));
+        this.itinerarySelectorPanel.on('click', ':input[name=btn-mostrar-itinerario]', $.proxy(this.itinerarySelectChange, this));
+        this.itinerarySelectorPanel.on('click', ':input[name=btn-mostrar-itinerario]', $.proxy(this.requestPmr, this));
         //Tambien cierra el panel
-        this.itinerarySelectorPanel.on('click', ':input[name=btn-mostrar-itinerario]',$.proxy(this.closeItineraryPanel, this));
+        this.itinerarySelectorPanel.on('click', ':input[name=btn-mostrar-itinerario]', $.proxy(this.closeItineraryPanel, this));
 
     };
 
-    ViewerBaseUi.prototype.requestPmr = function(ev) {
-        console.log( ev.target.checked );
-        this.app.getEventManager().trigger( "vdSetPMRMode", ev.target.checked );
+    ViewerBaseUi.prototype.requestPmr = function (ev) {
+        console.log(ev.target.checked);
+        this.app.getEventManager().trigger("vdSetPMRMode", ev.target.checked);
     };
-    
-    ViewerBaseUi.prototype.closeItineraryPanel = function(ev) {
+
+    ViewerBaseUi.prototype.closeItineraryPanel = function (ev) {
         this.itinerarySelectorPanel.detach();
         $('.vdMapButton.showItinerary').removeClass("selected").data('toggle', 1);
         if (ev) {
@@ -246,20 +263,20 @@
         return false;
     };
 
-    ViewerBaseUi.prototype.itinerarySelectChange = function(ev) {
+    ViewerBaseUi.prototype.itinerarySelectChange = function (ev) {
 
         var startDestinationId = this.itinerarySelectorPanel.find('select[name="start-destination"] option:selected').val();
         var endDestinationId = this.params.allowChangeItineraryDestination ? this.itinerarySelectorPanel.find('select[name="end-destination"] option:selected').val() : this._currentDestination;
 
         // sending to app
-        this.model.getEventManager().trigger('vdRequestItinerary', [ parseInt(startDestinationId), parseInt(endDestinationId) ]);
+        this.model.getEventManager().trigger('vdRequestItinerary', [parseInt(startDestinationId), parseInt(endDestinationId)]);
     };
 
-    ViewerBaseUi.prototype.showItineraryPanel = function(ev) {
+    ViewerBaseUi.prototype.showItineraryPanel = function (ev) {
         if ($(ev.target).data('toggle') == 1) {
             if (!this.itinerarySelectorPanel)
                 this._buildItineraryPanel();
-                
+
             //Se añade al body del documento para poder cetrar con respecto a todo el webview
             //this.itinerarySelectorPanel.appendTo(this._ctx);
             this.itinerarySelectorPanel.appendTo($(document.body));
@@ -282,15 +299,15 @@
      * @param {MapManipulator}
      *                map
      */
-    ViewerBaseUi.prototype.modelReady = function(ev, map) {
+    ViewerBaseUi.prototype.modelReady = function (ev, map) {
 
         this.model = map;
         var floorsMenu = $('<ul class="vdChangeFloorButtons"></ul>');
         var floorList = map.ViadirectMap.FloorList;
-        for ( var key in floorList) {
+        for (var key in floorList) {
             $(
-                    '<li class="vdMapButton vdMapFloor '+ (this._waitingFloor == floorList[key].Name ? "vdActive" : "") + '" data-action="vdUIFloorChange" data-value="' + floorList[key].Name
-                            + '" ><span>' + floorList[key].NameTranslations[0] + '</span></li>').appendTo(floorsMenu);
+                '<li class="vdMapButton vdMapFloor ' + (this._waitingFloor == floorList[key].Name ? "vdActive" : "") + '" data-action="vdUIFloorChange" data-value="' + floorList[key].Name
+                + '" ><span>' + floorList[key].NameTranslations[0] + '</span></li>').appendTo(floorsMenu);
         }
 
         if (floorsMenu.children().length > 1) {
@@ -302,8 +319,8 @@
         }
         var self = this;
         var o = null;
-        var callback = function(target, map) {
-            return function(t) {
+        var callback = function (target, map) {
+            return function (t) {
                 if (o === null)
                     o = t;
                 var delta = (t - o);
@@ -319,7 +336,7 @@
         if (requestAnimationFrame && cancelAnimationFrame) {
             var buttonPressed = false;
 
-            $('.vdMapButton', this._ctx.get(0)).on( "mousedown touchstart", function(ev) {
+            $('.vdMapButton', this._ctx.get(0)).on("mousedown touchstart", function (ev) {
                 console.log(this);
                 var $this = $(this);
                 $this.addClass("selected");
@@ -335,7 +352,7 @@
                 }
             });
 
-            $('.vdMapButton', this._ctx.get(0)).mouseup(function(ev) {
+            $('.vdMapButton', this._ctx.get(0)).mouseup(function (ev) {
                 buttonPressed = false;
                 var $this = $(this);
                 if ($this.data('toggle') == undefined) {
@@ -346,7 +363,7 @@
                 }
             });
 
-            $("body").on( "mouseup touchend", function(ev) {
+            $("body").on("mouseup touchend", function (ev) {
 
                 if (buttonPressed) {
                     if (buttonPressed.data("toggle") == undefined) {
@@ -358,8 +375,8 @@
         }
         this.handleToolbarPlacement();
     };
-    ViewerBaseUi.prototype.handleToolbarPlacement = function() {
-        var placement = parseInt( this.params.toolbarPlacement );
+    ViewerBaseUi.prototype.handleToolbarPlacement = function () {
+        var placement = parseInt(this.params.toolbarPlacement);
         /**
          * @type HTMLElement
          */
@@ -368,28 +385,28 @@
          * @type HTMLElement
          */
         var uiButtonBar = this.UiButtonBar.get(0);
-        switch( placement ) {
+        switch (placement) {
             case ToolbarPlacement.NO_PLACEMENT:
-            break;
+                break;
             case ToolbarPlacement.LEFT_INSIDE:
-                alignLeftCenter( canvasElement, uiButtonBar, true );
-            break;
+                alignLeftCenter(canvasElement, uiButtonBar, true);
+                break;
             case ToolbarPlacement.LEFT_OUTSIDE:
-                alignLeftCenter( canvasElement, uiButtonBar, false );
-            break;
+                alignLeftCenter(canvasElement, uiButtonBar, false);
+                break;
             case ToolbarPlacement.RIGHT_INSIDE:
-                alignRightCenter( canvasElement, uiButtonBar, true );
-            break;
+                alignRightCenter(canvasElement, uiButtonBar, true);
+                break;
             case ToolbarPlacement.RIGHT_OUTSIDE:
-                alignRightCenter( canvasElement, uiButtonBar, false );
-            break;
+                alignRightCenter(canvasElement, uiButtonBar, false);
+                break;
         }
     };
-    
-    ViewerBaseUi.prototype.floorChanged = function(ev, pFloor) {
+
+    ViewerBaseUi.prototype.floorChanged = function (ev, pFloor) {
         this.floorsMenu.children('li').removeClass('vdActive');
         var floorLi = this.floorsMenu.children('[data-value="' + pFloor + '"]');
-        if( floorLi.length ) {
+        if (floorLi.length) {
             floorLi.addClass('vdActive');
         } else {
             this._waitingFloor = pFloor;
@@ -397,46 +414,46 @@
 
     };
 
-    ViewerBaseUi.prototype.toString = function() {
+    ViewerBaseUi.prototype.toString = function () {
         return "[ViewerBaseUi Connected User Interface]";
     }
 
-    ViewerBaseUi.prototype.shapePicked = function(ev, shape) {
+    ViewerBaseUi.prototype.shapePicked = function (ev, shape) {
         if (!shape || shape.Id != this._currentShape) {
             this._currentDestination = null;
             this.closePanel();
         }
     };
 
-    ViewerBaseUi.prototype.closePanel = function() {
+    ViewerBaseUi.prototype.closePanel = function () {
         if (this.loadingInterval != null) {
             clearInterval(this.loadingInterval);
             this.loadingInterval = null;
         }
-        if( this.destinationPanel ) {
+        if (this.destinationPanel) {
             this.destinationPanel.removeClass("open").addClass("close").removeClass("loading");
-            this.destinationPanel.trigger( "panelClosing", [this]  );
+            this.destinationPanel.trigger("panelClosing", [this]);
         }
     };
 
-    ViewerBaseUi.prototype.openPanel = function() {
-        if( this.destinationPanel ) {
+    ViewerBaseUi.prototype.openPanel = function () {
+        if (this.destinationPanel) {
             this.destinationPanel.removeClass("close").addClass("open");
-            this.destinationPanel.trigger( "panelOpening", [this]  );
+            this.destinationPanel.trigger("panelOpening", [this]);
         }
     };
 
     /**
      * when a destination is picked
      */
-    ViewerBaseUi.prototype.destinationPicked = function(ev, infos) {
+    ViewerBaseUi.prototype.destinationPicked = function (ev, infos) {
         if (infos.destinationId != this._currentDestination) {
             this._currentDestination = infos.destinationId;
-            if ( this.itinerarySelectorPanel && this.params.allowChangeItineraryDestination ) {
+            if (this.itinerarySelectorPanel && this.params.allowChangeItineraryDestination) {
                 this.itinerarySelectorPanel.find('select[name="end-destination"]').val(this._currentDestination);
             }
             this._currentShape = infos.shapeId;
-            if( this.params.displayInfoPanel ) {
+            if (this.params.displayInfoPanel) {
                 this.load(this._currentDestination);
             }
         }
@@ -445,8 +462,8 @@
     /**
      * when a destination is picked
      */
-    ViewerBaseUi.prototype.destinationRollOver = function(ev, infos) {
-        if ( this.destinationPanel ) {
+    ViewerBaseUi.prototype.destinationRollOver = function (ev, infos) {
+        if (this.destinationPanel) {
             this.load(infos.destinationId);
         }
     };
@@ -457,14 +474,14 @@
      * @param {Number}
      *                pId identifier
      */
-    ViewerBaseUi.prototype.load = function(pId) {
-        
+    ViewerBaseUi.prototype.load = function (pId) {
+
     };
 
-    ViewerBaseUi.prototype.destinationRollOut = function(ev, infos) {
-        if( this.destinationPanel ) {
+    ViewerBaseUi.prototype.destinationRollOut = function (ev, infos) {
+        if (this.destinationPanel) {
             this._expectingId = null;
-            if (this._currentDestination !== null ) {
+            if (this._currentDestination !== null) {
                 this.load(this._currentDestination);
                 this.openPanel();
             } else {
@@ -473,7 +490,7 @@
         }
     };
 
-    ViewerBaseUi.prototype.datasLoaded = function(pId, pData) {
+    ViewerBaseUi.prototype.datasLoaded = function (pId, pData) {
         /*if (pId == this._expectingId) {
             this.loadingFinished(null, null);
             this.display(pData);
@@ -481,14 +498,14 @@
         this._cacheStore[pId] = pData;*/
     };
 
-    ViewerBaseUi.prototype.setContent = function(pContent) {
+    ViewerBaseUi.prototype.setContent = function (pContent) {
         this.destinationPanel.html("<div class='content-wrapper'>" + pContent + "</div>");
     };
 
-    ViewerBaseUi.prototype.display = function(pContent) {
+    ViewerBaseUi.prototype.display = function (pContent) {
         clearInterval(this.loadingInterval);
         this.loadingInterval = null;
-        if( this.destinationPanel ) {
+        if (this.destinationPanel) {
             this.destinationPanel.removeClass("loading");
             this.setContent(pContent);
             this.openPanel();
@@ -496,74 +513,74 @@
     };
 
     //Hacer fix de cuando Drupal no existe
-    ViewerBaseUi.prototype._buildPathControls = function() {
-        try{
+    ViewerBaseUi.prototype._buildPathControls = function () {
+        try {
             //var c = $('<ul class="path-controls"><li title="'+Drupal.t("see previous part of the path", {}, { context : 'viadirect_map_canvas' })+'" class="prev"><span>&nbsp;</span></li><li class="next"  title="'+Drupal.t("see next part of the path", {}, { context : 'viadirect_map_canvas' })+'"><span>&nbsp;</span></li></ul>');
             var c = $('<ul class="path-controls"><li title="see previous part of the path" class="prev"><span>&nbsp;</span></li><li class="next"  title="see next part of the path"><span>&nbsp;</span></li></ul>');
-            c.on( 'click', "li", $.proxy( this.pathControlClicked, this ) );
+            c.on('click', "li", $.proxy(this.pathControlClicked, this));
             return c;
-        }catch(error){
+        } catch (error) {
             console.log(error);
         }
     };
-    
-    ViewerBaseUi.prototype.pathControlClicked = function( ev ) {
+
+    ViewerBaseUi.prototype.pathControlClicked = function (ev) {
         var $li = $(ev.target);
-        if( $li.hasClass('next') ) {
+        if ($li.hasClass('next')) {
             this._currentPathStep++;
         }
-        if( $li.hasClass('prev') ) {
+        if ($li.hasClass('prev')) {
             this._currentPathStep--;
         }
         this.updatePathControls();
     };
-    
-    ViewerBaseUi.prototype.updatePathControls = function() {
-        if( this.pathControls ) {
-            if( this._currentPathStep == 0 ) this.pathControls.find('li.prev').hide();
+
+    ViewerBaseUi.prototype.updatePathControls = function () {
+        if (this.pathControls) {
+            if (this._currentPathStep == 0) this.pathControls.find('li.prev').hide();
             else this.pathControls.find('li.prev').show();
-            
-            if( this._currentPathStep == this._currentPath.floors.length-1) this.pathControls.find('li.next').hide();
+
+            if (this._currentPathStep == this._currentPath.floors.length - 1) this.pathControls.find('li.next').hide();
             else this.pathControls.find('li.next').show();
         }
-        this.app.getEventManager().trigger( "vdUIFloorChange", this._currentPath.floors[this._currentPath.floors.length - 1 - this._currentPathStep]);
+        this.app.getEventManager().trigger("vdUIFloorChange", this._currentPath.floors[this._currentPath.floors.length - 1 - this._currentPathStep]);
     }
-    
-    ViewerBaseUi.prototype.pathReady = function(ev, pathObject) {
+
+    ViewerBaseUi.prototype.pathReady = function (ev, pathObject) {
         var controls;
-        console.log( pathObject );
+        console.log(pathObject);
         this._currentPath = pathObject;
         this._currentPathStep = 0;
-        if( pathObject ) {
-            if( pathObject && pathObject.floors.length > 1 ) {
-                
+        if (pathObject) {
+            if (pathObject && pathObject.floors.length > 1) {
+
                 controls = this._buildPathControls();
-                this.pathControls = controls.appendTo( this.itinerarySelectorPanel );
-                
+                this.pathControls = controls.appendTo(this.itinerarySelectorPanel);
+
             } else {
-                if( this.pathControls )
-                this.pathControls.detach();
+                if (this.pathControls)
+                    this.pathControls.detach();
             }
             this.updatePathControls();
         }
     };
-    
-    ViewerBaseUi.prototype.resizeUi = function(ev) {
+
+    ViewerBaseUi.prototype.resizeUi = function (ev) {
         this.handleToolbarPlacement();
     }
-    
-    function alignLeftCenter( eleRef, eleTarget, inset ){
+
+    function alignLeftCenter(eleRef, eleTarget, inset) {
         var r1 = eleRef.getBoundingClientRect(), r2 = eleTarget.getBoundingClientRect();
         var oL = r1.left - r2.left;
         var oT = r1.top - r2.top;
-        
-        var h1 = ( r1.bottom - r1.top ),
-            h2 = ( r2.bottom - r2.top ),
-            w1= ( r1.right - r1.left ),
-            w2 = ( r2.right - r2.left );
 
-            var cT = ( h1 - h2 ) / 2;
-        
+        var h1 = (r1.bottom - r1.top),
+            h2 = (r2.bottom - r2.top),
+            w1 = (r1.right - r1.left),
+            w2 = (r2.right - r2.left);
+
+        var cT = (h1 - h2) / 2;
+
         oT += cT;
         oL -= (inset ? 0 : w2);
 
@@ -571,17 +588,17 @@
         eleTarget.style.left = (eleTarget.offsetLeft + oL) + "px"
     }
 
-    function alignRightCenter( eleRef, eleTarget, inset ) {
+    function alignRightCenter(eleRef, eleTarget, inset) {
         var r1 = eleRef.getBoundingClientRect(), r2 = eleTarget.getBoundingClientRect();
         var oL = r1.left - r2.left;
         var oT = r1.top - r2.top;
-        
-        var h1 = ( r1.bottom - r1.top ),
-            h2 = ( r2.bottom - r2.top ),
-            w1= ( r1.right - r1.left ),
-            w2 = ( r2.right - r2.left );
 
-        var cT = ( h1 - h2 ) / 2;
+        var h1 = (r1.bottom - r1.top),
+            h2 = (r2.bottom - r2.top),
+            w1 = (r1.right - r1.left),
+            w2 = (r2.right - r2.left);
+
+        var cT = (h1 - h2) / 2;
 
         oT += cT;
         oL += w1 + (inset ? -w2 : 0);
@@ -590,65 +607,65 @@
         eleTarget.style.left = (eleTarget.offsetLeft + oL) + "px";
     }
 
-/**
- * @require ViewerBaseUi.js
- */
+    /**
+     * @require ViewerBaseUi.js
+     */
 
-OfflineViewerUi = function(){
-    ViewerBaseUi.call( this );
-};
+    OfflineViewerUi = function () {
+        ViewerBaseUi.call(this);
+    };
 
-// @inherit ViewerBaseUi
-OfflineViewerUi.prototype = Object.create( ViewerBaseUi.prototype );
-OfflineViewerUi.prototype.constructor = ViewerBaseUi;
+    // @inherit ViewerBaseUi
+    OfflineViewerUi.prototype = Object.create(ViewerBaseUi.prototype);
+    OfflineViewerUi.prototype.constructor = ViewerBaseUi;
 
-OfflineViewerUi.prototype.load = function( pId ) {
-    
-};
+    OfflineViewerUi.prototype.load = function (pId) {
 
-/**
- * build and display the details in the panel
- * 
- * @private
- * @param {Destination}
- *                pDestination
- * @param {Number}
- *                languageIndex
- */
-OfflineViewerUi.prototype._displayDestination = function(pDestination, languageIndex) {
+    };
 
-    if( this.canDisplayPanel) {
-        var tpl = "<h1>%TITLE%</h1>%IMG%<h2 class='category'>%CATEGORY%</h2><h2 class='topic'>%TOPIC%</h2><p><span class='description'>%DESCRIPTION%</span></p>";
-        var tokensMap = {
-            TITLE : pDestination.NameTranslations[languageIndex],
-            CATEGORY : pDestination.Categories.length ? pDestination.Categories[0].NameTranslations[languageIndex] : "",
-            TOPIC : pDestination.Topics.length ? pDestination.Topics[0].NameTranslations[languageIndex] : "",
-            IMG : pDestination.LogoUrl ? "<img src='" + this.pathManager.getPath() + "/"
+    /**
+     * build and display the details in the panel
+     * 
+     * @private
+     * @param {Destination}
+     *                pDestination
+     * @param {Number}
+     *                languageIndex
+     */
+    OfflineViewerUi.prototype._displayDestination = function (pDestination, languageIndex) {
+
+        if (this.canDisplayPanel) {
+            var tpl = "<h1>%TITLE%</h1>%IMG%<h2 class='category'>%CATEGORY%</h2><h2 class='topic'>%TOPIC%</h2><p><span class='description'>%DESCRIPTION%</span></p>";
+            var tokensMap = {
+                TITLE: pDestination.NameTranslations[languageIndex],
+                CATEGORY: pDestination.Categories.length ? pDestination.Categories[0].NameTranslations[languageIndex] : "",
+                TOPIC: pDestination.Topics.length ? pDestination.Topics[0].NameTranslations[languageIndex] : "",
+                IMG: pDestination.LogoUrl ? "<img src='" + this.pathManager.getPath() + "/"
                     + pDestination.LogoUrl.Translations[languageIndex].LocalUrl + "'/>" : "",
-            DESCRIPTION : pDestination.DescriptionTranslations[languageIndex],
-        };
-        var txt = tpl.replace(/%(\w+)%/g, function(match, token, offset, string) {
-            return tokensMap[token]
-        });
-    
-        this.destinationPanel.removeClass("close").addClass("open");
-        this.destinationPanel.html(txt);
-    }
-};
+                DESCRIPTION: pDestination.DescriptionTranslations[languageIndex],
+            };
+            var txt = tpl.replace(/%(\w+)%/g, function (match, token, offset, string) {
+                return tokensMap[token]
+            });
 
-OfflineViewerUi.prototype.toString = function() {
-    return "[OfflineViewerUi Connected User Interface]";
-}
-/**
- * 
- */
+            this.destinationPanel.removeClass("close").addClass("open");
+            this.destinationPanel.html(txt);
+        }
+    };
+
+    OfflineViewerUi.prototype.toString = function () {
+        return "[OfflineViewerUi Connected User Interface]";
+    }
+    /**
+     * 
+     */
 
 
     var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame
-            || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+        || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
     var cancelAnimationFrame = window.cancelAnimationFrame || window.mozCancelAnimationFrame;
-    
-    var ViewerBaseUi = function(settings) {
+
+    var ViewerBaseUi = function (settings) {
         this._cacheStore = {};
         this.params = $.extend({}, ViewerBaseUi.prototype.defaultParams, settings);
         this._currentDestination = null;
@@ -656,7 +673,7 @@ OfflineViewerUi.prototype.toString = function() {
         this.loadingInterval = null;
         this.interval = null;
     };
-    
+
     /**
      * @type {Object}
      */
@@ -669,7 +686,7 @@ OfflineViewerUi.prototype.toString = function() {
     }
 
     ViewerBaseUi.prototype.defaultParams = {
-        labelLoading : "loading",
+        labelLoading: "loading",
         startingDestinationsCategories: [],
         endingDestinationsCategories: [],
         displayInfoPanel: true,
@@ -687,24 +704,24 @@ OfflineViewerUi.prototype.toString = function() {
      * @param dispatcher
      * @param {Object} params
      */
-    ViewerBaseUi.prototype.register = function(app, dispatcher, params) {
+    ViewerBaseUi.prototype.register = function (app, dispatcher, params) {
         /**
          * @type {VDCanvasViewerBootstrap}
          */
         this.app = app;
-//        dispatcher.bind('loadingQueueStart', $.proxy( this.loadingStart, this));
-//        dispatcher.bind('loadingQueueFinished', $.proxy( this.loadingFinished, this));
-        dispatcher.bind('vdInitializeContainer', $.proxy( this.initializeContainer, this));
-        dispatcher.bind('vdShapePicked', $.proxy( this.shapePicked, this));
-        dispatcher.bind('vdDestinationPicked', $.proxy( this.destinationPicked, this));
-        dispatcher.bind('vdDestinationRollOver', $.proxy( this.destinationRollOver, this));
-        dispatcher.bind('vdDestinationRollOut', $.proxy( this.destinationRollOut, this));
-        dispatcher.bind('vdFloorChanged', $.proxy( this.floorChanged, this));
-        dispatcher.bind('vdModelReady', $.proxy( this.modelReady, this));
-        dispatcher.bind('vdPathCalculated', $.proxy( this.pathReady, this));
-        dispatcher.bind('vdResize', $.proxy( this.resizeUi, this ));
-        
-        this.params = $.extend( true, {}, this.params, params );
+        //        dispatcher.bind('loadingQueueStart', $.proxy( this.loadingStart, this));
+        //        dispatcher.bind('loadingQueueFinished', $.proxy( this.loadingFinished, this));
+        dispatcher.bind('vdInitializeContainer', $.proxy(this.initializeContainer, this));
+        dispatcher.bind('vdShapePicked', $.proxy(this.shapePicked, this));
+        dispatcher.bind('vdDestinationPicked', $.proxy(this.destinationPicked, this));
+        dispatcher.bind('vdDestinationRollOver', $.proxy(this.destinationRollOver, this));
+        dispatcher.bind('vdDestinationRollOut', $.proxy(this.destinationRollOut, this));
+        dispatcher.bind('vdFloorChanged', $.proxy(this.floorChanged, this));
+        dispatcher.bind('vdModelReady', $.proxy(this.modelReady, this));
+        dispatcher.bind('vdPathCalculated', $.proxy(this.pathReady, this));
+        dispatcher.bind('vdResize', $.proxy(this.resizeUi, this));
+
+        this.params = $.extend(true, {}, this.params, params);
         //if( app.params.selectedDestination ) this._currentDestination = app.params.selectedDestination;
         // handling parameters
         this.pathManager = app.getPathManager();
@@ -747,37 +764,37 @@ OfflineViewerUi.prototype.toString = function() {
      * @param JQueryResultSet
      *                pContext
      */
-    ViewerBaseUi.prototype.initializeContainer = function(ev, pContext) {
+    ViewerBaseUi.prototype.initializeContainer = function (ev, pContext) {
         this._ctx = $("<div class='vdUserInterface'></div>").appendTo(pContext);
         this.UiButtonBar = $('<div class="vdUiButtons"></div>');
-        this.floorsMenu = $('<div class="vdChangeFloorButtons loading"></div>').appendTo( this.UiButtonBar );
-        if( this.params.displayInfoPanel ) {
+        this.floorsMenu = $('<div class="vdChangeFloorButtons loading"></div>').appendTo(this.UiButtonBar);
+        if (this.params.displayInfoPanel) {
             this.destinationPanel = $("<div class='destinationInfoArea close'><div class='content-wrapper'></div></div>").appendTo(this._ctx);
         }
         this.zoomControls = $(
-                '<ul class="vdZoomButtons"><li class="vdMapButton vdMapZoom" data-action="vdUIZoomIn" data-pressable="1" title="Zoom in"><span>+</span></li><li class="vdMapButton vdMapZoom"  data-pressable="1" data-action="vdUIZoomOut" title="Zoom out"><span>-</span></li> '+ ( this.params.displayItineraryPanel ? '<li class="vdMapButton showItinerary" data-toggle="1" title="Show itinerary">&nbsp;</li>' : '' ) + '</ul>').appendTo( this.UiButtonBar );
+            '<ul class="vdZoomButtons"><li class="vdMapButton vdMapZoom" data-action="vdUIZoomIn" data-pressable="1" title="Zoom in"><span>+</span></li><li class="vdMapButton vdMapZoom"  data-pressable="1" data-action="vdUIZoomOut" title="Zoom out"><span>-</span></li> ' + (this.params.displayItineraryPanel ? '<li class="vdMapButton showItinerary" data-toggle="1" title="Show itinerary">&nbsp;</li>' : '') + '</ul>').appendTo(this.UiButtonBar);
         this.loaderLayer = $('<div class="vdLoader"></div>').appendTo(pContext);
 
-        if( this.params.displayToolbar ) {
+        if (this.params.displayToolbar) {
             this.UiButtonBar.appendTo(this._ctx);
         }
-        
+
         $('.vdMapButton.showItinerary', this.zoomControls.get(0)).click($.proxy(this.showItineraryPanel, this));
-        
+
         this.canvasElement = pContext.find(' > canvas.vdMap ');
     };
 
-    ViewerBaseUi.prototype._filterDestinationHasShape = function(ele) {
+    ViewerBaseUi.prototype._filterDestinationHasShape = function (ele) {
         return "ShapeList" in ele && ele.ShapeList.length;
     };
-    
 
-    ViewerBaseUi.prototype.requestPmr = function(ev) {
-        console.log( ev.target.checked );
-        this.app.getEventManager().trigger( "vdSetPMRMode", ev.target.checked );
+
+    ViewerBaseUi.prototype.requestPmr = function (ev) {
+        console.log(ev.target.checked);
+        this.app.getEventManager().trigger("vdSetPMRMode", ev.target.checked);
     };
-    
-    ViewerBaseUi.prototype.closeItineraryPanel = function(ev) {
+
+    ViewerBaseUi.prototype.closeItineraryPanel = function (ev) {
         this.itinerarySelectorPanel.detach();
         $('.vdMapButton.showItinerary').removeClass("selected").data('toggle', 1);
         if (ev) {
@@ -786,20 +803,20 @@ OfflineViewerUi.prototype.toString = function() {
         return false;
     };
 
-    ViewerBaseUi.prototype.itinerarySelectChange = function(ev) {
+    ViewerBaseUi.prototype.itinerarySelectChange = function (ev) {
 
         var startDestinationId = this.itinerarySelectorPanel.find('select[name="start-destination"] option:selected').val();
         var endDestinationId = this.params.allowChangeItineraryDestination ? this.itinerarySelectorPanel.find('select[name="end-destination"] option:selected').val() : this._currentDestination;
 
         // sending to app
-        this.model.getEventManager().trigger('vdRequestItinerary', [ parseInt(startDestinationId), parseInt(endDestinationId) ]);
+        this.model.getEventManager().trigger('vdRequestItinerary', [parseInt(startDestinationId), parseInt(endDestinationId)]);
     };
 
-    ViewerBaseUi.prototype.showItineraryPanel = function(ev) {
+    ViewerBaseUi.prototype.showItineraryPanel = function (ev) {
         if ($(ev.target).data('toggle') == 1) {
             if (!this.itinerarySelectorPanel)
                 this._buildItineraryPanel();
-            
+
             //Se añade al body del documento en lugar del panel de control para poderlo centrar verticalmente en relación a todo el webview
             //this.itinerarySelectorPanel.appendTo(this._ctx);
             this.itinerarySelectorPanel.appendTo($(document.body));
@@ -822,15 +839,15 @@ OfflineViewerUi.prototype.toString = function() {
      * @param {MapManipulator}
      *                map
      */
-    ViewerBaseUi.prototype.modelReady = function(ev, map) {
+    ViewerBaseUi.prototype.modelReady = function (ev, map) {
 
         this.model = map;
         var floorsMenu = $('<ul class="vdChangeFloorButtons"></ul>');
         var floorList = map.ViadirectMap.FloorList;
-        for ( var key in floorList) {
+        for (var key in floorList) {
             $(
-                    '<li class="vdMapButton vdMapFloor '+ (this._waitingFloor == floorList[key].Name ? "vdActive" : "") + '" data-action="vdUIFloorChange" data-value="' + floorList[key].Name
-                            + '" ><span>' + floorList[key].NameTranslations[0] + '</span></li>').appendTo(floorsMenu);
+                '<li class="vdMapButton vdMapFloor ' + (this._waitingFloor == floorList[key].Name ? "vdActive" : "") + '" data-action="vdUIFloorChange" data-value="' + floorList[key].Name
+                + '" ><span>' + floorList[key].NameTranslations[0] + '</span></li>').appendTo(floorsMenu);
         }
 
         if (floorsMenu.children().length > 1) {
@@ -842,8 +859,8 @@ OfflineViewerUi.prototype.toString = function() {
         }
         var self = this;
         var o = null;
-        var callback = function(target, map) {
-            return function(t) {
+        var callback = function (target, map) {
+            return function (t) {
                 if (o === null)
                     o = t;
                 var delta = (t - o);
@@ -859,7 +876,7 @@ OfflineViewerUi.prototype.toString = function() {
         if (requestAnimationFrame && cancelAnimationFrame) {
             var buttonPressed = false;
 
-            $('.vdMapButton', this._ctx.get(0)).on( "mousedown touchstart", function(ev) {
+            $('.vdMapButton', this._ctx.get(0)).on("mousedown touchstart", function (ev) {
                 console.log(this);
                 var $this = $(this);
                 $this.addClass("selected");
@@ -875,7 +892,7 @@ OfflineViewerUi.prototype.toString = function() {
                 }
             });
 
-            $('.vdMapButton', this._ctx.get(0)).mouseup(function(ev) {
+            $('.vdMapButton', this._ctx.get(0)).mouseup(function (ev) {
                 buttonPressed = false;
                 var $this = $(this);
                 if ($this.data('toggle') == undefined) {
@@ -886,7 +903,7 @@ OfflineViewerUi.prototype.toString = function() {
                 }
             });
 
-            $("body").on( "mouseup touchend", function(ev) {
+            $("body").on("mouseup touchend", function (ev) {
 
                 if (buttonPressed) {
                     if (buttonPressed.data("toggle") == undefined) {
@@ -898,8 +915,8 @@ OfflineViewerUi.prototype.toString = function() {
         }
         this.handleToolbarPlacement();
     };
-    ViewerBaseUi.prototype.handleToolbarPlacement = function() {
-        var placement = parseInt( this.params.toolbarPlacement );
+    ViewerBaseUi.prototype.handleToolbarPlacement = function () {
+        var placement = parseInt(this.params.toolbarPlacement);
         /**
          * @type HTMLElement
          */
@@ -908,28 +925,28 @@ OfflineViewerUi.prototype.toString = function() {
          * @type HTMLElement
          */
         var uiButtonBar = this.UiButtonBar.get(0);
-        switch( placement ) {
+        switch (placement) {
             case ToolbarPlacement.NO_PLACEMENT:
-            break;
+                break;
             case ToolbarPlacement.LEFT_INSIDE:
-                alignLeftCenter( canvasElement, uiButtonBar, true );
-            break;
+                alignLeftCenter(canvasElement, uiButtonBar, true);
+                break;
             case ToolbarPlacement.LEFT_OUTSIDE:
-                alignLeftCenter( canvasElement, uiButtonBar, false );
-            break;
+                alignLeftCenter(canvasElement, uiButtonBar, false);
+                break;
             case ToolbarPlacement.RIGHT_INSIDE:
-                alignRightCenter( canvasElement, uiButtonBar, true );
-            break;
+                alignRightCenter(canvasElement, uiButtonBar, true);
+                break;
             case ToolbarPlacement.RIGHT_OUTSIDE:
-                alignRightCenter( canvasElement, uiButtonBar, false );
-            break;
+                alignRightCenter(canvasElement, uiButtonBar, false);
+                break;
         }
     };
-    
-    ViewerBaseUi.prototype.floorChanged = function(ev, pFloor) {
+
+    ViewerBaseUi.prototype.floorChanged = function (ev, pFloor) {
         this.floorsMenu.children('li').removeClass('vdActive');
         var floorLi = this.floorsMenu.children('[data-value="' + pFloor + '"]');
-        if( floorLi.length ) {
+        if (floorLi.length) {
             floorLi.addClass('vdActive');
         } else {
             this._waitingFloor = pFloor;
@@ -937,46 +954,46 @@ OfflineViewerUi.prototype.toString = function() {
 
     };
 
-    ViewerBaseUi.prototype.toString = function() {
+    ViewerBaseUi.prototype.toString = function () {
         return "[ViewerBaseUi Connected User Interface]";
     }
 
-    ViewerBaseUi.prototype.shapePicked = function(ev, shape) {
+    ViewerBaseUi.prototype.shapePicked = function (ev, shape) {
         if (!shape || shape.Id != this._currentShape) {
             this._currentDestination = null;
             this.closePanel();
         }
     };
 
-    ViewerBaseUi.prototype.closePanel = function() {
+    ViewerBaseUi.prototype.closePanel = function () {
         if (this.loadingInterval != null) {
             clearInterval(this.loadingInterval);
             this.loadingInterval = null;
         }
-        if( this.destinationPanel ) {
+        if (this.destinationPanel) {
             this.destinationPanel.removeClass("open").addClass("close").removeClass("loading");
-            this.destinationPanel.trigger( "panelClosing", [this]  );
+            this.destinationPanel.trigger("panelClosing", [this]);
         }
     };
 
-    ViewerBaseUi.prototype.openPanel = function() {
-        if( this.destinationPanel ) {
+    ViewerBaseUi.prototype.openPanel = function () {
+        if (this.destinationPanel) {
             this.destinationPanel.removeClass("close").addClass("open");
-            this.destinationPanel.trigger( "panelOpening", [this]  );
+            this.destinationPanel.trigger("panelOpening", [this]);
         }
     };
 
     /**
      * when a destination is picked
      */
-    ViewerBaseUi.prototype.destinationPicked = function(ev, infos) {
+    ViewerBaseUi.prototype.destinationPicked = function (ev, infos) {
         if (infos.destinationId != this._currentDestination) {
             this._currentDestination = infos.destinationId;
-            if ( this.itinerarySelectorPanel && this.params.allowChangeItineraryDestination ) {
+            if (this.itinerarySelectorPanel && this.params.allowChangeItineraryDestination) {
                 this.itinerarySelectorPanel.find('select[name="end-destination"]').val(this._currentDestination);
             }
             this._currentShape = infos.shapeId;
-            if( this.params.displayInfoPanel ) {
+            if (this.params.displayInfoPanel) {
                 this.load(this._currentDestination);
             }
         }
@@ -985,8 +1002,8 @@ OfflineViewerUi.prototype.toString = function() {
     /**
      * when a destination is picked
      */
-    ViewerBaseUi.prototype.destinationRollOver = function(ev, infos) {
-        if ( this.destinationPanel ) {
+    ViewerBaseUi.prototype.destinationRollOver = function (ev, infos) {
+        if (this.destinationPanel) {
             this.load(infos.destinationId);
         }
     };
@@ -997,14 +1014,14 @@ OfflineViewerUi.prototype.toString = function() {
      * @param {Number}
      *                pId identifier
      */
-    ViewerBaseUi.prototype.load = function(pId) {
-        
+    ViewerBaseUi.prototype.load = function (pId) {
+
     };
 
-    ViewerBaseUi.prototype.destinationRollOut = function(ev, infos) {
-        if( this.destinationPanel ) {
+    ViewerBaseUi.prototype.destinationRollOut = function (ev, infos) {
+        if (this.destinationPanel) {
             this._expectingId = null;
-            if (this._currentDestination !== null ) {
+            if (this._currentDestination !== null) {
                 this.load(this._currentDestination);
                 this.openPanel();
             } else {
@@ -1013,7 +1030,7 @@ OfflineViewerUi.prototype.toString = function() {
         }
     };
 
-    ViewerBaseUi.prototype.datasLoaded = function(pId, pData) {
+    ViewerBaseUi.prototype.datasLoaded = function (pId, pData) {
         /*if (pId == this._expectingId) {
             this.loadingFinished(null, null);
             this.display(pData);
@@ -1021,83 +1038,83 @@ OfflineViewerUi.prototype.toString = function() {
         this._cacheStore[pId] = pData;*/
     };
 
-    ViewerBaseUi.prototype.setContent = function(pContent) {
+    ViewerBaseUi.prototype.setContent = function (pContent) {
         this.destinationPanel.html("<div class='content-wrapper'>" + pContent + "</div>");
     };
 
-    ViewerBaseUi.prototype.display = function(pContent) {
+    ViewerBaseUi.prototype.display = function (pContent) {
         clearInterval(this.loadingInterval);
         this.loadingInterval = null;
-        if( this.destinationPanel ) {
+        if (this.destinationPanel) {
             this.destinationPanel.removeClass("loading");
             this.setContent(pContent);
             this.openPanel();
         }
     };
 
-    ViewerBaseUi.prototype._buildPathControls = function() {
-        var c = $('<ul class="path-controls"><li title="'+Drupal.t("see previous part of the path", {}, { context : 'viadirect_map_canvas' })+'" class="prev"><span>&nbsp;</span></li><li class="next"  title="'+Drupal.t("see next part of the path", {}, { context : 'viadirect_map_canvas' })+'"><span>&nbsp;</span></li></ul>');
-        c.on( 'click', "li", $.proxy( this.pathControlClicked, this ) );
+    ViewerBaseUi.prototype._buildPathControls = function () {
+        var c = $('<ul class="path-controls"><li title="' + Drupal.t("see previous part of the path", {}, { context: 'viadirect_map_canvas' }) + '" class="prev"><span>&nbsp;</span></li><li class="next"  title="' + Drupal.t("see next part of the path", {}, { context: 'viadirect_map_canvas' }) + '"><span>&nbsp;</span></li></ul>');
+        c.on('click', "li", $.proxy(this.pathControlClicked, this));
         return c;
     };
-    
-    ViewerBaseUi.prototype.pathControlClicked = function( ev ) {
+
+    ViewerBaseUi.prototype.pathControlClicked = function (ev) {
         var $li = $(ev.target);
-        if( $li.hasClass('next') ) {
+        if ($li.hasClass('next')) {
             this._currentPathStep++;
         }
-        if( $li.hasClass('prev') ) {
+        if ($li.hasClass('prev')) {
             this._currentPathStep--;
         }
         this.updatePathControls();
     };
-    
-    ViewerBaseUi.prototype.updatePathControls = function() {
-        if( this.pathControls ) {
-            if( this._currentPathStep == 0 ) this.pathControls.find('li.prev').hide();
+
+    ViewerBaseUi.prototype.updatePathControls = function () {
+        if (this.pathControls) {
+            if (this._currentPathStep == 0) this.pathControls.find('li.prev').hide();
             else this.pathControls.find('li.prev').show();
-            
-            if( this._currentPathStep == this._currentPath.floors.length-1) this.pathControls.find('li.next').hide();
+
+            if (this._currentPathStep == this._currentPath.floors.length - 1) this.pathControls.find('li.next').hide();
             else this.pathControls.find('li.next').show();
         }
-        this.app.getEventManager().trigger( "vdUIFloorChange", this._currentPath.floors[this._currentPath.floors.length - 1 - this._currentPathStep]);
+        this.app.getEventManager().trigger("vdUIFloorChange", this._currentPath.floors[this._currentPath.floors.length - 1 - this._currentPathStep]);
     }
-    
-    ViewerBaseUi.prototype.pathReady = function(ev, pathObject) {
+
+    ViewerBaseUi.prototype.pathReady = function (ev, pathObject) {
         var controls;
-        console.log( pathObject );
+        console.log(pathObject);
         this._currentPath = pathObject;
         this._currentPathStep = 0;
-        if( pathObject ) {
-            if( pathObject && pathObject.floors.length > 1 ) {
-                
+        if (pathObject) {
+            if (pathObject && pathObject.floors.length > 1) {
+
                 controls = this._buildPathControls();
-                this.pathControls = controls.appendTo( this.itinerarySelectorPanel );
-                
+                this.pathControls = controls.appendTo(this.itinerarySelectorPanel);
+
             } else {
-                if( this.pathControls )
-                this.pathControls.detach();
+                if (this.pathControls)
+                    this.pathControls.detach();
             }
             this.updatePathControls();
         }
     };
-    
-    ViewerBaseUi.prototype.resizeUi = function(ev) {
+
+    ViewerBaseUi.prototype.resizeUi = function (ev) {
         this.handleToolbarPlacement();
     }
-    
-    function alignLeftCenter( eleRef, eleTarget, inset ){
+
+    function alignLeftCenter(eleRef, eleTarget, inset) {
         var r1 = eleRef.getBoundingClientRect(), r2 = eleTarget.getBoundingClientRect();
         var oL = r1.left - r2.left;
         var oT = r1.top - r2.top;
-        
-        var h1 = ( r1.bottom - r1.top ),
-            h2 = ( r2.bottom - r2.top ),
-            w1= ( r1.right - r1.left ),
-            w2 = ( r2.right - r2.left );
 
-            var cT = ( h1 - h2 ) / 2;
-        
+        var h1 = (r1.bottom - r1.top),
+            h2 = (r2.bottom - r2.top),
+            w1 = (r1.right - r1.left),
+            w2 = (r2.right - r2.left);
+
+        var cT = (h1 - h2) / 2;
+
         oT += cT;
         oL -= (inset ? 0 : w2);
 
@@ -1105,17 +1122,17 @@ OfflineViewerUi.prototype.toString = function() {
         eleTarget.style.left = (eleTarget.offsetLeft + oL) + "px"
     }
 
-    function alignRightCenter( eleRef, eleTarget, inset ) {
+    function alignRightCenter(eleRef, eleTarget, inset) {
         var r1 = eleRef.getBoundingClientRect(), r2 = eleTarget.getBoundingClientRect();
         var oL = r1.left - r2.left;
         var oT = r1.top - r2.top;
-        
-        var h1 = ( r1.bottom - r1.top ),
-            h2 = ( r2.bottom - r2.top ),
-            w1= ( r1.right - r1.left ),
-            w2 = ( r2.right - r2.left );
 
-        var cT = ( h1 - h2 ) / 2;
+        var h1 = (r1.bottom - r1.top),
+            h2 = (r2.bottom - r2.top),
+            w1 = (r1.right - r1.left),
+            w2 = (r2.right - r2.left);
+
+        var cT = (h1 - h2) / 2;
 
         oT += cT;
         oL += w1 + (inset ? -w2 : 0);
@@ -1125,4 +1142,4 @@ OfflineViewerUi.prototype.toString = function() {
     }
 
 
-})( jQuery, window );
+})(jQuery, window);
