@@ -155,90 +155,112 @@
     
     /**
      * 
-     * @param ev
+     * Construye la caja de controles e itinerarios
      */
     ViewerBaseUi.prototype._buildItineraryPanel = function() {
         var i, len, category, m, key;
         var startingDestinations = [];
-        m = this.model.ViadirectMap;
 
         //Variables para redimensional el panel de itinerario
-        var anchoCustom = Math.round($(window).width()*0.5);
-        var altoCustom = Math.round($(window).height()*0.5);
-        var stringAnchoCustom = anchoCustom+"px";
-        var stringAltoCustom = altoCustom+"px";
-        var stringMarginTopCustom = "-"+altoCustom/2+"px";
-        
-        if( this.params.startingDestinationsCategories.length ) {
-            for ( key in this.params.startingDestinationsCategories ) {
-                if( this.params.startingDestinationsCategories[key] != 0 ) {
-                    category = m.FindCategoryByName( key );
-                    if ( category )
-                        startingDestinations = startingDestinations.concat( startingDestinations, m.FindDestinationsByCategory( category.Name ) );
+        var anchoCustom = Math.round($(window).width() * 0.5);
+        var altoCustom = Math.round($(window).height() * 0.5);
+        var stringAnchoCustom = anchoCustom + "px";
+        var stringAltoCustom = altoCustom + "px";
+        var stringMarginTopCustom = "-" + altoCustom / 2 + "px";
+        var stringFontSizeCustom = Math.round($(window).width() / 70) + "px";
+        var stringFontSizeButtomCustom = Math.round($(window).width() / 50) + "px";
+        var stringFontSizeTitleCustom = Math.round(($(window).width() / 70) * 2) + "px";
+        var stringHeightButtomCustom = Math.round(($(window).width() / 70) * 3) + "px";
+
+        m = this.model.ViadirectMap;
+
+        if (this.params.startingDestinationsCategories.length) {
+            for (key in this.params.startingDestinationsCategories) {
+                if (this.params.startingDestinationsCategories[key] != 0) {
+                    category = m.FindCategoryByName(key);
+                    if (category)
+                        startingDestinations = startingDestinations.concat(startingDestinations, m.FindDestinationsByCategory(category.Name));
                 }
             }
         } else {
             startingDestinations = this.model.ViadirectMap.DestinationList;
         }
-        startingDestinations = startingDestinations.filter(function(ele){ return ele;});
-        startingDestinations = startingDestinations.filter( this._filterDestinationHasShape );
-        startingDestinations.sort( function(a,b){ return a.NameTranslations[0] > b.NameTranslations[0] ? 1 : -1 });
+        startingDestinations = startingDestinations.filter(function (ele) { return ele; });
+        startingDestinations = startingDestinations.filter(this._filterDestinationHasShape);
+        startingDestinations.sort(function (a, b) { return a.NameTranslations[0] > b.NameTranslations[0] ? 1 : -1 });
 
         var endingDestinations = [];
-        var categories = [ 'stores', 'confort' ];
-        if( this.params.endingDestinationsCategories.length ) {
-            for ( key in this.params.endingDestinationsCategories) {
-                if( this.params.endingDestinationsCategories[key] != 0 ) {
-                    category = m.FindCategoryByName( this.params.endingDestinationsCategories[key] );
-                    if( category ) {
-                        endingDestinations = endingDestinations.concat( m.FindDestinationsByCategory( category.Name ) );
+        var categories = ['stores', 'confort'];
+        if (this.params.endingDestinationsCategories.length) {
+            for (key in this.params.endingDestinationsCategories) {
+                if (this.params.endingDestinationsCategories[key] != 0) {
+                    category = m.FindCategoryByName(this.params.endingDestinationsCategories[key]);
+                    if (category) {
+                        endingDestinations = endingDestinations.concat(m.FindDestinationsByCategory(category.Name));
                     }
                 }
             }
         } else {
             endingDestinations = this.model.ViadirectMap.DestinationList;
         }
-        
-        endingDestinations = endingDestinations.filter( this._filterDestinationHasShape );
-        endingDestinations = $.unique( endingDestinations );
-        endingDestinations.sort( function(a,b){ return a.NameTranslations[0] > b.NameTranslations[0] ? 1 : -1 });
-        
+
+        endingDestinations = endingDestinations.filter(this._filterDestinationHasShape);
+        endingDestinations = $.unique(endingDestinations);
+        endingDestinations.sort(function (a, b) { return a.NameTranslations[0] > b.NameTranslations[0] ? 1 : -1 });
+
         var startOptStr = "<option>" + kChooseStart + "</option>";
         for (i = 0, len = startingDestinations.length; i < len; i++) {
             startOptStr += "<option value='" + startingDestinations[i].Id + "'>" + startingDestinations[i].NameTranslations[0] + "</option>";
         }
         var endDestinationStr = "";
-        if( this.params.allowChangeItineraryDestination) {
-            var endOptStr = "<option>" + kChooseDestination + "</option>";
+        if (this.params.allowChangeItineraryDestination) {
+            var endOptStr = "<option style=" + stringFontSizeCustom + ">" + kChooseDestination + "</option>";
             for (i = 0, len = endingDestinations.length; i < len; i++) {
                 endOptStr += "<option value='" + endingDestinations[i].Id + "'>" + endingDestinations[i].NameTranslations[0] + "</option>";
             }
-            endDestinationStr = '<select class="value" name="end-destination">' + endOptStr + '</select>';
+            endDestinationStr = '<select class="value" name="end-destination" style="font-size:' + stringFontSizeCustom + '; margin-top:10px;">' + endOptStr + '</select>';
         } else {
-            endDestinationStr = '<span class="value">' + this.model.ViadirectMap.FindDestinationById( this._currentDestination ).NameTranslations[0] +'</span>';
+            endDestinationStr = '<span class="value">' + this.model.ViadirectMap.FindDestinationById(this._currentDestination).NameTranslations[0] + '</span>';
         }
-        var tpl = '<div class="itineraryPanel" style="width:'+stringAnchoCustom+';height:'+stringAltoCustom+'; position:absolute; margin:auto; top:50%; margin-top:'+stringMarginTopCustom+'; right:0; bottom:0; left:0;"><a href="#" class="close-button">x</a><h1>' + kChooseItinerary + '</h1><div><div><span class="label">' + kStart + '</span><select class="value" name="start-destination">' + startOptStr + '</select></div> <div><span class="label">' + kArrival + '</span>' + endDestinationStr +' </div>';
-        
-        if( this.params.displayPMR && this.model.ViadirectMap.FloorList.length > 1) {
-            // pmr 
-            tpl += '<div class="pmr-row"><input type="checkbox" name="pmr" title="Enable PRM mode" />' + kEnablePRMMode + '</div>';
-        }
-        
-        //btn btn mostrar, para hacer la búsqueda solo apretando el boton y no siempre que se elija el selector
-        tpl+='<div class="btn-cerrar-div"><input type="button" value="Mostrar" id="btn-mostrar-itinerario" name="btn-mostrar-itinerario" /></div>';
 
-        tpl += '</div></div>';
+        var tpl = 
+        '<div class="itineraryPanel" style="width:' + stringAnchoCustom + ';height:' + stringAltoCustom + '; position:absolute; margin:auto; top:50%; margin-top:' + stringMarginTopCustom + '; right:0; bottom:0; left:0;"> \
+            <div class="title-controls" style="margin:0; padding:0; border:0; height:'+stringHeightButtomCustom+'; background-color:#2B2B2B;"> \
+                <a href="#" class="close-button" style="font-size:' + stringFontSizeTitleCustom + '; height:100%; line-height:1.5em; margin:0 15px 0 0; padding:0; border:0;">x</a> \
+                    <h1 style="font-size:' + stringFontSizeTitleCustom + ';height:100%; line-height:1.5em; margin:0 0 0 15px; padding:0; border:0;">' + kChooseItinerary + '</h1> \
+            </div> \
+            <div class="controles"> \
+                <div><span class="label" style="font-size:' + stringFontSizeCustom + '; width:10%;">' + kStart + '</span> \
+                    <select class="value" name="start-destination" style="font-size:' + stringFontSizeCustom + '">' + startOptStr + '</select> \
+                </div> \
+                <div> \
+                    <span class="label" style="font-size:' + stringFontSizeCustom + '; margin-top:10px;margin-bottom:30px; width:10%;">' + kArrival + '</span>' + endDestinationStr + ' \
+                </div> \
+            </div>';
+
+
+        
+        if (this.params.displayPMR && this.model.ViadirectMap.FloorList.length > 1) {
+            // pmr 
+            tpl += '<div class="pmr-row" style="height:' + stringFontSizeButtomCustom + ';"><input type="checkbox" name="pmr" title="Enable PRM mode" style="width:' + stringFontSizeCustom + '; height:' + stringFontSizeCustom + ';" /><label style="font-size:' + stringFontSizeCustom + ';">' + kEnablePRMMode + '</label></div>';
+        }
+
+        //btn btn mostrar, para hacer la búsqueda solo apretando el boton y no siempre que se elija el selector
+        tpl += '<div class="btn-cerrar-div"><button value="Mostrar" id="btn-mostrar-itinerario" name="btn-mostrar-itinerario" style="font-size:' + stringFontSizeButtomCustom + ';width:40%; height:' + stringHeightButtomCustom + '; margin: 0 auto; display:block; margin-top:40px; background-color: #555555; color:#e7e7e7;">Mostrar</button></div>';
+
+        tpl += '</div>';
         this.itinerarySelectorPanel = $(tpl);
 
-        //this.itinerarySelectorPanel.on('change', 'select', $.proxy(this.itinerarySelectChange, this));
+        //Funciones que habrá que desencadenar solo en mostrar
         this.itinerarySelectorPanel.on('click', 'a.close-button', $.proxy(this.closeItineraryPanel, this));
+        //this.itinerarySelectorPanel.on('change', 'select', $.proxy(this.itinerarySelectChange, this));
         //this.itinerarySelectorPanel.on('change', ':input[name=pmr]', $.proxy( this.requestPmr, this));
 
         //Aplico estas acciones al botón
-        this.itinerarySelectorPanel.on('click', ':input[name=btn-mostrar-itinerario]',$.proxy(this.itinerarySelectChange, this));
-        this.itinerarySelectorPanel.on('click', ':input[name=btn-mostrar-itinerario]',$.proxy( this.requestPmr, this));
-        //Cierra el panel tambien
-        this.itinerarySelectorPanel.on('click', ':input[name=btn-mostrar-itinerario]',$.proxy(this.closeItineraryPanel, this));
+        this.itinerarySelectorPanel.on('click', ':input[name=btn-mostrar-itinerario]', $.proxy(this.itinerarySelectChange, this));
+        this.itinerarySelectorPanel.on('click', ':input[name=btn-mostrar-itinerario]', $.proxy(this.requestPmr, this));
+        //Tambien cierra el panel
+        this.itinerarySelectorPanel.on('click', ':input[name=btn-mostrar-itinerario]', $.proxy(this.closeItineraryPanel, this));
     };
 
     ViewerBaseUi.prototype.requestPmr = function(ev) {
@@ -778,94 +800,6 @@ OfflineViewerUi.prototype.toString = function() {
 
     ViewerBaseUi.prototype._filterDestinationHasShape = function(ele) {
         return "ShapeList" in ele && ele.ShapeList.length;
-    };
-    
-    /**
-     * 
-     * @param ev
-     */
-    ViewerBaseUi.prototype._buildItineraryPanel = function() {
-        var i, len, category, m, key;
-        var startingDestinations = [];
-        m = this.model.ViadirectMap;
-
-        //Variables para redimensional el panel de itinerario
-        var anchoCustom = Math.round($(window).width()*0.5);
-        var altoCustom = Math.round($(window).height()*0.5);
-        var stringAnchoCustom = anchoCustom+"px";
-        var stringAltoCustom = altoCustom+"px";
-        var stringMarginTopCustom = "-"+altoCustom/2+"px";
-        
-        if( this.params.startingDestinationsCategories.length ) {
-            for ( key in this.params.startingDestinationsCategories ) {
-                if( this.params.startingDestinationsCategories[key] != 0 ) {
-                    category = m.FindCategoryByName( key );
-                    if ( category )
-                        startingDestinations = startingDestinations.concat( startingDestinations, m.FindDestinationsByCategory( category.Name ) );
-                }
-            }
-        } else {
-            startingDestinations = this.model.ViadirectMap.DestinationList;
-        }
-        startingDestinations = startingDestinations.filter(function(ele){ return ele;});
-        startingDestinations = startingDestinations.filter( this._filterDestinationHasShape );
-        startingDestinations.sort( function(a,b){ return a.NameTranslations[0] > b.NameTranslations[0] ? 1 : -1 });
-
-        var endingDestinations = [];
-        var categories = [ 'stores', 'confort' ];
-        if( this.params.endingDestinationsCategories.length ) {
-            for ( key in this.params.endingDestinationsCategories) {
-                if( this.params.endingDestinationsCategories[key] != 0 ) {
-                    category = m.FindCategoryByName( this.params.endingDestinationsCategories[key] );
-                    if( category ) {
-                        endingDestinations = endingDestinations.concat( m.FindDestinationsByCategory( category.Name ) );
-                    }
-                }
-            }
-        } else {
-            endingDestinations = this.model.ViadirectMap.DestinationList;
-        }
-        
-        endingDestinations = endingDestinations.filter( this._filterDestinationHasShape );
-        endingDestinations = $.unique( endingDestinations );
-        endingDestinations.sort( function(a,b){ return a.NameTranslations[0] > b.NameTranslations[0] ? 1 : -1 });
-        
-        var startOptStr = "<option>Choose your starting point</option>";
-        for (i = 0, len = startingDestinations.length; i < len; i++) {
-            startOptStr += "<option value='" + startingDestinations[i].Id + "'>" + startingDestinations[i].NameTranslations[0] + "</option>";
-        }
-        var endDestinationStr = "";
-        if( this.params.allowChangeItineraryDestination) {
-            var endOptStr = "<option>Choose your destination</option>";
-            for (i = 0, len = endingDestinations.length; i < len; i++) {
-                endOptStr += "<option value='" + endingDestinations[i].Id + "'>" + endingDestinations[i].NameTranslations[0] + "</option>";
-            }
-            endDestinationStr = '<select class="value" name="end-destination">' + endOptStr + '</select>';
-        } else {
-            endDestinationStr = '<span class="value">' + this.model.ViadirectMap.FindDestinationById( this._currentDestination ).NameTranslations[0] +'</span>';
-        }
-        var tpl = '<div class="itineraryPanel" style="width:'+stringAnchoCustom+';height:'+stringAltoCustom+'; position:absolute; margin:auto; top:50%; margin-top:'+stringMarginTopCustom+'; right:0; bottom:0; left:0;"><a href="#" class="close-button">x</a><h1>Choose your itinerary</h1><div><div><span class="label">Start :</span><select class="value" name="start-destination">' + startOptStr + '</select></div> <div><span class="label">Arrival :</span>' + endDestinationStr +' </div>';
-        
-        if( this.params.displayPMR && this.model.ViadirectMap.FloorList.length > 1) {
-            // pmr 
-            tpl += '<div class="pmr-row"><input type="checkbox" name="pmr" title="Enable PRM mode" />Enable PRM mode</div>';
-        }
-        
-        //btn btn mostrar, para hacer la búsqueda solo apretando el boton y no siempre que se elija el selector
-        tpl+='<div class="btn-cerrar-div"><input type="button" value="Mostrar" id="btn-mostrar-itinerario" name="btn-mostrar-itinerario" /></div>';
-
-        tpl += '</div></div>';
-        this.itinerarySelectorPanel = $(tpl);
-
-        //this.itinerarySelectorPanel.on('change', 'select', $.proxy(this.itinerarySelectChange, this));
-        this.itinerarySelectorPanel.on('click', 'a.close-button', $.proxy(this.closeItineraryPanel, this));
-        //this.itinerarySelectorPanel.on('change', ':input[name=pmr]', $.proxy( this.requestPmr, this));
-
-        //Aplico estas acciones al botón
-        this.itinerarySelectorPanel.on('click', ':input[name=btn-mostrar-itinerario]',$.proxy(this.itinerarySelectChange, this));
-        this.itinerarySelectorPanel.on('click', ':input[name=btn-mostrar-itinerario]',$.proxy( this.requestPmr, this));
-        //Cierra el panel tambien
-        this.itinerarySelectorPanel.on('click', ':input[name=btn-mostrar-itinerario]',$.proxy(this.closeItineraryPanel, this));
     };
 
     ViewerBaseUi.prototype.requestPmr = function(ev) {
