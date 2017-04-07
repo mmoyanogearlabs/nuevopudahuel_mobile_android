@@ -148,8 +148,8 @@
         m = this.model.ViadirectMap;
 
         //Variables para redimensional el panel de itinerario
-        var anchoCustom = $(window).width()/3;
-        var altoCustom = $(window).height()/3;
+        var anchoCustom = Math.round($(window).width()*0.5);
+        var altoCustom = Math.round($(window).height()*0.5);
         var stringAnchoCustom = anchoCustom+"px";
         var stringAltoCustom = altoCustom+"px";
         var stringMarginTopCustom = "-"+altoCustom/2+"px";
@@ -773,8 +773,8 @@ OfflineViewerUi.prototype.toString = function() {
         m = this.model.ViadirectMap;
 
         //Variables para redimensional el panel de itinerario
-        var anchoCustom = $(window).width()/3;
-        var altoCustom = $(window).height()/3;
+        var anchoCustom = Math.round($(window).width()*0.5);
+        var altoCustom = Math.round($(window).height()*0.5);
         var stringAnchoCustom = anchoCustom+"px";
         var stringAltoCustom = altoCustom+"px";
         var stringMarginTopCustom = "-"+altoCustom/2+"px";
