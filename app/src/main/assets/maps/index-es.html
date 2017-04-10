@@ -32,55 +32,55 @@
         }
         /* canvas properties */
         
-        canvas> .destination> label {}
+        canvas>.destination>label {}
         
-        canvas> .selectedColor {}
+        canvas>.selectedColor {}
         
-        canvas> .shape {
+        canvas>.shape {
             background-color: #FFFFFF;
             border-width: 0px;
         }
         
-        canvas> .destination {}
+        canvas>.destination {}
         /* resources icons */
         
-        .vd-viewer> .icon-arrow {
+        .vd-viewer>.icon-arrow {
             background-image: url("./resources/pictos/arrow.svg");
             width: 150px;
             height: 150px;
         }
         
-        .vd-viewer> .icon-escalator-up {
+        .vd-viewer>.icon-escalator-up {
             background-image: url("./resources/pictos/escalator-up.svg");
             width: 150px;
             height: 150px;
         }
         
-        .vd-viewer> .icon-escalator-down {
+        .vd-viewer>.icon-escalator-down {
             background-image: url("./resources/pictos/escalator-down.svg");
             width: 150px;
             height: 150px;
         }
         
-        .vd-viewer> .icon-elevator-up {
+        .vd-viewer>.icon-elevator-up {
             background-image: url("./resources/pictos/ascenseur-up.svg");
             width: 150px;
             height: 150px;
         }
         
-        .vd-viewer> .icon-elevator-down {
+        .vd-viewer>.icon-elevator-down {
             background-image: url("./resources/pictos/ascenseur-down.svg");
             width: 150px;
             height: 150px;
         }
         
-        .vd-viewer> .icon-stairs-up {
+        .vd-viewer>.icon-stairs-up {
             background-image: url("./resources/pictos/escalier-up.svg");
             width: 150px;
             height: 150px;
         }
         
-        .vd-viewer> .icon-stairs-down {
+        .vd-viewer>.icon-stairs-down {
             background-image: url("./resources/pictos/escalier-down.svg");
             width: 150px;
             height: 150px;
@@ -179,7 +179,7 @@
         
         #help h2,
         #help h3,
-        #help h3~ p {
+        #help h3~p {
             margin: 0;
         }
         
@@ -219,7 +219,6 @@
             width: 60px;
             height: 120px;
         }
-        
         
         li.vdMapButton {
             width: 50px;
@@ -319,7 +318,7 @@
             float: left;
         }
         
-        .destinationInfoArea #content_map_viewer img~ p {
+        .destinationInfoArea #content_map_viewer img~p {
             float: left;
         }
         
@@ -364,7 +363,7 @@
             padding: 0 1em;
         }
         
-        .itineraryPanel> div {
+        .itineraryPanel>div {
             clear: both;
             padding: 0 1em 1em;
         }
@@ -384,7 +383,7 @@
             border: 1px solid gray;
         }
         
-        .itineraryPanel> div> div {
+        .itineraryPanel>div>div {
             margin: 0.5em 0;
             clear: both;
         }
@@ -396,72 +395,24 @@
 </head>
 
 <body>
+    <!-- Declaración del viewer-->
     <div class="vd-viewer" id="my-viewer"></div>
-<!--    <div id="help">-->
-<!--        <p>This example demonstrates the colors setting of shapes and baseline titles by using the colorsMap in parameters object.<br />-->
-<!--            <em>please note this method has precendence over css settings when used</em>-->
-<!--        </p>-->
-<!--        <pre>-->
-<!---->
-<!--/**-->
-<!-- * -->
-<!-- */-->
-<!--(function($, global) {-->
-<!--    $(document).ready(function(ev) {-->
-<!--        var path = window.location.pathname.split("/");-->
-<!--        path = path.splice(0, path.length - 1).join("/");-->
-<!--        var params = {-->
-<!--            loader : {-->
-<!--                hostName : "",-->
-<!--                protocol : "file",-->
-<!--                path : path + "/MapData"-->
-<!--            },-->
-<!--            colorsMap: {-->
-<!--                selected: "orange",-->
-<!--                over: "orange",-->
-<!--                titleSelected: "gray",-->
-<!--                titleOver: "yellow"-->
-<!--            },-->
-<!--            model : VDModel,-->
-<!--            scaleMode: "fitInView",-->
-<!--            zoomLevel: 0.5,-->
-<!--            selectedDestination: 6,-->
-<!--            selectedFloor: "0",-->
-<!--            displayItineraries: true,-->
-<!--            userInterface : new OfflineViewerUi(),-->
-<!--            userInterfaceParams: {-->
-<!--                openUiOnSelectedDestination: false,-->
-<!--                showItineraries: true-->
-<!--            }-->
-<!--        };-->
-<!---->
-<!--        jQuery(".vd-viewer").vdCanvasViewer(params);-->
-<!--    });-->
-<!--    -->
-<!--})(jQuery, window);-->
-<!--	   </pre>-->
-<!--    </div>-->
+
+
+
     <script type="text/javascript" src="js/lib/jquery.js"></script>
     <script type="text/javascript" src="js/userInterface-es.js"></script>
     <script type="text/javascript" src="js/viadirect.canvas.viewer.js"></script>
     <script src="./MapData/model.js"></script>
 
-    <script type="text/javascript">
-        function centerVerticallyButtons(){
-            var $vdUiButtonsComponent = $('.vdUiButtons');
-            var boxTop = ($(window).height()) / 2 - ($vdUiButtonsComponent.height() / 2);
-            var stringBoxTop = boxTop+"px !important";
-            alert("pixels centrado "+stringBoxTop);
-            $('.vdUiButtons').css({"top": stringBoxTop});
-        }
-    </script>
-    <script type="text/javascript">
 
+
+    <script type="text/javascript">
         /**
          * Preseleccionamos la planta 3 en lugar de la 0 por defecto, y zoom 4 presiones (0.5 defecto)
          */
-        (function($, global) {
-            $(document).ready(function(ev) {
+        (function ($, global) {
+            $(document).ready(function (ev) {
                 var path = window.location.pathname.split("/");
                 path = path.splice(0, path.length - 1).join("/");
                 var params = {
@@ -487,23 +438,21 @@
                         openUiOnSelectedDestination: false,
                         showItineraries: true
                     },
-                              
+
                 };
 
                 jQuery(".vd-viewer").vdCanvasViewer(params);
+
                 // Hago pruebas aquí para simular pulsado 4 veces
                 // Obtención elemento
                 // $('.vdMapButton[data-action=vdUIZoomIn]').css({"background-color":"red"});
                 //Cambiamos el centrado y tamaño exacto en tiempo de ejecución
-                $('.vdUiButtons').css({"height":"350px"}); //Prueba no valida.
+                $('.vdUiButtons').css({ "height": "350px" });
 
-                //centerVerticallyButtons();
-                
+
             });
         })(jQuery, window);
     </script>
-
-
 
 </body>
 
