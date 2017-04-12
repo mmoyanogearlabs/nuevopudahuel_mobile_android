@@ -40,8 +40,7 @@
             background-color: #FFFFFF;
             border-width: 0px;
         }
-        
-        canvas>.destination {}
+        /* canvas>.destination {} */
         /* resources icons */
         
         .vd-viewer>.icon-arrow {
@@ -387,6 +386,15 @@
             margin: 0.5em 0;
             clear: both;
         }
+
+        /* Para el canvas activo, funciona */
+        /* canvas>.destination:active {
+            background-color: #F2F2F2;
+            color: black !important;
+            display: inline-block !important;
+            font-size: 40px !important;
+            overflow: auto;
+        }*/
     </style>
 
 
@@ -448,8 +456,7 @@
                 // $('.vdMapButton[data-action=vdUIZoomIn]').css({"background-color":"red"});
                 //Cambiamos el centrado y tamaño exacto en tiempo de ejecución
                 $('.vdUiButtons').css({ "height": "350px" });
-
-
+                
             });
         })(jQuery, window);
     </script>
