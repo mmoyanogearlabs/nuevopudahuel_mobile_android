@@ -341,7 +341,7 @@
                 $('.vdMapButton').css({ "background-color": "#676767" });
 
                 //Si no son los botones de zoom
-                if (!$this.hasClass("vdMapZoom")) {
+                if (!$this.hasClass("vdMapZoom") && !$this.hasClass("showItinerary")) {
                     $this.addClass("selected");
                 }
 
