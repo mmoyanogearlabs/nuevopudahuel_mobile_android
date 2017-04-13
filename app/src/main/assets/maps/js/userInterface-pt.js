@@ -137,7 +137,7 @@
             this.destinationPanel = $("<div class='destinationInfoArea close'><div class='content-wrapper'></div></div>").appendTo(this._ctx);
         }
         this.zoomControls = $(
-                '<ul class="vdZoomButtons"><li class="vdMapButton vdMapZoom" data-action="vdUIZoomIn" data-pressable="1" title="Zoom in"><span>+</span></li><li class="vdMapButton vdMapZoom"  data-pressable="1" data-action="vdUIZoomOut" title="Zoom out"><span>-</span></li> '+ ( this.params.displayItineraryPanel ? '<li class="vdMapButton showItinerary" data-toggle="1" title="Show itinerary">&nbsp;</li>' : '' ) + '</ul>').appendTo( this.UiButtonBar );
+                '<ul class="vdZoomButtons" style="margin-left:-50px;"><li class="vdMapButton vdMapZoom" data-action="vdUIZoomIn" data-pressable="1" title="Zoom in"><span>+</span></li><li class="vdMapButton vdMapZoom"  data-pressable="1" data-action="vdUIZoomOut" title="Zoom out"><span>-</span></li> '+ ( this.params.displayItineraryPanel ? '<li class="vdMapButton showItinerary" data-toggle="1" title="Show itinerary">&nbsp;</li>' : '' ) + '</ul>').appendTo( this.UiButtonBar );
         this.loaderLayer = $('<div class="vdLoader"></div>').appendTo(pContext);
 
         if( this.params.displayToolbar ) {
@@ -316,7 +316,7 @@
     ViewerBaseUi.prototype.modelReady = function(ev, map) {
 
         this.model = map;
-        var floorsMenu = $('<ul class="vdChangeFloorButtons"></ul>');
+        var floorsMenu = $('<ul class="vdChangeFloorButtons" style="margin-left:-50px;"></ul>');
         var floorList = map.ViadirectMap.FloorList;
         for ( var key in floorList) {
             $(
@@ -365,7 +365,7 @@
                 if ($this.is(".selected")) {
                     $(this).css({ "background-color": "black" });
                 }
-                
+
                 if ($this.data('pressable')) {
                     buttonPressed = $this;
                     cancelAnimationFrame(self.interval);
@@ -798,7 +798,7 @@ OfflineViewerUi.prototype.toString = function() {
             this.destinationPanel = $("<div class='destinationInfoArea close'><div class='content-wrapper'></div></div>").appendTo(this._ctx);
         }
         this.zoomControls = $(
-                '<ul class="vdZoomButtons"><li class="vdMapButton vdMapZoom" data-action="vdUIZoomIn" data-pressable="1" title="Zoom in"><span>+</span></li><li class="vdMapButton vdMapZoom"  data-pressable="1" data-action="vdUIZoomOut" title="Zoom out"><span>-</span></li> '+ ( this.params.displayItineraryPanel ? '<li class="vdMapButton showItinerary" data-toggle="1" title="Show itinerary">&nbsp;</li>' : '' ) + '</ul>').appendTo( this.UiButtonBar );
+                '<ul class="vdZoomButtons" style="margin-left:-50px;"><li class="vdMapButton vdMapZoom" data-action="vdUIZoomIn" data-pressable="1" title="Zoom in"><span>+</span></li><li class="vdMapButton vdMapZoom"  data-pressable="1" data-action="vdUIZoomOut" title="Zoom out"><span>-</span></li> '+ ( this.params.displayItineraryPanel ? '<li class="vdMapButton showItinerary" data-toggle="1" title="Show itinerary">&nbsp;</li>' : '' ) + '</ul>').appendTo( this.UiButtonBar );
         this.loaderLayer = $('<div class="vdLoader"></div>').appendTo(pContext);
 
         if( this.params.displayToolbar ) {
@@ -867,7 +867,7 @@ OfflineViewerUi.prototype.toString = function() {
     ViewerBaseUi.prototype.modelReady = function(ev, map) {
 
         this.model = map;
-        var floorsMenu = $('<ul class="vdChangeFloorButtons"></ul>');
+        var floorsMenu = $('<ul class="vdChangeFloorButtons" style="margin-left:-50px;"></ul>');
         var floorList = map.ViadirectMap.FloorList;
         for ( var key in floorList) {
             $(
