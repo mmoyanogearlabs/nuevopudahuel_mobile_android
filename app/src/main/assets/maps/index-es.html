@@ -386,7 +386,6 @@
             margin: 0.5em 0;
             clear: both;
         }
-
         /* Para el canvas activo, funciona */
         /* canvas>.destination:active {
             background-color: #F2F2F2;
@@ -405,8 +404,6 @@
 <body>
     <!-- Declaración del viewer-->
     <div class="vd-viewer" id="my-viewer"></div>
-
-
 
     <script type="text/javascript" src="js/lib/jquery.js"></script>
     <script type="text/javascript" src="js/userInterface-es.js"></script>
@@ -446,17 +443,14 @@
                         openUiOnSelectedDestination: false,
                         showItineraries: true
                     },
-
                 };
 
                 jQuery(".vd-viewer").vdCanvasViewer(params);
 
-                // Hago pruebas aquí para simular pulsado 4 veces
-                // Obtención elemento
-                // $('.vdMapButton[data-action=vdUIZoomIn]').css({"background-color":"red"});
-                //Cambiamos el centrado y tamaño exacto en tiempo de ejecución
-                $('.vdUiButtons').css({ "height": "350px" });
-                
+                // Pruebas
+                //$('.vdMapButton[data-action=vdUIZoomIn]').css({"background-color":"red"});
+                //$('.vdUiButtons').css({ "height": "410px", "margin-left": "0px", "padding": "none"});
+
             });
         })(jQuery, window);
     </script>

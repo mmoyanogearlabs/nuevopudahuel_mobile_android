@@ -1,4 +1,4 @@
-(function($, global) {
+(function ($, global) {
 
     /**
      *
@@ -32,7 +32,7 @@
      * @param pName
      * @returns
      */
-    EventManagerDecorator.prototype.trigger = function(pName) {
+    EventManagerDecorator.prototype.trigger = function (pName) {
         var args = Array.prototype.slice.call(arguments);
         args[0] += ("." + this._prefix);
         //    console.log( "trigger " + args );
@@ -44,7 +44,7 @@
      *
      * @returns
      */
-    EventManagerDecorator.prototype.bind = function() {
+    EventManagerDecorator.prototype.bind = function () {
         var args = Array.prototype.slice.call(arguments);
         args[0] += ("." + this._prefix);
         //    console.log( "bind " + args );
@@ -56,7 +56,7 @@
      *
      * @returns
      */
-    EventManagerDecorator.prototype.unbind = function() {
+    EventManagerDecorator.prototype.unbind = function () {
         var args = Array.prototype.slice.call(arguments);
         args[0] += ("." + this._prefix);
         this._target.unbind.apply(this._target, args);
@@ -67,7 +67,7 @@
      *
      * @param {String} pPrefix
      */
-    EventManagerDecorator.prototype.setPrefix = function(pPrefix) {
+    EventManagerDecorator.prototype.setPrefix = function (pPrefix) {
         this._prefix = pPrefix !== undefined ? pPrefix : "";
         return this;
     };
@@ -109,7 +109,7 @@
      * @param {Object}
      *                pParams
      */
-    PathManager.prototype.setParams = function(pParams) {
+    PathManager.prototype.setParams = function (pParams) {
         $.extend(this, pParams);
         console.log(this.protocol);
     };
@@ -118,7 +118,7 @@
      *
      * @returns {String}
      */
-    PathManager.prototype.getPath = function() {
+    PathManager.prototype.getPath = function () {
         return this.protocol + "://" + this.hostName + this.path;
     };
 
@@ -127,7 +127,7 @@
      * @param params
      * @returns
      */
-    PathManager.prototype.getBuildingUrl = function() {
+    PathManager.prototype.getBuildingUrl = function () {
         return [this.getPath(), this.buildingFilename].join('/');
     };
 
@@ -136,7 +136,7 @@
      * @param pName
      * @returns {String}
      */
-    PathManager.prototype.getFloorUrl = function(pName) {
+    PathManager.prototype.getFloorUrl = function (pName) {
         return [this.getPath(), this.floorPath, pName, pName + ".json"].join('/');
     };
 
@@ -145,7 +145,7 @@
      * @param pName
      * @returns {String}
      */
-    PathManager.prototype.getCategoryUrl = function(pName) {
+    PathManager.prototype.getCategoryUrl = function (pName) {
         return [this.getPath(), this.categoryPath, pName, pName + ".json"].join('/');
     };
 
@@ -154,7 +154,7 @@
      * @param pName
      * @returns {String}
      */
-    PathManager.prototype.getTopicUrl = function(pName) {
+    PathManager.prototype.getTopicUrl = function (pName) {
         return [this.getPath(), this.topicsPath, pName, pName + ".json"].join('/');
     };
 
@@ -164,7 +164,7 @@
      * @param pName
      * @returns {String}
      */
-    PathManager.prototype.getHiddenTopicUrl = function(pName, folder) {
+    PathManager.prototype.getHiddenTopicUrl = function (pName, folder) {
         if (!folder)
             return [this.getPath(), this.hiddenTopicsPath, pName, pName + ".json"].join('/');
         else
@@ -176,7 +176,7 @@
      * @param pName
      * @returns {String}
      */
-    PathManager.prototype.getFloorTextureUrl = function(pName, floorTexturePath) {
+    PathManager.prototype.getFloorTextureUrl = function (pName, floorTexturePath) {
         if (!floorTexturePath)
             return [this.getPath(), this.floorPath, pName, this.floorTextureName].join('/');
 
@@ -188,42 +188,42 @@
      * @param pName
      * @returns {String}
      */
-    PathManager.prototype.getDestinationUrl = function(pName, onlyFolder) {
+    PathManager.prototype.getDestinationUrl = function (pName, onlyFolder) {
         if (onlyFolder) {
             return [this.getPath(), this.destinationPath, pName].join('/');
         }
         return [this.getPath(), this.destinationPath, pName, pName + ".json"].join('/');
     };
 
-    PathManager.prototype.getDestinationViewUrl = function(pName, onlyFolder) {
+    PathManager.prototype.getDestinationViewUrl = function (pName, onlyFolder) {
         return this.getDestinationUrl(pName, onlyFolder);
     };
 
-    PathManager.prototype.getArrowImageUrl = function() {
+    PathManager.prototype.getArrowImageUrl = function () {
         return "./resources/pictos/arrow.svg";
     };
 
-    PathManager.prototype.getElevatorUpImageUrl = function() {
+    PathManager.prototype.getElevatorUpImageUrl = function () {
         return "./resources/pictos/ascenseur-up.svg";
     };
 
-    PathManager.prototype.getElevatorDownImageUrl = function() {
+    PathManager.prototype.getElevatorDownImageUrl = function () {
         return "./resources/pictos/escalator-down.svg";
     };
 
-    PathManager.prototype.getEscalatorUpImageUrl = function() {
+    PathManager.prototype.getEscalatorUpImageUrl = function () {
         return "./resources/pictos/escalator-up.svg";
     };
 
-    PathManager.prototype.getEscalatorDownImageUrl = function() {
+    PathManager.prototype.getEscalatorDownImageUrl = function () {
         return "./resources/pictos/escalator-down.svg";
     };
 
-    PathManager.prototype.getStairsUpImageUrl = function() {
+    PathManager.prototype.getStairsUpImageUrl = function () {
         return "./resources/pictos/escalier-up.svg";
     };
 
-    PathManager.prototype.getStairsDownImageUrl = function() {
+    PathManager.prototype.getStairsDownImageUrl = function () {
         return "./resources/pictos/escalier-down.svg";
     };
     /**
@@ -276,7 +276,7 @@
          */
         A: 255,
 
-        toSimpleObject: function() {
+        toSimpleObject: function () {
 
             return {
                 R: this.R,
@@ -303,7 +303,7 @@
      * @param {number} packedColor - The color packed in the c# XNA standard
      * @returns {Color}
      */
-    CanvasHelper.convertPackedColorToColor = function(packedColor) {
+    CanvasHelper.convertPackedColorToColor = function (packedColor) {
         var b = (packedColor >> 0) & 255;
         var g = (packedColor >> 8) & 255;
         var r = (packedColor >> 16) & 255;
@@ -322,7 +322,7 @@
      * @param {number} canvasWidth       - Width of the Canvas
      * @returns {Point}
      */
-    CanvasHelper.DimensionsConverter = function(oldPoint, jsonMapUpperPoint, jsonMapLowerPoint, canvasHeight,
+    CanvasHelper.DimensionsConverter = function (oldPoint, jsonMapUpperPoint, jsonMapLowerPoint, canvasHeight,
         canvasWidth) {
         var mapWidth = Math.abs(jsonMapUpperPoint.X - jsonMapLowerPoint.X);
         var mapHeight = Math.abs(jsonMapUpperPoint.Y - jsonMapLowerPoint.Y);
@@ -349,7 +349,7 @@
      * @param {number} canvasWidth       - Width of the Canvas
      * @returns {Point}
      */
-    CanvasHelper.DimensionsReverter = function(oldPoint, jsonMapUpperPoint, jsonMapLowerPoint, canvasHeight,
+    CanvasHelper.DimensionsReverter = function (oldPoint, jsonMapUpperPoint, jsonMapLowerPoint, canvasHeight,
         canvasWidth) {
         var mapWidth = Math.abs(jsonMapUpperPoint.X - jsonMapLowerPoint.X);
         var mapHeight = Math.abs(jsonMapUpperPoint.Y - jsonMapLowerPoint.Y);
@@ -368,7 +368,7 @@
      * @param {Point} Point2
      * @returns {number}
      */
-    CanvasHelper.GetAngle = function(Point1, Point2) {
+    CanvasHelper.GetAngle = function (Point1, Point2) {
         var newPoint = new Point();
 
         newPoint.X = Point2.X - Point1.X;
@@ -384,7 +384,7 @@
      * @param {number} teta  - Rotation angle ( radians )
      * @returns {Point}
      */
-    CanvasHelper.rotationMatrice = function(point, teta) {
+    CanvasHelper.rotationMatrice = function (point, teta) {
         var rotatedPoint = new Point();
 
         if (point.Z) {
@@ -404,7 +404,7 @@
      * @param {number} teta        - Rotation angle ( radians )
      * @returns {Point}
      */
-    CanvasHelper.changementRepere = function(point, translation, teta) {
+    CanvasHelper.changementRepere = function (point, translation, teta) {
         var finalPoint = new Point();
 
         finalPoint.X = point.X - translation.X;
@@ -422,7 +422,7 @@
      * @param {Point} Point2 - Second point of the line
      * @returns {number}
      */
-    CanvasHelper.GetLength = function(Point1, Point2) {
+    CanvasHelper.GetLength = function (Point1, Point2) {
         var length = (Point1.X - Point2.X) * (Point1.X - Point2.X) + (Point1.Y - Point2.Y) * (Point1.Y - Point2.Y);
         return Math.sqrt(length);
     };
@@ -439,7 +439,7 @@
      * @param {string] pPath   - Path to follow inside the pTarget elements. Splits on /
      * @returns
      */
-    JsonNavigator.walkPath = function(pTarget, pPath) {
+    JsonNavigator.walkPath = function (pTarget, pPath) {
 
         var node = pTarget;
         var path = pPath.split('/');
@@ -459,7 +459,7 @@
      */
     PathCalculator = {};
 
-    PathCalculator.CalculatePath = function(pListOfPath, pStartingNode, pEndingNode, isPMR) {
+    PathCalculator.CalculatePath = function (pListOfPath, pStartingNode, pEndingNode, isPMR) {
         var closeNodes = new Array();
         var openNodes = new Array();
         var cameFrom = new Array();
@@ -511,7 +511,7 @@
         return null;
     };
 
-    PathCalculator.FindNodeInArray = function(tab, node) {
+    PathCalculator.FindNodeInArray = function (tab, node) {
         for (key in tab) {
             if (tab[key].node == node)
                 return tab[key];
@@ -520,13 +520,13 @@
         return null;
     };
 
-    PathCalculator.TabContainsNode = function(tab, node) {
+    PathCalculator.TabContainsNode = function (tab, node) {
         if (PathCalculator.FindNodeInArray(tab, node))
             return true;
         return false;
     };
 
-    PathCalculator.RemoveNodeFromArray = function(tab, item) {
+    PathCalculator.RemoveNodeFromArray = function (tab, item) {
         var index = tab.indexOf(item);
 
         if (index > -1) {
@@ -536,7 +536,7 @@
         return tab;
     };
 
-    PathCalculator.FindLowerFScoreValue = function(tab) {
+    PathCalculator.FindLowerFScoreValue = function (tab) {
         if (tab.length == 0)
             return null;
 
@@ -554,14 +554,14 @@
         return lowest;
     };
 
-    PathCalculator.HeuristicCostEstimate = function(pNode1, pNode2) {
+    PathCalculator.HeuristicCostEstimate = function (pNode1, pNode2) {
         var Point1 = pNode1.Position;
         var Point2 = pNode2.Position;
 
         return Math.sqrt((Point1.X - Point2.X) * (Point1.X - Point2.X) + (Point1.Y - Point2.Y) * (Point1.Y - Point2.Y) + (Point1.Z - Point2.Z) * (Point1.Z - Point2.Z));
     };
 
-    PathCalculator.ReconstructPath = function(cameFromTab, current) {
+    PathCalculator.ReconstructPath = function (cameFromTab, current) {
         var totalPath = new Array();
         totalPath.push(current);
         var length = 0;
@@ -585,7 +585,7 @@
             path: PathCalculator.pathCleaner(totalPath),
             length: length,
             floors: floors,
-            toSimpleObject: function() {
+            toSimpleObject: function () {
                 return {
                     length: this.length,
                     floors: this.floors,
@@ -596,7 +596,7 @@
     };
 
 
-    PathCalculator.pathCleaner = function(path) {
+    PathCalculator.pathCleaner = function (path) {
         var hasModif;
 
         do {
@@ -622,7 +622,7 @@
         return path;
     };
 
-    PathCalculator.toSimpleObject = function() {
+    PathCalculator.toSimpleObject = function () {
         var o = [];
         for (var i = 0, len = this.length; i < len; i++) {
             o.push(this[i].toSimpleObject());
@@ -630,7 +630,7 @@
         return o;
     };
 
-    PathCalculator.ReconstructPathChecker = function(tab, node) {
+    PathCalculator.ReconstructPathChecker = function (tab, node) {
         for (key in tab) {
             if (tab[key] == node)
                 return tab[key];
@@ -639,266 +639,30 @@
         return null;
     };
 
-    PathCalculator.FindPointsRelatedToPoint = function(pListOfPath, pNode, isPMR) {
+    PathCalculator.FindPointsRelatedToPoint = function (pListOfPath, pNode, isPMR) {
 
-            var resultPoints = new Array();
+        var resultPoints = new Array();
 
-            for (var i = 0; i < pListOfPath.length; i++) {
-                if (isPMR && !pListOfPath[i].AccesibleToDisabledPeople)
-                    continue;
+        for (var i = 0; i < pListOfPath.length; i++) {
+            if (isPMR && !pListOfPath[i].AccesibleToDisabledPeople)
+                continue;
 
-                if (!isPMR && pListOfPath[i].IsPMROnly)
-                    continue;
+            if (!isPMR && pListOfPath[i].IsPMROnly)
+                continue;
 
-                if (pListOfPath[i].StartingPoint == pNode) {
-                    resultPoints.push(pListOfPath[i].EndingPoint);
-                }
-                if (pListOfPath[i].EndingPoint == pNode) {
-                    resultPoints.push(pListOfPath[i].StartingPoint);
-                }
+            if (pListOfPath[i].StartingPoint == pNode) {
+                resultPoints.push(pListOfPath[i].EndingPoint);
             }
-
-            return resultPoints;
+            if (pListOfPath[i].EndingPoint == pNode) {
+                resultPoints.push(pListOfPath[i].StartingPoint);
+            }
         }
-        // All urls and paths to navigate in the map
 
-    /*
-     * Text Ressources related constants
-     */
+        return resultPoints;
+    }
+    // All urls and paths to navigate in the map
 
-    var TEXT_RESSOURCES_PATH_TO_NAME_TRANSLATION_TEXT = "Text";
 
-    var TEXT_RESSOURCES_PATH_TO_NAME_TRANSLATION_ABBREVIATION = "Abbreviation";
-
-    /*
-     * Destination related constants
-     */
-
-    var DESTINATION_FROM_ROOT_PATH_TO_ID = "Id";
-    var DESTINATION_FROM_ROOT_PATH_TO_TRANSLATIONS = "TextResource/Translations";
-    var DESTINATION_FROM_ROOT_PATH_TO_NAME = "TextResource/Name";
-    var DESTINATION_FROM_ROOT_PATH_TO_DESCRIPTION = "Description/Translations";
-    var DESTINATION_FROM_ROOT_PATH_TO_HIDDEN_TOPICS = "HiddenTopics";
-    var DESTINATION_FROM_ROOT_PATH_TO_TOPICS = "Topics";
-    var DESTINATION_FROM_ROOT_PATH_TO_CATEGORIES = "Categories";
-    var DESTINATION_FROM_ROOT_PATH_TO_ACTUAL_SHAPE_LIST = "ShapeIndexes/ActualShapeList";
-
-
-    var DESTINATION_PATH_URL = "Destinations/";
-
-    var DESTINATION_LOGO_URL_PREFIX = "MapLogo_";
-
-    var DESTINATION_PATH_TO_ROOT = "Value";
-
-    var DESTINATION_PATH_TO_NAME = "Value/TextResource/Name";
-
-    var DESTINATION_PATH_TO_TRANSLATIONS = "Value/TextResource/Translations";
-
-    var DESTINATION_PATH_TO_DESCRIPTION = "Value/Description/Translations";
-
-    var DESTINATION_PATH_TO_ID = "Value/Id";
-
-    var DESTINATION_PATH_TO_HIDDEN_TOPICS = "Value/HiddenTopics";
-
-    var DESTINATION_PATH_TO_TOPICS = "Value/Topics";
-
-    var DESTINATION_PATH_TO_CATEGORIES = "Value/Categories";
-
-    var DESTINATION_PATH_TO_EXTERNAL_DATAS = "ExternalDatas";
-
-    var DESTINATION_PATH_TO_EXTERNAL_DATAS_DATA = "Data";
-
-    var DESTINATION_PATH_TO_EXTERNAL_DATAS_DATA_KEY = "key";
-
-    var DESTINATION_PATH_TO_EXTERNAL_DATAS_DATA_VALUE_UND = "und";
-
-    var DESTINATION_PATH_TO_EXTERNAL_DATAS_DATA_VALUE_EN = "en";
-
-    var DESTINATION_PATH_TO_EXTERNAL_DATAS_DATA_VALUE_RU = "ru";
-
-    var DESTINATION_PATH_TO_ACTUAL_SHAPE_LIST = "Value/ShapeIndexes/ActualShapeList";
-
-    var DESTINATION_PATH_TO_ACTUAL_SHAPE_LIST_FLOOR_ID = "FloorId";
-
-    var DESTINATION_PATH_TO_ACTUAL_SHAPE_LIST_ID = "Id";
-
-    /*
-     * Category related constants
-     */
-
-    var CATEGORY_PATH_URL = "Categories/";
-
-    var CATEGORY_PATH_TO_NAME = "TextResource/Name";
-
-    var CATEGORY_PATH_TO_ID = "Id";
-
-    var CATEGORY_PATH_TO_TEXT_RESSOURCES = "TextResource/Translations";
-
-    /*
-     * Path points related constants
-     */
-
-    var PATHPOINTS_PATH_POSITION = "Position";
-
-    var PATHPOINTS_PATH_FLOOR_REFERENCE = "Floor";
-
-    var PATHPOINTS_PATH_DESTINATION_REFERENCE = "DestinationReference";
-
-    var PATHPOINTS_PATH_ID = "Id";
-
-    var PATHPOINTS_PATH_FLOOR_POSITION = "Floor";
-
-    var PATHPOINTS_PATH_NAME = "Name";
-
-    /*
-     * Path related constants
-     */
-
-    var PATH_PATH_STARTING_POINT = "StartPointId";
-
-    var PATH_PATH_ENDING_POINT = "FinishPointId";
-
-    var PATH_PATH_ACESSIBLE_DISABLE = "AccesibleToDisabledPeople";
-
-    var PATH_PATH_ID = "Id";
-
-    var PATH_PATH_DIRECTION = "PathDirection";
-
-    var PATH_PATH_FROM_DAY = "UsableFromDay";
-
-    var PATH_PATH_FROM_HOUR = "UsableFromHour";
-
-    var PATH_PATH_TILL_DAY = "UsableTillDay";
-
-    var PATH_PATH_TILL_HOUR = "UsableTillHour";
-
-    /*
-     * Topic related constants
-     */
-
-    var TOPIC_PATH_URL = "Topics/";
-
-    var TOPIC_PATH_TO_NAME = "TextResource/Name";
-
-    var TOPIC_PATH_TO_ID = "Id";
-
-    var TOPIC_PATH_TO_TEXT_RESSOURCES = "TextResource/Translations";
-
-    var TOPIC_PATH_TO_COLOR = "Color";
-
-    var TOPIC_PATH_TO_PACKED_COLOR = "Color/packedValue";
-
-    /*
-     * Hidden Topic related constants
-     */
-
-    var HIDDEN_TOPIC_PATH_URL = "HiddenTopics/";
-
-    /*
-     * Floors related constants
-     */
-
-    // Floors folder
-    var FLOORS_PATH_URL = "Floors/";
-
-    // Texture Path Url
-    var FLOOR_TEXTURE_PATH_URL = "Texture.png";
-
-    // Lower point label in Json
-    var FLOOR_LOWER_POINT_LABEL = "LowerPoint";
-
-    // Lower point path from floor
-    var FLOOR_LOWER_POINT_PATH = "LowerPoint";
-
-    // Position path from floor
-    var FLOOR_POSITION_PATH = "Position";
-
-    var FLOOR_TEXTURE_HEIGHT = "Height";
-
-    var FLOOR_TEXTURE_WIDTH = "Width";
-
-    // Upper point label in Json
-    var FLOOR_UPPER_POINT_LABEL = "UpperPoint";
-
-    // Upper point path from floor
-    var FLOOR_UPPER_POINT_PATH = "UpperPoint";
-
-    // Path to Floor Name From Floor
-    var FLOOR_PATH_TO_NAME = "TextResource/Name";
-
-    var FLOOR_PATH_TO_TEXTURE_NAME = "Texture";
-
-    var FLOOR_PATH_TO_PACKED_COLOR = "Color/packedValue";
-
-    var FLOOR_PATH_TO_NAME_TRANSLATIONS = "TextResource/Translations";
-
-    // Path to Shapes Array from Floor
-    var FLOOR_PATH_TO_SHAPES = "Shapes";
-
-    // Path to Shapes points from Shape
-    var FLOOR_PATH_TO_SHAPE_POINTS = "Value/ShapePoints";
-    var FLOOR_PATH_TO_SHAPE_ID = "Value/Id";
-    var FLOOR_PATH_TO_SHAPE_COLOR_PACKED_VALUE = "Value/Color/packedValue";
-    var FLOOR_PATH_TO_SHAPE_SELECTABLE = "Value/Selectable";
-    var FLOOR_PATH_TO_SHAPE_HEIGHT = "Value/Height";
-    var FLOOR_PATH_TITLE_BASELINE = "Value/TitleBaseline/PointList";
-    var FLOOR_PATH_CENTER_POINT = "Value/Center";
-    var FLOOR_PATH_TITLE_BASELINE_MAXHEIGHT = "Value/TitleBaseline/MaxTextHeight";
-
-    /*
-     * Building related constants
-     */
-
-    // Building.json Name
-    var BUILDING_JSON = "building.json";
-
-    // Floors label in Json
-    var BUILDING_FLOORS_LABEL = "Floors";
-
-    // Path to floors in building.json
-    var BUILDING_FLOORS_PATH = "Floors";
-
-    var BUILDING_PATH_TO_DESTINATIONS = "Destinations";
-
-    var BUILDING_PATH_TO_CATEGORIES = "CategoriesId";
-
-    var BUILDING_PATH_TO_TOPICS = "TopicsId";
-
-    var BUILDING_PATH_TO_HIDDEN_TOPICS = "HiddenTopicsId";
-
-    /*
-     * Canvas related Constants
-     */
-
-    var CANVAS_DRAWABLE_BACKGROUND_TEXTURE = "BackgroundTexture";
-
-    var CANVAS_DRAWABLE_VIADIRECT_SHAPE = "ViaDirectShape";
-
-    var CANVAS_DRAWABLE_VIADIRECT_PATHPOINT = "ViaDirectPathPoint";
-
-    var CANVAS_DRAWABLE_VIADIRECT_PATH = "ViaDirectPath";
-
-    var CANVAS_DRAWABLE_VIADIRECT_CIRCLE = "ViaDirectCircle";
-
-    var CANVAS_DRAWABLE_PICTO = "ViaDirectPicto";
-
-    var CANVAS_DRAWABLE_BILBOARD = "ViaDirectBillboard";
-
-    var CANVAS_DRAWABLE_LINE = "Line";
-
-    var CANVAS_LABEL_BLOC = "BlockLabel";
-
-    /*
-     * Url Parameters Constants
-     */
-
-    var URL_SELECT_DESTINATION = "destination";
-
-    var URL_SELECT_FLOOR = "floor";
-
-    var URL_UI_STATUS = "ui";
-
-    var CONSTANT_DOORS_CATEGORY = "doors";
     /**
      *
      * @file CssProperties.js
@@ -944,7 +708,7 @@
 
         otherProperties: null,
 
-        toSimpleObject: function() {
+        toSimpleObject: function () {
             return {
                 fontSize: this.fontSize,
                 fontFaimly: this.fontFamily,
@@ -1000,7 +764,7 @@
          */
         Z: null,
 
-        toSimpleObject: function() {
+        toSimpleObject: function () {
             return {
                 X: this.X,
                 Y: this.Y,
@@ -1069,7 +833,7 @@
 
         CssPropertiesList: null,
 
-        toSimpleObject: function() {
+        toSimpleObject: function () {
             var i = 0,
                 len = this.PointList.length;
             var pointlist = new Array(len);
@@ -1084,7 +848,7 @@
         }
     };
 
-    BlocLabel.prototype.hasPoints = function() {
+    BlocLabel.prototype.hasPoints = function () {
         return this.PointList.length > 0;
     };
 
@@ -1181,7 +945,7 @@
          */
         FloorName: "",
 
-        GetBounds: function() {
+        GetBounds: function () {
             var i, len, minX = Number.NEGATIVE_INFINITY,
                 minY = Number.NEGATIVE_INFINITY,
                 maxX = Number.POSITIVE_INFINITY,
@@ -1209,7 +973,7 @@
          *
          * @returns Shape
          */
-        Clone: function() {
+        Clone: function () {
             var copy = new Shape();
 
             for (var attr in this) {
@@ -1220,7 +984,7 @@
             return copy;
         },
 
-        toSimpleObject: function() {
+        toSimpleObject: function () {
             var i, len;
             var points = new Array(this.PointList.length);
 
@@ -1322,10 +1086,10 @@
          * Adds a Shape object into the floor's shape list
          * @param {Shape} pShape
          */
-        AddShape: function(pShape) {
+        AddShape: function (pShape) {
             this.ShapeList.push(pShape);
         },
-        toSimpleObject: function() {
+        toSimpleObject: function () {
             var i = 0,
                 len = this.ShapeList.length,
                 shapeList = new Array(len);
@@ -1391,7 +1155,7 @@
          * @param   {number} languageId - The language id to get the trad
          * @returns {string}
          */
-        GetNameTranslation: function(languageId) {
+        GetNameTranslation: function (languageId) {
             if (!this.NameTranslations)
                 return null;
 
@@ -1401,7 +1165,7 @@
             return this.NameTranslations[languageId];
         },
 
-        toSimpleObject: function() {
+        toSimpleObject: function () {
             return {
                 Color: this.Color ? this.Color.toSimpleObject() : null,
                 Id: this.Id,
@@ -1463,7 +1227,7 @@
          *                languageId - The language id to get the trad
          * @returns {string}
          */
-        GetNameTranslation: function(languageId) {
+        GetNameTranslation: function (languageId) {
             if (!this.NameTranslations)
                 return null;
 
@@ -1473,7 +1237,7 @@
             return this.NameTranslations[languageId];
         },
 
-        toSimpleObject: function() {
+        toSimpleObject: function () {
 
             var o = {
                 Id: this.Id,
@@ -1580,7 +1344,7 @@
          */
         LogoUrl: "",
 
-        HasCategory: function(categoryName) {
+        HasCategory: function (categoryName) {
             for (category in this.Categories) {
                 if (category.Name == categoryName)
                     return true;
@@ -1588,7 +1352,7 @@
 
             return false;
         },
-        HasCategory: function(pName) {
+        HasCategory: function (pName) {
             var i, len, found = false;
             for (i = 0, len = this.Categories.length; i < len; i++) {
                 found = this.Categories[i].Name == pName;
@@ -1601,7 +1365,7 @@
          * @param   {number} externalIdKey - the key of th external ID
          * @returns {number}
          */
-        GetExternalId: function(externalIdKey) {
+        GetExternalId: function (externalIdKey) {
 
             if (!this.AdditionalInfos)
                 return this.Id;
@@ -1617,7 +1381,7 @@
          * @param   {number} languageId - The language id to get the trad
          * @returns {string}
          */
-        GetNameTranslation: function(languageId) {
+        GetNameTranslation: function (languageId) {
             if (!this.NameTranslations)
                 return "";
 
@@ -1632,7 +1396,7 @@
          * @param   {number}   languageId - The language id to get the trad
          * @returns {string[]}
          */
-        GetCategoriesTranslations: function(languageId) {
+        GetCategoriesTranslations: function (languageId) {
             var retval = new Array();
 
             for (var i = 0, len = this.Topics.length; i < len; i++) {
@@ -1647,7 +1411,7 @@
          * @param   {number}   languageId - The language id to get the trad
          * @returns {string[]}
          */
-        GetTopicsTranslations: function(languageId) {
+        GetTopicsTranslations: function (languageId) {
             var retval = new Array();
 
             for (var i = 0, len = this.Categories.length; i < len; i++) {
@@ -1662,7 +1426,7 @@
          * @param   {number}   languageId - The language id to get the trad
          * @returns {string[]}
          */
-        GetHiddenTopicsTranslations: function(languageId) {
+        GetHiddenTopicsTranslations: function (languageId) {
             var retval = new Array();
 
             for (var i = 0, len = this.HiddenTopics.length; i < len; i++) {
@@ -1677,7 +1441,7 @@
          * @param   {number} languageId - The language id to get the trad
          * @returns {string}
          */
-        GetDescriptionTranslation: function(languageId) {
+        GetDescriptionTranslation: function (languageId) {
             if (!this.DescriptionTranslations)
                 return "";
 
@@ -1687,7 +1451,7 @@
             return this.DescriptionTranslations[languageId];
         },
 
-        toSimpleObject: function() {
+        toSimpleObject: function () {
             var i, len, pathpoints = [],
                 shapeList = [],
                 categories = [],
@@ -1752,7 +1516,7 @@
          */
         Floor: null,
 
-        toSimpleObject: function() {
+        toSimpleObject: function () {
             return {
                 Position: this.Position.toSimpleObject(),
                 Name: this.name,
@@ -1827,7 +1591,7 @@
          */
         PathDirection: 0,
 
-        toSimpleObject: function() {
+        toSimpleObject: function () {
             return {
                 StartingPoint: this.StartingPoint.toSimpleObject(),
                 EndingPoint: this.EndingPoint.toSimpleObject(),
@@ -1864,7 +1628,7 @@
     };
 
     ResourcesHolder.prototype = {
-        hasResource: function(pName) {
+        hasResource: function (pName) {
             return pName in this.__proto__;
         },
         ArrowIcon: null,
@@ -1972,7 +1736,7 @@
          *                floorName - the name of the floor
          * @returns {PathPoints[]} The PathPoints associated to the floor Name
          */
-        FindPathPointsByFloor: function(floorName) {
+        FindPathPointsByFloor: function (floorName) {
             var pathPointsArray = new Array();
 
             for (var key in this.PathPointsList) {
@@ -1983,7 +1747,7 @@
             return pathPointsArray;
         },
 
-        FindAllPathByFloor: function(floorName) {
+        FindAllPathByFloor: function (floorName) {
             var floorPaths = new Array();
             var pointsArray = this.FindPathPointsByFloor(floorName);
 
@@ -2007,7 +1771,7 @@
          * @param destinationID
          * @returns {Array}
          */
-        FindPointsAssociatedToDestinationID: function(destinationID) {
+        FindPointsAssociatedToDestinationID: function (destinationID) {
             var pointsList = new Array();
 
             for (ppkey in this.PathPointsList) {
@@ -2022,7 +1786,7 @@
             return pointsList;
         },
 
-        FindPathPointById: function(pathPointId) {
+        FindPathPointById: function (pathPointId) {
             for (var key in this.PathPointsList) {
                 if (this.PathPointsList[key].Id == pathPointId) {
                     return this.PathPointsList[key];
@@ -2039,7 +1803,7 @@
          *                pathPoint - the pathPoint
          * @returns {Destination[]} The Destinations associated to the PathPoint
          */
-        FindDestinationAssociatedToPathPoint: function(pathPoint) {
+        FindDestinationAssociatedToPathPoint: function (pathPoint) {
             var destinationsArray = new Array();
 
             for (var i = 0; i < pathPoint.DestinationReference.length; i++) {
@@ -2061,7 +1825,7 @@
          *                floorName - the name of the floor
          * @returns {Floor} the floor with the given floor name
          */
-        FindFloorByName: function(floorName) {
+        FindFloorByName: function (floorName) {
             for (var key in this.FloorList) {
                 if (this.FloorList[key].Name == floorName) {
                     return this.FloorList[key];
@@ -2076,7 +1840,7 @@
          * @param {Floor}
          *                pFloor
          */
-        AddFloor: function(pFloor) {
+        AddFloor: function (pFloor) {
             this.FloorList.push(pFloor);
         },
 
@@ -2085,7 +1849,7 @@
          * @param {String} pName
          * @returns {Category}
          */
-        FindCategoryByName: function(pName) {
+        FindCategoryByName: function (pName) {
             var i, len;
             for (i = 0, len = this.CategoriesList.length; i < len; i++) {
                 if (this.CategoriesList[i].Name == pName) {
@@ -2100,7 +1864,7 @@
          * @param pCategory
          * @returns {Array} a list of destination identified by this category
          */
-        FindDestinationsByCategory: function(pCategory) {
+        FindDestinationsByCategory: function (pCategory) {
             var c = this.FindCategoryByName(pCategory);
             if (c)
                 return c.DestinationsList;
@@ -2114,7 +1878,7 @@
          * @param destinationId
          * @returns {Destination}
          */
-        FindDestinationById: function(destinationId) {
+        FindDestinationById: function (destinationId) {
             for (var key in this.DestinationList) {
                 if (this.DestinationList[key].Id == destinationId) {
                     return this.DestinationList[key];
@@ -2122,7 +1886,7 @@
             }
         },
 
-        toSimpleObject: function() {
+        toSimpleObject: function () {
             var i, len, categories = new Array(this.CategoriesList.length),
                 destinations = new Array(this.DestinationList.length),
                 floors = new Array(this.FloorList.length),
@@ -2189,7 +1953,7 @@
          * Add an element to the current scene object. Doesn't trigger a canvas draw.
          * @param {DrawableItem} item - Item to add to the scene
          */
-        AddItem: function(item) {
+        AddItem: function (item) {
             this.ItemsList.push(item);
         }
     };
@@ -2214,29 +1978,29 @@
 
     DrawableItem.prototype = {
 
-            /**
-             * Holds a constant defining the type of the DrawableItem.
-             * All the possible values are listed in the constant.js file.
-             * Theses values are ( as listed in the rev:18 ) :
-             * - CANVAS_DRAWABLE_BACKGROUND_TEXTURE : "BackgroundTexture"
-             * - CANVAS_DRAWABLE_VIADIRECT_SHAPE : "ViaDirectShape"
-             * - CANVAS_DRAWABLE_LINE : "Line"
-             * - CANVAS_LABEL_BLOC : "BlockLabel"
-             * @type {String}
-             */
-            ItemType: null,
-
-            /**
-             * Holds the item itself. It will be drawn using the method associated with the
-             * type defined in the ItemType member variable.
-             * @type {Object}
-             */
-            Item: null
-        }
         /**
-         *
+         * Holds a constant defining the type of the DrawableItem.
+         * All the possible values are listed in the constant.js file.
+         * Theses values are ( as listed in the rev:18 ) :
+         * - CANVAS_DRAWABLE_BACKGROUND_TEXTURE : "BackgroundTexture"
+         * - CANVAS_DRAWABLE_VIADIRECT_SHAPE : "ViaDirectShape"
+         * - CANVAS_DRAWABLE_LINE : "Line"
+         * - CANVAS_LABEL_BLOC : "BlockLabel"
+         * @type {String}
          */
-    StylesManager = function() {
+        ItemType: null,
+
+        /**
+         * Holds the item itself. It will be drawn using the method associated with the
+         * type defined in the ItemType member variable.
+         * @type {Object}
+         */
+        Item: null
+    }
+    /**
+     *
+     */
+    StylesManager = function () {
         this._styleMap = {};
     };
 
@@ -2262,7 +2026,7 @@
      * @param pName
      * @returns
      */
-    StylesManager.prototype.getStyle = function(pName) {
+    StylesManager.prototype.getStyle = function (pName) {
         if (pName in this._styleMap) {
             return this._styleMap[pName];
         }
@@ -2276,7 +2040,7 @@
      * @param force force the lookup even if a style already exists in manager
      * @returns
      */
-    StylesManager.prototype.lookupStyle = function(pName, force) {
+    StylesManager.prototype.lookupStyle = function (pName, force) {
         var styleObj;
         force = force !== null ? force : false;
         if ((styleObj = this.getStyle(pName)) && !force) return styleObj;
@@ -2315,17 +2079,17 @@
      * @param pName
      * @param pStyle
      */
-    StylesManager.prototype.setStyle = function(pName, pStyle) {
+    StylesManager.prototype.setStyle = function (pName, pStyle) {
         //    console.log( "setStyle " + pName );
         //    console.log( pStyle );
         this._styleMap[pName] = pStyle;
     };
 
-    StylesManager.prototype.setUndefined = function() {
+    StylesManager.prototype.setUndefined = function () {
         return;
     };
 
-    StylesManager.prototype.getState = function(pState) {
+    StylesManager.prototype.getState = function (pState) {
         var pseudoClassSelector = "";
         switch (pState) {
             case StylesManager.STATE_HOVER:
@@ -2338,23 +2102,23 @@
         return pseudoClassSelector;
     }
 
-    StylesManager.prototype.getStyleNameForDestination = function(pDestinationId, pState) {
+    StylesManager.prototype.getStyleNameForDestination = function (pDestinationId, pState) {
         return this.selectorDestination.replace(/\{id\}/, pDestinationId) + this.getState(pState);
     };
 
-    StylesManager.prototype.getDestinationTitleBaselineStyleName = function(pDestinationId, pState) {
+    StylesManager.prototype.getDestinationTitleBaselineStyleName = function (pDestinationId, pState) {
         return this.selectorDestinationTitleBaseline.replace(/\{id\}/, pDestinationId) + this.getState(pState);
     };
 
-    StylesManager.prototype.getTitleBaselineStyleName = function(pState) {
+    StylesManager.prototype.getTitleBaselineStyleName = function (pState) {
         return this.selectorTitleBaseline + this.getState(pState);
     };
 
-    StylesManager.prototype.getDefaultDestinationStyleName = function(pState) {
+    StylesManager.prototype.getDefaultDestinationStyleName = function (pState) {
         return this.selectorDefaultDestination + this.getState(pState);
     };
 
-    StylesManager.prototype.getShapeStyleName = function(pState) {
+    StylesManager.prototype.getShapeStyleName = function (pState) {
         return this.selectorShape + this.getState(pState);
     };
 
@@ -2415,14 +2179,14 @@
     /**
      * @return {Boolean}
      */
-    MapManipulator.prototype.getDisplayItineraries = function() {
+    MapManipulator.prototype.getDisplayItineraries = function () {
         return this._displayItineraries;
     };
 
     /**
      * @param {Boolean} pBool
      */
-    MapManipulator.prototype.setDisplayItineraries = function(pBool) {
+    MapManipulator.prototype.setDisplayItineraries = function (pBool) {
         this._displayItineraries = pBool;
 
         if (this.CanvasManager.Scene.ItemsList.length != 0)
@@ -2480,7 +2244,7 @@
      *
      * @param {Number} shopId
      */
-    MapManipulator.prototype.setStartingPointByShopId = function(shopId) {
+    MapManipulator.prototype.setStartingPointByShopId = function (shopId) {
         this.setStartingPoint(this.ViadirectMap.FindPointsAssociatedToDestinationID(shopId)[0]);
     };
 
@@ -2488,7 +2252,7 @@
      *
      * @param {Number} externalShopId
      */
-    MapManipulator.prototype.setStartingPointByExternalShopId = function(externalShopId) {
+    MapManipulator.prototype.setStartingPointByExternalShopId = function (externalShopId) {
         if (externalShopId !== null) {
             var destination = this.FindDestinationByExternalId(externalShopId, this._externalIdKey);
             if (destination) {
@@ -2504,11 +2268,11 @@
      *
      * @param {Number} pointId
      */
-    MapManipulator.prototype.setStartingPointById = function(pointId) {
+    MapManipulator.prototype.setStartingPointById = function (pointId) {
         this.setStartingPoint(this.ViadirectMap.FindPathPointById(pointId));
     };
 
-    MapManipulator.prototype.setStartingPoint = function(point) {
+    MapManipulator.prototype.setStartingPoint = function (point) {
         this._startingPoint = point;
     };
 
@@ -2516,14 +2280,14 @@
      * returns the starting path point
      * @returns {PathPoint}
      */
-    MapManipulator.prototype.getStartingPoint = function() {
+    MapManipulator.prototype.getStartingPoint = function () {
         return this._startingPoint;
     };
 
     /**
      * @returns {EventManagerDecorator}
      */
-    MapManipulator.prototype.getEventManager = function() {
+    MapManipulator.prototype.getEventManager = function () {
         return this._eventManager;
     };
 
@@ -2532,7 +2296,7 @@
      * @param {EventManagerDecorator}
      *                pEventManager
      */
-    MapManipulator.prototype.setEventManager = function(pEventManager) {
+    MapManipulator.prototype.setEventManager = function (pEventManager) {
         this._eventManager = pEventManager;
         if (this._eventManager) {
             this._eventManager.bind("vdShapePicked", $.proxy(this.shapePicked, this));
@@ -2545,7 +2309,7 @@
      *
      * @param floorName
      */
-    MapManipulator.prototype.Initialize = function() {
+    MapManipulator.prototype.Initialize = function () {
         if (this._currentFloorName)
             this.floorChanged(this._currentFloorName);
         else if (this.ViadirectMap.FloorList.length > 0) {
@@ -2564,7 +2328,7 @@
      *
      * @returns {Number[]}
      */
-    MapManipulator.prototype.getSelectedDestinations = function() {
+    MapManipulator.prototype.getSelectedDestinations = function () {
         return this.selectedDestinations;
     };
 
@@ -2573,7 +2337,7 @@
      * @param {Number[]} pDestinations
      * @returns {Number[]}
      */
-    MapManipulator.prototype.setSelectedDestinations = function(pDestinations) {
+    MapManipulator.prototype.setSelectedDestinations = function (pDestinations) {
         this.selectedDestinations = pDestinations ? pDestinations : [];
         for (var i = 0, len = this.selectedDestinations.length, dest; i < len; i++) {
             if (isNaN(this.selectedDestinations[i])) {
@@ -2596,7 +2360,7 @@
      *
      * @param {string|Object} pValue
      */
-    MapManipulator.prototype.getDestination = function(pValue) {
+    MapManipulator.prototype.getDestination = function (pValue) {
         var destination;
         var id;
         var isId = pValue !== null && !isNaN(pValue);
@@ -2626,7 +2390,7 @@
      *
      * @param {string} floorName
      */
-    MapManipulator.prototype.LoadFloorInCanvas = function(floorName) {
+    MapManipulator.prototype.LoadFloorInCanvas = function (floorName) {
         //    console.log( "LoadFloorInCanvas" + floorName );
         var i, len, isSelectedShape, isOverShape, newShape, currentShape, currentId;
         var currentFloor = this.ViadirectMap.FindFloorByName(floorName);
@@ -2866,7 +2630,7 @@
         this._eventManager.trigger("vdFloorSelected", floorName);
     };
 
-    MapManipulator.prototype.findThirdPoint = function(point1, point2, distance) {
+    MapManipulator.prototype.findThirdPoint = function (point1, point2, distance) {
 
         var mag = Math.sqrt((point2.X - point1.X) * (point2.X - point1.X) + (point2.Y - point1.Y) * (point2.Y - point1.Y));
         var P3x = point2.X + distance * (point2.X - point1.X) / mag;
@@ -2875,7 +2639,7 @@
         return new Point(P3x, P3y);
     };
 
-    MapManipulator.prototype.getShapesForDestinationId = function(pId) {
+    MapManipulator.prototype.getShapesForDestinationId = function (pId) {
         var selectedShapesArray = [];
         // Draw selected destination in red
         if (pId !== null && pId != -1) {
@@ -2896,7 +2660,7 @@
      * @param {BlocLabel} titleBaseline
      * @returns {BlocLabel}
      */
-    MapManipulator.prototype.SetBaselineTextPositionAndCSS = function(titleBaseline) {
+    MapManipulator.prototype.SetBaselineTextPositionAndCSS = function (titleBaseline) {
 
         var aPrime = new Point();
         var bPrime = new Point();
@@ -2974,7 +2738,7 @@
      * @param {Number} externalId
      * @param {String} externalIdKey
      */
-    MapManipulator.prototype.FindDestinationByExternalId = function(externalId, externalIdKey) {
+    MapManipulator.prototype.FindDestinationByExternalId = function (externalId, externalIdKey) {
 
         var destinationList = this.ViadirectMap.DestinationList;
         var key;
@@ -2990,7 +2754,7 @@
     /**
      *
      */
-    MapManipulator.prototype.FindDestinationsIdAssociatedWithShapeId = function(shapeId) {
+    MapManipulator.prototype.FindDestinationsIdAssociatedWithShapeId = function (shapeId) {
         var resultDestinationsIdArray = new Array();
         var destinationList = this.ViadirectMap.DestinationList;
         var key, j, slen;
@@ -3012,14 +2776,14 @@
         return resultDestinationsIdArray;
     };
 
-    MapManipulator.prototype.orientationChanged = function(ev, angle) {
+    MapManipulator.prototype.orientationChanged = function (ev, angle) {
         if (this.ScaleMode == 'fitInView') {
             this.zoomFitInView();
         }
         this.CanvasManager.invalidateDraw();
     }
 
-    MapManipulator.prototype.floorChanged = function(floorName) {
+    MapManipulator.prototype.floorChanged = function (floorName) {
         this.CanvasManager.ResetTranslationsAndScaling();
         this.LoadFloorInCanvas(floorName);
         if (this.ScaleMode == 'fitInView') {
@@ -3035,7 +2799,7 @@
         this._eventManager.trigger('vdFloorChanged', floorName);
     };
 
-    MapManipulator.prototype.zoomFitInView = function() {
+    MapManipulator.prototype.zoomFitInView = function () {
         var ratio, tx, ty;
         var tw = this._currentFloor.TextureWidth,
             th = this._currentFloor.TextureHeight,
@@ -3052,7 +2816,7 @@
 
 
 
-    MapManipulator.prototype.shapePicked = function(ev, pShape) {
+    MapManipulator.prototype.shapePicked = function (ev, pShape) {
         if (pShape != null && pShape.Selectable) {
             var destinationsId = this.FindDestinationsIdAssociatedWithShapeId(pShape.Id);
             this._currentShape = pShape;
@@ -3069,7 +2833,7 @@
         }
     };
 
-    MapManipulator.prototype.selectDestination = function(destination) {
+    MapManipulator.prototype.selectDestination = function (destination) {
         if (destination) {
             var shapeId;
             if (this._currentShape != null) shapeId = this._currentShape.Id;
@@ -3085,7 +2849,7 @@
                     shapeId: shapeId,
                     canvasState: this.CanvasManager.getVisualState(),
                     manager: this,
-                    toSimpleObject: function() {
+                    toSimpleObject: function () {
                         return {
                             destination: this.destination.toSimpleObject(),
                             destinationId: this.destinationId,
@@ -3105,7 +2869,7 @@
         }
     };
 
-    MapManipulator.prototype.shapeOver = function(ev, pShape) {
+    MapManipulator.prototype.shapeOver = function (ev, pShape) {
         if (pShape && pShape.Selectable) {
             if (pShape != this.currentShapeOver) {
                 this.currentShapeOver = pShape;
@@ -3122,7 +2886,7 @@
                         shapeId: pShape.Id,
                         manager: this,
                         canvasState: this.CanvasManager.getVisualState(),
-                        toSimpleObject: function() {
+                        toSimpleObject: function () {
                             return {
                                 destination: this.destination.toSimpleObject(),
                                 destinationId: this.destinationId,
@@ -3143,7 +2907,7 @@
                     shapeId: this.currentShapeOver.Id,
                     manager: this,
                     canvasState: this.CanvasManager.getVisualState(),
-                    toSimpleObject: function() {
+                    toSimpleObject: function () {
                         return {
                             destination: this.destination ? this.destination.toSimpleObject() : null,
                             destinationId: this.destinationId,
@@ -3166,7 +2930,7 @@
      * @param {Boolean}
      *                center
      */
-    MapManipulator.prototype.setCurrentDestinationId = function(destinationId, center) {
+    MapManipulator.prototype.setCurrentDestinationId = function (destinationId, center) {
         var i, len;
 
         var destination = this.ViadirectMap.FindDestinationById(destinationId);
@@ -3236,7 +3000,7 @@
         this.invalidateDraw();
     };
 
-    MapManipulator.prototype.setCurrentPath = function(pDestId) {
+    MapManipulator.prototype.setCurrentPath = function (pDestId) {
 
         if (!this._displayItineraries) return;
         var endingPoints = this.ViadirectMap.FindPointsAssociatedToDestinationID(pDestId);
@@ -3251,7 +3015,7 @@
                     bestPath = result;
 
                 //Hago check de nulls
-                if (bestPath!==null && bestPath.length > result.length)
+                if (bestPath !== null && bestPath.length > result.length)
                     bestPath = result;
             }
 
@@ -3267,7 +3031,7 @@
         this._eventManager.trigger("vdPathCalculated", this._currentPath);
     };
 
-    MapManipulator.prototype.getCurrentPath = function() {
+    MapManipulator.prototype.getCurrentPath = function () {
         return this._currentPath;
     };
 
@@ -3278,7 +3042,7 @@
      * @param {Boolean}
      *                center
      */
-    MapManipulator.prototype.setCurrentOverDestinationId = function(destinationId, center) {
+    MapManipulator.prototype.setCurrentOverDestinationId = function (destinationId, center) {
         if (destinationId === this._currentOverDestinationId)
             return;
         this._currentOverDestinationId = destinationId;
@@ -3317,11 +3081,11 @@
         this.CanvasManager.invalidateDraw();
     };
 
-    MapManipulator.prototype.getCurrentLanguage = function() {
+    MapManipulator.prototype.getCurrentLanguage = function () {
         return this.CurrentLanguageId;
     };
 
-    MapManipulator.prototype.setPMRMode = function(PMR) {
+    MapManipulator.prototype.setPMRMode = function (PMR) {
         var needRedraw = false;
 
         if (PMR != this.isPMR)
@@ -3337,26 +3101,26 @@
         }
     };
 
-    MapManipulator.prototype.getPMRMode = function() {
+    MapManipulator.prototype.getPMRMode = function () {
         return this._isPMR;
     };
 
-    MapManipulator.prototype.getCurrentDestinationId = function() {
+    MapManipulator.prototype.getCurrentDestinationId = function () {
         return this._currentDestinationId;
     };
 
-    MapManipulator.prototype.setCurrentFloorName = function(currentFloorName) {
+    MapManipulator.prototype.setCurrentFloorName = function (currentFloorName) {
         this._currentFloorName = currentFloorName;
 
         if (this.CanvasManager.Scene.ItemsList.length != 0)
             this.invalidateDraw(this._currentFloorName);
     };
 
-    MapManipulator.prototype.getCurrentFloorName = function() {
+    MapManipulator.prototype.getCurrentFloorName = function () {
         return this._currentFloorName;
     };
 
-    MapManipulator.prototype.CreateArrowPattern = function(width) {
+    MapManipulator.prototype.CreateArrowPattern = function (width) {
         var myCanvas = document.createElement('canvas');
         myCanvas.width = width;
         myCanvas.height = (width * this.Resources.ArrowIcon.height) / this.Resources.ArrowIcon.width;
@@ -3365,17 +3129,17 @@
         this.Resources.ArrowPattern = this.CanvasManager.CreatePattern(myCanvas, "repeat-y");
     }
 
-    MapManipulator.prototype.getDestination = function(pValue) {
+    MapManipulator.prototype.getDestination = function (pValue) {
         var destination = null;
 
-        if (typeof(pValue) == "object") {
+        if (typeof (pValue) == "object") {
             if (key in pValue && pValue.key)
                 if (id in pValue && pValue.id) {
                     destination = this.FindDestinationByExternalId(pValue.id, pValue.key);
                 }
         }
 
-        if (typeof(pValue) == "number") {
+        if (typeof (pValue) == "number") {
             destination = this.ViadirectMap.DestinationList[pValue];
         }
 
@@ -3383,9 +3147,9 @@
     }
 
     MapManipulator.prototype._invalidateRes = null;
-    MapManipulator.prototype.invalidateDraw = function() {
+    MapManipulator.prototype.invalidateDraw = function () {
         if (this._invalidateRes == null) {
-            this._invalidateRes = window.requestAnimFrame($.proxy(function(stamp) {
+            this._invalidateRes = window.requestAnimFrame($.proxy(function (stamp) {
                 this.LoadFloorInCanvas(this._currentFloorName);
                 this.CanvasManager.invalidateDraw();
                 this._invalidateRes = null;
@@ -3397,7 +3161,7 @@
      *
      * @returns {StylesManager}
      */
-    MapManipulator.prototype.getStyleManager = function() {
+    MapManipulator.prototype.getStyleManager = function () {
         return this._styleManager;
     };
 
@@ -3405,33 +3169,33 @@
      *
      * @param {StylesManager} pManager
      */
-    MapManipulator.prototype.setStyleManager = function(pManager) {
+    MapManipulator.prototype.setStyleManager = function (pManager) {
         this._styleManager = pManager;
     };
 
 
-    MapManipulator.prototype.getExternalIdKey = function() {
+    MapManipulator.prototype.getExternalIdKey = function () {
         return this._externalIdKey;
     };
 
-    MapManipulator.prototype.setExternalIdKey = function(pValue) {
+    MapManipulator.prototype.setExternalIdKey = function (pValue) {
         this._externalIdKey = pValue;
     };
 
-    MapManipulator.prototype.toSimpleObject = function() {
-            return {
-                map: this.ViadirectMap.toSimpleObject(),
-                currentFloor: this._currentFloor.Name,
-                currentLanguage: this.CurrentLanguageId,
-                externalIdKey: this._externalIdKey
-            }
+    MapManipulator.prototype.toSimpleObject = function () {
+        return {
+            map: this.ViadirectMap.toSimpleObject(),
+            currentFloor: this._currentFloor.Name,
+            currentLanguage: this.CurrentLanguageId,
+            externalIdKey: this._externalIdKey
         }
-        /**
-         * @file CanvasManager.js
-         * @package viadirect.view
-         * @require viadirect/model/Point.js
-         * @require viadirect/model/CssProperties.js
-         */
+    }
+    /**
+     * @file CanvasManager.js
+     * @package viadirect.view
+     * @require viadirect/model/Point.js
+     * @require viadirect/model/CssProperties.js
+     */
 
     function CanvasManager() {
         this.CanvasElement = null;
@@ -3625,13 +3389,13 @@
          * @param {EventManagerDecorator}
          *            pEventManager
          */
-        setEventManager: function(pEventManager) {
+        setEventManager: function (pEventManager) {
             this.eventManager = pEventManager;
             if (this.eventManager && this._interactionsEnabled)
                 this._initializeEvents();
         },
 
-        findTouchWithId: function(touches, touchId) {
+        findTouchWithId: function (touches, touchId) {
             for (key in touches) {
                 if (touches[key].identifier == touchId)
                     return touches[key];
@@ -3639,19 +3403,19 @@
 
             return null;
         },
-        _destroyEvents: function() {
+        _destroyEvents: function () {
             var pCanvas = $(this.CanvasElement);
             pCanvas
                 .unbind("click mouseup mousemove mousedown mouseup mousewheel DOMMouseScroll MozMousePixelScroll wheel touchend touchstart touchmove touchleave");
         },
-        _initializeEvents: function() {
+        _initializeEvents: function () {
             if (!this._interactionsEnabled)
                 return;
             var pCanvas = $(this.CanvasElement);
 
             if (this._destinationsUserInteractionsEnabled) {
                 if (!this.$vdClickHandler) {
-                    this.$vdClickHandler = $.proxy(function(event) {
+                    this.$vdClickHandler = $.proxy(function (event) {
 
                         this.eventManager.trigger("vdClick", event);
                     }, this);
@@ -3661,7 +3425,7 @@
             }
 
             if (!this.$vdMouseUpHandler) {
-                this.$vdMouseUpHandler = $.proxy(function(event) {
+                this.$vdMouseUpHandler = $.proxy(function (event) {
                     this.eventManager.trigger("vdMouseup", event);
                 }, this);
             }
@@ -3669,7 +3433,7 @@
                 this.$vdMouseUpHandler);
 
             if (!this.$vdTouchend) {
-                this.$vdTouchend = $.proxy(function(event) {
+                this.$vdTouchend = $.proxy(function (event) {
                     this._touchList = event.originalEvent.changedTouches;
 
                     if (this._touchList.length > 1) {
@@ -3702,7 +3466,7 @@
                 this.$vdTouchend);
 
             if (!this.$vdTouchstart) {
-                this.$vdTouchstart = $.proxy(function(event) {
+                this.$vdTouchstart = $.proxy(function (event) {
                     this._touchList = event.originalEvent.changedTouches;
                     var first = this._touchList[0];
 
@@ -3739,7 +3503,7 @@
                 this.$vdTouchstart);
 
             if (!this.$vdMousemove) {
-                this.$vdMousemove = $.proxy(function(event) {
+                this.$vdMousemove = $.proxy(function (event) {
                     this.eventManager.trigger("vdMousemove", {
                         event: event,
                         isTouch: false
@@ -3750,7 +3514,7 @@
                 this.$vdMousemove);
 
             if (!this.$vdMousedown) {
-                this.$vdMousedown = $.proxy(function(event) {
+                this.$vdMousedown = $.proxy(function (event) {
                     this.eventManager.trigger("vdMousedown", event);
                     event.stopPropagation();
                     event.stopImmediatePropagation();
@@ -3765,95 +3529,95 @@
             if (!this.$vdTouchmove) {
                 this.$vdTouchmove = $
                     .proxy(
-                        function(event) {
-                            this._touchList = event.originalEvent.changedTouches;
+                    function (event) {
+                        this._touchList = event.originalEvent.changedTouches;
 
-                            if (this._touchList.length > 1) {
-                                this._leftClickDown = false;
+                        if (this._touchList.length > 1) {
+                            this._leftClickDown = false;
 
-                                if (this.PreviousTouchMoveLength === null) {
-                                    var finger1 = new Point(
-                                        this._touchList[0].pageX,
-                                        this._touchList[0].pageY);
-                                    var finger2 = new Point(
-                                        this._touchList[1].pageX,
-                                        this._touchList[1].pageY);
-                                    this.PreviousTouchMoveLength = CanvasHelper
-                                        .GetLength(finger1, finger2);
-                                } else {
-                                    var finger1 = new Point(
-                                        this._touchList[0].pageX,
-                                        this._touchList[0].pageY);
-                                    var finger2 = new Point(
-                                        this._touchList[1].pageX,
-                                        this._touchList[1].pageY);
-                                    var currentTouchMoveLength = CanvasHelper
-                                        .GetLength(finger1, finger2);
+                            if (this.PreviousTouchMoveLength === null) {
+                                var finger1 = new Point(
+                                    this._touchList[0].pageX,
+                                    this._touchList[0].pageY);
+                                var finger2 = new Point(
+                                    this._touchList[1].pageX,
+                                    this._touchList[1].pageY);
+                                this.PreviousTouchMoveLength = CanvasHelper
+                                    .GetLength(finger1, finger2);
+                            } else {
+                                var finger1 = new Point(
+                                    this._touchList[0].pageX,
+                                    this._touchList[0].pageY);
+                                var finger2 = new Point(
+                                    this._touchList[1].pageX,
+                                    this._touchList[1].pageY);
+                                var currentTouchMoveLength = CanvasHelper
+                                    .GetLength(finger1, finger2);
 
-                                    var result = {};
-                                    result.gesture = true;
-                                    var hasEffect = false;
+                                var result = {};
+                                result.gesture = true;
+                                var hasEffect = false;
 
-                                    if (currentTouchMoveLength >= this.PreviousTouchMoveLength + this.ZoomStep) {
-                                        result.originalEvent = {
-                                            wheelDelta: 2
-                                        };
-                                        hasEffect = true;
-                                    }
-
-                                    if (currentTouchMoveLength <= this.PreviousTouchMoveLength + this.ZoomStep) {
-                                        result.originalEvent = {
-                                            wheelDelta: -2
-                                        };
-                                        hasEffect = true;
-                                    }
-
-                                    this.PreviousTouchMoveLength = currentTouchMoveLength;
-
-                                    if (hasEffect) {
-                                        result.centerpoint = this
-                                            .FindCenterBetweenTwoPoints(
-                                                finger1.X,
-                                                finger1.Y,
-                                                finger2.X,
-                                                finger2.Y);
-                                        this.eventManager.trigger(
-                                            "vdMousewheel", result);
-                                    }
+                                if (currentTouchMoveLength >= this.PreviousTouchMoveLength + this.ZoomStep) {
+                                    result.originalEvent = {
+                                        wheelDelta: 2
+                                    };
+                                    hasEffect = true;
                                 }
-                                return;
+
+                                if (currentTouchMoveLength <= this.PreviousTouchMoveLength + this.ZoomStep) {
+                                    result.originalEvent = {
+                                        wheelDelta: -2
+                                    };
+                                    hasEffect = true;
+                                }
+
+                                this.PreviousTouchMoveLength = currentTouchMoveLength;
+
+                                if (hasEffect) {
+                                    result.centerpoint = this
+                                        .FindCenterBetweenTwoPoints(
+                                        finger1.X,
+                                        finger1.Y,
+                                        finger2.X,
+                                        finger2.Y);
+                                    this.eventManager.trigger(
+                                        "vdMousewheel", result);
+                                }
                             }
+                            return;
+                        }
 
-                            this.PreviousTouchMoveLength = null;
+                        this.PreviousTouchMoveLength = null;
 
-                            var first = this.findTouchWithId(
-                                this._touchList,
-                                this.TouchstartEvent.identifier);
+                        var first = this.findTouchWithId(
+                            this._touchList,
+                            this.TouchstartEvent.identifier);
 
-                            if (!first)
-                                return;
+                        if (!first)
+                            return;
 
-                            var finalEvent = new Object();
-                            finalEvent.target = this.CanvasElement;
-                            finalEvent.offsetX = first.pageX;
-                            finalEvent.offsetY = first.pageY;
-                            finalEvent.pageX = first.pageX;
-                            finalEvent.pageY = first.pageY;
-                            finalEvent.type = "mousemove";
+                        var finalEvent = new Object();
+                        finalEvent.target = this.CanvasElement;
+                        finalEvent.offsetX = first.pageX;
+                        finalEvent.offsetY = first.pageY;
+                        finalEvent.pageX = first.pageX;
+                        finalEvent.pageY = first.pageY;
+                        finalEvent.type = "mousemove";
 
-                            event.preventDefault();
-                            this.eventManager.trigger("vdMousemove", {
-                                event: finalEvent,
-                                isTouch: true
-                            });
-                        }, this);
+                        event.preventDefault();
+                        this.eventManager.trigger("vdMousemove", {
+                            event: finalEvent,
+                            isTouch: true
+                        });
+                    }, this);
             }
 
             pCanvas.unbind("touchmove", this.$vdTouchmove).bind("touchmove",
                 this.$vdTouchmove);
 
             if (!this.$vdMouseout) {
-                this.$vdMouseout = $.proxy(function(event) {
+                this.$vdMouseout = $.proxy(function (event) {
                     this.eventManager.trigger("vdMouseout", event);
                 }, this);
             }
@@ -3861,7 +3625,7 @@
                 this.$vdMouseout);
 
             if (!this.$vdTouchleave) {
-                this.$vdTouchleave = $.proxy(function(event) {
+                this.$vdTouchleave = $.proxy(function (event) {
                     this.eventManager.trigger("vdMouseout", event.originalEvent);
                 }, this);
             }
@@ -3871,29 +3635,29 @@
             if (!this.$vdMousewheel) {
                 this.$vdMousewheel = $
                     .proxy(
-                        function(event) {
-                            // this.eventManager.trigger("vdMousewheel", {
-                            // originalEvent
-                            // : event.originalEvent, gesture : true,
-                            // centerpoint : new
-                            // Point ( event.originalEvent.clientX,
-                            // event.originalEvent.clientY ) });
+                    function (event) {
+                        // this.eventManager.trigger("vdMousewheel", {
+                        // originalEvent
+                        // : event.originalEvent, gesture : true,
+                        // centerpoint : new
+                        // Point ( event.originalEvent.clientX,
+                        // event.originalEvent.clientY ) });
 
-                            var target = event.originalEvent.target || event.originalEvent.srcElement,
-                                rect = target.getBoundingClientRect(),
-                                offsetX = event.originalEvent.clientX - rect.left,
-                                offsetY = event.originalEvent.clientY - rect.top;
+                        var target = event.originalEvent.target || event.originalEvent.srcElement,
+                            rect = target.getBoundingClientRect(),
+                            offsetX = event.originalEvent.clientX - rect.left,
+                            offsetY = event.originalEvent.clientY - rect.top;
 
-                            this.eventManager.trigger("vdMousewheel", {
-                                originalEvent: event.originalEvent,
-                                centerpoint: new Point(offsetX, offsetY)
-                            });
-                            event.stopPropagation();
-                            event.stopImmediatePropagation();
-                            event.preventDefault();
-                            event.cancelBubble = true;
-                            return false;
-                        }, this);
+                        this.eventManager.trigger("vdMousewheel", {
+                            originalEvent: event.originalEvent,
+                            centerpoint: new Point(offsetX, offsetY)
+                        });
+                        event.stopPropagation();
+                        event.stopImmediatePropagation();
+                        event.preventDefault();
+                        event.cancelBubble = true;
+                        return false;
+                    }, this);
             }
 
             if (this._controlsInteractionsEnabled) {
@@ -3915,7 +3679,7 @@
          *
          * @param {HTMLCanvasElement}
          */
-        FindCenterBetweenTwoPoints: function(p1x, p1y, p2x, p2y) {
+        FindCenterBetweenTwoPoints: function (p1x, p1y, p2x, p2y) {
             return new Point((p1x + p2x) / 2, (p1y + p2y) / 2);
         },
 
@@ -3923,7 +3687,7 @@
          *
          * @param {HTMLCanvasElement}
          */
-        setCanvasElement: function(pEle) {
+        setCanvasElement: function (pEle) {
             this.CanvasElement = pEle;
         },
 
@@ -3931,7 +3695,7 @@
          * @param {string}
          *            context - context of the canvas
          */
-        Initialize: function(context) {
+        Initialize: function (context) {
             if (!context)
                 context = "2d";
 
@@ -3956,28 +3720,28 @@
             this.ResetTranslationsAndScaling();
 
             if (!("$_handleVdClick" in this)) {
-                this.$_handleVdClick = $.proxy(function(event, originalEvent) {
+                this.$_handleVdClick = $.proxy(function (event, originalEvent) {
                     this.HandleClick(originalEvent);
                 }, this);
             }
             this.eventManager.unbind("vdClick", this.$_handleVdClick).bind("vdClick", this.$_handleVdClick);
 
             if (!("$_handleVdMouseup" in this)) {
-                this.$_handleVdMouseup = $.proxy(function(event, originalEvent) {
+                this.$_handleVdMouseup = $.proxy(function (event, originalEvent) {
                     this.HandleMouseUp(originalEvent);
                 }, this);
             }
             this.eventManager.unbind("vdMouseup", this.$_handleVdMouseup).bind("vdMouseup", this.$_handleVdMouseup);
 
             if (!("$_handleVdMousedown" in this)) {
-                this.$_handleVdMousedown = $.proxy(function(event, originalEvent) {
+                this.$_handleVdMousedown = $.proxy(function (event, originalEvent) {
                     this.HandleMouseDown(originalEvent);
                 }, this);
             }
             this.eventManager.unbind("vdMousedown", this.$_handleVdMousedown).bind("vdMousedown", this.$_handleVdMousedown);
 
             if (!("$_handleVdMousemove" in this)) {
-                this.$_handleVdMousemove = $.proxy(function(event, originalEvent) {
+                this.$_handleVdMousemove = $.proxy(function (event, originalEvent) {
                     this.HandleMouseMove(originalEvent);
                 }, this);
             }
@@ -3985,7 +3749,7 @@
 
             if (!("$_handleVdMouseout" in this)) {
                 this.$_handleVdMouseout = $.proxy(
-                    function(event, originalEvent) {
+                    function (event, originalEvent) {
                         this.HandleMouseOut(originalEvent);
                     }, this);
             }
@@ -3993,7 +3757,7 @@
 
             if (!("$_handleVdMouseWheel" in this)) {
                 this.$_handleVdMouseWheel = $.proxy(
-                    function(event, object) {
+                    function (event, object) {
                         if (!object.originalEvent) {
                             return;
                         }
@@ -4003,9 +3767,9 @@
                         if (object.originalEvent.wheelDelta || object.originalEvent.detail) {
                             delta = Math
                                 .max(-1,
-                                    Math
+                                Math
                                     .min(
-                                        1, (object.originalEvent.wheelDelta || -object.originalEvent.detail)));
+                                    1, (object.originalEvent.wheelDelta || -object.originalEvent.detail)));
                         } else if (object.originalEvent.scale) {
                             delta = Math.max(-1, Math.min(1,
                                 object.originalEvent.scale - 1));
@@ -4016,25 +3780,25 @@
                             if (delta > 0) {
                                 this.HandleZoomIn(object.gesture, cursorPos);
                             } else if (delta < 0) {
-                            this.HandleZoomOut(object.gesture, cursorPos);
-                        } else {
-                            if (delta > 0) {
-                                this.GridPitch++;
-                            } else if (delta < 0) {
-                                this.GridPitch--;
-                            }
+                                this.HandleZoomOut(object.gesture, cursorPos);
+                            } else {
+                                if (delta > 0) {
+                                    this.GridPitch++;
+                                } else if (delta < 0) {
+                                    this.GridPitch--;
+                                }
 
-                            if (this.GridPitch == 0)
-                                this.GridPitch++;
-                            this.invalidateDraw();
-                        }
+                                if (this.GridPitch == 0)
+                                    this.GridPitch++;
+                                this.invalidateDraw();
+                            }
                     }, this);
             }
 
             this.eventManager.unbind("vdMousewheel", this.$_handleVdMouseWheel).bind("vdMousewheel", this.$_handleVdMouseWheel);
 
             if (!("$_handleVdUIZoomIn" in this)) {
-                this.$_handleVdUIZoomIn = $.proxy(function(ev) {
+                this.$_handleVdUIZoomIn = $.proxy(function (ev) {
                     this.HandleZoomIn();
                 }, this);
             }
@@ -4042,7 +3806,7 @@
             this.eventManager.unbind("vdUIZoomIn", this.$_handleVdUIZoomIn).bind("vdUIZoomIn", this.$_handleVdUIZoomIn);
 
             if (!("$_handleVdZoomOut" in this)) {
-                this.$_handleVdZoomOut = $.proxy(function(ev) {
+                this.$_handleVdZoomOut = $.proxy(function (ev) {
                     this.HandleZoomOut();
                 }, this);
             }
@@ -4051,7 +3815,7 @@
                 "vdUIZoomOut", this.$_handleVdZoomOut);
 
             if (!("$_vdResize" in this)) {
-                this.$_handleVdResize = $.proxy(function(event) {
+                this.$_handleVdResize = $.proxy(function (event) {
                     this.setCanvasHeight($(this.CanvasElement).height());
                     this.SetCanvasWidth($(this.CanvasElement).width());
                     this.invalidateDraw();
@@ -4065,7 +3829,7 @@
          * @param {number}
          *            height - context of the canvas
          */
-        setCanvasHeight: function(height) {
+        setCanvasHeight: function (height) {
             this._canvasHeight = height;
 
             if (this.CanvasElement)
@@ -4075,26 +3839,26 @@
         /**
          * @returns {number}
          */
-        getCanvasHeight: function() {
+        getCanvasHeight: function () {
             return this._canvasHeight;
         },
 
-        SetCanvasWidth: function(width) {
+        SetCanvasWidth: function (width) {
             this._canvasWidth = width;
 
             if (this.CanvasElement)
                 this.CanvasElement.width = this._canvasWidth;
         },
 
-        GetCanvasWidth: function() {
+        GetCanvasWidth: function () {
             return this._canvasWidth;
         },
 
-        setDrawLabels: function(pVal) {
+        setDrawLabels: function (pVal) {
             this._canDrawLabels = Boolean(pVal);
         },
 
-        Draw: function() {
+        Draw: function () {
             if (this._isDrawing) {
                 return;
             }
@@ -4178,7 +3942,7 @@
          *            mousePoint
          * @returns {Shape}
          */
-        MousePickInScene: function(mousePoint) {
+        MousePickInScene: function (mousePoint) {
             var i, len;
             var backgroundTexture, currentItem;
             this._textureHeight = 0;
@@ -4213,7 +3977,7 @@
             return false;
         },
 
-        DrawPoint: function(point, color) {
+        DrawPoint: function (point, color) {
 
             if (!this.Canvas2dContext)
                 return;
@@ -4238,7 +4002,7 @@
             this.StopDrawing();
         },
 
-        DrawImage: function(image, point, dimensionImage) {
+        DrawImage: function (image, point, dimensionImage) {
 
             if (!this.Canvas2dContext)
                 return;
@@ -4261,7 +4025,7 @@
             this.StopDrawing();
         },
 
-        DrawLine: function(pointsArray, color) {
+        DrawLine: function (pointsArray, color) {
 
             if (!this.Canvas2dContext)
                 return;
@@ -4291,7 +4055,7 @@
             this.StopDrawing();
         },
 
-        DrawPath: function(line, pattern, width) {
+        DrawPath: function (line, pattern, width) {
 
             if (!this.Canvas2dContext)
                 return;
@@ -4322,7 +4086,7 @@
             this.StopDrawing();
         },
 
-        DrawCircle: function(center, radius, color) {
+        DrawCircle: function (center, radius, color) {
 
             if (!this.Canvas2dContext)
                 return;
@@ -4340,7 +4104,7 @@
             this.StopDrawing();
         },
 
-        DrawText: function(point, angle, text, cssProperties) {
+        DrawText: function (point, angle, text, cssProperties) {
 
             if (!this.Canvas2dContext)
                 return;
@@ -4404,7 +4168,7 @@
             this.StopDrawing();
         },
 
-        DrawCustomShape: function(pointsArray, fillColor) {
+        DrawCustomShape: function (pointsArray, fillColor) {
 
             if (!this.Canvas2dContext)
                 return;
@@ -4429,13 +4193,13 @@
 
             if (!fillColor)
                 this.Canvas2dContext.fillStyle = 'red';
-            else if (typeof(fillColor) == 'object') {
+            else if (typeof (fillColor) == 'object') {
                 if (fillColor.A !== null) {
                     this.Canvas2dContext.fillStyle = 'rgba(' + fillColor.R + ',' + fillColor.G + ',' + fillColor.B + ', ' + (fillColor.A / 255) + ')';
                 } else {
                     this.Canvas2dContext.fillStyle = 'rgb(' + fillColor.R + ',' + fillColor.G + ',' + fillColor.B + ')';
                 }
-            } else if (typeof(fillColor) == 'string')
+            } else if (typeof (fillColor) == 'string')
                 this.Canvas2dContext.fillStyle = fillColor;
 
             this.Canvas2dContext.fill();
@@ -4448,7 +4212,7 @@
             this.StopDrawing();
         },
 
-        ApplyBackgroundTexture: function(image) {
+        ApplyBackgroundTexture: function (image) {
 
             if (!this.Canvas2dContext)
                 return;
@@ -4476,7 +4240,7 @@
             this.StopDrawing();
         },
 
-        TestShape: function(pointsArray, mousePoint) {
+        TestShape: function (pointsArray, mousePoint) {
 
             this.StartDrawing();
             // begin custom shape
@@ -4505,11 +4269,11 @@
             return false;
         },
 
-        CenterCamOnPoint: function(point) {
+        CenterCamOnPoint: function (point) {
             this.setTranslatePos(new Point(-(point.X - (this._canvasWidth / this.Scale) / 2), -(point.Y - (this._canvasHeight / this.Scale) / 2)));
         },
 
-        HandleClick: function(event) {
+        HandleClick: function (event) {
             var mouseCoords = this.GetMouseCoords(event),
                 mouseX = mouseCoords.X,
                 mouseY = mouseCoords.Y;
@@ -4525,7 +4289,7 @@
             }
         },
 
-        HandleMouseDown: function(event) {
+        HandleMouseDown: function (event) {
             var oe = "originalEvent" in event ? event.originalEvent : event;
             var mouseCoords = this.GetMouseCoords(oe),
                 mouseX = mouseCoords.X,
@@ -4598,7 +4362,7 @@
 
         },
 
-        FindCurrentLine: function() {
+        FindCurrentLine: function () {
 
             var last = null;
 
@@ -4614,7 +4378,7 @@
          *
          * @param event
          */
-        HandleMouseUp: function(event) {
+        HandleMouseUp: function (event) {
 
             if (event.which == 1 || event.which === 0) {
                 this._leftClickDown = false;
@@ -4636,10 +4400,10 @@
             }
         },
 
-        GetMouseCoords: function(event) {
+        GetMouseCoords: function (event) {
             var target = event.target || event.srcElement,
                 rect = target
-                .getBoundingClientRect(),
+                    .getBoundingClientRect(),
                 cX = "clientX" in event ? event.clientX : (event.pageX - window.scrollX),
                 cY = "clientY" in event ? event.clientY : (event.pageY - window.scrollY),
                 mouseX = cX - rect.left,
@@ -4650,7 +4414,7 @@
          *
          * @param event
          */
-        HandleMouseMove: function(object) {
+        HandleMouseMove: function (object) {
             var event = object.event;
             var oe = "originalEvent" in event ? event.originalEvent : event;
             var mouseCoords = this.GetMouseCoords(oe),
@@ -4729,14 +4493,14 @@
 
                     var overShape = this
                         .MousePickInScene(new Point(mouseX, mouseY))
-                        // if( overShape ) {
+                    // if( overShape ) {
                     this.eventManager.trigger("vdShapeOver", overShape);
                     // }
                 }
             }
         },
 
-        HandleZoomOut: function(gesture, point) {
+        HandleZoomOut: function (gesture, point) {
 
             if (!point) {
                 point = new Point();
@@ -4760,7 +4524,7 @@
             this.invalidateDraw();
         },
 
-        HandleZoomIn: function(gesture, point) {
+        HandleZoomIn: function (gesture, point) {
 
             if (!point) {
                 point = new Point();
@@ -4782,12 +4546,12 @@
             this.invalidateDraw();
         },
 
-        HandleMouseOut: function(event) {
+        HandleMouseOut: function (event) {
             this._leftClickDown = false;
             this._middleClickDown = false;
         },
 
-        ResetTranslationsAndScaling: function() {
+        ResetTranslationsAndScaling: function () {
             this.setScale(this.DefaultScaleValue);
             this.FutureScale = this.DefaultScaleValue;
             this.ScaleMultiplier = 0.9;
@@ -4795,7 +4559,7 @@
             this.setTranslatePos(new Point(0, 0));
         },
 
-        InitializeDrawning: function() {
+        InitializeDrawning: function () {
             var translateX = this.TranslatePos.X,
                 translateY = this.TranslatePos.Y;
             if (this._textureWidth > this._canvasWidth / this.Scale) {
@@ -4844,7 +4608,7 @@
          * @param {MapManipulator}
          *            mapManipulator
          */
-        DrawDestinationTooltip: function(mapManipulator) {
+        DrawDestinationTooltip: function (mapManipulator) {
             var destination = mapManipulator.ViadirectMap.DestinationList[mapManipulator
                 .getCurrentDestinationId()];
 
@@ -4855,15 +4619,15 @@
             content += '<span id="description" >' + destination.DescriptionTranslations[0] + '</span>';
         },
 
-        StartDrawing: function() {
+        StartDrawing: function () {
             this.Canvas2dContext.save();
         },
 
-        StopDrawing: function() {
+        StopDrawing: function () {
             this.Canvas2dContext.restore();
         },
 
-        DrawGrid: function() {
+        DrawGrid: function () {
             this.Canvas2dContext.save();
             this.Canvas2dContext.beginPath();
             this.Canvas2dContext.translate(this.GridTranslate.X,
@@ -4884,18 +4648,18 @@
             this.Canvas2dContext.restore();
         },
 
-        ClearCanvas: function() {
+        ClearCanvas: function () {
             this.Canvas2dContext.clearRect(0, 0, this._canvasWidth,
                 this._canvasHeight);
         },
 
-        FindCenterPoint: function(point) {
+        FindCenterPoint: function (point) {
             this._pointToCenter = new Point();
             this._pointToCenter.X = (this._canvasWidth / this.Scale / 2) - this.TranslatePos.X;
             this._pointToCenter.Y = (this._canvasHeight / this.Scale / 2) - this.TranslatePos.Y;
         },
 
-        mapPicked: function(event, mouse) {
+        mapPicked: function (event, mouse) {
             var shape = this.MousePickInScene(mouse);
 
             if (shape !== false) {
@@ -4908,13 +4672,13 @@
             }
         },
 
-        CreatePattern: function(image, value) {
+        CreatePattern: function (image, value) {
             return this.Canvas2dContext.createPattern(image, value);
         },
 
         _invalidateRes: null,
 
-        _invalidateDrawHandler: function(stamp) {
+        _invalidateDrawHandler: function (stamp) {
 
             this.setScale(this.FutureScale);
             this.Draw();
@@ -4925,7 +4689,7 @@
             this._invalidateRes = null;
         },
         $_invalidateDraw: null,
-        invalidateDraw: function() {
+        invalidateDraw: function () {
             if (this._invalidateRes == null) {
                 if (this.$_invalidateDraw == null) {
                     this.$_invalidateDraw = $.proxy(this._invalidateDrawHandler, this);
@@ -4934,13 +4698,13 @@
             }
         },
 
-        getControlsInteractionsEnabled: function() {
+        getControlsInteractionsEnabled: function () {
             return this._controlsInteractionsEnabled;
         },
-        getDestinationsInteractionsEnabled: function() {
+        getDestinationsInteractionsEnabled: function () {
             return this._destinationsUserInteractionsEnabled;
         },
-        setControlsInteractionsEnabled: function(pValue) {
+        setControlsInteractionsEnabled: function (pValue) {
             var different = pValue != this._controlsInteractionsEnabled;
             this._controlsInteractionsEnabled = pValue;
             if (different) {
@@ -4948,15 +4712,15 @@
                 this._initializeEvents();
             }
         },
-        setTranslatePos: function(point) {
+        setTranslatePos: function (point) {
             this._needNotify = this._needNotify || this.TranslatePos.X != point.X || this.TranslatePos.Y != point.Y;
             this.TranslatePos = point;
         },
-        setScale: function(pValue) {
+        setScale: function (pValue) {
             this._needNotify = this._needNotify || this.Scale != pValue;
             this.Scale = pValue
         },
-        setDestinationsPickInteractionsEnabled: function(pValue) {
+        setDestinationsPickInteractionsEnabled: function (pValue) {
             var different = pValue != this._destinationsUserInteractionsEnabled;
             this._destinationsPickUserInteractionsEnabled = pValue;
             if (different) {
@@ -4964,7 +4728,7 @@
                 this._initializeEvents();
             }
         },
-        setDestinationsInteractionsEnabled: function(pValue) {
+        setDestinationsInteractionsEnabled: function (pValue) {
             var different = pValue != this._destinationsUserInteractionsEnabled;
             this._destinationsUserInteractionsEnabled = pValue;
             if (different) {
@@ -4973,11 +4737,11 @@
             }
         },
 
-        getInteractionsEnabled: function() {
+        getInteractionsEnabled: function () {
             return this._interactionsEnabled;
         },
 
-        setInteractionsEnabled: function(pValue) {
+        setInteractionsEnabled: function (pValue) {
             this._interactionsEnabled = pValue;
             if (this.eventManager) {
                 if (this._interactionsEnabled) {
@@ -4990,7 +4754,7 @@
         /**
          * returns an object which gives a state of the visual object about the map
          */
-        getVisualState: function() {
+        getVisualState: function () {
             var obj = {};
             var r = this.CanvasElement.getBoundingClientRect();
             obj.TranslatePos = this.TranslatePos;
@@ -5025,7 +4789,7 @@
     LoadingQueue.ITEM_FINISHED = "loadingQueueItemFinished";
     LoadingQueue.ITEM_ERROR = "loadingQueueItemErrorFinished";
 
-    LoadingQueue.prototype.defaultSettings = function() {
+    LoadingQueue.prototype.defaultSettings = function () {
         return {
             success: this._loadFinished,
             error: this._loadError,
@@ -5035,9 +4799,9 @@
 
     LoadingQueue.prototype._isLoading = false;
 
-    LoadingQueue.prototype._buildItemCallback = function(pUrl, pSettings, pLoadedCallback, pErrorCallback) {
+    LoadingQueue.prototype._buildItemCallback = function (pUrl, pSettings, pLoadedCallback, pErrorCallback) {
         var self = this;
-        return function() {
+        return function () {
             var settings = $.extend({}, self.defaultSettings(), pSettings, true);
             settings.url = pUrl;
 
@@ -5052,7 +4816,7 @@
      * @param pUrl
      * @param pSettings
      */
-    LoadingQueue.prototype.add = function(pUrl, pSettings, pLoadedCallback, pErrorCallback) {
+    LoadingQueue.prototype.add = function (pUrl, pSettings, pLoadedCallback, pErrorCallback) {
 
         var callback = this._buildItemCallback(pUrl, pSettings, pLoadedCallback, pErrorCallback);
         this._stack.push({
@@ -5063,7 +4827,7 @@
         });
     };
 
-    LoadingQueue.prototype.hasUrl = function(pUrl) {
+    LoadingQueue.prototype.hasUrl = function (pUrl) {
         var i, len;
         for (i = 0, len = this._stack.length; i < len; i++) {
             if (this._stack[i].url == pUrl)
@@ -5078,7 +4842,7 @@
      * @param pUrl
      * @param pSettings
      */
-    LoadingQueue.prototype.prepend = function(pUrl, pSettings, pLoadedCallback, pErrorCallback) {
+    LoadingQueue.prototype.prepend = function (pUrl, pSettings, pLoadedCallback, pErrorCallback) {
 
         var callback = this._buildItemCallback(pUrl, pSettings, pLoadedCallback, pErrorCallback);
 
@@ -5109,9 +4873,9 @@
 
     };
 
-    LoadingQueue.prototype._svgLoaded = function(callback) {
+    LoadingQueue.prototype._svgLoaded = function (callback) {
         //console.log( pData );
-        return function(pData) {
+        return function (pData) {
             var pData = document.body.appendChild(pData.documentElement);
             document.body.removeChild(pData);
             callback(pData, this);
@@ -5119,22 +4883,22 @@
 
     };
 
-    LoadingQueue.prototype.addImage = function(pUrl, pLoadedCallback, pErrorCallback) {
+    LoadingQueue.prototype.addImage = function (pUrl, pLoadedCallback, pErrorCallback) {
         var self = this;
         //    if( pUrl.match( /\.svg$/i)) {
         //        console.log( "svg loading" );
         //        return this.add( pUrl,{}, this._svgLoaded( pLoadedCallback ), pErrorCallback );
         //    }
 
-        var callback = function() {
+        var callback = function () {
             var image = new Image();
 
             if (pUrl.indexOf('file://') != 0) {
                 image.crossOrigin = "anonymous";
             }
 
-            image.onload = function() {
-                var f = function() {
+            image.onload = function () {
+                var f = function () {
                     var ieBug = this.width == 0 && this.height == 0;
                     if (ieBug) {
                         // force rendering to obtain image dimensions
@@ -5152,7 +4916,7 @@
                 };
                 window.requestAnimFrame($.proxy(f, this));
             };
-            image.onerror = function() {
+            image.onerror = function () {
                 this.onload = null;
                 this.onerror = null;
                 this.onabort = null;
@@ -5172,7 +4936,7 @@
 
     };
 
-    LoadingQueue.prototype._loadImageFinished = function(img) {
+    LoadingQueue.prototype._loadImageFinished = function (img) {
         this._isLoading = false;
         console.log("LoadingQueue::_loadImageFinished " + img);
         if (this._currentItem.success) {
@@ -5182,7 +4946,7 @@
         this._nextItem();
     };
 
-    LoadingQueue.prototype._loadImageError = function(img) {
+    LoadingQueue.prototype._loadImageError = function (img) {
         console.log("_loadImageError " + img);
         if (this._currentItem.error) {
             this._currentItem.error(img, this);
@@ -5191,7 +4955,7 @@
         this._nextItem();
     };
 
-    LoadingQueue.prototype.start = function() {
+    LoadingQueue.prototype.start = function () {
         console.log("LoadingQueue::start");
         if (!this._started) {
             this._started = true;
@@ -5199,14 +4963,14 @@
         }
     };
 
-    LoadingQueue.prototype._loadItemStart = function(ev) {
+    LoadingQueue.prototype._loadItemStart = function (ev) {
         this._isLoading = true;
     };
 
     /**
      * @private
      */
-    LoadingQueue.prototype._loadFinished = function(pData) {
+    LoadingQueue.prototype._loadFinished = function (pData) {
         console.log("LoadingQueue::_loadFinished " + this._currentItem.url);
         this._isLoading = false;
         if (this._currentItem.success) {
@@ -5216,7 +4980,7 @@
         this._nextItem();
     };
 
-    LoadingQueue.prototype._loadItemError = function() {
+    LoadingQueue.prototype._loadItemError = function () {
         this._isLoading = false;
         if (this._currentItem.error) {
             this._currentItem.error(pData, this);
@@ -5225,7 +4989,7 @@
         this._nextItem();
     };
 
-    LoadingQueue.prototype._nextItem = function() {
+    LoadingQueue.prototype._nextItem = function () {
         if (this._stack.length) {
             var next = this._stack.shift();
             if (next) {
@@ -5246,17 +5010,17 @@
      * @param pEvent
      * @param pDatas
      */
-    LoadingQueue.prototype.dispatchEvent = function(pEvent, pDatas) {
+    LoadingQueue.prototype.dispatchEvent = function (pEvent, pDatas) {
         this._context.trigger(pEvent, pDatas);
     };
 
-    LoadingQueue.prototype.bind = function(pEventType, pCallback) {
+    LoadingQueue.prototype.bind = function (pEventType, pCallback) {
         if (this._context)
             this._context.bind.apply(this._context, arguments);
         return this;
     };
 
-    LoadingQueue.prototype.unbind = function(pEventType, pCallback) {
+    LoadingQueue.prototype.unbind = function (pEventType, pCallback) {
         if (this._context)
             this._context.unbind.apply(this._context, arguments);
         return this;
@@ -5265,18 +5029,18 @@
     /**
      * when all items are loaded
      */
-    LoadingQueue.prototype._queueFinished = function() {
+    LoadingQueue.prototype._queueFinished = function () {
 
         this._stack = [];
         this._started = false;
         this.dispatchEvent(LoadingQueue.QUEUE_FINISHED, this);
     };
 
-    LoadingQueue.prototype.getCurrentItem = function() {
+    LoadingQueue.prototype.getCurrentItem = function () {
         return this._currentItem;
     };
 
-    LoadingQueue.prototype.length = function() {
+    LoadingQueue.prototype.length = function () {
         return this._stack.length;
     };
 
@@ -5302,7 +5066,7 @@
     /**
      *
      */
-    InitializeCategoryInstance.prototype.execute = function() {
+    InitializeCategoryInstance.prototype.execute = function () {
 
         this.category.Name = JsonNavigator.walkPath(this.categoryJson, CATEGORY_PATH_TO_NAME);
 
@@ -5330,7 +5094,7 @@
 
     InitializeTopicInstance.prototype.topicJson = {};
 
-    InitializeTopicInstance.prototype.execute = function() {
+    InitializeTopicInstance.prototype.execute = function () {
         this.topic.Name = JsonNavigator.walkPath(this.topicJson, TOPIC_PATH_TO_NAME);
 
         this.topic.Id = JsonNavigator.walkPath(this.topicJson, TOPIC_PATH_TO_ID);
@@ -5384,7 +5148,7 @@
     /**
      *
      */
-    InitializeDestinationInstance.prototype.execute = function() {
+    InitializeDestinationInstance.prototype.execute = function () {
         var i, len;
         this.destination.Name = JsonNavigator.walkPath(this.buildingData, DESTINATION_FROM_ROOT_PATH_TO_NAME);
 
@@ -5497,7 +5261,7 @@
     /**
      *
      */
-    InitializePathPointInstance.prototype.execute = function() {
+    InitializePathPointInstance.prototype.execute = function () {
         var position = JsonNavigator.walkPath(this.pathPoint, PATHPOINTS_PATH_POSITION);
 
         var point = new Point(position.X, position.Z, position.Y);
@@ -5551,7 +5315,7 @@
     /**
      *
      */
-    InitializePathInstance.prototype.execute = function() {
+    InitializePathInstance.prototype.execute = function () {
         var path = new Path();
 
         path.StartingPoint = JsonNavigator.walkPath(this.path, PATH_PATH_STARTING_POINT);
@@ -5607,7 +5371,7 @@
     /**
      *
      */
-    InitializeShapeInstance.prototype.execute = function() {
+    InitializeShapeInstance.prototype.execute = function () {
 
         var shapePackedColor = JsonNavigator.walkPath(this.shapeJson, FLOOR_PATH_TO_SHAPE_COLOR_PACKED_VALUE);
         this.shape.FloorName = this.floor.Name;
@@ -5693,7 +5457,7 @@
     /**
      *
      */
-    InitializeFloorInstance.prototype.execute = function() {
+    InitializeFloorInstance.prototype.execute = function () {
 
         var translations = JsonNavigator.walkPath(this.jsonData, FLOOR_PATH_TO_NAME_TRANSLATIONS);
 
@@ -5723,12 +5487,12 @@
         var width = JsonNavigator.walkPath(this.jsonData, FLOOR_TEXTURE_WIDTH);
         var height = JsonNavigator.walkPath(this.jsonData, FLOOR_TEXTURE_HEIGHT);
 
-        if (typeof(width) == "string") {
+        if (typeof (width) == "string") {
             width = parseInt(width);
             this.floor.TextureWidth = width;
         }
 
-        if (typeof(height) == "string") {
+        if (typeof (height) == "string") {
             height = parseInt(height);
             this.floor.TextureHeight = height;
         }
@@ -5779,7 +5543,7 @@
      *
      * @param
      */
-    MapLoader.prototype.start = function(pModel) {
+    MapLoader.prototype.start = function (pModel) {
         this._loadingQueue.unbind(LoadingQueue.QUEUE_FINISHED, this.$_datasLoaded).bind(LoadingQueue.QUEUE_FINISHED,
             this.$_datasLoaded);
         if (pModel != null) {
@@ -5820,7 +5584,7 @@
      * @param {PathManager}
      *                pPathManagerImpl
      */
-    MapLoader.prototype.setPathManager = function(pPathManagerImpl) {
+    MapLoader.prototype.setPathManager = function (pPathManagerImpl) {
         /**
          *
          * @type PathManager
@@ -5835,7 +5599,7 @@
      * @param {LoadingQueue}
      *                pQueue
      */
-    MapLoader.prototype.setModel = function(pModel, pQueue) {
+    MapLoader.prototype.setModel = function (pModel, pQueue) {
 
         var i, len, floorName, floor;
 
@@ -5886,7 +5650,7 @@
      * @param {LoadingQueue}
      *                pQueue
      */
-    MapLoader.prototype.buildingLoaded = function(data, pQueue) {
+    MapLoader.prototype.buildingLoaded = function (data, pQueue) {
         var i, len, floor;
 
         var floorsArray = JsonNavigator.walkPath(data, BUILDING_FLOORS_PATH);
@@ -5943,7 +5707,7 @@
      * @param {LoadingQueue}
      *                pQueue
      */
-    MapLoader.prototype.destinationLoaded = function(pData, pQueue) {
+    MapLoader.prototype.destinationLoaded = function (pData, pQueue) {
         var destinationVO = new Destination();
         new InitializeDestinationInstance(destinationVO, pData, this.mapModel).execute();
         this.mapModel.DestinationList[destinationVO.Id] = destinationVO;
@@ -5956,7 +5720,7 @@
      * @param {LoadingQueue}
      *                pQueue
      */
-    MapLoader.prototype.destinationLogoLoaded = function(pData, pQueue) {
+    MapLoader.prototype.destinationLogoLoaded = function (pData, pQueue) {
         var destinationVO = new Destination();
         new InitializeDestinationInstance(destinationVO, destinationsArray[i], this.mapModel).execute();
         this.mapModel.DestinationList[destinationVO.Id] = destinationVO;
@@ -5969,7 +5733,7 @@
      * @param {LoadingQueue}
      *                pQueue
      */
-    MapLoader.prototype.floorLoaded = function(pData, pQueue, pModel) {
+    MapLoader.prototype.floorLoaded = function (pData, pQueue, pModel) {
         var floorName = JsonNavigator.walkPath(pData, FLOOR_PATH_TO_NAME);
         var floor = this.mapModel.FindFloorByName(floorName);
         new InitializeFloorInstance(floor, pData, this.mapModel).execute();
@@ -5977,11 +5741,11 @@
         var errorCallback = $.proxy(this.ErrorControler, this);
     };
 
-    MapLoader.prototype.pathLoaded = function(pPath, pQueue) {
+    MapLoader.prototype.pathLoaded = function (pPath, pQueue) {
         new InitializePathInstance(pPath, this.mapModel).execute();
     };
 
-    MapLoader.prototype.LoadPathPoints = function(pModel, pFloor) {
+    MapLoader.prototype.LoadPathPoints = function (pModel, pFloor) {
         for (var i = 0; i < pModel.Points.length; i++) {
             if (JsonNavigator.walkPath(pModel.Points[i], PATHPOINTS_PATH_POSITION).Y == pFloor.Position.Y) {
                 new InitializePathPointInstance(pModel.Points[i], pFloor, this.mapModel).execute();
@@ -5996,7 +5760,7 @@
      * @param {LoadingQueue}
      *                pQueue
      */
-    MapLoader.prototype.floorTextureLoaded = function(pFloorName, pFloorData, pModel, pImg, pQueue) {
+    MapLoader.prototype.floorTextureLoaded = function (pFloorName, pFloorData, pModel, pImg, pQueue) {
         var floor = this.mapModel.FindFloorByName(pFloorName);
 
         if (floor) {
@@ -6009,7 +5773,7 @@
         }
     };
 
-    MapLoader.prototype.arrowLoaded = function(pImg, pQueue) {
+    MapLoader.prototype.arrowLoaded = function (pImg, pQueue) {
         this.mapModel.Arrow = pImg;
     };
 
@@ -6020,7 +5784,7 @@
      * @param {LoadingQueue}
      *                pQueue
      */
-    MapLoader.prototype.categoryLoaded = function(pData, pQueue) {
+    MapLoader.prototype.categoryLoaded = function (pData, pQueue) {
         var category = new Category();
         new InitializeCategoryInstance(category, pData).execute();
         this.mapModel.CategoriesList[category.Id] = category;
@@ -6033,7 +5797,7 @@
      * @param {LoadingQueue}
      *                pQueue
      */
-    MapLoader.prototype.topicLoaded = function(pData, pQueue) {
+    MapLoader.prototype.topicLoaded = function (pData, pQueue) {
         var topic = new Topic();
         new InitializeTopicInstance(topic, pData).execute();
         this.mapModel.TopicList[topic.Id] = topic;
@@ -6046,7 +5810,7 @@
      * @param {LoadingQueue}
      *                pQueue
      */
-    MapLoader.prototype.hiddenTopicLoaded = function(pData, pQueue) {
+    MapLoader.prototype.hiddenTopicLoaded = function (pData, pQueue) {
         var topic = new Topic();
         new InitializeTopicInstance(topic, pData).execute();
         this.mapModel.HiddenTopicList[topic.Id] = topic;
@@ -6059,7 +5823,7 @@
      * @param {LoadingQueue}
      *                pQueue
      */
-    MapLoader.prototype.datasLoaded = function(ev, pQueue) {
+    MapLoader.prototype.datasLoaded = function (ev, pQueue) {
 
         this._loadingQueue.unbind(LoadingQueue.QUEUE_FINISHED, this.$_datasLoaded);
         if (this.modelReady !== null) {
@@ -6068,16 +5832,16 @@
 
     };
 
-    MapLoader.prototype.ErrorControler = function(pData, pQueue) {
+    MapLoader.prototype.ErrorControler = function (pData, pQueue) {
         this.eventManager.trigger('ErrorLoadingMap');
     };
 
 
-    MapLoader.prototype.destinationsInfosLoaded = function(pData) {
+    MapLoader.prototype.destinationsInfosLoaded = function (pData) {
         this.eventManager.trigger('destinationLoaded', pData);
     };
 
-    MapLoader.prototype.handleLoadResource = function(resourceKey, cssSelector) {
+    MapLoader.prototype.handleLoadResource = function (resourceKey, cssSelector) {
         //    console.log(resourceKey + " : " + cssSelector);
         if (this.mapModel.ResourcesMap.hasResource(resourceKey)) {
             var o = CSSHelper.FindCssRuleBySelector(cssSelector);
@@ -6102,7 +5866,7 @@
         }
     };
 
-    MapLoader.prototype.resourceLoaded = function(resourceKey, pImage, pQueue) {
+    MapLoader.prototype.resourceLoaded = function (resourceKey, pImage, pQueue) {
         this.mapModel.ResourcesMap[resourceKey] = pImage;
     };
     /**
@@ -6151,7 +5915,7 @@
      *
      * @param mapLoaderObject
      */
-    InitializeVDMap.prototype.execute = function() {
+    InitializeVDMap.prototype.execute = function () {
         var i, len, k, lenk, currentDestination, current;
         // initialize title baseline default styles
         var defaultTitleBaselineStyle = this.stylesManager.lookupStyle(this.stylesManager.getTitleBaselineStyleName(StylesManager.STATE_DEFAULT));
@@ -6268,7 +6032,7 @@
      * @param {Shape} shape
      * @returns {Boolean}
      */
-    InitializeVDMap.prototype.testDestinationList = function(shape) {
+    InitializeVDMap.prototype.testDestinationList = function (shape) {
         var i, len, dest, result = true;
         for (i = 0, len = shape.DestinationsList.length; i < len; i++) {
             dest = this.map.FindDestinationById(shape.DestinationsList[i]);
@@ -6287,7 +6051,7 @@
      * @param {CssProperties} defaultShape active Style (when selected)
      * @param {CssProperties} defaultShape hover Style (when mouseover)
      */
-    InitializeVDMap.prototype._initializeDestinationShapeStyle = function(currentDestination, defaultShapeStyle, defaultShapeStyleActive, defaultShapeStyleHover) {
+    InitializeVDMap.prototype._initializeDestinationShapeStyle = function (currentDestination, defaultShapeStyle, defaultShapeStyleActive, defaultShapeStyleHover) {
         var destinationStyle, destinationStyleActive, destinationStyleHover;
         // handling style overriding per destination 
         destinationStyle = this.stylesManager.lookupStyle(this.stylesManager.getStyleNameForDestination(currentDestination.Id, StylesManager.STATE_DEFAULT));
@@ -6322,7 +6086,7 @@
      * @param {CssProperties} default Style for title baseline active  (when selected)
      * @param {CssProperties} defaultShape Style for title baseline hover (when mouseover)
      */
-    InitializeVDMap.prototype._initializeDestinationTitleBaselineStyle = function(currentDestination, defaultTitleBaselineStyle, defaultTitleBaselineStyleActive, defaultTitleBaselineStyleHover) {
+    InitializeVDMap.prototype._initializeDestinationTitleBaselineStyle = function (currentDestination, defaultTitleBaselineStyle, defaultTitleBaselineStyleActive, defaultTitleBaselineStyleHover) {
         var destinationBaselineStyle, destinationBaselineStyleActive, destinationBaselineStyleHover;
 
         // handling style overriding per destination 
@@ -6347,7 +6111,7 @@
 
     };
 
-    InitializeVDMap.prototype._dummyFilter = function(ele) {
+    InitializeVDMap.prototype._dummyFilter = function (ele) {
         return ele !== undefined && ele !== null;
     };
 
@@ -6365,7 +6129,7 @@
      *                packedColor - The color packed in the c# XNA standard
      * @returns {Color}
      */
-    CSSHelper.FindCssRuleBySelector = function(selector) {
+    CSSHelper.FindCssRuleBySelector = function (selector) {
         var results = [],
             candidate, i, j, len, lenj, sheet;
         if (!(selector in this._CacheMap)) {
@@ -6400,7 +6164,7 @@
         return this._CacheMap[selector];
     };
 
-    CSSHelper._FindCssRuleBySelector = function(selector, sheet, coll) {
+    CSSHelper._FindCssRuleBySelector = function (selector, sheet, coll) {
         var candidates = [],
             i, len, j, lenj, sheet, rule;
 
@@ -6425,7 +6189,7 @@
         return candidates;
     };
 
-    CSSHelper.CleanCSSObject = function(cssStyleList) {
+    CSSHelper.CleanCSSObject = function (cssStyleList) {
         var result = new Array();
 
         for (var key in cssStyleList)
@@ -6489,14 +6253,14 @@
      */
     VDCanvasViewerBootstrap.prototype._canvas = null;
 
-    VDCanvasViewerBootstrap.prototype.getEventManager = function() {
+    VDCanvasViewerBootstrap.prototype.getEventManager = function () {
         return this._eventManager;
     };
 
     /**
      * @type {LoadingQueue}
      */
-    VDCanvasViewerBootstrap.prototype.getLoadingQueue = function() {
+    VDCanvasViewerBootstrap.prototype.getLoadingQueue = function () {
         return this._loadingQueue;
     };
 
@@ -6505,7 +6269,7 @@
      * @param {PathManager}
      *                pPathManager the path manager
      */
-    VDCanvasViewerBootstrap.prototype.setPathManager = function(pPathManager) {
+    VDCanvasViewerBootstrap.prototype.setPathManager = function (pPathManager) {
         this._pathManager = pPathManager;
     };
 
@@ -6513,7 +6277,7 @@
      *
      * @returns {PathManager}
      */
-    VDCanvasViewerBootstrap.prototype.getPathManager = function() {
+    VDCanvasViewerBootstrap.prototype.getPathManager = function () {
         return this._pathManager;
     };
 
@@ -6523,7 +6287,7 @@
      * @param {EventManagerDecorator}
      *                pManager
      */
-    VDCanvasViewerBootstrap.prototype.setEventManager = function(pManager, pContainer) {
+    VDCanvasViewerBootstrap.prototype.setEventManager = function (pManager, pContainer) {
         this._eventManager = new EventManagerDecorator(pManager, pContainer ? pContainer.attr('id') : "");
         this._loadingQueue = new LoadingQueue(this._eventManager);
         this._eventManager.bind('vdRequestItinerary', $.proxy(this.requestItinerary, this));
@@ -6541,14 +6305,14 @@
      *
      * @param pUi
      */
-    VDCanvasViewerBootstrap.prototype.setUserInterface = function(pUi) {
+    VDCanvasViewerBootstrap.prototype.setUserInterface = function (pUi) {
         if (pUi) {
             pUi.register(this, this._eventManager, this.params.userInterfaceParams);
         }
         this._eventManager.trigger("vdInitializeContainer", [this._container]);
     };
 
-    VDCanvasViewerBootstrap.prototype.setStartingPathPoint = function(pValue) {
+    VDCanvasViewerBootstrap.prototype.setStartingPathPoint = function (pValue) {
 
         if (pValue) {
             if ("pointId" in pValue && pValue.pointId !== null)
@@ -6562,7 +6326,7 @@
         }
     };
 
-    VDCanvasViewerBootstrap.prototype.setSelectedDestination = function(pSelectedDestination) {
+    VDCanvasViewerBootstrap.prototype.setSelectedDestination = function (pSelectedDestination) {
 
         var destination;
         if (pSelectedDestination && isNaN(pSelectedDestination) && ('id' in pSelectedDestination && 'fieldName' in pSelectedDestination)) {
@@ -6585,7 +6349,7 @@
      *
      * @param {jQuery} pContainer
      */
-    VDCanvasViewerBootstrap.prototype.setContainer = function(pContainer) {
+    VDCanvasViewerBootstrap.prototype.setContainer = function (pContainer) {
         this._container = pContainer;
 
         this._eventManager.setPrefix(this._container.attr('id'));
@@ -6617,7 +6381,7 @@
     /**
      * launch the process
      */
-    VDCanvasViewerBootstrap.prototype.launch = function() {
+    VDCanvasViewerBootstrap.prototype.launch = function () {
         /** @var {MapLoader} mapLoader */
         var _mapLoader = new MapLoader(new ViadirectMap(), this._loadingQueue, this._eventManager);
         _mapLoader.modelReady = $.proxy(this.modelReady, this);
@@ -6637,7 +6401,7 @@
      *
      * @param {ViadirectMap} pMap
      */
-    VDCanvasViewerBootstrap.prototype.modelReady = function(pMap) {
+    VDCanvasViewerBootstrap.prototype.modelReady = function (pMap) {
         console.log("datasLoaded");
 
         this._canvas.Initialize("2d");
@@ -6724,12 +6488,12 @@
         }
 
         if (this.params.zoomLevel !== null) {
-            //Pruebas jose
-            console.log("Se establece zoomLevel a "+this.params.zoomLevel);
+            //Pruebas
+            //console.log("Se establece zoomLevel a "+this.params.zoomLevel);
 
             this._canvas.Scale = this.params.zoomLevel;
             this._canvas.DefaultScaleValue = this.params.zoomLevel;
-            
+
         }
 
         if (this.params.destination && this.params.destination.hiddenPrefix !== null) {
@@ -6748,11 +6512,11 @@
         }
 
 
-        this._eventManager.bind("vdUIFloorChange", $.proxy(function(event, floorName) {
+        this._eventManager.bind("vdUIFloorChange", $.proxy(function (event, floorName) {
             this._mapManipulator.floorChanged(floorName);
         }, this));
 
-        this._eventManager.bind("vdUnselectDestination", $.proxy(function(event) {
+        this._eventManager.bind("vdUnselectDestination", $.proxy(function (event) {
             this._mapManipulator.setCurrentDestinationId(-1);
         }, this));
 
@@ -6767,7 +6531,7 @@
      *
      * @returns {Object}
      */
-    VDCanvasViewerBootstrap.prototype.getParameters = function() {
+    VDCanvasViewerBootstrap.prototype.getParameters = function () {
         return this.params;
     };
 
@@ -6775,7 +6539,7 @@
      *
      * @returns {Boolean}
      */
-    VDCanvasViewerBootstrap.prototype.getInteractionsEnabled = function() {
+    VDCanvasViewerBootstrap.prototype.getInteractionsEnabled = function () {
         return this._canvas.getInteractionsEnabled();
     };
 
@@ -6784,7 +6548,7 @@
      * @param {Event} ev
      * @param {Number[]} destinations an array of destination ids
      */
-    VDCanvasViewerBootstrap.prototype.selectDestinations = function(ev, destinations) {
+    VDCanvasViewerBootstrap.prototype.selectDestinations = function (ev, destinations) {
         if (ev.type == 'vdSelectDestination') {
             this.setSelectedDestination(destinations[0]);
         } else {
@@ -6797,7 +6561,7 @@
      * @param {Event} ev
      * @param {Boolean} PMRMode
      */
-    VDCanvasViewerBootstrap.prototype.setPMRMode = function(ev, PMRMode) {
+    VDCanvasViewerBootstrap.prototype.setPMRMode = function (ev, PMRMode) {
         this._mapManipulator.setPMRMode(PMRMode);
     };
 
@@ -6807,7 +6571,7 @@
      * @param {Number|Object} leftId
      * @param {Number|Object} rightId
      */
-    VDCanvasViewerBootstrap.prototype.requestItinerary = function(ev, leftId, rightId) {
+    VDCanvasViewerBootstrap.prototype.requestItinerary = function (ev, leftId, rightId) {
         var dest;
         if (isNaN(leftId) && 'id' in leftId && 'fieldName' in leftId) {
             leftId.externalDestinationId = leftId.id;
@@ -6847,7 +6611,7 @@
     /**
      * returns an object which gives a state of the visual object about the map
      */
-    VDCanvasViewerBootstrap.prototype.getVisualState = function() {
+    VDCanvasViewerBootstrap.prototype.getVisualState = function () {
         return this._canvas.getVisualState();
     };
 
@@ -7321,7 +7085,7 @@
         currentLanguageId: 0
     };
 
-    $.fn.vdCanvasViewer = function(params) {
+    $.fn.vdCanvasViewer = function (params) {
         if (typeof params == "object") {
             if (defaultParams.pathManager == null)
                 defaultParams.pathManager = new PathManager();
@@ -7352,12 +7116,12 @@
             if (pParams.hasOwnProperty("userInterface") && pParams.userInterface !== null) {
                 bootstrapper.setUserInterface(pParams.userInterface);
             }
-            $(global).on('orientationchange', function() {
+            $(global).on('orientationchange', function () {
                 bootstrapper.getEventManager().trigger("vdOrientationChange");
                 console.log("orientation.change now ", window.screen.orientation.angle);
             });
 
-            $(global).on('resize', function(ev) {
+            $(global).on('resize', function (ev) {
                 bootstrapper.getEventManager().trigger("vdResize");
             });
             bootstrapper.launch();
@@ -7378,8 +7142,8 @@
      * crossbrowser requestAnimationFrame
      *
      */
-    window.requestAnimFrame = (function() {
-        return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || function( /* function */ callback, /* DOMElement */ element) {
+    window.requestAnimFrame = (function () {
+        return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || function ( /* function */ callback, /* DOMElement */ element) {
             return window.setTimeout(callback, 1000 / 60);
         };
     })();

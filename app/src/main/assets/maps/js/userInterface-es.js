@@ -122,7 +122,7 @@
             this.destinationPanel = $("<div class='destinationInfoArea close'><div class='content-wrapper'></div></div>").appendTo(this._ctx);
         }
         this.zoomControls = $(
-            '<ul class="vdZoomButtons"><li class="vdMapButton vdMapZoom" data-action="vdUIZoomIn" data-pressable="1" title="Zoom in"><span>+</span></li><li class="vdMapButton vdMapZoom"  data-pressable="1" data-action="vdUIZoomOut" title="Zoom out"><span>-</span></li> ' + (this.params.displayItineraryPanel ? '<li class="vdMapButton showItinerary" data-toggle="1" title="Show itinerary">&nbsp;</li>' : '') + '</ul>').appendTo(this.UiButtonBar);
+            '<ul class="vdZoomButtons" style="margin-left:-50px;"><li class="vdMapButton vdMapZoom" data-action="vdUIZoomIn" data-pressable="1" title="Zoom in"><span>+</span></li><li class="vdMapButton vdMapZoom"  data-pressable="1" data-action="vdUIZoomOut" title="Zoom out"><span>-</span></li> ' + (this.params.displayItineraryPanel ? '<li class="vdMapButton showItinerary" data-toggle="1" title="Show itinerary">&nbsp;</li>' : '') + '</ul>').appendTo(this.UiButtonBar);
         this.loaderLayer = $('<div class="vdLoader"></div>').appendTo(pContext);
 
         if (this.params.displayToolbar) {
@@ -208,9 +208,9 @@
             endDestinationStr = '<span class="value">' + this.model.ViadirectMap.FindDestinationById(this._currentDestination).NameTranslations[0] + '</span>';
         }
 
-        var tpl = 
-        '<div class="itineraryPanel" style="width:' + stringAnchoCustom + ';height:' + stringAltoCustom + '; position:absolute; margin:auto; top:50%; margin-top:' + stringMarginTopCustom + '; right:0; bottom:0; left:0;"> \
-            <div class="title-controls" style="margin:0; padding:0; border:0; height:'+stringHeightButtomCustom+'; background-color:#2B2B2B;"> \
+        var tpl =
+            '<div class="itineraryPanel" style="width:' + stringAnchoCustom + ';height:' + stringAltoCustom + '; position:absolute; margin:auto; top:50%; margin-top:' + stringMarginTopCustom + '; right:0; bottom:0; left:0;"> \
+            <div class="title-controls" style="margin:0; padding:0; border:0; height:'+ stringHeightButtomCustom + '; background-color:#2B2B2B;"> \
                 <a href="#" class="close-button" style="font-size:' + stringFontSizeTitleCustom + '; height:100%; line-height:1.5em; margin:0 15px 0 0; padding:0; border:0;">x</a> \
                     <h1 style="font-size:' + stringFontSizeTitleCustom + ';height:100%; line-height:1.5em; margin:0 0 0 15px; padding:0; border:0;">' + kChooseItinerary + '</h1> \
             </div> \
@@ -224,7 +224,7 @@
             </div>';
 
 
-        
+
         if (this.params.displayPMR && this.model.ViadirectMap.FloorList.length > 1) {
             // pmr 
             tpl += '<div class="pmr-row" style="height:' + stringFontSizeButtomCustom + ';"><input type="checkbox" name="pmr" title="Enable PRM mode" style="width:' + stringFontSizeCustom + '; height:' + stringFontSizeCustom + ';" /><label style="font-size:' + stringFontSizeCustom + ';">' + kEnablePRMMode + '</label></div>';
@@ -302,7 +302,7 @@
     ViewerBaseUi.prototype.modelReady = function (ev, map) {
 
         this.model = map;
-        var floorsMenu = $('<ul class="vdChangeFloorButtons"></ul>');
+        var floorsMenu = $('<ul class="vdChangeFloorButtons" style="margin-left:-50px"></ul>');
         var floorList = map.ViadirectMap.FloorList;
         for (var key in floorList) {
             $(
@@ -338,8 +338,21 @@
 
             $('.vdMapButton', this._ctx.get(0)).on("mousedown touchstart", function (ev) {
                 console.log(this);
+
                 var $this = $(this);
-                $this.addClass("selected");
+
+                $('.vdMapButton').removeClass("selected");
+                $('.vdMapButton').css({ "background-color": "#676767" });
+
+                //Si no son los botones de zoom
+                if (!$this.hasClass("vdMapZoom")) {
+                    $this.addClass("selected");
+                }
+
+                if ($this.is(".selected")) {
+                    $(this).css({ "background-color": "black" });
+                }
+
                 if ($this.data('pressable')) {
                     buttonPressed = $this;
                     cancelAnimationFrame(self.interval);
@@ -748,265 +761,7 @@
 
     };
 
-    ViewerBaseUi.prototype.loadingFinished = function(ev, settings) {
-        clearInterval(this.loadingInterval);
-        this.loadingInterval = null;
-        if( this.destinationPanel ) {
-            this.destinationPanel.removeClass("loading");
-        }
-    };*/
 
-    /**
-     * initialize the container
-     * 
-     * @param Event
-     *                ev
-     * @param JQueryResultSet
-     *                pContext
-     */
-    ViewerBaseUi.prototype.initializeContainer = function (ev, pContext) {
-        this._ctx = $("<div class='vdUserInterface'></div>").appendTo(pContext);
-        this.UiButtonBar = $('<div class="vdUiButtons"></div>');
-        this.floorsMenu = $('<div class="vdChangeFloorButtons loading"></div>').appendTo(this.UiButtonBar);
-        if (this.params.displayInfoPanel) {
-            this.destinationPanel = $("<div class='destinationInfoArea close'><div class='content-wrapper'></div></div>").appendTo(this._ctx);
-        }
-        this.zoomControls = $(
-            '<ul class="vdZoomButtons"><li class="vdMapButton vdMapZoom" data-action="vdUIZoomIn" data-pressable="1" title="Zoom in"><span>+</span></li><li class="vdMapButton vdMapZoom"  data-pressable="1" data-action="vdUIZoomOut" title="Zoom out"><span>-</span></li> ' + (this.params.displayItineraryPanel ? '<li class="vdMapButton showItinerary" data-toggle="1" title="Show itinerary">&nbsp;</li>' : '') + '</ul>').appendTo(this.UiButtonBar);
-        this.loaderLayer = $('<div class="vdLoader"></div>').appendTo(pContext);
-
-        if (this.params.displayToolbar) {
-            this.UiButtonBar.appendTo(this._ctx);
-        }
-
-        $('.vdMapButton.showItinerary', this.zoomControls.get(0)).click($.proxy(this.showItineraryPanel, this));
-
-        this.canvasElement = pContext.find(' > canvas.vdMap ');
-    };
-
-    ViewerBaseUi.prototype._filterDestinationHasShape = function (ele) {
-        return "ShapeList" in ele && ele.ShapeList.length;
-    };
-
-
-    ViewerBaseUi.prototype.requestPmr = function (ev) {
-        console.log(ev.target.checked);
-        this.app.getEventManager().trigger("vdSetPMRMode", ev.target.checked);
-    };
-
-    ViewerBaseUi.prototype.closeItineraryPanel = function (ev) {
-        this.itinerarySelectorPanel.detach();
-        $('.vdMapButton.showItinerary').removeClass("selected").data('toggle', 1);
-        if (ev) {
-            ev.stopPropagation();
-        }
-        return false;
-    };
-
-    ViewerBaseUi.prototype.itinerarySelectChange = function (ev) {
-
-        var startDestinationId = this.itinerarySelectorPanel.find('select[name="start-destination"] option:selected').val();
-        var endDestinationId = this.params.allowChangeItineraryDestination ? this.itinerarySelectorPanel.find('select[name="end-destination"] option:selected').val() : this._currentDestination;
-
-        // sending to app
-        this.model.getEventManager().trigger('vdRequestItinerary', [parseInt(startDestinationId), parseInt(endDestinationId)]);
-    };
-
-    ViewerBaseUi.prototype.showItineraryPanel = function (ev) {
-        if ($(ev.target).data('toggle') == 1) {
-            if (!this.itinerarySelectorPanel)
-                this._buildItineraryPanel();
-
-            //Se añade al body del documento en lugar del panel de control para poderlo centrar verticalmente en relación a todo el webview
-            //this.itinerarySelectorPanel.appendTo(this._ctx);
-            this.itinerarySelectorPanel.appendTo($(document.body));
-
-            if (this._currentDestination) {
-                this.itinerarySelectorPanel.find('select[name="end-destination"]').val(this._currentDestination);
-            }
-            $(ev.target).data('toggle', 0);
-        } else {
-
-            this.closeItineraryPanel(null);
-            $(ev.target).data('toggle', 1);
-        }
-    };
-
-    /**
-     * 
-     * @param {Event}
-     *                ev
-     * @param {MapManipulator}
-     *                map
-     */
-    ViewerBaseUi.prototype.modelReady = function (ev, map) {
-
-        this.model = map;
-        var floorsMenu = $('<ul class="vdChangeFloorButtons"></ul>');
-        var floorList = map.ViadirectMap.FloorList;
-        for (var key in floorList) {
-            $(
-                '<li class="vdMapButton vdMapFloor ' + (this._waitingFloor == floorList[key].Name ? "vdActive" : "") + '" data-action="vdUIFloorChange" data-value="' + floorList[key].Name
-                + '" ><span>' + floorList[key].NameTranslations[0] + '</span></li>').appendTo(floorsMenu);
-        }
-
-        if (floorsMenu.children().length > 1) {
-            floorsMenu.children('li').click($.proxy(this.floorButtonPicked, this));
-            $('.vdChangeFloorButtons', this._ctx.get(0)).replaceWith(floorsMenu);
-            this.floorsMenu = floorsMenu;
-        } else {
-            $('.vdChangeFloorButtons', this._ctx.get(0)).detach();
-        }
-        var self = this;
-        var o = null;
-        var callback = function (target, map) {
-            return function (t) {
-                if (o === null)
-                    o = t;
-                var delta = (t - o);
-
-                var a = $(target).data('action');
-                if ((delta == 0 || delta > 100) && a) {
-                    map.getEventManager().trigger(a);
-                    o = t;
-                }
-                self.interval = requestAnimationFrame(arguments.callee);
-            };
-        };
-        if (requestAnimationFrame && cancelAnimationFrame) {
-            var buttonPressed = false;
-
-            $('.vdMapButton', this._ctx.get(0)).on("mousedown touchstart", function (ev) {
-                console.log(this);
-                var $this = $(this);
-                $this.addClass("selected");
-                if ($this.data('pressable')) {
-                    buttonPressed = $this;
-                    cancelAnimationFrame(self.interval);
-                    o = null;
-
-                    self.interval = requestAnimationFrame(callback(this, map));
-                } else if ($(this).data('action')) {
-                    var a = $(this).data('action');
-                    map.getEventManager().trigger(a, $this.data("value"));
-                }
-            });
-
-            $('.vdMapButton', this._ctx.get(0)).mouseup(function (ev) {
-                buttonPressed = false;
-                var $this = $(this);
-                if ($this.data('toggle') == undefined) {
-                    $this.removeClass("selected");
-                }
-                if ($this.data('pressable')) {
-                    cancelAnimationFrame(self.interval);
-                }
-            });
-
-            $("body").on("mouseup touchend", function (ev) {
-
-                if (buttonPressed) {
-                    if (buttonPressed.data("toggle") == undefined) {
-                        buttonPressed.removeClass("selected");
-                    }
-                    cancelAnimationFrame(self.interval);
-                }
-            });
-        }
-        this.handleToolbarPlacement();
-    };
-    ViewerBaseUi.prototype.handleToolbarPlacement = function () {
-        var placement = parseInt(this.params.toolbarPlacement);
-        /**
-         * @type HTMLElement
-         */
-        var canvasElement = this.canvasElement.get(0);
-        /**
-         * @type HTMLElement
-         */
-        var uiButtonBar = this.UiButtonBar.get(0);
-        switch (placement) {
-            case ToolbarPlacement.NO_PLACEMENT:
-                break;
-            case ToolbarPlacement.LEFT_INSIDE:
-                alignLeftCenter(canvasElement, uiButtonBar, true);
-                break;
-            case ToolbarPlacement.LEFT_OUTSIDE:
-                alignLeftCenter(canvasElement, uiButtonBar, false);
-                break;
-            case ToolbarPlacement.RIGHT_INSIDE:
-                alignRightCenter(canvasElement, uiButtonBar, true);
-                break;
-            case ToolbarPlacement.RIGHT_OUTSIDE:
-                alignRightCenter(canvasElement, uiButtonBar, false);
-                break;
-        }
-    };
-
-    ViewerBaseUi.prototype.floorChanged = function (ev, pFloor) {
-        this.floorsMenu.children('li').removeClass('vdActive');
-        var floorLi = this.floorsMenu.children('[data-value="' + pFloor + '"]');
-        if (floorLi.length) {
-            floorLi.addClass('vdActive');
-        } else {
-            this._waitingFloor = pFloor;
-        }
-
-    };
-
-    ViewerBaseUi.prototype.toString = function () {
-        return "[ViewerBaseUi Connected User Interface]";
-    }
-
-    ViewerBaseUi.prototype.shapePicked = function (ev, shape) {
-        if (!shape || shape.Id != this._currentShape) {
-            this._currentDestination = null;
-            this.closePanel();
-        }
-    };
-
-    ViewerBaseUi.prototype.closePanel = function () {
-        if (this.loadingInterval != null) {
-            clearInterval(this.loadingInterval);
-            this.loadingInterval = null;
-        }
-        if (this.destinationPanel) {
-            this.destinationPanel.removeClass("open").addClass("close").removeClass("loading");
-            this.destinationPanel.trigger("panelClosing", [this]);
-        }
-    };
-
-    ViewerBaseUi.prototype.openPanel = function () {
-        if (this.destinationPanel) {
-            this.destinationPanel.removeClass("close").addClass("open");
-            this.destinationPanel.trigger("panelOpening", [this]);
-        }
-    };
-
-    /**
-     * when a destination is picked
-     */
-    ViewerBaseUi.prototype.destinationPicked = function (ev, infos) {
-        if (infos.destinationId != this._currentDestination) {
-            this._currentDestination = infos.destinationId;
-            if (this.itinerarySelectorPanel && this.params.allowChangeItineraryDestination) {
-                this.itinerarySelectorPanel.find('select[name="end-destination"]').val(this._currentDestination);
-            }
-            this._currentShape = infos.shapeId;
-            if (this.params.displayInfoPanel) {
-                this.load(this._currentDestination);
-            }
-        }
-    };
-
-    /**
-     * when a destination is picked
-     */
-    ViewerBaseUi.prototype.destinationRollOver = function (ev, infos) {
-        if (this.destinationPanel) {
-            this.load(infos.destinationId);
-        }
-    };
 
     /**
      * retrieves panels details from a local cache or remote

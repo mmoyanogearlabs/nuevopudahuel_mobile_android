@@ -336,7 +336,19 @@
             $('.vdMapButton', this._ctx.get(0)).on( "mousedown touchstart", function(ev) {
                 console.log(this);
                 var $this = $(this);
-                $this.addClass("selected");
+
+                $('.vdMapButton').removeClass("selected");
+                $('.vdMapButton').css({ "background-color": "#676767" });
+
+                //Si no son los botones de zoom
+                if (!$this.hasClass("vdMapZoom")) {
+                    $this.addClass("selected");
+                }
+
+                if ($this.is(".selected")) {
+                    $(this).css({ "background-color": "black" });
+                }
+                
                 if ($this.data('pressable')) {
                     buttonPressed = $this;
                     cancelAnimationFrame(self.interval);
