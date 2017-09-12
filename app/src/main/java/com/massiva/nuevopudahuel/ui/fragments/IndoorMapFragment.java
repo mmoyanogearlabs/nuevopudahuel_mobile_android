@@ -15,7 +15,8 @@ import java.util.Locale;
  */
 
 public class IndoorMapFragment extends BaseFragment implements View.OnClickListener {
-
+    //Begin update maps
+    //Antes de generar el webView, ahora tenemos que comprobar si hay datos para actualizar y reemplazar entera la carpeta /assets/maps/MapData por lo descargado del zip
     private WebView webView;
 
     public static IndoorMapFragment newInstance() {
