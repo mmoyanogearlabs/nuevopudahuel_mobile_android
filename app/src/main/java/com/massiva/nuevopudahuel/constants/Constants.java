@@ -11,5 +11,6 @@ public abstract class Constants {
     public static final String FLIGHTS_API_CLIENT_SECRET = "Pudahuel-2A0P1P6";
     public static final String BANNERS_API_CLIENT_ID = "ads-app";
     public static final String BANNERS_API_CLIENT_SECRET = "ModdityAds-2A0P1P6";
+    public static final String URL_GET_JSON_MAPS_2D_VERSIONS = "http://front-airport-pudahuel.viadirect.com/sites/default/files/viadirect/json/shops_version.json";
 
 }
