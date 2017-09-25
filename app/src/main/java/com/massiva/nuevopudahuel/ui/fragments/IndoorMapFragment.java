@@ -8,6 +8,7 @@ import com.massiva.nuevopudahuel.R;
 import com.massiva.nuevopudahuel.base.BaseFragment;
 
 
+import java.io.File;
 import java.util.Locale;
 
 /**
@@ -33,8 +34,21 @@ public class IndoorMapFragment extends BaseFragment implements View.OnClickListe
         $(R.id.indoor_map_close).setOnClickListener(this);
         webView = $(R.id.indoor_map_webview);
         webView.getSettings().setJavaScriptEnabled(true);
+        //Si no existe la carpeta de descargas de nuevos maps, irá a assets que esta en la apk y no puede reemplazarse
+        String folderPath;
+        File dir = new File(getActivity().getFilesDir() + "/DownloadedMaps/");
+        
+        if (dir.exists() == false) {
+            dir.mkdirs();
+        }
+        //Si ya hay archivos descargados de otras veces
+        if(dir.listFiles().length>1) {
+            folderPath = dir.getPath();
+        }else{//Si solo están los de assets por defecto
+            folderPath = "file:android_asset/maps/";
+        }
 
-        String folderPath = "file:android_asset/maps/";
+        //folderPath = "file:android_asset/maps/";
 
         // Get the HTML file name
         String language = null;
