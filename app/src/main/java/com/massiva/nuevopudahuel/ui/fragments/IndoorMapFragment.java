@@ -37,7 +37,7 @@ public class IndoorMapFragment extends BaseFragment implements View.OnClickListe
         //Si no existe la carpeta de descargas de nuevos maps, irá a assets que esta en la apk y no puede reemplazarse
         //Ya tendremos hasta los assets copiados y todo.
         String folderPath;
-        File dir = new File(getActivity().getFilesDir() + "/DownloadedMaps/assets/maps");
+        File dir = new File(getActivity().getFilesDir() + "/DownloadedMaps/assets/maps/");
 
         if (dir.exists() == false) {
             folderPath = "file:android_asset/maps/";
