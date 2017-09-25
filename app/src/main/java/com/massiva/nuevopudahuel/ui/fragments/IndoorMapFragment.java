@@ -35,18 +35,17 @@ public class IndoorMapFragment extends BaseFragment implements View.OnClickListe
         webView = $(R.id.indoor_map_webview);
         webView.getSettings().setJavaScriptEnabled(true);
         //Si no existe la carpeta de descargas de nuevos maps, irá a assets que esta en la apk y no puede reemplazarse
+        //Ya tendremos hasta los assets copiados y todo.
         String folderPath;
-        File dir = new File(getActivity().getFilesDir() + "/DownloadedMaps/");
-        
+        File dir = new File(getActivity().getFilesDir() + "/DownloadedMaps/assets/maps");
+
         if (dir.exists() == false) {
-            dir.mkdirs();
-        }
-        //Si ya hay archivos descargados de otras veces
-        if(dir.listFiles().length>1) {
-            folderPath = dir.getPath();
-        }else{//Si solo están los de assets por defecto
             folderPath = "file:android_asset/maps/";
+        } else {
+            folderPath = dir.getPath();
+            File[] listado = dir.listFiles();
         }
+
 
         //folderPath = "file:android_asset/maps/";
 

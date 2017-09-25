@@ -3,6 +3,7 @@ package com.massiva.nuevopudahuel.ui.activities;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -30,6 +31,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
@@ -162,6 +164,59 @@ public class IndoorMapActivity extends BaseActivity {
         return true;
     }
 
+
+    //PARA COPIAR TODA LA CARPETA ASSETS EN CASO DE NECESITAR VER MAPAS FUERA DE ELLA POR HABERSE ACTUALIZADO
+
+    private static boolean copyAssetFolder(AssetManager assetManager, String fromAssetPath, String toPath) {
+        try {
+            String[] files = assetManager.list(fromAssetPath);
+            new File(toPath).mkdirs();
+            boolean res = true;
+            for (String file : files)
+                if (file.contains("."))
+                    res &= copyAsset(assetManager,
+                            fromAssetPath + "/" + file,
+                            toPath + "/" + file);
+                else
+                    res &= copyAssetFolder(assetManager,
+                            fromAssetPath + "/" + file,
+                            toPath + "/" + file);
+            return res;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    private static boolean copyAsset(AssetManager assetManager,
+                                     String fromAssetPath, String toPath) {
+        InputStream in = null;
+        OutputStream out = null;
+        try {
+            in = assetManager.open(fromAssetPath);
+            new File(toPath).createNewFile();
+            out = new FileOutputStream(toPath);
+            copyFile(in, out);
+            in.close();
+            in = null;
+            out.flush();
+            out.close();
+            out = null;
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    private static void copyFile(InputStream in, OutputStream out) throws IOException {
+        byte[] buffer = new byte[1024];
+        int read;
+        while ((read = in.read(buffer)) != -1) {
+            out.write(buffer, 0, read);
+        }
+    }
+
     //Mirar de pasar por params aunque para pruebas no haría falta
     public class getDataIfisNewMaps2DAvariable extends AsyncTask<String, String, String> {
 
@@ -227,8 +282,16 @@ public class IndoorMapActivity extends BaseActivity {
                     //AQUI VIENEN CHECKSUM ETC, PERO DESPUES LO HARÉ.
 
                     if (hayQueUpdatear) {
-                        //Borro el contenido de DownloadedMaps/ si existe
-                        File dirToDelete = new File(context.getFilesDir() + "/DownloadedMaps");
+                        //SE COPIA LA ESTRUCTURA DE LOS ASSETS ORIGINAL PARA MANTENERLA SIEMPRE SI NO SE HABIA DESCARGADO NINGUN MAPA
+                        File esqueletoAssetsCopia = new File(context.getFilesDir() + "/DownloadedMaps/assets/");
+                        if (esqueletoAssetsCopia.exists() == false) {
+                            esqueletoAssetsCopia.mkdirs();
+                        }
+                        copyAssetFolder(getAssets(), "maps", context.getFilesDir() + "/DownloadedMaps/assets/maps");
+                        File[] newMapsAsset = new File(context.getFilesDir() + "/DownloadedMaps/assets").listFiles();
+
+                        //Borro el contenido de DownloadedMaps/assets/maps/MapData si existe
+                        File dirToDelete = new File(context.getFilesDir() + "/DownloadedMaps/assets/maps/MapData");
                         if (dirToDelete.exists()) {
                             dirToDelete.delete();
                         }
@@ -237,9 +300,16 @@ public class IndoorMapActivity extends BaseActivity {
                         downloadMapZipFromUrl(maps2DInfo.getUrlForDownloadZipMaps(), "DownloadedMaps/NewMaps_" + maps2DInfo.getShopsVersionUpdate() + ".zip");
 
 
-                        //Descomprimimos el zip
+                        //SE BORRA EL MAP DATA
+                        File dirToDeleteDataMaps = new File(context.getFilesDir() + "/DownloadedMaps/assets/maps/MapData");
+                        if (dirToDeleteDataMaps.exists()) {
+                            dirToDeleteDataMaps.delete();
+                        }
+
+
+                        //Descomprimimos el zip dentro de la estructura del esqueleto copiado
                         File origintToUnzip = new File(context.getFilesDir() + "/DownloadedMaps/NewMaps_" + maps2DInfo.getShopsVersionUpdate() + ".zip");
-                        File destinationUnzipFilesDir = new File(context.getFilesDir() + "/DownloadedMaps/");
+                        File destinationUnzipFilesDir = new File(context.getFilesDir() + "/DownloadedMaps/assets/maps/MapData"); //Aqui los nuevos
                         unzip(origintToUnzip, destinationUnzipFilesDir);
                     }
 
