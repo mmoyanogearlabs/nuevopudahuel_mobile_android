@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.AsyncTask;
+import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
@@ -26,7 +27,6 @@ import org.json.JSONObject;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -51,6 +51,7 @@ public class IndoorMapActivity extends BaseActivity {
     public static String publicPathAssets;
     public static String publicPathAssetsMaps;
     public static String publicPatAssetsMapsMapData;
+    public static File baseUrlDirs;
 
     public static Intent makeIntent(Context context) {
         return new Intent(context, IndoorMapActivity.class);
@@ -65,11 +66,18 @@ public class IndoorMapActivity extends BaseActivity {
     protected void configView() {
         //SE COMPRUEBA LA EXISTENCIA DE NUEVOS PLANOS 2D PARA REEMPLAZAR LOS EXISTENTES
         context = this;
-        publicPathParent = context.getFilesDir() + "/DownloadedMaps/";
-        publicPathAssets = context.getFilesDir() + "/DownloadedMaps/assets/";
-        publicPathAssetsMaps = context.getFilesDir() + "/DownloadedMaps/assets/maps/";
-        publicPatAssetsMapsMapData = context.getFilesDir() + "/DownloadedMaps/assets/maps/MapData/";
+        baseUrlDirs = context.getFilesDir();
 
+        publicPathParent = baseUrlDirs + "/DownloadedMaps/";
+        publicPathAssets = baseUrlDirs + "/DownloadedMaps/assets/";
+        publicPathAssetsMaps = baseUrlDirs + "/DownloadedMaps/assets/maps/";
+        publicPatAssetsMapsMapData = baseUrlDirs + "/DownloadedMaps/assets/maps/MapData/";
+
+        createDirectoryIfNotExist(baseUrlDirs.getPath());
+        createDirectoryIfNotExist(publicPathParent);
+        createDirectoryIfNotExist(publicPathAssets);
+        createDirectoryIfNotExist(publicPathAssetsMaps);
+        createDirectoryIfNotExist(publicPatAssetsMapsMapData);
 
         //Esto se hará después de comprobar si se usan los mapas nuevos o los que vienen en la apk
         Fragment fragment = IndoorMapFragment.newInstance();
@@ -84,17 +92,20 @@ public class IndoorMapActivity extends BaseActivity {
 
     }
 
+    public void createDirectoryIfNotExist(String path) {
+        File dir = new File(path);
+        if (dir.exists() == false)
+            dir.mkdirs();
+        dir.setReadable(true);
+        dir.setWritable(true);
+    }
+
 
     public void downloadMapZipFromUrl(String url, String outputFileName) {
-
-        File dir = new File(context.getFilesDir() + "/");
-        if (dir.exists() == false) {
-            dir.mkdirs();
-        }
         try {
             URL downloadUrl = new URL(url); // you can write any link here
 
-            File file = new File(dir, outputFileName);
+            File file = new File(baseUrlDirs, outputFileName);
         /* Open a connection to that URL. */
             URLConnection ucon = downloadUrl.openConnection();
 
@@ -178,7 +189,7 @@ public class IndoorMapActivity extends BaseActivity {
 
 
     //PARA COPIAR TODA LA CARPETA ASSETS EN CASO DE NECESITAR VER MAPAS FUERA DE ELLA POR HABERSE ACTUALIZADO
-
+    //COPIAR INTEGRAMENTE AUNQUE SE CONTENGAN X PUNTOS
     private static boolean copyAssetFolder(AssetManager assetManager, String fromAssetPath, String toPath) {
         try {
             String[] files = assetManager.list(fromAssetPath);
@@ -200,8 +211,7 @@ public class IndoorMapActivity extends BaseActivity {
         }
     }
 
-    private static boolean copyAsset(AssetManager assetManager,
-                                     String fromAssetPath, String toPath) {
+    private static boolean copyAsset(AssetManager assetManager, String fromAssetPath, String toPath) {
         InputStream in = null;
         OutputStream out = null;
         try {
@@ -255,7 +265,7 @@ public class IndoorMapActivity extends BaseActivity {
             }
 
 
-            //Convertimos en JSON
+            //Convertimos en JSON y descargamos - descomprimimos - copiamos
             try {
                 JSONObject mainObject = new JSONObject(result.toString());
 
@@ -295,39 +305,25 @@ public class IndoorMapActivity extends BaseActivity {
 
                     if (hayQueUpdatear) {
                         //SE COPIA LA ESTRUCTURA DE LOS ASSETS ORIGINAL PARA MANTENERLA SIEMPRE SI NO SE HABIA DESCARGADO NINGUN MAPA
-                        File esqueletoAssetsCopia = new File(publicPathAssets);
-                        if (esqueletoAssetsCopia.exists() == false) {
-                            esqueletoAssetsCopia.mkdirs();
-                        }
                         copyAssetFolder(getAssets(), "maps", publicPathAssetsMaps);
                         File[] newMapsAsset = new File(publicPathAssets).listFiles();
 
-                        //Borro el contenido de DownloadedMaps/assets/maps/MapData si existe
-                        File dirToDelete = new File(context.getFilesDir() + publicPatAssetsMapsMapData);
-                        if (dirToDelete.exists()) {
-                            dirToDelete.delete();
-                        }
-                        esqueletoAssetsCopia.setWritable(true);
-                        esqueletoAssetsCopia.setReadable(true);
 
-                        //OBTENEMOS EL ZIP Y GUARDAMOS EN SISTEMA (FUNCIONA OK)
-                        downloadMapZipFromUrl(maps2DInfo.getUrlForDownloadZipMaps(), "DownloadedMaps/NewMaps_" + maps2DInfo.getShopsVersionUpdate() + ".zip");
-
-
-                        //SE BORRA EL MAP DATA
+                        //SE BORRA EL MAP DATA PARA DEJAR SOLO EL ESQUELETO DE MAPS ASSETS Y LUEGO DESCARGAR NUEVO MAPDATA AQUÍ
                         File dirToDeleteDataMaps = new File(publicPatAssetsMapsMapData);
                         if (dirToDeleteDataMaps.exists()) {
                             dirToDeleteDataMaps.delete();
                         }
 
 
+                        //OBTENEMOS EL ZIP Y GUARDAMOS EN SISTEMA (FUNCIONA OK)
+                        downloadMapZipFromUrl(maps2DInfo.getUrlForDownloadZipMaps(), "DownloadedMaps/NewMaps_" + maps2DInfo.getShopsVersionUpdate() + ".zip");
+
+
                         //Descomprimimos el zip dentro de la estructura del esqueleto copiado
-                        File origintToUnzip = new File(context.getFilesDir() + "/DownloadedMaps/NewMaps_" + maps2DInfo.getShopsVersionUpdate() + ".zip");
+                        File origintToUnzip = new File(publicPathParent + "/NewMaps_" + maps2DInfo.getShopsVersionUpdate() + ".zip");
                         File destinationUnzipFilesDir = new File(publicPatAssetsMapsMapData); //Aqui los nuevos
                         unzip(origintToUnzip, destinationUnzipFilesDir);
-
-                        destinationUnzipFilesDir.setWritable(true);
-                        destinationUnzipFilesDir.setReadable(true);
                     }
 
 
@@ -335,6 +331,7 @@ public class IndoorMapActivity extends BaseActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
                 return "KO";
+
             } catch (Exception e) {
                 e.printStackTrace();
                 return "KO";

@@ -1,12 +1,11 @@
 package com.massiva.nuevopudahuel.ui.fragments;
 
+import android.os.Environment;
 import android.view.View;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import com.massiva.nuevopudahuel.R;
 import com.massiva.nuevopudahuel.base.BaseFragment;
-
 
 import java.io.File;
 import java.util.Locale;
@@ -23,6 +22,7 @@ public class IndoorMapFragment extends BaseFragment implements View.OnClickListe
     public static String publicPathAssets;
     public static String publicPathAssetsMaps;
     public static String publicPatAssetsMapsMapData;
+    public static File baseUrlDirs;
 
     public static IndoorMapFragment newInstance() {
         return new IndoorMapFragment();
@@ -40,11 +40,14 @@ public class IndoorMapFragment extends BaseFragment implements View.OnClickListe
         webView.getSettings().setJavaScriptEnabled(true);
         //Si no existe la carpeta de descargas de nuevos maps, irá a assets que esta en la apk y no puede reemplazarse
         //Ya tendremos hasta los assets copiados y todo.
+        baseUrlDirs = getActivity().getFilesDir();
+        baseUrlDirs.setReadable(true);
+        baseUrlDirs.setWritable(true);
 
-        publicPathParent = getActivity().getFilesDir() + "/DownloadedMaps/";
-        publicPathAssets = getActivity().getFilesDir() + "/DownloadedMaps/assets/";
-        publicPathAssetsMaps = getActivity().getFilesDir() + "/DownloadedMaps/assets/maps/";
-        publicPatAssetsMapsMapData = getActivity().getFilesDir() + "/DownloadedMaps/assets/maps/MapData/";
+        publicPathParent = baseUrlDirs + "/DownloadedMaps/";
+        publicPathAssets = baseUrlDirs + "/DownloadedMaps/assets/";
+        publicPathAssetsMaps = baseUrlDirs + "/DownloadedMaps/assets/maps/";
+        publicPatAssetsMapsMapData = baseUrlDirs + "/DownloadedMaps/assets/maps/MapData/";
 
         String folderPath;
         File dirParent = new File(publicPathParent);
