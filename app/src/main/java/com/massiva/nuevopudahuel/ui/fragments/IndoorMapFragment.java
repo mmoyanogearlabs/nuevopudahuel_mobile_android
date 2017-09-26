@@ -19,6 +19,10 @@ public class IndoorMapFragment extends BaseFragment implements View.OnClickListe
     //Begin update maps
     //Antes de generar el webView, ahora tenemos que comprobar si hay datos para actualizar y reemplazar entera la carpeta /assets/maps/MapData por lo descargado del zip
     private WebView webView;
+    public static String publicPathParent;
+    public static String publicPathAssets;
+    public static String publicPathAssetsMaps;
+    public static String publicPatAssetsMapsMapData;
 
     public static IndoorMapFragment newInstance() {
         return new IndoorMapFragment();
@@ -36,13 +40,23 @@ public class IndoorMapFragment extends BaseFragment implements View.OnClickListe
         webView.getSettings().setJavaScriptEnabled(true);
         //Si no existe la carpeta de descargas de nuevos maps, irá a assets que esta en la apk y no puede reemplazarse
         //Ya tendremos hasta los assets copiados y todo.
+
+        publicPathParent = getActivity().getFilesDir() + "/DownloadedMaps/";
+        publicPathAssets = getActivity().getFilesDir() + "/DownloadedMaps/assets/";
+        publicPathAssetsMaps = getActivity().getFilesDir() + "/DownloadedMaps/assets/maps/";
+        publicPatAssetsMapsMapData = getActivity().getFilesDir() + "/DownloadedMaps/assets/maps/MapData/";
+
         String folderPath;
-        File dir = new File(getActivity().getFilesDir() + "/DownloadedMaps/assets/maps/");
+        File dirParent = new File(publicPathParent);
+        dirParent.setReadable(true);
+        dirParent.setWritable(true);
+        File dir = new File(publicPathAssetsMaps);
+
 
         if (dir.exists() == false) {
             folderPath = "file:android_asset/maps/";
         } else {
-            folderPath = dir.getPath();
+            folderPath = dir.getPath() + File.separator;
             File[] listado = dir.listFiles();
         }
 
