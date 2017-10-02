@@ -1,11 +1,11 @@
 package com.massiva.nuevopudahuel.ui.activities;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.AsyncTask;
-import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
@@ -52,6 +52,7 @@ public class IndoorMapActivity extends BaseActivity {
     public static String publicPathAssetsMaps;
     public static String publicPatAssetsMapsMapData;
     public static File baseUrlDirs;
+    private String urlSkeletonMaps = "https://drive.google.com/a/moddity.net/uc?authuser=0&id=0B9-Cdt4z9FuwYUZ3cFBQd29rajA&export=download";
 
     public static Intent makeIntent(Context context) {
         return new Intent(context, IndoorMapActivity.class);
@@ -80,16 +81,28 @@ public class IndoorMapActivity extends BaseActivity {
         createDirectoryIfNotExist(publicPatAssetsMapsMapData);
 
         //Esto se hará después de comprobar si se usan los mapas nuevos o los que vienen en la apk
+        /*Fragment fragment = IndoorMapFragment.newInstance();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.indoor_map_fragment, fragment, fragment.getClass().getName())
+                .setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .commitAllowingStateLoss();*/
+
+
+        //Miramos de descargar el json de los mapas para info
+        getDataIfisNewMaps2DAvariable tareaAsyncrona = new getDataIfisNewMaps2DAvariable();
+        tareaAsyncrona.execute(null, null, null);
+        //La tarea inicializará el fragment
+
+    }
+
+    public void inicializarFragmentTrasSupervisionUpdates() {
         Fragment fragment = IndoorMapFragment.newInstance();
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.indoor_map_fragment, fragment, fragment.getClass().getName())
                 .setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .commitAllowingStateLoss();
-
-        //Miramos de descargar el json de los mapas para info
-        new getDataIfisNewMaps2DAvariable().execute(null, null, null);
-
     }
 
     public void createDirectoryIfNotExist(String path) {
@@ -195,15 +208,20 @@ public class IndoorMapActivity extends BaseActivity {
             String[] files = assetManager.list(fromAssetPath);
             new File(toPath).mkdirs();
             boolean res = true;
-            for (String file : files)
-                if (file.contains("."))
+
+            for (String file : files) {
+                if (file.toString().contains(".")) {
                     res &= copyAsset(assetManager,
                             fromAssetPath + "/" + file,
                             toPath + "/" + file);
-                else
+
+                } else {
                     res &= copyAssetFolder(assetManager,
                             fromAssetPath + "/" + file,
                             toPath + "/" + file);
+                }
+            }
+
             return res;
         } catch (Exception e) {
             e.printStackTrace();
@@ -244,6 +262,14 @@ public class IndoorMapActivity extends BaseActivity {
 
         HttpURLConnection urlConnection;
         boolean hayQueUpdatear = false;
+        private ProgressDialog dialog;
+
+        @Override
+        protected void onPreExecute() {
+            dialog = new ProgressDialog(context);
+            dialog.setMessage("Comprobando actualizaciones ...");
+            dialog.show();
+        }
 
         @Override
         protected String doInBackground(String... params) {
@@ -336,17 +362,18 @@ public class IndoorMapActivity extends BaseActivity {
                 e.printStackTrace();
                 return "KO";
             }
-
             return "OK";
         }
 
+
         @Override
         protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            AlertDialog.Builder builder = new AlertDialog.Builder(context);
-            builder.setMessage("MAPAS OBTENIDOS");
-            builder.create();
-            builder.show();
+            if (dialog.isShowing())
+                dialog.dismiss();
+
+            inicializarFragmentTrasSupervisionUpdates();
         }
+
+
     }
 }
