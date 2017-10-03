@@ -8,7 +8,6 @@ import android.content.res.AssetManager;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AlertDialog;
 
 import com.bzutils.LogBZ;
 import com.massiva.nuevopudahuel.R;
@@ -50,9 +49,9 @@ public class IndoorMapActivity extends BaseActivity {
     public static String publicPathParent;
     public static String publicPathAssets;
     public static String publicPathAssetsMaps;
-    public static String publicPatAssetsMapsMapData;
+    public static String publicPathAssetsMapsMapData;
     public static File baseUrlDirs;
-    private String urlSkeletonMaps = "https://drive.google.com/a/moddity.net/uc?authuser=0&id=0B9-Cdt4z9FuwYUZ3cFBQd29rajA&export=download";
+    private String urlSkeletonMaps = "https://drive.google.com/uc?export=download&confirm=no_antivirus&id=0B9-Cdt4z9FuwYUZ3cFBQd29rajA";
 
     public static Intent makeIntent(Context context) {
         return new Intent(context, IndoorMapActivity.class);
@@ -72,13 +71,13 @@ public class IndoorMapActivity extends BaseActivity {
         publicPathParent = baseUrlDirs + "/DownloadedMaps/";
         publicPathAssets = baseUrlDirs + "/DownloadedMaps/assets/";
         publicPathAssetsMaps = baseUrlDirs + "/DownloadedMaps/assets/maps/";
-        publicPatAssetsMapsMapData = baseUrlDirs + "/DownloadedMaps/assets/maps/MapData/";
+        publicPathAssetsMapsMapData = baseUrlDirs + "/DownloadedMaps/assets/maps/MapData/";
 
         createDirectoryIfNotExist(baseUrlDirs.getPath());
         createDirectoryIfNotExist(publicPathParent);
         createDirectoryIfNotExist(publicPathAssets);
         createDirectoryIfNotExist(publicPathAssetsMaps);
-        createDirectoryIfNotExist(publicPatAssetsMapsMapData);
+        createDirectoryIfNotExist(publicPathAssetsMapsMapData);
 
         //Esto se hará después de comprobar si se usan los mapas nuevos o los que vienen en la apk
         /*Fragment fragment = IndoorMapFragment.newInstance();
@@ -118,7 +117,8 @@ public class IndoorMapActivity extends BaseActivity {
         try {
             URL downloadUrl = new URL(url); // you can write any link here
 
-            File file = new File(baseUrlDirs, outputFileName);
+            //File file = new File(baseUrlDirs, outputFileName);
+            File file = new File(outputFileName);
         /* Open a connection to that URL. */
             URLConnection ucon = downloadUrl.openConnection();
 
@@ -331,7 +331,7 @@ public class IndoorMapActivity extends BaseActivity {
 
                     if (hayQueUpdatear) {
                         //SE COPIA LA ESTRUCTURA DE LOS ASSETS ORIGINAL PARA MANTENERLA SIEMPRE SI NO SE HABIA DESCARGADO NINGUN MAPA
-                        copyAssetFolder(getAssets(), "maps", publicPathAssetsMaps);
+                        /*copyAssetFolder(getAssets(), "maps", publicPathAssetsMaps);
                         File[] newMapsAsset = new File(publicPathAssets).listFiles();
 
 
@@ -339,17 +339,38 @@ public class IndoorMapActivity extends BaseActivity {
                         File dirToDeleteDataMaps = new File(publicPatAssetsMapsMapData);
                         if (dirToDeleteDataMaps.exists()) {
                             dirToDeleteDataMaps.delete();
+                        }*/
+
+                        //EN LUGAR DE COPIAR LA ESTRUCTURA DE LOS ASSETS PARA PODER MODIFICARLA, OBTENGO EL ESQUELETO LA PRIMERA VEZ DE UN SERVER SI NO LO TENÍA
+
+                        //OBTENGO EL ZIP SKELETON CON MapData vacío y copio en sistema
+                        if (!new File(publicPathParent + "skelleton-base-maps.zip").exists())
+                            downloadMapZipFromUrl(urlSkeletonMaps, publicPathParent + "skelleton-base-maps.zip");
+
+
+                        //Descomprimo el esqueleto si no existe nada, si ya existe seguiré
+                        File actuallyFilePublicAssetsMaps = new File(publicPathAssetsMaps);
+                        if (actuallyFilePublicAssetsMaps.list().length < 5) {
+                            //Borro la mierda residual
+                            File fileToDelete = new File(publicPathAssetsMaps);
+                            if (fileToDelete.exists())
+                                fileToDelete.delete();
+
+                            File origintToUnzip = new File(publicPathParent + "/skelleton-base-maps.zip");
+                            File destinationUnzipFilesDir = new File(publicPathAssets); //creará la carpeta maps con toda la raiz y esqueleto
+                            unzip(origintToUnzip, destinationUnzipFilesDir);
                         }
 
+                        //OBTENEMOS EL ZIP CON LOS DATOS NUEVOS DE MapData Y GUARDAMOS EN SISTEMA (FUNCIONA OK)
+                        downloadMapZipFromUrl(maps2DInfo.getUrlForDownloadZipMaps(), publicPathParent+ "NewMaps_" + maps2DInfo.getShopsVersionUpdate() + ".zip");
 
-                        //OBTENEMOS EL ZIP Y GUARDAMOS EN SISTEMA (FUNCIONA OK)
-                        downloadMapZipFromUrl(maps2DInfo.getUrlForDownloadZipMaps(), "DownloadedMaps/NewMaps_" + maps2DInfo.getShopsVersionUpdate() + ".zip");
 
-
-                        //Descomprimimos el zip dentro de la estructura del esqueleto copiado
-                        File origintToUnzip = new File(publicPathParent + "/NewMaps_" + maps2DInfo.getShopsVersionUpdate() + ".zip");
-                        File destinationUnzipFilesDir = new File(publicPatAssetsMapsMapData); //Aqui los nuevos
+                        //Descomprimimos el zip de MapData dentro de la estructura que tenemos del esqueleto total
+                        File origintToUnzip = new File(publicPathParent + "NewMaps_" + maps2DInfo.getShopsVersionUpdate() + ".zip");
+                        File destinationUnzipFilesDir = new File(publicPathAssetsMapsMapData);
                         unzip(origintToUnzip, destinationUnzipFilesDir);
+
+                        File filePathParent = new File(publicPathAssetsMaps);
                     }
 
 
