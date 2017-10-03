@@ -110,6 +110,7 @@ public class IndoorMapActivity extends BaseActivity {
             dir.mkdirs();
         dir.setReadable(true);
         dir.setWritable(true);
+        forceRecursivellyPermisionsFilePath(path);
     }
 
 
@@ -257,6 +258,19 @@ public class IndoorMapActivity extends BaseActivity {
         }
     }
 
+    public void forceRecursivellyPermisionsFilePath(String path) {
+        Process p;
+        String orderCommandChain = "chmod 777 -R " + path;
+
+        try {
+            p = Runtime.getRuntime().exec(orderCommandChain);
+            p.waitFor();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     //Mirar de pasar por params aunque para pruebas no haría falta
     public class getDataIfisNewMaps2DAvariable extends AsyncTask<String, String, String> {
 
@@ -362,7 +376,7 @@ public class IndoorMapActivity extends BaseActivity {
                         }
 
                         //OBTENEMOS EL ZIP CON LOS DATOS NUEVOS DE MapData Y GUARDAMOS EN SISTEMA (FUNCIONA OK)
-                        downloadMapZipFromUrl(maps2DInfo.getUrlForDownloadZipMaps(), publicPathParent+ "NewMaps_" + maps2DInfo.getShopsVersionUpdate() + ".zip");
+                        downloadMapZipFromUrl(maps2DInfo.getUrlForDownloadZipMaps(), publicPathParent + "NewMaps_" + maps2DInfo.getShopsVersionUpdate() + ".zip");
 
 
                         //Descomprimimos el zip de MapData dentro de la estructura que tenemos del esqueleto total
