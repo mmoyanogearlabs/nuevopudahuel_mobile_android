@@ -40,7 +40,8 @@ public class IndoorMapFragment extends BaseFragment implements View.OnClickListe
         webView.getSettings().setJavaScriptEnabled(true);
         //Si no existe la carpeta de descargas de nuevos maps, irá a assets que esta en la apk y no puede reemplazarse
         //Ya tendremos hasta los assets copiados y todo.
-        baseUrlDirs = getActivity().getFilesDir();
+        //baseUrlDirs = getActivity().getFilesDir();
+        baseUrlDirs = getActivity().getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
         baseUrlDirs.setReadable(true);
         baseUrlDirs.setWritable(true);
 
@@ -91,8 +92,13 @@ public class IndoorMapFragment extends BaseFragment implements View.OnClickListe
         webView.getSettings().setLoadWithOverviewMode(true);
         webView.getSettings().setUseWideViewPort(true);
 
-        webView.loadUrl(file);
-
+        //Si viene de assets file se recrea normal, si no hay que añadir file:/// al path
+        if (dir.exists() == false)
+            webView.loadUrl(file);
+        else {
+            String fileCreateVB = "file://" + file;
+            webView.loadUrl(fileCreateVB);
+        }
 
     }
 

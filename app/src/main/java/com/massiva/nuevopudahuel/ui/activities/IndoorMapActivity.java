@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.AsyncTask;
+import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 
@@ -66,7 +67,8 @@ public class IndoorMapActivity extends BaseActivity {
     protected void configView() {
         //SE COMPRUEBA LA EXISTENCIA DE NUEVOS PLANOS 2D PARA REEMPLAZAR LOS EXISTENTES
         context = this;
-        baseUrlDirs = context.getFilesDir();
+        //baseUrlDirs = context.getFilesDir(); //Origen hasta ahora
+        baseUrlDirs = context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
 
         publicPathParent = baseUrlDirs + "/DownloadedMaps/";
         publicPathAssets = baseUrlDirs + "/DownloadedMaps/assets/";
