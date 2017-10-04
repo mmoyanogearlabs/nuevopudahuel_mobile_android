@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.AsyncTask;
-import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 
@@ -43,6 +42,7 @@ import java.util.zip.ZipFile;
 
 /**
  * Created by iaguila on 5/4/17.
+ * Auto updater maps 2d and fixes screens dimensions by Josemi
  */
 
 public class IndoorMapActivity extends BaseActivity {
@@ -52,8 +52,6 @@ public class IndoorMapActivity extends BaseActivity {
     public static String publicPathAssetsMaps;
     public static String publicPathAssetsMapsMapData;
     public static File baseUrlDirs;
-    //PARA PRUEBAS CON EL SEGUNDO MÉTODO DE GENERAR ESQUELETO
-    //private String urlSkeletonMaps = "https://drive.google.com/uc?export=download&confirm=no_antivirus&id=0B9-Cdt4z9FuwYUZ3cFBQd29rajA";
 
     public static Intent makeIntent(Context context) {
         return new Intent(context, IndoorMapActivity.class);
@@ -82,19 +80,9 @@ public class IndoorMapActivity extends BaseActivity {
         createDirectoryIfNotExist(publicPathAssetsMaps);
         createDirectoryIfNotExist(publicPathAssetsMapsMapData);
 
-        //Esto se hará después de comprobar si se usan los mapas nuevos o los que vienen en la apk
-        /*Fragment fragment = IndoorMapFragment.newInstance();
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.indoor_map_fragment, fragment, fragment.getClass().getName())
-                .setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                .commitAllowingStateLoss();*/
-
-
-        //Miramos de descargar el json de los mapas para info
+        //OBTENGO INFO PARA SABER SI HAY QUE DESCARGAR LOS MAPAS Y REALIZAR LAS DEMÁS OPERACIONES
         getDataIfisNewMaps2DAvariable tareaAsyncrona = new getDataIfisNewMaps2DAvariable();
         tareaAsyncrona.execute(null, null, null);
-        //La tarea inicializará el fragment
 
     }
 
@@ -128,7 +116,6 @@ public class IndoorMapActivity extends BaseActivity {
         try {
             URL downloadUrl = new URL(url); // you can write any link here
 
-            //File file = new File(baseUrlDirs, outputFileName);
             File file = new File(outputFileName);
         /* Open a connection to that URL. */
             URLConnection ucon = downloadUrl.openConnection();
@@ -212,8 +199,8 @@ public class IndoorMapActivity extends BaseActivity {
     }
 
 
-    //PARA COPIAR TODA LA CARPETA ASSETS EN CASO DE NECESITAR VER MAPAS FUERA DE ELLA POR HABERSE ACTUALIZADO
-    //COPIAR INTEGRAMENTE AUNQUE SE CONTENGAN X PUNTOS
+    //PARA COPIAR TODA LA CARPETA ASSETS EN CASO DE NECESITAR VER MAPAS FUERA DE ELLA POR HABERSE ACTUALIZADO,
+    //YA QUE ASSETS NO SE PUEDE MODIFICAR POR QUE ESTA INCLUIDO EN LA APK
     private static boolean copyAssetFolder(AssetManager assetManager, String fromAssetPath, String toPath) {
         try {
             String[] files = assetManager.list(fromAssetPath);
@@ -281,7 +268,7 @@ public class IndoorMapActivity extends BaseActivity {
         }
     }
 
-    //Mirar de pasar por params aunque para pruebas no haría falta
+    //TAREA QUE SE ENCARGA DE LAS REVISIONES Y ACTUALIZACIONES DE LOS MAPAS 2D
     public class getDataIfisNewMaps2DAvariable extends AsyncTask<String, String, String> {
 
         HttpURLConnection urlConnection;
@@ -315,7 +302,7 @@ public class IndoorMapActivity extends BaseActivity {
             }
 
 
-            //Convertimos en JSON y descargamos - descomprimimos - copiamos
+            //Convertimos en JSON y descargamos - descomprimimos - copiamos - ordenamos
             try {
                 JSONObject mainObject = new JSONObject(result.toString());
 
@@ -350,12 +337,12 @@ public class IndoorMapActivity extends BaseActivity {
                     maps2DInfo.setShopsUpdateDate(calendar.getTime());
                     //Fin de los parsings
 
-                    //SI LA VERSIÓN ES MÁS NUEVA, ENTONCES HAREMOS LO DE ABAJO
+                    //SI LA VERSIÓN ES MÁS NUEVA, ENTONCES REALIZAMOS ACCIONES
 
                     if (hayQueUpdatear) {
-                        //OPCIÓN 1 PARA GENERAR ESQUELETO BASE
+                        //GENERACION DE ESQUELETO BASE EN DATOS APP SI NO EXISTÍA
                         //SE COPIA LA ESTRUCTURA DE LOS ASSETS ORIGINAL PARA MANTENERLA SIEMPRE SI NO SE HABIA DESCARGADO NINGUN MAPA NUEVO NUNCA O Y SI NO EXISTÍA DICHA CARPETA
-                        //SI LA CARPETA DE LOS ASSETS MAPS NO TIENE ELEMENTOS SUFICIENTES, ES QUE SE HA CREADO PERO NUNCA SE HABÍAN COPIADO DATOS ALLÍ
+                        //SI LA CARPETA DE LOS ASSETS MAPS NO TIENE ELEMENTOS SUFICIENTES, ES QUE SE HA CREADO PERO NUNCA SE HABÍAN COPIADO DATOS ALLÍ...
                         if (new File(publicPathAssetsMaps).exists() && new File(publicPathAssetsMaps).list().length < 5) {
                             copyAssetFolder(getAssets(), "maps", publicPathAssetsMaps);
                             File[] newMapsAsset = new File(publicPathAssets).listFiles();
@@ -364,35 +351,8 @@ public class IndoorMapActivity extends BaseActivity {
                         //SE BORRA EL MAP DATA PARA DEJAR SOLO EL ESQUELETO DE MAPS ASSETS Y LUEGO DESCARGAR NUEVO MAPDATA AQUÍ
                         deleteFileFromPath(publicPathAssetsMapsMapData);
 
-                        //FIN OPCION 1
-
-
-                        //OPCIÓN 2 PARA GENERAR ESQUELETO BASE QUE TAMBIEN FUNCIONA
-                        //EN LUGAR DE COPIAR LA ESTRUCTURA DE LOS ASSETS PARA PODER MODIFICARLA, OBTENGO EL ESQUELETO LA PRIMERA VEZ DE UN SERVER SI NO LO TENÍA
-
-                        //OBTENGO EL ZIP SKELETON CON MapData vacío y copio en sistema
-                        /*if (!new File(publicPathParent + "skelleton-base-maps.zip").exists())
-                            downloadMapZipFromUrl(urlSkeletonMaps, publicPathParent + "skelleton-base-maps.zip");
-
-                        //Descomprimo el esqueleto si no existe nada, si ya existe seguiré
-                        File actuallyFilePublicAssetsMaps = new File(publicPathAssetsMaps);
-                        if (actuallyFilePublicAssetsMaps.list().length < 5) {
-                            //Borro la mierda residual
-                            File fileToDelete = new File(publicPathAssetsMaps);
-                            if (fileToDelete.exists())
-                                fileToDelete.delete();
-
-                            File origintToUnzip = new File(publicPathParent + "/skelleton-base-maps.zip");
-                            File destinationUnzipFilesDir = new File(publicPathAssets); //creará la carpeta maps con toda la raiz y esqueleto
-                            unzip(origintToUnzip, destinationUnzipFilesDir);
-                        }*/
-                        //FIN OPCIÓN 2
-
-
-                        //PARTE COMÚN PARA OBTENER LOS MAPDATA E INSERTAR EN EL ESQUELETO
                         //OBTENEMOS EL ZIP CON LOS DATOS NUEVOS DE MapData Y GUARDAMOS EN SISTEMA (FUNCIONA OK)
                         downloadMapZipFromUrl(maps2DInfo.getUrlForDownloadZipMaps(), publicPathParent + "NewMaps_" + maps2DInfo.getShopsVersionUpdate() + ".zip");
-
 
                         //Descomprimimos el zip de MapData dentro de la estructura que tenemos del esqueleto total
                         File origintToUnzip = new File(publicPathParent + "NewMaps_" + maps2DInfo.getShopsVersionUpdate() + ".zip");
@@ -402,9 +362,7 @@ public class IndoorMapActivity extends BaseActivity {
                         //Si se descomprime correctamente borramos el .zip para eliminar datos innecesarios
                         deleteFileFromPath(publicPathParent + "NewMaps_" + maps2DInfo.getShopsVersionUpdate() + ".zip");
 
-                        File filePathParent = new File(publicPathAssetsMaps);
                     }
-
 
                 }
             } catch (JSONException e) {
