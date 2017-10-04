@@ -52,7 +52,8 @@ public class IndoorMapActivity extends BaseActivity {
     public static String publicPathAssetsMaps;
     public static String publicPathAssetsMapsMapData;
     public static File baseUrlDirs;
-    private String urlSkeletonMaps = "https://drive.google.com/uc?export=download&confirm=no_antivirus&id=0B9-Cdt4z9FuwYUZ3cFBQd29rajA";
+    //PARA PRUEBAS CON EL SEGUNDO MÉTODO DE GENERAR ESQUELETO
+    //private String urlSkeletonMaps = "https://drive.google.com/uc?export=download&confirm=no_antivirus&id=0B9-Cdt4z9FuwYUZ3cFBQd29rajA";
 
     public static Intent makeIntent(Context context) {
         return new Intent(context, IndoorMapActivity.class);
@@ -67,8 +68,8 @@ public class IndoorMapActivity extends BaseActivity {
     protected void configView() {
         //SE COMPRUEBA LA EXISTENCIA DE NUEVOS PLANOS 2D PARA REEMPLAZAR LOS EXISTENTES
         context = this;
-        //baseUrlDirs = context.getFilesDir(); //Origen hasta ahora
-        baseUrlDirs = context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
+        baseUrlDirs = context.getFilesDir(); //Origen hasta ahora
+        //baseUrlDirs = context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS); //PARA PODER VERLO EN PUBLICO, metodo 2
 
         publicPathParent = baseUrlDirs + "/DownloadedMaps/";
         publicPathAssets = baseUrlDirs + "/DownloadedMaps/assets/";
@@ -113,6 +114,13 @@ public class IndoorMapActivity extends BaseActivity {
         dir.setReadable(true);
         dir.setWritable(true);
         forceRecursivellyPermisionsFilePath(path);
+    }
+
+    public void deleteFileFromPath(String path) {
+        File file = new File(path);
+        if (file.exists()) {
+            file.delete();
+        }
     }
 
 
@@ -343,26 +351,28 @@ public class IndoorMapActivity extends BaseActivity {
                     //Fin de los parsings
 
                     //SI LA VERSIÓN ES MÁS NUEVA, ENTONCES HAREMOS LO DE ABAJO
-                    //AQUI VIENEN CHECKSUM ETC, PERO DESPUES LO HARÉ.
 
                     if (hayQueUpdatear) {
-                        //SE COPIA LA ESTRUCTURA DE LOS ASSETS ORIGINAL PARA MANTENERLA SIEMPRE SI NO SE HABIA DESCARGADO NINGUN MAPA
-                        /*copyAssetFolder(getAssets(), "maps", publicPathAssetsMaps);
-                        File[] newMapsAsset = new File(publicPathAssets).listFiles();
-
+                        //OPCIÓN 1 PARA GENERAR ESQUELETO BASE
+                        //SE COPIA LA ESTRUCTURA DE LOS ASSETS ORIGINAL PARA MANTENERLA SIEMPRE SI NO SE HABIA DESCARGADO NINGUN MAPA NUEVO NUNCA O Y SI NO EXISTÍA DICHA CARPETA
+                        //SI LA CARPETA DE LOS ASSETS MAPS NO TIENE ELEMENTOS SUFICIENTES, ES QUE SE HA CREADO PERO NUNCA SE HABÍAN COPIADO DATOS ALLÍ
+                        if (new File(publicPathAssetsMaps).exists() && new File(publicPathAssetsMaps).list().length < 5) {
+                            copyAssetFolder(getAssets(), "maps", publicPathAssetsMaps);
+                            File[] newMapsAsset = new File(publicPathAssets).listFiles();
+                        }
 
                         //SE BORRA EL MAP DATA PARA DEJAR SOLO EL ESQUELETO DE MAPS ASSETS Y LUEGO DESCARGAR NUEVO MAPDATA AQUÍ
-                        File dirToDeleteDataMaps = new File(publicPatAssetsMapsMapData);
-                        if (dirToDeleteDataMaps.exists()) {
-                            dirToDeleteDataMaps.delete();
-                        }*/
+                        deleteFileFromPath(publicPathAssetsMapsMapData);
 
+                        //FIN OPCION 1
+
+
+                        //OPCIÓN 2 PARA GENERAR ESQUELETO BASE QUE TAMBIEN FUNCIONA
                         //EN LUGAR DE COPIAR LA ESTRUCTURA DE LOS ASSETS PARA PODER MODIFICARLA, OBTENGO EL ESQUELETO LA PRIMERA VEZ DE UN SERVER SI NO LO TENÍA
 
                         //OBTENGO EL ZIP SKELETON CON MapData vacío y copio en sistema
-                        if (!new File(publicPathParent + "skelleton-base-maps.zip").exists())
+                        /*if (!new File(publicPathParent + "skelleton-base-maps.zip").exists())
                             downloadMapZipFromUrl(urlSkeletonMaps, publicPathParent + "skelleton-base-maps.zip");
-
 
                         //Descomprimo el esqueleto si no existe nada, si ya existe seguiré
                         File actuallyFilePublicAssetsMaps = new File(publicPathAssetsMaps);
@@ -375,8 +385,11 @@ public class IndoorMapActivity extends BaseActivity {
                             File origintToUnzip = new File(publicPathParent + "/skelleton-base-maps.zip");
                             File destinationUnzipFilesDir = new File(publicPathAssets); //creará la carpeta maps con toda la raiz y esqueleto
                             unzip(origintToUnzip, destinationUnzipFilesDir);
-                        }
+                        }*/
+                        //FIN OPCIÓN 2
 
+
+                        //PARTE COMÚN PARA OBTENER LOS MAPDATA E INSERTAR EN EL ESQUELETO
                         //OBTENEMOS EL ZIP CON LOS DATOS NUEVOS DE MapData Y GUARDAMOS EN SISTEMA (FUNCIONA OK)
                         downloadMapZipFromUrl(maps2DInfo.getUrlForDownloadZipMaps(), publicPathParent + "NewMaps_" + maps2DInfo.getShopsVersionUpdate() + ".zip");
 
@@ -385,6 +398,9 @@ public class IndoorMapActivity extends BaseActivity {
                         File origintToUnzip = new File(publicPathParent + "NewMaps_" + maps2DInfo.getShopsVersionUpdate() + ".zip");
                         File destinationUnzipFilesDir = new File(publicPathAssetsMapsMapData);
                         unzip(origintToUnzip, destinationUnzipFilesDir);
+
+                        //Si se descomprime correctamente borramos el .zip para eliminar datos innecesarios
+                        deleteFileFromPath(publicPathParent + "NewMaps_" + maps2DInfo.getShopsVersionUpdate() + ".zip");
 
                         File filePathParent = new File(publicPathAssetsMaps);
                     }
@@ -410,7 +426,6 @@ public class IndoorMapActivity extends BaseActivity {
 
             inicializarFragmentTrasSupervisionUpdates();
         }
-
 
     }
 }
