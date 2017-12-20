@@ -1,7 +1,3 @@
-apply plugin: 'com.android.application'
-apply plugin: 'io.fabric'
-apply plugin: 'realm-android'
-
 repositories {
     maven { url 'https://maven.fabric.io/public' }
 }
@@ -18,14 +14,19 @@ buildscript {
     }
 }
 
+apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
+apply plugin: 'realm-android'
+
 android {
-    compileSdkVersion 25
-    buildToolsVersion "23.0.3"
+    compileSdkVersion 26
+    buildToolsVersion '26.0.3'
+    flavorDimensions "default"
 
     defaultConfig {
         applicationId "com.massiva.nuevopudahuel"
         minSdkVersion 16
-        targetSdkVersion 25
+        targetSdkVersion 26
         versionCode 115
         versionName "1.0.4"
         multiDexEnabled true
@@ -85,10 +86,10 @@ dependencies {
     compile 'com.android.support:multidex:1.0.1'
 
     //UI
-    compile 'com.android.support:appcompat-v7:25.1.0'
-    compile 'com.android.support:support-v4:25.1.0'
-    compile 'com.android.support:recyclerview-v7:25.1.0'
-    compile 'com.android.support:design:25.1.0'
+    compile 'com.android.support:appcompat-v7:26.1.0'
+    compile 'com.android.support:support-v7:26.1.0'
+    compile 'com.android.support:recyclerview-v7:26.1.0'
+    compile 'com.android.support:design:26.1.0'
     compile 'uk.co.chrisjenx:calligraphy:2.1.0'
 
     //GOOGLE PLAY SERVICES
