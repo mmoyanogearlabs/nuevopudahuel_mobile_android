@@ -27,8 +27,8 @@ android {
         applicationId "com.massiva.nuevopudahuel"
         minSdkVersion 16
         targetSdkVersion 27
-        versionCode 115
-        versionName "1.0.4"
+        versionCode 116
+        versionName "1.0.5"
         multiDexEnabled true
     }
     buildTypes {
@@ -74,6 +74,10 @@ android {
         // Or, if you prefer, you can continue to check for errors in release builds,
         // but continue the build even when errors are found:
         abortOnError false
+    }
+
+    dexOptions{
+        javaMaxHeapSize "4g"
     }
 
     //PARA DESCARGA DE ZIPS, USADO EN MAPAS 2D ETC
