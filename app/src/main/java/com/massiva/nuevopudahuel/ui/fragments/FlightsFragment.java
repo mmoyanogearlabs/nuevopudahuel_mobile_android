@@ -268,7 +268,7 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
     }
 
     @Override
-    public void onChange() {
+    public void onChange(Object object) {
         adapter.setVols(configFlights());
         adapter.notifyDataSetChanged();
     }

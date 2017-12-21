@@ -164,7 +164,7 @@ public class DashboardFragment extends HomeFragment implements View.OnClickListe
     }
 
     @Override
-    public void onChange() {
+    public void onChange(Object object) {
         configWeather();
         configQueues();
     }

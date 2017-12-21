@@ -183,7 +183,7 @@ public class AlertActivity extends BaseActivity implements View.OnClickListener,
                 "'>" + getString(R.string.shareEmail2TitleKey) + "</a></body></html>";
     }
 
-    private void showChooserPicker(final String [] values) {
+    private void showChooserPicker(final String[] values) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         builder.setSingleChoiceItems(values, -1, new DialogInterface.OnClickListener() {
@@ -297,7 +297,7 @@ public class AlertActivity extends BaseActivity implements View.OnClickListener,
                 if (getPudahuelApplication().isPermissionGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                     saveImage();
                 } else if (Build.VERSION.SDK_INT >= 23) {
-                    ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, 11);
+                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 11);
                 }
                 break;
         }
@@ -325,7 +325,7 @@ public class AlertActivity extends BaseActivity implements View.OnClickListener,
     }
 
     @Override
-    public void onChange() {
+    public void onChange(Object object) {
         configFlight();
     }
 

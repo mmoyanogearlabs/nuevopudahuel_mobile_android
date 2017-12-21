@@ -48,6 +48,7 @@ import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 import io.fabric.sdk.android.Fabric;
+import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import retrofit.RestAdapter;
 import retrofit.client.OkClient;
@@ -81,14 +82,15 @@ public class PudahuelApplication extends MultiDexApplication {
     }
 
     private void initMoca() {
-        MOCA.initializeSDK (this);
+        MOCA.initializeSDK(this);
         MocaEventListener listener = new MocaEventListener(this);
         MOCAProximityService proximityService = MOCA.getProximityService();
         proximityService.setActionListener(listener);
     }
 
     private void initRealm() {
-        configuration = new RealmConfiguration.Builder(this).deleteRealmIfMigrationNeeded().build();
+        Realm.init(this);
+        configuration = new RealmConfiguration.Builder().deleteRealmIfMigrationNeeded().build();
     }
 
     private void initCalligraphy() {

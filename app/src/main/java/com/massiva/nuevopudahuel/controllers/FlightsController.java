@@ -122,7 +122,7 @@ public class FlightsController {
         }
         realm.beginTransaction();
         realm.copyToRealmOrUpdate(flights);
-        realm.where(Flight.class).equalTo("arrival", arrivals).notEqualTo("timestamp", timeStamp).findAll().clear();
+        realm.where(Flight.class).equalTo("arrival", arrivals).notEqualTo("timestamp", timeStamp).findAll().deleteAllFromRealm();
         realm.commitTransaction();
         realm.close();
     }
