@@ -292,7 +292,7 @@
                             android:gravity="center"
                             android:layout_toLeftOf="@+id/dash_img_myflights"
                             android:text="@string/homeMyFlightsButtonTitleKey"
-                            android:textSize="@dimen/textSize14"
+                            android:autoSizeTextType="uniform"
                             android:textColor="@color/white"
                             android:id="@+id/dashboard_myflights_text"/>
 
