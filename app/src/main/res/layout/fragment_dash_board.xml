@@ -113,6 +113,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/homeWaitTimeNationalTitleKey"
                                 android:textColor="@color/darkGrey"
+                                android:autoSizeTextType="uniform"
                                 android:layout_marginRight="@dimen/padding_5"/>
 
                             <TextView
@@ -120,6 +121,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/red"
+                                android:autoSizeTextType="uniform"
                                 android:id="@+id/home_wait_national"/>
 
                         </LinearLayout>
@@ -140,6 +142,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/homeWaitTimeInternationalTitleKey"
                                 android:textColor="@color/darkGrey"
+                                android:autoSizeTextType="uniform"
                                 android:layout_marginRight="@dimen/padding_5"/>
 
                             <TextView
@@ -148,6 +151,7 @@
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/red"
                                 android:layout_alignParentRight="true"
+                                android:autoSizeTextType="uniform"
                                 android:id="@+id/home_wait_international"/>
 
                         </LinearLayout>
