@@ -48,6 +48,7 @@ import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 import io.fabric.sdk.android.Fabric;
+import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import retrofit.RestAdapter;
 import retrofit.client.OkClient;
@@ -88,7 +89,12 @@ public class PudahuelApplication extends MultiDexApplication {
     }
 
     private void initRealm() {
-        configuration = new RealmConfiguration.Builder(this).deleteRealmIfMigrationNeeded().build();
+        Realm.init(getApplicationContext());
+        configuration = new RealmConfiguration.
+                Builder().
+                deleteRealmIfMigrationNeeded().
+                build();
+        Realm.setDefaultConfiguration(configuration);
     }
 
     private void initCalligraphy() {

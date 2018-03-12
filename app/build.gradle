@@ -20,7 +20,7 @@ buildscript {
 }
 
 android {
-    compileSdkVersion 23
+    compileSdkVersion 26
     buildToolsVersion "26.0.2"
 
     defaultConfig {
@@ -90,10 +90,11 @@ dependencies {
     compile 'uk.co.chrisjenx:calligraphy:2.1.0'
 
     //GOOGLE PLAY SERVICES
-    compile 'com.google.android.gms:play-services-ads:8.3.0'
-    compile 'com.google.android.gms:play-services-vision:8.3.0'
-    compile 'com.google.android.gms:play-services-gcm:8.3.0'
-    compile 'com.google.android.gms:play-services-location:8.3.0'
+    compile 'com.google.android.gms:play-services-ads:9.0.0'
+    compile 'com.google.android.gms:play-services-vision:9.0.0'
+    compile 'com.google.android.gms:play-services-gcm:9.0.0'
+    compile 'com.google.android.gms:play-services-location:9.0.0'
+    compile 'com.google.android.gms:play-services-location:9.0.0'
 
     //Utils
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.3'

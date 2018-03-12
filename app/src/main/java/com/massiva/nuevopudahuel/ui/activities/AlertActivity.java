@@ -321,14 +321,13 @@ public class AlertActivity extends BaseActivity implements View.OnClickListener,
     }
 
     @Override
-    public void onChange() {
-        configFlight();
-    }
-
-    @Override
     protected void onDestroy() {
         currentFlight.removeChangeListener(this);
         super.onDestroy();
     }
 
+    @Override
+    public void onChange(Object element) {
+        configFlight();
+    }
 }

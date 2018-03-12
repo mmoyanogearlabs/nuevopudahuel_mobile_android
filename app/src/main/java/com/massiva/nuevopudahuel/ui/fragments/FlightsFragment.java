@@ -268,12 +268,6 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
     }
 
     @Override
-    public void onChange() {
-        adapter.setVols(configFlights());
-        adapter.notifyDataSetChanged();
-    }
-
-    @Override
     public void onDestroy() {
         try {
             if (flightsResults != null)
@@ -293,5 +287,11 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
     public void onSyncCompleted() {
         LogBZ.d("onSyncCompleted");
         refreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    public void onChange(Object element) {
+        adapter.setVols(configFlights());
+        adapter.notifyDataSetChanged();
     }
 }
