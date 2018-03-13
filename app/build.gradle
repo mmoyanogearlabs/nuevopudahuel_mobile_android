@@ -5,6 +5,7 @@ apply plugin: 'realm-android'
 
 repositories {
     maven { url 'https://maven.fabric.io/public' }
+    maven { url 'https://dl.bintray.com/mocaplatform/maven' }
 }
 
 buildscript {
@@ -94,7 +95,6 @@ dependencies {
     compile 'com.google.android.gms:play-services-vision:9.6.1'
     compile 'com.google.android.gms:play-services-gcm:9.6.1'
     compile 'com.google.android.gms:play-services-location:9.6.1'
-    compile 'com.google.android.gms:play-services-location:9.6.1'
 
     //Utils
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.3'
@@ -106,11 +106,21 @@ dependencies {
     compile 'com.google.code.gson:gson:2.4'
 
     //FACEBOOK
-    compile 'com.facebook.android:facebook-android-sdk:4.+'
+    compile ('com.facebook.android:facebook-android-sdk:4.+'){
+        exclude group: 'com.android.support', module:'support-v4'
+        exclude group: 'com.android.support', module:'appcompat-v7'
+    }
 
     //MOCA
-    compile project(':moca-sdk-android-1.9.0-beta')
 
+    compile ('com.mocaplatform:moca-android-sdk:2.5.6'){
+        exclude group: 'com.android.support', module:'appcompat-v7'
+        exclude group: 'com.android.support', module:'support-v4'
+        exclude group: 'com.google.android.gms', module:'play-services-gcm'
+        exclude group: 'com.google.android.gms', module:'play-services-location'
+        exclude group: 'org.msgpack', module:'msgpack'
+
+    }
     //TRACKING
     compile 'com.flurry.android:analytics:6.2.0'
     compile('com.crashlytics.sdk.android:crashlytics:2.5.7@aar') {
