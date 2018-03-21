@@ -139,7 +139,7 @@
             android:value="true" />
         <meta-data
             android:name="moca.GCM_SENDER"
-            android:value="\ 950762352762" />
+            android:value="\ 400257946201" />
         <meta-data
             android:name="moca.CUSTOM_PUSH_ICON"
             android:resource="@drawable/push_icon" />

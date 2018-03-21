@@ -1,43 +1,42 @@
 {
   "project_info": {
-    "project_id": "nuevopudahuelandroid",
-    "project_number": "950762352762",
-    "name": "NuevoPudahuelAndroid"
+    "project_number": "400257946201",
+    "firebase_url": "https://nuevo-pudahuel.firebaseio.com",
+    "project_id": "nuevo-pudahuel",
+    "storage_bucket": "nuevo-pudahuel.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:950762352762:android:050485245bafb9fd",
-        "client_id": "android:com.massiva.nuevopudahuel",
-        "client_type": 1,
+        "mobilesdk_app_id": "1:400257946201:android:42731846ad8e8d23",
         "android_client_info": {
-          "package_name": "com.massiva.nuevopudahuel",
-          "certificate_hash": []
+          "package_name": "com.massiva.nuevopudahuel"
         }
       },
-      "oauth_client": [],
-      "api_key": [{ "current_key": "" }],
+      "oauth_client": [
+        {
+          "client_id": "400257946201-4e9j4faf6abk8n9naj0ul9siksuov6u5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9U0z4YfZDdeMd4Qo-OyA_IlUfGH8NkzY"
+        }
+      ],
       "services": {
         "analytics_service": {
           "status": 1
-        },
-        "cloud_messaging_service": {
-          "status": 2,
-          "apns_config": []
         },
         "appinvite_service": {
           "status": 1,
           "other_platform_oauth_client": []
         },
-        "google_signin_service": {
-          "status": 1
-        },
         "ads_service": {
-          "status": 1
+          "status": 2
         }
       }
     }
   ],
-  "client_info": [],
-  "ARTIFACT_VERSION": "1"
+  "configuration_version": "1"
 }
