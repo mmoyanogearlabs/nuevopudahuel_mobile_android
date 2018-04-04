@@ -129,7 +129,7 @@ public class FlightsController {
 
     private void storeFavorites(PudahuelApplication application, List<FlightResponse> response, boolean arrivals) {
         Realm realm = Realm.getInstance(application.getRealmConfiguration());
-        RealmResults<Flight> allFlights = realm.where(Flight.class).equalTo("arrival", arrivals).equalTo("favorite", true).findAll();
+/*        RealmResults<Flight> allFlights = realm.where(Flight.class).equalTo("arrival", arrivals).equalTo("favorite", true).findAll();
         if (allFlights != null) {
             List<Flight> flights = new ArrayList<>();
             flights.addAll(allFlights);
@@ -139,7 +139,7 @@ public class FlightsController {
             }
             realm.copyToRealmOrUpdate(flights);
             realm.commitTransaction();
-        }
+        }*/
         List<Flight> flights = new ArrayList<>();
         for (FlightResponse flightResponse : response) {
             Flight flight = flightResponse.toFlight();
