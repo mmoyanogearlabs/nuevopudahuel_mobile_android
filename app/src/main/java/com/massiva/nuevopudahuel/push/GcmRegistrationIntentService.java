@@ -2,6 +2,8 @@ package com.massiva.nuevopudahuel.push;
 
 import android.app.IntentService;
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.v4.app.JobIntentService;
 
 import com.bzutils.LogBZ;
 import com.massiva.nuevopudahuel.base.PudahuelApplication;
@@ -15,14 +17,14 @@ import java.io.IOException;
 /**
  * Created by iaguila on 30/3/16.
  */
-public class GcmRegistrationIntentService extends IntentService {
+public class GcmRegistrationIntentService extends JobIntentService {
 
     public GcmRegistrationIntentService() {
-        super("GcmRegistrationIntentService");
+      //  super("GcmRegistrationIntentService");
     }
 
     @Override
-    protected void onHandleIntent(Intent intent) {
+    protected void onHandleWork(@NonNull Intent intent) {
         InstanceID instanceID = InstanceID.getInstance(this);
         LogBZ.d("PudahuelPush: onHandleIntent");
         try {
@@ -36,5 +38,10 @@ public class GcmRegistrationIntentService extends IntentService {
         }
 
     }
+
+  /*  @Override
+    protected void onHandleIntent(Intent intent) {
+
+    }*/
 
 }

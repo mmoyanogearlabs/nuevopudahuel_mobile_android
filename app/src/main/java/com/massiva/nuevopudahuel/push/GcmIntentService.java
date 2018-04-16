@@ -4,6 +4,8 @@ package com.massiva.nuevopudahuel.push;
 import android.app.IntentService;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.JobIntentService;
 
 import com.bzutils.LogBZ;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
@@ -13,15 +15,16 @@ import java.util.Iterator;
 /**
  * Created by Adrian on 17/5/15.
  */
-public class GcmIntentService extends IntentService {
+public class GcmIntentService extends JobIntentService {
 
     public GcmIntentService() {
 
-        super("GcmIntentService");
+        //super("GcmIntentService");
     }
 
     @Override
-    protected void onHandleIntent(Intent intent) {
+    protected void onHandleWork(@NonNull Intent intent) {
+
         Bundle extras = intent.getExtras();
         GoogleCloudMessaging gcm = GoogleCloudMessaging.getInstance(this);
 
@@ -89,6 +92,10 @@ public class GcmIntentService extends IntentService {
             LogBZ.printStackTrace(e);
         }
     }
+
+    /*@Override
+    protected void onHandleIntent(Intent intent) {
+    }*/
 
     private void sendNotification(String message) {
 //        NotificationManager mNotificationManager = (NotificationManager)

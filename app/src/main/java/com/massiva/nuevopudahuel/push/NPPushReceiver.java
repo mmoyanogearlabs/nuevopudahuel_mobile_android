@@ -1,10 +1,12 @@
 package com.massiva.nuevopudahuel.push;
 
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
 
@@ -47,12 +49,19 @@ public class NPPushReceiver extends GcmPushReceiver {
     public static void sendNotification(Context context, String message, String title) {
         NotificationManager mNotificationManager = (NotificationManager)
                 context.getSystemService(Context.NOTIFICATION_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel notificationChannel = new NotificationChannel("nuevo_pudahuel", "My Notifications", NotificationManager.IMPORTANCE_HIGH);
+            notificationChannel.enableLights(true);
+            notificationChannel.setVibrationPattern(new long[]{0, 1000, 500, 1000});
+            notificationChannel.enableVibration(true);
+            mNotificationManager.createNotificationChannel(notificationChannel);
+        }
 
         PendingIntent contentIntent = PendingIntent.getActivity(context, 11,
                 new Intent(context, SplashActivity.class).putExtra("fromPush", true), 0);
 
         NotificationCompat.Builder mBuilder =
-                new NotificationCompat.Builder(context)
+                new NotificationCompat.Builder(context, "nuevo_pudahuel" )
                         .setSmallIcon(R.drawable.push_icon)
                         .setAutoCancel(true)
                         .setDefaults(Notification.DEFAULT_ALL)
@@ -62,7 +71,6 @@ public class NPPushReceiver extends GcmPushReceiver {
 
         mBuilder.setContentIntent(contentIntent);
         mNotificationManager.notify((int) System.currentTimeMillis(), mBuilder.build());
-
 
     }
 
