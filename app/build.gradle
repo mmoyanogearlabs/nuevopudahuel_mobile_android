@@ -28,8 +28,8 @@ android {
         applicationId "com.massiva.nuevopudahuel"
         minSdkVersion 16
         targetSdkVersion 27
-        versionCode 119
-        versionName "1.0.7"
+        versionCode 120
+        versionName "1.0.8"
         multiDexEnabled true
     }
     buildTypes {
