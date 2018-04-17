@@ -1,6 +1,7 @@
 package com.massiva.nuevopudahuel.push;
 
 import android.app.IntentService;
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.app.JobIntentService;
@@ -18,6 +19,11 @@ import java.io.IOException;
  * Created by iaguila on 30/3/16.
  */
 public class GcmRegistrationIntentService extends JobIntentService {
+    static final int JOB_ID = 1000;
+
+    public static void enqueueWork(Context context, Intent work) {
+        enqueueWork(context, GcmRegistrationIntentService.class, JOB_ID, work);
+    }
 
     public GcmRegistrationIntentService() {
       //  super("GcmRegistrationIntentService");

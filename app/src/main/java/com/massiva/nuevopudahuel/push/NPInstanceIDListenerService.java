@@ -1,5 +1,6 @@
 package com.massiva.nuevopudahuel.push;
 
+import android.content.ComponentName;
 import android.content.Intent;
 
 import com.bzutils.LogBZ;
@@ -14,7 +15,12 @@ public class NPInstanceIDListenerService extends InstanceIDListenerService {
     public void onTokenRefresh() {
         super.onTokenRefresh();
         LogBZ.d("PudahuelPush: onTokenRefresh");
-        Intent intent = new Intent(this, GcmRegistrationIntentService.class);
-        startService(intent);
+        //Intent intent = new Intent(this, GcmRegistrationIntentService.class);
+        //startService(intent);
+        Intent intent = new Intent();
+        ComponentName component = new ComponentName(this,GcmRegistrationIntentService.class);
+        intent.setComponent(component);
+        GcmRegistrationIntentService.enqueueWork(this,intent);
+
     }
 }

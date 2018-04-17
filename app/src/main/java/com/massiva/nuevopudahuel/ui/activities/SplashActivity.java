@@ -1,6 +1,7 @@
 package com.massiva.nuevopudahuel.ui.activities;
 
 import android.Manifest;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -56,9 +57,12 @@ public class SplashActivity extends BaseActivity {
     private void initApp(boolean locationPermission) {
 
         MOCA.setGeoTrackingEnabled(locationPermission);
-
-        Intent intent = new Intent(this, GcmRegistrationIntentService.class);
-        startService(intent);
+        Intent intent = new Intent();
+        ComponentName component = new ComponentName(this,GcmRegistrationIntentService.class);
+        intent.setComponent(component);
+        GcmRegistrationIntentService.enqueueWork(this,intent);
+/*        Intent intent = new Intent(this, GcmRegistrationIntentService.class);
+        startService(intent);*/
         UserController.getInstance().startSyncProcess(getPudahuelApplication());
 
         if (getIntent().getBooleanExtra("fromPush", false) && getPudahuelApplication().isHomeAlive()) {

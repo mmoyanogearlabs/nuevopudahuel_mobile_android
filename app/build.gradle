@@ -28,8 +28,8 @@ android {
         applicationId "com.massiva.nuevopudahuel"
         minSdkVersion 16
         targetSdkVersion 27
-        versionCode 120
-        versionName "1.0.8"
+        versionCode 121
+        versionName "1.0.9"
         multiDexEnabled true
     }
     buildTypes {
@@ -98,10 +98,10 @@ dependencies {
     compile 'uk.co.chrisjenx:calligraphy:2.1.0'
 
     //GOOGLE PLAY SERVICES
-    compile 'com.google.android.gms:play-services-ads:11.8.0'
-    compile 'com.google.android.gms:play-services-vision:11.8.0'
-    compile 'com.google.android.gms:play-services-gcm:11.8.0'
-    compile 'com.google.android.gms:play-services-location:11.8.0'
+    compile 'com.google.android.gms:play-services-ads:12.0.1'
+    compile 'com.google.android.gms:play-services-vision:12.0.1'
+    compile 'com.google.android.gms:play-services-gcm:12.0.1'
+    compile 'com.google.android.gms:play-services-location:12.0.1'
 
     //Utils
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.4'

@@ -49,8 +49,13 @@ public class NPPushReceiver extends GcmPushReceiver {
     public static void sendNotification(Context context, String message, String title) {
         NotificationManager mNotificationManager = (NotificationManager)
                 context.getSystemService(Context.NOTIFICATION_SERVICE);
+        String channelId  = "nuevo_pudahuel";
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel notificationChannel = new NotificationChannel("nuevo_pudahuel", "My Notifications", NotificationManager.IMPORTANCE_HIGH);
+            LogBZ.d("Using Android 0 version");
+            CharSequence name ="Notificacion";
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel notificationChannel = new NotificationChannel(channelId, name, importance);
+            //channel configuration
             notificationChannel.enableLights(true);
             notificationChannel.setVibrationPattern(new long[]{0, 1000, 500, 1000});
             notificationChannel.enableVibration(true);
@@ -61,7 +66,7 @@ public class NPPushReceiver extends GcmPushReceiver {
                 new Intent(context, SplashActivity.class).putExtra("fromPush", true), 0);
 
         NotificationCompat.Builder mBuilder =
-                new NotificationCompat.Builder(context, "nuevo_pudahuel" )
+                new NotificationCompat.Builder(context, channelId )
                         .setSmallIcon(R.drawable.push_icon)
                         .setAutoCancel(true)
                         .setDefaults(Notification.DEFAULT_ALL)
