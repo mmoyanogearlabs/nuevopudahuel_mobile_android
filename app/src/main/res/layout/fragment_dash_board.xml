@@ -243,10 +243,14 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
                     android:orientation="horizontal"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:weightSum="3"
+
                     android:id="@+id/dash_search_container">
 
                     <RelativeLayout
@@ -283,7 +287,7 @@
 
                     <RelativeLayout
                         android:layout_width="0dp"
-                        android:layout_height="40dp"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:background="@drawable/btn_misvuelos_selector"
                         android:id="@+id/dash_button_myflights">
@@ -293,10 +297,13 @@
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
                             android:layout_marginLeft="@dimen/padding_10"
+                            android:layout_marginStart="@dimen/padding_10"
                             android:gravity="center"
                             android:layout_toLeftOf="@+id/dash_img_myflights"
+                            android:layout_toStartOf="@+id/dash_img_myflights"
                             android:text="@string/homeMyFlightsButtonTitleKey"
                             android:autoSizeTextType="uniform"
+                            android:textSize="12sp"
                             android:textColor="@color/white"
                             android:id="@+id/dashboard_myflights_text"/>
 
@@ -306,8 +313,10 @@
                             android:id="@+id/dash_img_myflights"
                             android:layout_centerVertical="true"
                             android:layout_alignParentRight="true"
+                            android:layout_alignParentEnd="true"
                             android:src="@drawable/btnmisvuelosicon"
-                            android:layout_marginRight="@dimen/padding_10"/>
+                            android:layout_marginRight="@dimen/padding_10"
+                            android:layout_marginEnd="@dimen/padding_10"/>
 
                     </RelativeLayout>
 
