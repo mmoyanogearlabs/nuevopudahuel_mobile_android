@@ -79,11 +79,11 @@ public class DashboardFragment extends HomeFragment implements View.OnClickListe
             configWeather();
         }
 
-        queue = QueuesController.getInstance().getQueues(getBaseActivity().getRealm());
-        if (queue != null) {
-            queue.addChangeListener(this);
-            configQueues();
-        }
+        //queue = QueuesController.getInstance().getQueues(getBaseActivity().getRealm());
+        //if (queue != null) {
+        //    queue.addChangeListener(this);
+        //    configQueues();
+        //}
 
         LinearLayout searchContainer = $(R.id.dash_search_container);
         Bitmap roundedLeft = BitmapFactory.decodeResource(getResources(), R.drawable.btnsalidashome);
@@ -129,14 +129,14 @@ public class DashboardFragment extends HomeFragment implements View.OnClickListe
         }
     }
 
-    private void configQueues() {
+  /*  private void configQueues() {
         if (queue != null) {
             TextView national = $(R.id.home_wait_national);
             national.setText(queue.getNational() + " min.");
             TextView international = $(R.id.home_wait_international);
             international.setText(queue.getInternational() + " min.");
         }
-    }
+    }*/
 
     @Override
     public void onClick(View v) {
@@ -166,7 +166,7 @@ public class DashboardFragment extends HomeFragment implements View.OnClickListe
     @Override
     public void onChange(Object object) {
         configWeather();
-        configQueues();
+       // configQueues();
     }
 
     @Override

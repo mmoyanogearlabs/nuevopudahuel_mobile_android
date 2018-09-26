@@ -47,13 +47,15 @@ public class SyncController {
                 @Override
                 public void failure(RetrofitError error) {
                     super.failure(error);
-                    syncQueues(application);
+                    syncArrivals(application);
+                    //syncQueues(application);
                 }
 
                 @Override
                 public void success(Weather weather, Response response) {
                     super.success(weather, response);
-                    syncQueues(application);
+                    syncArrivals(application);
+                    //syncQueues(application);
                 }
             });
         }
