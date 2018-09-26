@@ -21,15 +21,15 @@ apply plugin: 'realm-android'
 
 android {
     compileSdkVersion 27
-    buildToolsVersion '27.0.2'
+    buildToolsVersion '28.0.2'
     flavorDimensions "default"
 
     defaultConfig {
         applicationId "com.massiva.nuevopudahuel"
         minSdkVersion 16
         targetSdkVersion 27
-        versionCode 121
-        versionName "1.0.9"
+        versionCode 122
+        versionName "1.2.0"
         multiDexEnabled true
     }
     buildTypes {
