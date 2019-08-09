@@ -9,11 +9,15 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.util.Log;
 
 import com.bzutils.BZUtils;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.massiva.nuevopudahuel.R;
 import com.massiva.nuevopudahuel.base.BaseActivity;
 import com.massiva.nuevopudahuel.base.PudahuelApplication;
+import com.massiva.nuevopudahuel.constants.PudahuelPrefs;
 import com.massiva.nuevopudahuel.controllers.UserController;
 import com.massiva.nuevopudahuel.push.GcmRegistrationIntentService;
 import com.innoquant.moca.MOCA;
@@ -57,10 +61,12 @@ public class SplashActivity extends BaseActivity {
     private void initApp(boolean locationPermission) {
 
         MOCA.setGeoTrackingEnabled(locationPermission);
+        requestFCMToken();
+
         Intent intent = new Intent();
         ComponentName component = new ComponentName(this,GcmRegistrationIntentService.class);
         intent.setComponent(component);
-        GcmRegistrationIntentService.enqueueWork(this,intent);
+        //GcmRegistrationIntentService.enqueueWork(this,intent);
 /*        Intent intent = new Intent(this, GcmRegistrationIntentService.class);
         startService(intent);*/
         UserController.getInstance().startSyncProcess(getPudahuelApplication());
@@ -85,6 +91,23 @@ public class SplashActivity extends BaseActivity {
                 finish();
             }
         }, 1500);
+
+
     }
+
+
+    private void requestFCMToken() {
+
+
+        String token = FirebaseInstanceId.getInstance().getToken();
+
+        ((PudahuelApplication) getApplicationContext()).storeString(PudahuelPrefs.PUSH_TOKEN, token);
+        UserController.getInstance().registerPushToken((PudahuelApplication) getApplicationContext());
+
+        // Log and toast
+        Log.e("newToken", token);
+    }
+
+
 
 }

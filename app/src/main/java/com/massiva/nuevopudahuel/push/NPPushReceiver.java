@@ -39,7 +39,7 @@ public class NPPushReceiver extends GcmPushReceiver {
             if (body != null) {
                 if (TextUtils.isEmpty(title))
                     title = context.getString(R.string.app_name);
-                sendNotification(context, body, title);
+               // sendNotification(context, body, title);
             }
         }
         super.onReceive(context, intent);

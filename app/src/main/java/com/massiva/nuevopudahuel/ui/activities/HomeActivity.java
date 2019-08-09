@@ -13,16 +13,21 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageButton;
 
 import com.bzutils.BZUtils;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.massiva.nuevopudahuel.R;
 import com.massiva.nuevopudahuel.base.BaseActivity;
 import com.massiva.nuevopudahuel.base.PudahuelApplication;
+import com.massiva.nuevopudahuel.constants.PudahuelPrefs;
 import com.massiva.nuevopudahuel.controllers.SyncController;
 import com.massiva.nuevopudahuel.controllers.TrackingController;
+import com.massiva.nuevopudahuel.controllers.UserController;
 import com.massiva.nuevopudahuel.model.MenuItem;
 import com.massiva.nuevopudahuel.ui.adapter.MenuAdapter;
 import com.massiva.nuevopudahuel.ui.fragments.ConfigurationFragment;
@@ -53,6 +58,8 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
 
         configMenu();
         changeFragment(DashboardFragment.newInstance());
+
+
     }
 
     @Override

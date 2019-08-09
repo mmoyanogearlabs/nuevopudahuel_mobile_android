@@ -13,6 +13,7 @@ import com.bzutils.BZUtils;
 import com.crashlytics.android.Crashlytics;
 import com.facebook.FacebookSdk;
 import com.flurry.android.FlurryAgent;
+import com.google.firebase.FirebaseApp;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializationContext;
@@ -69,6 +70,8 @@ public class PudahuelApplication extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
         Fabric.with(this, new Crashlytics());
+
+        FirebaseApp.initializeApp(this);
 
         initMoca();
         initCalligraphy();
