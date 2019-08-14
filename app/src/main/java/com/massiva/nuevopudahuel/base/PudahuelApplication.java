@@ -73,7 +73,7 @@ public class PudahuelApplication extends MultiDexApplication {
 
         FirebaseApp.initializeApp(this);
 
-        initMoca();
+        //initMoca();
         initCalligraphy();
         initImageLoaderConfiguration();
         initAPI();

@@ -22,16 +22,16 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 28
     buildToolsVersion '28.0.2'
     flavorDimensions "default"
 
     defaultConfig {
         applicationId "com.massiva.nuevopudahuel"
         minSdkVersion 16
-        targetSdkVersion 27
-        versionCode 124
-        versionName "1.1.1"
+        targetSdkVersion 28
+        versionCode 127
+        versionName "1.2.1"
         multiDexEnabled true
     }
     buildTypes {

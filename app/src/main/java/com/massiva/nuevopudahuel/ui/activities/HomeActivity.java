@@ -166,15 +166,16 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
         items.add(beforeFlight);
         MenuItem airport = new MenuItem(5, R.drawable.iconmenuaeropuerto, getString(R.string.menuOptionAirportTitleKey));
         items.add(airport);
-        MenuItem mapa = new MenuItem(9, R.drawable.iconmenuplanos, getString(R.string.menuOptionPlansTitleKey));
-        items.add(mapa);
+        //MenuItem mapa = new MenuItem(9, R.drawable.iconmenuplanos, getString(R.string.menuOptionPlansTitleKey));
+       // items.add(mapa);
         MenuItem promo = new MenuItem(6, R.drawable.iconmenuqr,getString(R.string.menuOptionPromosTitleKey));
         items.add(promo);
+        /*
         MenuItem config = new MenuItem(7, R.drawable.iconmenusettings,getString(R.string.menuOptionConfigTitleKey));
         items.add(config);
         MenuItem pudahuel = new MenuItem(8, R.drawable.iconmenuinfo, getString(R.string.menuOptionNewTitleKey));
         items.add(pudahuel);
-
+*/
         return items;
     }
 

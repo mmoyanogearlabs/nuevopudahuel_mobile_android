@@ -60,7 +60,7 @@ public class SplashActivity extends BaseActivity {
 
     private void initApp(boolean locationPermission) {
 
-        MOCA.setGeoTrackingEnabled(locationPermission);
+        //MOCA.setGeoTrackingEnabled(locationPermission);
         requestFCMToken();
 
         Intent intent = new Intent();
