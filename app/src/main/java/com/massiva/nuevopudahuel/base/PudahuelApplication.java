@@ -92,8 +92,12 @@ public class PudahuelApplication extends MultiDexApplication {
     }
 
     private void initRealm() {
-        Realm.init(this);
-        configuration = new RealmConfiguration.Builder().deleteRealmIfMigrationNeeded().build();
+        Realm.init(getApplicationContext());
+        configuration = new RealmConfiguration.
+                Builder().
+                deleteRealmIfMigrationNeeded().
+                build();
+        Realm.setDefaultConfiguration(configuration);
     }
 
     private void initCalligraphy() {

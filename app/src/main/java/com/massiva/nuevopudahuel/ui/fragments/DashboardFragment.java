@@ -163,11 +163,7 @@ public class DashboardFragment extends HomeFragment implements View.OnClickListe
             getHomeActivity().changeFragment(FlightsFragment.newInstance(vol));
     }
 
-    @Override
-    public void onChange(Object object) {
-        configWeather();
-       // configQueues();
-    }
+
 
     @Override
     public void onBannerSizeChanged(int height) {
@@ -208,6 +204,11 @@ public class DashboardFragment extends HomeFragment implements View.OnClickListe
         input.setInputType(0);
         InputMethodManager imm = (InputMethodManager) getBaseActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(input.getWindowToken(), 0);
+    }
+
+    @Override
+    public void onChange(Object element) {
+        configWeather();
     }
 
     public class ResizeAnimation extends Animation {

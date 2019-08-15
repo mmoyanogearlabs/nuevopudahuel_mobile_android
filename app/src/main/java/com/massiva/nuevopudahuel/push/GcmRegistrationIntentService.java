@@ -34,7 +34,7 @@ public class GcmRegistrationIntentService extends JobIntentService {
         InstanceID instanceID = InstanceID.getInstance(this);
         LogBZ.d("PudahuelPush: onHandleIntent");
         try {
-            String token = instanceID.getToken("950762352762",
+            String token = instanceID.getToken("400257946201",
                     GoogleCloudMessaging.INSTANCE_ID_SCOPE, null);
 
             ((PudahuelApplication) getApplicationContext()).storeString(PudahuelPrefs.PUSH_TOKEN, token);

@@ -22,6 +22,9 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
+dexOptions {
+javaMaxHeapSize "4g"
+}
     compileSdkVersion 28
     buildToolsVersion '28.0.2'
     flavorDimensions "default"
@@ -127,18 +130,21 @@ dependencies {
     compile 'com.google.code.gson:gson:2.8.0'
 
     //FACEBOOK
-    compile 'com.facebook.android:facebook-android-sdk:4.29.0'
-
-    //MOCA
-    compile('com.mocaplatform:moca-android-sdk:2.5.6') {
-        exclude group: 'com.android.support', module: 'appcompat-v7'
-        exclude group: 'com.android.support', module: 'support-v4'
-        exclude group: 'com.google.android.gms', module: 'play-services-gcm'
-        exclude group: 'com.google.android.gms', module: 'play-services-location'
-        exclude group: 'org.msgpack', module: 'msgpack'
-
+    compile ('com.facebook.android:facebook-android-sdk:4.+'){
+        exclude group: 'com.android.support', module:'support-v4'
+        exclude group: 'com.android.support', module:'appcompat-v7'
     }
 
+    //MOCA
+
+    compile ('com.mocaplatform:moca-android-sdk:2.5.6'){
+        exclude group: 'com.android.support', module:'appcompat-v7'
+        exclude group: 'com.android.support', module:'support-v4'
+        exclude group: 'com.google.android.gms', module:'play-services-gcm'
+        exclude group: 'com.google.android.gms', module:'play-services-location'
+        exclude group: 'org.msgpack', module:'msgpack'
+
+    }
     //TRACKING
     compile 'com.flurry.android:analytics:6.2.0'
     compile('com.crashlytics.sdk.android:crashlytics:2.6.7@aar') {
