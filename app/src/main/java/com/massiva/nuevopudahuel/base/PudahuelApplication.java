@@ -48,7 +48,6 @@ import java.util.Date;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
-import io.fabric.sdk.android.Fabric;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import retrofit.RestAdapter;
@@ -69,7 +68,6 @@ public class PudahuelApplication extends MultiDexApplication {
     @Override
     public void onCreate() {
         super.onCreate();
-        Fabric.with(this, new Crashlytics());
 
         FirebaseApp.initializeApp(this);
 

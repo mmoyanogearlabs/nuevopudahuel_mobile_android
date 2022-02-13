@@ -101,11 +101,16 @@ public class SplashActivity extends BaseActivity {
 
         String token = FirebaseInstanceId.getInstance().getToken();
 
-        ((PudahuelApplication) getApplicationContext()).storeString(PudahuelPrefs.PUSH_TOKEN, token);
-        UserController.getInstance().registerPushToken((PudahuelApplication) getApplicationContext());
+        if (null != token) {
+            ((PudahuelApplication) getApplicationContext()).storeString(PudahuelPrefs.PUSH_TOKEN, token);
+            UserController.getInstance().registerPushToken((PudahuelApplication) getApplicationContext());
 
-        // Log and toast
-        Log.e("newToken", token);
+            // Log and toast
+
+            Log.e("newToken", token);
+        }
+
+
     }
 
 
