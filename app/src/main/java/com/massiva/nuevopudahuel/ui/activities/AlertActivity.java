@@ -60,6 +60,8 @@ public class AlertActivity extends BaseActivity implements View.OnClickListener,
     private TextView vuelo, tiempo, estado;
     private LinearLayout flightDetail;
 
+    private String flightId = null;
+
     private String flightsDetailShareImageUri = null;
 
     @Override
@@ -75,7 +77,9 @@ public class AlertActivity extends BaseActivity implements View.OnClickListener,
         currentBanner = $(R.id.alert_banner);
         currentBanner.setBannerInterface(this);
 
-        currentFlight = getRealm().where(Flight.class).equalTo("id", getIntent().getStringExtra(EXTRA_FLIGHT)).findFirst();
+        flightId = getIntent().getStringExtra(EXTRA_FLIGHT);
+
+        currentFlight = /*getRealm().copyFromRealm(*/(getRealm().where(Flight.class).equalTo("id", flightId).findFirst());//);
         currentFlight.addChangeListener(this);
         vuelo = $(R.id.alerta_vuelo);
         tiempo = $(R.id.alerta_tiempo);
@@ -89,6 +93,9 @@ public class AlertActivity extends BaseActivity implements View.OnClickListener,
     }
 
     private void configFlight() {
+
+        currentFlight = /*getRealm().copyFromRealm(*/(getRealm().where(Flight.class).equalTo("id", flightId).findFirst());//);
+
         $(R.id.alerta_created_layout).setVisibility(currentFlight.isFavorite() ? View.VISIBLE : View.INVISIBLE);
         vuelo.setText(currentFlight.getFlightCode() + "");
         tiempo.setText(BZUtils.dateToString(currentFlight.getEstimated(), "HH:mm"));
@@ -115,6 +122,9 @@ public class AlertActivity extends BaseActivity implements View.OnClickListener,
 
     private void configFavorito() {
         showProgressDialog();
+        currentFlight = /*getRealm().copyFromRealm(*/(getRealm().where(Flight.class).equalTo("id", flightId).findFirst());//);
+
+
         FlightsController.getInstance().setFavorite(getPudahuelApplication(), currentFlight, new RestCallback<FavoritesResponse>() {
             @Override
             public void failure(RetrofitError error) {
@@ -126,9 +136,9 @@ public class AlertActivity extends BaseActivity implements View.OnClickListener,
             public void success(FavoritesResponse favoritesResponse, Response response) {
                 super.success(favoritesResponse, response);
                 dismissProgressDialog();
-                showFavoriteAlert();
             }
         });
+
     }
 
     private void showFavoriteAlert() {

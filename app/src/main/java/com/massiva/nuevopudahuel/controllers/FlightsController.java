@@ -41,7 +41,7 @@ public class FlightsController {
             @Override
             public void success(List<FlightResponse> flights, Response response) {
                 super.success(flights, response);
-                storeFlights(application, flights);
+                storeFlights(application, flights, true);
                 callback.success(flights, response);
             }
         });
@@ -58,7 +58,7 @@ public class FlightsController {
             @Override
             public void success(List<FlightResponse> flights, Response response) {
                 super.success(flights, response);
-                storeFlights(application, flights);
+                storeFlights(application, flights, false);
                 callback.success(flights, response);
             }
         });
@@ -85,6 +85,9 @@ public class FlightsController {
     public void setFavorite(final PudahuelApplication application, final Flight flight, final RestCallback<FavoritesResponse> callback) {
         String type = flight.isArrival() ? "arrivals" : "departures";
         String favorite = flight.isFavorite() ? "unsubscribe" : "subscribe";
+
+        //storeFavorite(application, flight);
+
         application.getService().setFavorite(UserController.getInstance().getFlightsAPIToken(application), type, flight.getId(), favorite, new RestCallback<FavoritesResponse>() {
             @Override
             public void failure(RetrofitError error) {
@@ -99,9 +102,10 @@ public class FlightsController {
                 callback.success(favoritesResponse, response);
             }
         });
+
     }
 
-    private void storeFlights(PudahuelApplication application, List<FlightResponse> response) {
+    private void storeFlights(PudahuelApplication application, List<FlightResponse> response, boolean arrivals) {
         List<Flight> flights = new ArrayList<>();
         List<String> favoritesId = new ArrayList<>();
         Realm realm = Realm.getInstance(application.getRealmConfiguration());
@@ -112,10 +116,9 @@ public class FlightsController {
             }
         }
         long timeStamp = System.currentTimeMillis();
-        boolean arrivals = false;
         for (FlightResponse flightResponse : response) {
             Flight flight = flightResponse.toFlight();
-            arrivals = arrivals || flight.isArrival();
+            flight.setArrival(arrivals);
             flight.setFavorite(favoritesId.contains(flight.getId()));
             flight.setTimestamp(timeStamp);
             flights.add(flight);

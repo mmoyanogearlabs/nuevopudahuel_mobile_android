@@ -40,7 +40,7 @@ public class FlightsAdapter extends RecyclerView.Adapter<FlightsAdapter.ViewHold
         Flight vol = vols.get(position);
         holder.id.setText(vol.getFlightCode());
         holder.origen.setText(vol.isArrival() ? vol.getOrigin() : vol.getDestination());
-        holder.tiempo.setText(BZUtils.dateToString(vol.getEstimated(), "HH:mm"));
+        holder.tiempo.setText(null != vol.getEstimated() ? BZUtils.dateToString(vol.getEstimated(), "HH:mm") : "");
         holder.estado.setText(vol.getStatusText());
         holder.favorite.setImageResource(vol.isFavorite() ? R.drawable.iconalertaenvuelo : R.drawable.iconarrowvuelos);
         holder.estado.setText(vol.getStatusText());

@@ -10,7 +10,7 @@ import java.util.Date;
  */
 public class FlightResponse extends BaseResponse {
 
-    @SerializedName("_id")
+    @SerializedName("npg_id")
     private String id;
     private boolean secundaryFlight;
     private int statusId;

@@ -5,11 +5,6 @@ import com.massiva.nuevopudahuel.base.PudahuelApplication;
 import com.massiva.nuevopudahuel.constants.PudahuelPrefs;
 import com.massiva.nuevopudahuel.model.ConfigCategory;
 import com.google.gson.Gson;
-import com.innoquant.moca.MOCA;
-import com.innoquant.moca.MOCACallback;
-import com.innoquant.moca.MOCAException;
-import com.innoquant.moca.MOCAInstance;
-import com.innoquant.moca.MOCAUser;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -58,65 +53,9 @@ public class ConfigurationCategoriesController {
     }
 
     public void initCategoriesConfig(final PudahuelApplication application) {
-        uploadCategoriesToMOCA(application, getDefaultCategories());
+       // uploadCategoriesToMOCA(application, getDefaultCategories());
     }
 
-    public void uploadCategoriesToMOCA(final PudahuelApplication application, List<ConfigCategory> categories) {
-        MOCAUser user = MOCA.getInstance().login(UserController.getInstance().getStoredGoogleAID(application));
-        for (ConfigCategory category : categories) {
-            user.setProperty(category.getKey(), category.isValue());
-        }
-        user.save(new MOCACallback<MOCAUser>() {
-            @Override
-            public void success(MOCAUser mocaUser) {
-                storeCategories(application, mocaUser);
-            }
-
-            @Override
-            public void failure(MOCAException e) {
-                e.printStackTrace();
-            }
-        });
-    }
-
-    public void getCategoriesConfig(final PudahuelApplication application) {
-        MOCA.getInstance().login(UserController.getInstance().getStoredGoogleAID(application));
-        MOCA.getInstance().save(new MOCACallback<MOCAInstance>() {
-            @Override
-            public void success(MOCAInstance mocaInstance) {
-                storeCategories(application, mocaInstance.login(UserController.getInstance().getStoredGoogleAID(application)));
-            }
-
-            @Override
-            public void failure(MOCAException e) {
-
-            }
-        });
-    }
-
-    public boolean checkMOCAConfig(final PudahuelApplication application) {
-        MOCAUser user = MOCA.getInstance().login(UserController.getInstance().getStoredGoogleAID(application));
-        if (user.getProperty(categoryKeys[0]) == null) {
-            initCategoriesConfig(application);
-            return false;
-        }
-        return true;
-    }
-
-    private void storeCategories(PudahuelApplication application, MOCAUser user) {
-        try {
-            List<ConfigCategory> categories = new ArrayList<>();
-            for (String key : categoryKeys) {
-                ConfigCategory category = new ConfigCategory();
-                category.setKey(key);
-                category.setValue(user.getBoolProperty(key));
-                categories.add(category);
-            }
-            application.storeString(PudahuelPrefs.CONFIG_CATEGORIES, new Gson().toJson(categories));
-        } catch (Exception e) {
-            LogBZ.printStackTrace(e);
-        }
-    }
 
     public List<ConfigCategory> getStoredCategories(PudahuelApplication application) {
         ConfigCategory[] storedCategories = new Gson().fromJson(application.getStoredString(PudahuelPrefs.CONFIG_CATEGORIES, "[]"), ConfigCategory[].class);

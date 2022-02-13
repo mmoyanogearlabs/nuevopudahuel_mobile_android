@@ -206,7 +206,8 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
             boolean found = false;
             for (int i = 0; i < flightsResults.size(); i++) {
                 Flight flight = flightsResults.get(i);
-                if (flight.getEstimated().after(new Date())) {
+
+                if (null != flight.getEstimated() && flight.getEstimated().after(new Date())) {
                     found = true;
                     final int finalI = i;
                     list.post(new Runnable() {

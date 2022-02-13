@@ -20,7 +20,6 @@ import com.massiva.nuevopudahuel.base.PudahuelApplication;
 import com.massiva.nuevopudahuel.constants.PudahuelPrefs;
 import com.massiva.nuevopudahuel.controllers.UserController;
 import com.massiva.nuevopudahuel.push.GcmRegistrationIntentService;
-import com.innoquant.moca.MOCA;
 
 public class SplashActivity extends BaseActivity {
 

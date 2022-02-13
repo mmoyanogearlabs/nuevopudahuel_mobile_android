@@ -33,7 +33,7 @@ public class SyncController {
     }
 
     private static final long SYNC_WAIT_MINUTES = 5;
-    private static final long SYNC_WAIT_TIME = SYNC_WAIT_MINUTES * 60 * 1000;
+    private static final long SYNC_WAIT_TIME = 30000;// SYNC_WAIT_MINUTES * 60 * 1000;
     private boolean syncing;
     private boolean hasToSync = true;
     private OnSyncListener onSyncListener;

@@ -177,7 +177,7 @@ public class ConfigurationFragment extends HomeFragment implements CompoundButto
 
     @Override
     public void onPause() {
-        ConfigurationCategoriesController.getInstance().uploadCategoriesToMOCA(getBaseActivity().getPudahuelApplication(), items);
+      //  ConfigurationCategoriesController.getInstance().uploadCategoriesToMOCA(getBaseActivity().getPudahuelApplication(), items);
         super.onPause();
     }
 }

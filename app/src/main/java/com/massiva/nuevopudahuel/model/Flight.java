@@ -1,5 +1,6 @@
 package com.massiva.nuevopudahuel.model;
 
+import com.google.gson.annotations.SerializedName;
 import com.massiva.nuevopudahuel.controllers.FlightsController;
 
 import java.util.Date;
