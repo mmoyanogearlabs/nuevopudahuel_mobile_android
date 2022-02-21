@@ -15,6 +15,9 @@
     <color name="green">#21C932</color>
     <color name="darkGrey">#9D9D9D</color>
 
+    <color name="fligth_row_bg_color">#FFFFFF</color>
+    <color name="fligth_row_alternate_bg_color">#EEEEEE</color>
+
     <color name="red">#CF2F0B</color>
     <color name="status_green">#43969A</color>
     <color name="status_blue">#022373</color>

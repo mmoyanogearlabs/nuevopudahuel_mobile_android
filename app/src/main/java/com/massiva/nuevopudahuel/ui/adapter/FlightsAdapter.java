@@ -14,6 +14,9 @@ import com.massiva.nuevopudahuel.base.BaseActivity;
 import com.massiva.nuevopudahuel.controllers.FlightsController;
 import com.massiva.nuevopudahuel.model.Flight;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import io.realm.RealmResults;
 
 /**
@@ -38,6 +41,22 @@ public class FlightsAdapter extends RecyclerView.Adapter<FlightsAdapter.ViewHold
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Flight vol = vols.get(position);
+
+        Date scheduledDate =  vol.getScheduled();
+        Date date = new Date();
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(scheduledDate);
+        int scheduledDay = calendar.get(Calendar.DAY_OF_WEEK);
+        calendar.setTime(date);
+        int dateDay = calendar.get(Calendar.DAY_OF_WEEK);
+
+        if (scheduledDay == dateDay) {
+            holder.mainLayout.setBackgroundColor(activity.getResources().getColor( R.color.fligth_row_bg_color));
+        }else {
+            holder.mainLayout.setBackgroundColor(activity.getResources().getColor(R.color.fligth_row_alternate_bg_color));
+        }
+
         holder.id.setText(vol.getFlightCode());
         holder.origen.setText(vol.isArrival() ? vol.getOrigin() : vol.getDestination());
         holder.tiempo.setText(null != vol.getEstimated() ? BZUtils.dateToString(vol.getEstimated(), "HH:mm") : "");
@@ -81,7 +100,7 @@ public class FlightsAdapter extends RecyclerView.Adapter<FlightsAdapter.ViewHold
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView id, origen, tiempo, estado, stopover, mainFlight;
-        private LinearLayout cell, stopoverLayout, bottomOffset;
+        private LinearLayout mainLayout, cell, stopoverLayout, bottomOffset;
         private ImageView favorite;
 
         public ViewHolder(View itemView) {
@@ -90,6 +109,7 @@ public class FlightsAdapter extends RecyclerView.Adapter<FlightsAdapter.ViewHold
             origen = (TextView) itemView.findViewById(R.id.list_origen);
             tiempo = (TextView) itemView.findViewById(R.id.list_tiempo);
             estado = (TextView) itemView.findViewById(R.id.list_estado);
+            mainLayout = (LinearLayout) itemView.findViewById(R.id.main_layout);
             cell = (LinearLayout) itemView.findViewById(R.id.list_cell);
             favorite = (ImageView) itemView.findViewById(R.id.list_img);
             stopover = (TextView) itemView.findViewById(R.id.flights_cell_stopover);

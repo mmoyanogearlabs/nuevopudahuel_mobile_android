@@ -12,6 +12,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'realm-android'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'com.google.firebase.crashlytics'
 
 android {
 dexOptions {
@@ -111,6 +112,8 @@ dependencies {
     //FIREBASE
     implementation 'com.google.firebase:firebase-core:12.0.1'
     implementation 'com.google.firebase:firebase-messaging:12.0.1'
+    implementation 'com.google.firebase:firebase-crashlytics:12.0.1'
+    implementation 'com.google.firebase:firebase-analytics:12.0.1'
 
     //Utils
     implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.4'

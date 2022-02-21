@@ -88,6 +88,8 @@ public class FlightsController {
 
         //storeFavorite(application, flight);
 
+        type = "flights";
+
         application.getService().setFavorite(UserController.getInstance().getFlightsAPIToken(application), type, flight.getId(), favorite, new RestCallback<FavoritesResponse>() {
             @Override
             public void failure(RetrofitError error) {
@@ -171,6 +173,14 @@ public class FlightsController {
         return realm.where(Flight.class).equalTo("arrival", false).findAllSorted("estimated");
     }
 
+    public RealmResults<Flight> getArrivals(Realm realm, boolean international) {
+        return realm.where(Flight.class).equalTo("arrival", true).equalTo("international", international).findAllSorted("estimated");
+    }
+
+    public RealmResults<Flight> getDepartures(Realm realm, boolean international) {
+        return realm.where(Flight.class).equalTo("arrival", false).equalTo("international", international).findAllSorted("estimated");
+    }
+
     public RealmResults<Flight> getAllFavorites(Realm realm) {
         return realm.where(Flight.class).equalTo("favorite", true).findAllSorted("estimated");
     }
@@ -188,6 +198,30 @@ public class FlightsController {
 
     public RealmResults<Flight> searchDepartures(Realm realm, String searchText) {
         return realm.where(Flight.class).equalTo("arrival", false)
+                .beginGroup()
+                .contains("origin", searchText, Case.INSENSITIVE).or()
+                .contains("stopOver", searchText, Case.INSENSITIVE).or()
+                .contains("destination", searchText, Case.INSENSITIVE).or()
+                .contains("flightCode", searchText, Case.INSENSITIVE)
+                .endGroup()
+                .findAllSorted("estimated");
+    }
+
+    public RealmResults<Flight> searchArrivals(Realm realm, String searchText, boolean international) {
+        return realm.where(Flight.class).equalTo("arrival", true)
+                .equalTo("international", international)
+                .beginGroup()
+                .contains("origin", searchText, Case.INSENSITIVE).or()
+                .contains("stopOver", searchText, Case.INSENSITIVE).or()
+                .contains("destination", searchText, Case.INSENSITIVE).or()
+                .contains("flightCode", searchText, Case.INSENSITIVE)
+                .endGroup()
+                .findAllSorted("estimated");
+    }
+
+    public RealmResults<Flight> searchDepartures(Realm realm, String searchText, boolean international) {
+        return realm.where(Flight.class).equalTo("arrival", false)
+                .equalTo("international", international)
                 .beginGroup()
                 .contains("origin", searchText, Case.INSENSITIVE).or()
                 .contains("stopOver", searchText, Case.INSENSITIVE).or()

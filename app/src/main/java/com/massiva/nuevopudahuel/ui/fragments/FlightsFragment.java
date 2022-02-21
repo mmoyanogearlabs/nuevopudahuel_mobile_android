@@ -55,6 +55,9 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
     private BannerView banner;
     private boolean searchFromHome;
 
+    private boolean showNational = true;
+
+
     public static FlightsFragment newInstance(String searchText) {
         FlightsFragment fragment = new FlightsFragment();
         fragment.currentScreen = EXTRA_FLIGTHS;
@@ -79,11 +82,15 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
     @Override
     protected void configView(View parentView) {
 
-        salidas = $(R.id.flights_salidas_container);
-        llegadas = $(R.id.flights_llegadas_container);
+        salidas = $(R.id.flights_national_container);//$(R.id.flights_salidas_container);
+        llegadas = $(R.id.flights_international_container);//$(R.id.flights_llegadas_container);
         origen = $(R.id.flights_origen_button);
         myFlightsTitle = $(R.id.flights_tittle);
-        $(R.id.flights_salidas_container).setSelected(true);
+
+
+        //$(R.id.flights_salidas_container).setSelected(true);
+        $(R.id.flights_national_container).setSelected(true);
+
         $(R.id.flights_search).setOnClickListener(this);
 
         TextView flightCode = $(R.id.flights_vuelos_button);
@@ -106,11 +113,15 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
             TrackingController.trackEvent(TrackingController.FLURRY_MISVUELOS_EVENT);
         }
         else if(currentScreen == EXTRA_LLEGADAS){
+            /*
             $(R.id.flights_salidas_container).setSelected(false);
             $(R.id.flights_llegadas_container).setSelected(true);
+            */
+            myFlightsTitle.setText(getText(R.string.homeArribalButtonTitleKey));
             origen.setText(getString(R.string.flightHeaderOriginTitleKey));
             TrackingController.trackEvent(TrackingController.FLURRY_LLEGADAS_EVENT);
         } else {
+            myFlightsTitle.setText(getText(R.string.homeDepartureButtonTitleKey));
             TrackingController.trackEvent(TrackingController.FLURRY_SALIDAS_EVENT);
         }
 
@@ -175,22 +186,23 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
         switch (currentScreen) {
             case EXTRA_FLIGTHS:
                 if (!TextUtils.isEmpty(searchText))
-                    flightsResults = FlightsController.getInstance().searchDepartures(getBaseActivity().getRealm(), searchText.trim());
+                    flightsResults = FlightsController.getInstance().searchDepartures(getBaseActivity().getRealm(), searchText.trim(), !showNational);
                 else
-                    flightsResults = FlightsController.getInstance().getDepartures(getBaseActivity().getRealm());
+                    flightsResults = FlightsController.getInstance().getDepartures(getBaseActivity().getRealm(), !showNational);
 
                 if (searchFromHome && flightsResults.size() == 0){
                     searchFromHome = false;
-                    changeTabFromId(R.id.flights_llegadas_container);
+                    changeTabFromId(R.id.flights_national_container);
+                    //changeTabFromId(R.id.flights_llegadas_container);
                 }
                 searchFromHome = false;
 
                 break;
             case EXTRA_LLEGADAS:
                 if (!TextUtils.isEmpty(searchText))
-                    flightsResults = FlightsController.getInstance().searchArrivals(getBaseActivity().getRealm(), searchText.trim());
+                    flightsResults = FlightsController.getInstance().searchArrivals(getBaseActivity().getRealm(), searchText.trim(), !showNational);
                 else
-                    flightsResults = FlightsController.getInstance().getArrivals(getBaseActivity().getRealm());
+                    flightsResults = FlightsController.getInstance().getArrivals(getBaseActivity().getRealm(), !showNational);
                 break;
             case EXTRA_MY_FLIGHTS:
                 flightsResults = FlightsController.getInstance().getAllFavorites(getBaseActivity().getRealm());
@@ -232,6 +244,25 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
     private void changeTabFromId(int type) {
 
         switch (type) {
+            case R.id.flights_national_container:
+                salidas.setSelected(true);
+                llegadas.setSelected(false);
+                //origen.setText(getText(R.string.homeWaitTimeNationalTitleKey));
+                showNational = true;
+                //currentScreen = EXTRA_FLIGTHS;
+                TrackingController.trackEvent(TrackingController.FLURRY_SALIDAS_EVENT);
+                refreshList();
+                break;
+            case R.id.flights_international_container:
+                salidas.setSelected(false);
+                llegadas.setSelected(true);
+                showNational = false;
+               // origen.setText(getText(R.string.homeWaitTimeInternationalTitleKey));
+                //currentScreen = EXTRA_LLEGADAS;
+                TrackingController.trackEvent(TrackingController.FLURRY_LLEGADAS_EVENT);
+                refreshList();
+                break;
+                /*
             case R.id.flights_salidas_container:
                 salidas.setSelected(true);
                 llegadas.setSelected(false);
@@ -248,6 +279,7 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
                 TrackingController.trackEvent(TrackingController.FLURRY_LLEGADAS_EVENT);
                 refreshList();
                 break;
+                */
             case R.id.flights_search:
                 BZUtils.hideKeyboard(getBaseActivity());
                 break;
