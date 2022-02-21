@@ -1,9 +1,12 @@
 package com.massiva.nuevopudahuel.base;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+
+import androidx.multidex.MultiDex;
 import androidx.multidex.MultiDexApplication;
 import androidx.core.content.ContextCompat;
 import android.view.View;
@@ -78,6 +81,11 @@ public class PudahuelApplication extends MultiDexApplication {
         FacebookSdk.sdkInitialize(this);
     }
 
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
+    }
 
     private void initRealm() {
         Realm.init(getApplicationContext());

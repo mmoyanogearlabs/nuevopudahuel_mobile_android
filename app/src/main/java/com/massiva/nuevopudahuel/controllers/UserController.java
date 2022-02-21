@@ -11,7 +11,7 @@ import com.massiva.nuevopudahuel.banners.BannerController;
 import com.massiva.nuevopudahuel.base.PudahuelApplication;
 import com.massiva.nuevopudahuel.constants.Constants;
 import com.massiva.nuevopudahuel.constants.PudahuelPrefs;
-import com.google.android.gms.ads.identifier.AdvertisingIdClient;
+//import com.google.android.gms.ads.identifier.AdvertisingIdClient;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 
@@ -116,6 +116,10 @@ public class UserController {
         @Override
         protected String doInBackground(PudahuelApplication... params) {
             application = params[0];
+
+            String advertId = null;
+
+            /*
             AdvertisingIdClient.Info idInfo = null;
             try {
                 idInfo = AdvertisingIdClient.getAdvertisingIdInfo(application);
@@ -132,7 +136,7 @@ public class UserController {
             }catch (NullPointerException e){
                 e.printStackTrace();
             }
-
+*/
             return advertId;
         }
 

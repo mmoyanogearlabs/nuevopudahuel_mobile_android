@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.massiva.nuevopudahuel">
 
     <uses-permission android:name="android.permission.CAMERA" />
@@ -172,7 +173,8 @@
 
         <service
             android:name=".push.FCMService"
-            android:stopWithTask="false">
+            android:stopWithTask="false"
+            android:exported="true">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
@@ -190,7 +192,10 @@
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/softBlue" />
 
-
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            tools:node="remove" />
     </application>
 
 </manifest>
