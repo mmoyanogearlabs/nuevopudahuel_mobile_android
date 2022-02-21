@@ -1,6 +1,6 @@
 package com.massiva.nuevopudahuel.model;
 
-import android.support.annotation.DrawableRes;
+import androidx.annotation.DrawableRes;
 
 /**
  * Created by moddity on 29/2/16.

@@ -7,13 +7,15 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import android.util.Log;
 
 import com.bzutils.BZUtils;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
-import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.massiva.nuevopudahuel.R;
 import com.massiva.nuevopudahuel.base.BaseActivity;
 import com.massiva.nuevopudahuel.base.PudahuelApplication;
@@ -97,7 +99,26 @@ public class SplashActivity extends BaseActivity {
 
     private void requestFCMToken() {
 
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            return;
+                        }
 
+                        // Get new FCM registration token
+                        String token = task.getResult();
+
+                        // Log and toast
+                        ((PudahuelApplication) getApplicationContext()).storeString(PudahuelPrefs.PUSH_TOKEN, token);
+                        UserController.getInstance().registerPushToken((PudahuelApplication) getApplicationContext());
+                        Log.d("newToken", token);
+                    }
+                });
+
+
+/*
         String token = FirebaseInstanceId.getInstance().getToken();
 
         if (null != token) {
@@ -108,7 +129,7 @@ public class SplashActivity extends BaseActivity {
 
             Log.e("newToken", token);
         }
-
+*/
 
     }
 

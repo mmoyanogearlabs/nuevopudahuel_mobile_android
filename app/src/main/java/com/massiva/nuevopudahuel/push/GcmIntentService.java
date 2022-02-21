@@ -1,12 +1,10 @@
 package com.massiva.nuevopudahuel.push;
 
 
-import android.app.IntentService;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.JobIntentService;
+import androidx.annotation.NonNull;
+import androidx.core.app.JobIntentService;
 
 import com.bzutils.LogBZ;
 import com.google.android.gms.gcm.GoogleCloudMessaging;

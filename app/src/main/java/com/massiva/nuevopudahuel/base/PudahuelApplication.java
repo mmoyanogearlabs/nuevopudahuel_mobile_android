@@ -4,8 +4,8 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.support.multidex.MultiDexApplication;
-import android.support.v4.content.ContextCompat;
+import androidx.multidex.MultiDexApplication;
+import androidx.core.content.ContextCompat;
 import android.view.View;
 import android.widget.ImageView;
 

@@ -6,10 +6,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.AsyncTask;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.bzutils.LogBZ;
+import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.util.ByteArrayBuffer;
 import com.massiva.nuevopudahuel.R;
 import com.massiva.nuevopudahuel.base.BaseActivity;
 import com.massiva.nuevopudahuel.base.PudahuelApplication;
@@ -18,7 +20,6 @@ import com.massiva.nuevopudahuel.constants.PudahuelPrefs;
 import com.massiva.nuevopudahuel.model.Maps2DInfo;
 import com.massiva.nuevopudahuel.ui.fragments.IndoorMapFragment;
 
-import org.apache.http.util.ByteArrayBuffer;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
