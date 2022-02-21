@@ -47,12 +47,14 @@ import java.util.Date;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
+import io.github.inflationx.calligraphy3.CalligraphyConfig;
+import io.github.inflationx.calligraphy3.CalligraphyInterceptor;
+import io.github.inflationx.viewpump.ViewPump;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import retrofit.RestAdapter;
 import retrofit.client.OkClient;
 import retrofit.converter.GsonConverter;
-import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 public class PudahuelApplication extends MultiDexApplication {
 
@@ -97,11 +99,14 @@ public class PudahuelApplication extends MultiDexApplication {
     }
 
     private void initCalligraphy() {
-        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                .setDefaultFontPath(getString(R.string.khand_regular))
-                .setFontAttrId(R.attr.fontPath)
-                .build()
-        );
+
+        ViewPump.init(ViewPump.builder()
+                .addInterceptor(new CalligraphyInterceptor(
+                        new CalligraphyConfig.Builder()
+                                .setDefaultFontPath(getResources().getString(R.string.khand_regular))
+                                .setFontAttrId(R.attr.fontPath)
+                                .build()))
+                .build());
     }
 
     private void initAPI() {

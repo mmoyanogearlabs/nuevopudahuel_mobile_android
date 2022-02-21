@@ -40,7 +40,7 @@ public interface FlightsService {
     @GET("/subscriptions")
     void getFavorites(@Header(HEADER_AUTHORIZATION) String token, RestCallback<FavoritesResponse> callback);
 
-    @POST("/{type}/{flight_id}/{favorite}")
+    @GET("/{type}/{flight_id}/{favorite}")
     void setFavorite(@Header(HEADER_AUTHORIZATION) String token, @Path("type") String type, @Path("flight_id") String flightId, @Path("favorite") String favorite,
                      RestCallback<FavoritesResponse> callback);
 

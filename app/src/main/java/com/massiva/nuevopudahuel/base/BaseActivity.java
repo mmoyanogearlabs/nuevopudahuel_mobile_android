@@ -18,8 +18,9 @@ import com.massiva.nuevopudahuel.ui.custom.CustomProgressDialog;
 import com.facebook.appevents.AppEventsLogger;
 import com.flurry.android.FlurryAgent;
 
+import io.github.inflationx.calligraphy3.CalligraphyConfig;
+import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 import io.realm.Realm;
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**
  * Created by iaguila on 9/2/16.
@@ -45,7 +46,7 @@ public abstract class BaseActivity extends AppCompatActivity implements SyncCont
 
     @Override
     protected void attachBaseContext(Context base) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(base));
+        super.attachBaseContext(ViewPumpContextWrapper.wrap(base));
     }
 
     protected <T extends View> T $(int viewId) {

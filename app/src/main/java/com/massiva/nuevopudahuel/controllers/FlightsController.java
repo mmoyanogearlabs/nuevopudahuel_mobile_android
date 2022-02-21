@@ -88,7 +88,7 @@ public class FlightsController {
 
         //storeFavorite(application, flight);
 
-        type = "flights";
+        type = "flight";
 
         application.getService().setFavorite(UserController.getInstance().getFlightsAPIToken(application), type, flight.getId(), favorite, new RestCallback<FavoritesResponse>() {
             @Override

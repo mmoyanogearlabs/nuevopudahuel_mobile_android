@@ -23,7 +23,7 @@ android {
         applicationId "com.massiva.nuevopudahuel"
         minSdkVersion 19
         targetSdkVersion 32
-        versionCode 129
+        versionCode 130
         versionName "1.2.3"
         multiDexEnabled true
     }
@@ -122,7 +122,10 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
     implementation 'com.google.android.material:material:1.5.0'
-    implementation 'uk.co.chrisjenx:calligraphy:2.1.0'
+
+    implementation 'io.github.inflationx:calligraphy3:3.1.1'
+    implementation 'io.github.inflationx:viewpump:2.0.3'
+
 
     //GOOGLE PLAY SERVICES
     //implementation 'com.google.android.gms:play-services-ads:20.5.0'
