@@ -14,7 +14,6 @@ import android.widget.ImageView;
 
 import com.bzutils.BZUtils;
 import com.facebook.FacebookSdk;
-import com.flurry.android.FlurryAgent;
 import com.google.firebase.FirebaseApp;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -30,7 +29,6 @@ import com.massiva.nuevopudahuel.api.services.BannerService;
 import com.massiva.nuevopudahuel.api.services.FlightsService;
 import com.massiva.nuevopudahuel.constants.Constants;
 import com.massiva.nuevopudahuel.constants.PudahuelPrefs;
-import com.massiva.nuevopudahuel.controllers.TrackingController;
 import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -78,7 +76,6 @@ public class PudahuelApplication extends MultiDexApplication {
         initAPI();
         initBannersAPI();
         initRealm();
-        initFlurry();
         BZUtils.printSignature(this);
         FacebookSdk.sdkInitialize(this);
     }
@@ -167,12 +164,6 @@ public class PudahuelApplication extends MultiDexApplication {
                 .build();
 
         ImageLoader.getInstance().init(config);
-    }
-
-    private void initFlurry() {
-        FlurryAgent.setLogEnabled(true);
-        FlurryAgent.setLogEvents(true);
-        FlurryAgent.init(this, TrackingController.FLURRY_KEY);
     }
 
     private DisplayImageOptions makeImageOptions(int placeHolderImage, boolean hasPlaceHolder) {

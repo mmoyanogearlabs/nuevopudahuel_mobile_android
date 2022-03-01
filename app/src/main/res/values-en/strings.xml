@@ -17,7 +17,9 @@
     <!-- Menu -->
     <string name="menuOptionHomeTitleKey">Home</string>
     <string name="menuOptionUserFlightsTitleKey">My Flights</string>
-    <string name="menuOptionFlightsTitleKey">Flights</string>
+    <string name="menuOptionFlightsTitleKey">Arrives / Departures</string>
+    <string name="menuOptionFlightsDeparturesTitleKey">Departures</string>
+    <string name="menuOptionFlightsArrivesTitleKey">Arrives</string>
     <string name="menuOptionParkingTitleKey">Parking</string>
     <string name="menuOptionBeforeFlightTitleKey">Before your Flight</string>
     <string name="menuOptionAirportTitleKey">At the Airport</string>
@@ -100,4 +102,10 @@
     <string name="permissionDeniedCamera">The app does not have camera permission, please check the permissions in Device Settings </string>
     <!-- Alerts -->
     <string name="bluetoothDisableNotification">Turn on your Bluetooth and you\'ll be surprised</string>
+    <string name="welcomScreenTitle">Welcome to Santiago Airport</string>
+    <string name="internationalFlightsTitle">International flights:</string>
+    <string name="nationalFlightsTitle">National flights:</string>
+    <string name="T1TerminalTitle">T1 (old terminal)</string>
+    <string name="T2TerminalTitle">T2 (new terminal)</string>
+    <string name="next">next</string>
 </resources>

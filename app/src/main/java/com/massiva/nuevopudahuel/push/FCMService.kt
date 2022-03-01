@@ -23,20 +23,20 @@ class FCMService : FirebaseMessagingService() {
 
     }
 */
-    override fun onMessageReceived(remoteMessage: RemoteMessage?) {
+    override fun onMessageReceived(remoteMessage: RemoteMessage) {
         // Handle FCM messages here.
         // If the application is in the foreground handle both data and notification messages here.
         // Also if you intend on generating your own notifications as a result of a received FCM
         // message, here is where that should be initiated.
-        Log.d(TAG, "From: " + remoteMessage?.from)
-                Log.d(TAG, "Notification Message Title: " + remoteMessage?.notification?.title)
-                Log.d(TAG, "Notification Message Body: " + remoteMessage?.notification?.body)
-        Log.d(TAG, "Notification Message Data: " + remoteMessage?.data)
+        Log.d(TAG, "From: " + remoteMessage.from)
+                Log.d(TAG, "Notification Message Title: " + remoteMessage.notification?.title)
+                Log.d(TAG, "Notification Message Body: " + remoteMessage.notification?.body)
+        Log.d(TAG, "Notification Message Data: " + remoteMessage.data)
 
-        val extraData = remoteMessage?.data
+        val extraData = remoteMessage.data
 
-                val title = remoteMessage?.notification?.title ?: remoteMessage?.data?.get("title") ?: ""
-                val message = remoteMessage?.notification?.body ?: remoteMessage?.data?.get("message") ?: ""
+                val title = remoteMessage.notification?.title ?: remoteMessage.data.get("title") ?: ""
+                val message = remoteMessage.notification?.body ?: remoteMessage.data.get("message") ?: ""
 
                 try {
                     sendNotification(this, message, title)

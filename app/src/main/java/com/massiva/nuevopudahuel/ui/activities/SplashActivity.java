@@ -29,11 +29,15 @@ public class SplashActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        initApp(true);
+
+/*
         if (((PudahuelApplication) getApplicationContext()).isPermissionGranted(Manifest.permission.ACCESS_FINE_LOCATION)) {
             initApp(true);
         } else if (Build.VERSION.SDK_INT >= 23) {
             ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, 11);
         }
+        */
     }
 
     @Override

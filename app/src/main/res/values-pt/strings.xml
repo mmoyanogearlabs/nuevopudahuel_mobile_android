@@ -100,5 +100,11 @@
     <string name="permissionDeniedCamera">O aplicativo não tem câmera de permissão, por favor, verifique as permissões sobre as configurações do dispositivo</string>
     <!-- Alerts -->
     <string name="bluetoothDisableNotification">Ligue o Bluetooth e você será surpreendido</string>
+    <string name="welcomScreenTitle">Bem-vindos/as al Aeropuerto de Santiago</string>
+    <string name="internationalFlightsTitle">Vuelos internacionales:</string>
+    <string name="nationalFlightsTitle">Vuelos nacionales:</string>
+    <string name="T1TerminalTitle">T1 (antigo terminal)</string>
+    <string name="T2TerminalTitle">T2 (novo terminal)</string>
+    <string name="next">continuar</string>
 
 </resources>

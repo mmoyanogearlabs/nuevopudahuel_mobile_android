@@ -29,6 +29,7 @@ public class Flight extends RealmObject {
     private String gate;
     private String belt;
     private String statusText;
+    private String publicTerminal;
     private boolean arrival;
     private boolean favorite;
     private long timestamp;
@@ -176,4 +177,13 @@ public class Flight extends RealmObject {
     public void setGate(String gate) {
         this.gate = gate;
     }
+
+    public String getPublicTerminal() {
+        return publicTerminal;
+    }
+
+    public void setPublicTerminal(String publicTerminal) {
+        this.publicTerminal = publicTerminal;
+    }
+
 }

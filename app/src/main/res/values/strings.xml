@@ -17,7 +17,9 @@
     <!-- Menu -->
     <string name="menuOptionHomeTitleKey">Home</string>
     <string name="menuOptionUserFlightsTitleKey">Mis Vuelos</string>
-    <string name="menuOptionFlightsTitleKey">Vuelos</string>
+    <string name="menuOptionFlightsTitleKey">Llegadas / Salidas</string>
+    <string name="menuOptionFlightsDeparturesTitleKey">Salidas</string>
+    <string name="menuOptionFlightsArrivesTitleKey">Llegadas</string>
     <string name="menuOptionParkingTitleKey">Parking</string>
     <string name="menuOptionBeforeFlightTitleKey">Antes del Vuelo</string>
     <string name="menuOptionAirportTitleKey">En el Aeropuerto</string>
@@ -105,4 +107,12 @@
     <string name="homeWaitTimeTitleKey">Tiempo de espera en Seguridad</string>
     <string name="homeWaitTimeNationalTitleKey">Nacional</string>
     <string name="homeWaitTimeInternationalTitleKey">Internacional</string>
+    <string name="flightHeaderTermTitleKey">Term.</string>
+    <string name="flightDetailTerminalTitleKey">Terminal</string>
+    <string name="welcomScreenTitle">Bienvenidos/as al Aeropuerto de Santiago</string>
+    <string name="internationalFlightsTitle">Vuelos internacionales:</string>
+    <string name="nationalFlightsTitle">Vuelos nacionales:</string>
+    <string name="T1TerminalTitle">T1 (antiguo terminal)</string>
+    <string name="T2TerminalTitle">T2 (nuevo terminal)</string>
+    <string name="next">continuar</string>
 </resources>

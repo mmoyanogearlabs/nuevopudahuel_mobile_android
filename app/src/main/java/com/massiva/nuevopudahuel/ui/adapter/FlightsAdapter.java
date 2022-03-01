@@ -48,9 +48,9 @@ public class FlightsAdapter extends RecyclerView.Adapter<FlightsAdapter.ViewHold
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(scheduledDate);
-        int scheduledDay = calendar.get(Calendar.DAY_OF_WEEK);
+        int scheduledDay = calendar.get(Calendar.DAY_OF_MONTH);
         calendar.setTime(date);
-        int dateDay = calendar.get(Calendar.DAY_OF_WEEK);
+        int dateDay = calendar.get(Calendar.DAY_OF_MONTH);
 
         if (scheduledDay == dateDay) {
             holder.mainLayout.setBackgroundColor(activity.getResources().getColor( R.color.fligth_row_bg_color));
@@ -64,6 +64,7 @@ public class FlightsAdapter extends RecyclerView.Adapter<FlightsAdapter.ViewHold
         holder.estado.setText(vol.getStatusText());
         holder.favorite.setImageResource(vol.isFavorite() ? R.drawable.iconalertaenvuelo : R.drawable.iconarrowvuelos);
         holder.estado.setText(vol.getStatusText());
+        holder.listTerminal.setText(vol.getPublicTerminal());
         holder.estado.setTextColor(activity.getResources().getColor(FlightsController.getInstance().getStatusColor(activity, vol)));
         holder.stopoverLayout.setVisibility(TextUtils.isEmpty(vol.getStopOver()) ? View.INVISIBLE : View.VISIBLE);
         holder.stopover.setText(vol.getStopOver());
@@ -100,7 +101,7 @@ public class FlightsAdapter extends RecyclerView.Adapter<FlightsAdapter.ViewHold
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView id, origen, tiempo, estado, stopover, mainFlight;
+        private TextView id, origen, tiempo, estado, stopover, mainFlight, listTerminal;
         private LinearLayout mainLayout, cell, stopoverLayout, bottomOffset;
         private ImageView favorite;
 
@@ -110,6 +111,7 @@ public class FlightsAdapter extends RecyclerView.Adapter<FlightsAdapter.ViewHold
             origen = (TextView) itemView.findViewById(R.id.list_origen);
             tiempo = (TextView) itemView.findViewById(R.id.list_tiempo);
             estado = (TextView) itemView.findViewById(R.id.list_estado);
+            listTerminal = (TextView) itemView.findViewById(R.id.list_terminal);
             mainLayout = (LinearLayout) itemView.findViewById(R.id.main_layout);
             cell = (LinearLayout) itemView.findViewById(R.id.list_cell);
             favorite = (ImageView) itemView.findViewById(R.id.list_img);

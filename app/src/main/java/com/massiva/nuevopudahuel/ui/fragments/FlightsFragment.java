@@ -23,7 +23,6 @@ import com.massiva.nuevopudahuel.banners.BannerView;
 import com.massiva.nuevopudahuel.base.HomeFragment;
 import com.massiva.nuevopudahuel.controllers.FlightsController;
 import com.massiva.nuevopudahuel.controllers.SyncController;
-import com.massiva.nuevopudahuel.controllers.TrackingController;
 import com.massiva.nuevopudahuel.model.Flight;
 import com.massiva.nuevopudahuel.ui.activities.AlertActivity;
 import com.massiva.nuevopudahuel.ui.adapter.FlightsAdapter;
@@ -111,7 +110,6 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
             $(R.id.flights_a).setVisibility(View.GONE);
             myFlightsTitle.setText(getText(R.string.menuOptionUserFlightsTitleKey));
             origen.setText(getString(R.string.flightHeaderOriginTitleKey) + "/" + getString(R.string.flightHeaderDestinationTitleKey));
-            TrackingController.trackEvent(TrackingController.FLURRY_MISVUELOS_EVENT);
         }
         else if(currentScreen == EXTRA_LLEGADAS){
             /*
@@ -120,10 +118,8 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
             */
             myFlightsTitle.setText(getText(R.string.homeArribalButtonTitleKey));
             origen.setText(getString(R.string.flightHeaderOriginTitleKey));
-            TrackingController.trackEvent(TrackingController.FLURRY_LLEGADAS_EVENT);
         } else {
             myFlightsTitle.setText(getText(R.string.homeDepartureButtonTitleKey));
-            TrackingController.trackEvent(TrackingController.FLURRY_SALIDAS_EVENT);
         }
 
         flights.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
@@ -251,7 +247,6 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
                 //origen.setText(getText(R.string.homeWaitTimeNationalTitleKey));
                 showNational = true;
                 //currentScreen = EXTRA_FLIGTHS;
-                TrackingController.trackEvent(TrackingController.FLURRY_SALIDAS_EVENT);
                 refreshList();
                 break;
             case R.id.flights_international_container:
@@ -260,7 +255,6 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
                 showNational = false;
                // origen.setText(getText(R.string.homeWaitTimeInternationalTitleKey));
                 //currentScreen = EXTRA_LLEGADAS;
-                TrackingController.trackEvent(TrackingController.FLURRY_LLEGADAS_EVENT);
                 refreshList();
                 break;
                 /*
@@ -269,7 +263,6 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
                 llegadas.setSelected(false);
                 origen.setText(getText(R.string.flightHeaderDestinationTitleKey));
                 currentScreen = EXTRA_FLIGTHS;
-                TrackingController.trackEvent(TrackingController.FLURRY_SALIDAS_EVENT);
                 refreshList();
                 break;
             case R.id.flights_llegadas_container:
@@ -277,7 +270,6 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
                 llegadas.setSelected(true);
                 origen.setText(getText(R.string.flightHeaderOriginTitleKey));
                 currentScreen = EXTRA_LLEGADAS;
-                TrackingController.trackEvent(TrackingController.FLURRY_LLEGADAS_EVENT);
                 refreshList();
                 break;
                 */

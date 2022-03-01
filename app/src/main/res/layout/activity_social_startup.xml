@@ -1,98 +1,237 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/backgroundinicio"
     tools:ignore="MissingPrefix">
 
     <LinearLayout
-        android:orientation="vertical"
+        android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
+        android:layout_marginBottom="50dp"
         android:background="@drawable/bgredes"
-        android:id="@+id/linearLayout">
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/logoIv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <TextView
+            android:id="@+id/social_title"
             fontPath="@string/avenir_medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/padding_15"
             android:text="@string/initialTitleKey"
-            android:textSize="@dimen/textSize20"
-            android:id="@+id/social_title"/>
+            android:textSize="@dimen/textSize20" />
 
         <TextView
+            android:id="@+id/social_subTitle"
             fontPath="@string/avenir_roman"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/padding_5"
             android:layout_gravity="center_horizontal"
-            android:text="@string/initialSubTitleKey"
-            android:id="@+id/social_subTitle"/>
+            android:layout_marginTop="@dimen/padding_5"
+            android:text="@string/initialSubTitleKey" />
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/padding_40">
+            android:layout_marginTop="@dimen/padding_40"
+            android:orientation="horizontal">
 
             <ImageButton
+                android:id="@+id/social_facebook"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/iconfacebook"
-                android:id="@+id/social_facebook"/>
+                android:background="@drawable/iconfacebook" />
 
             <ImageButton
+                android:id="@+id/social_twitter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/padding_40"
                 android:layout_marginLeft="@dimen/padding_40"
-                android:background="@drawable/icontwitter"
-                android:id="@+id/social_twitter"/>
+                android:layout_marginRight="@dimen/padding_40"
+                android:background="@drawable/icontwitter" />
 
             <ImageButton
+                android:id="@+id/social_instagram"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/iconinstagram"
-                android:id="@+id/social_instagram"/>
+                android:background="@drawable/iconinstagram" />
 
         </LinearLayout>
 
     </LinearLayout>
 
     <Button
+        android:id="@+id/social_dont_remember"
         fontPath="@string/economica_bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/noRememberButtonKey"
-        android:textColor="@color/softBlue"
-        android:textSize="@dimen/textSize14"
-        android:background="@android:color/transparent"
         android:layout_below="@+id/linearLayout"
-        android:id="@+id/social_dont_remember"
         android:layout_alignStart="@id/linearLayout"
         android:layout_alignLeft="@+id/linearLayout"
-        android:textAlignment="textStart" />
+        android:background="@android:color/transparent"
+        android:text="@string/noRememberButtonKey"
+        android:textAlignment="textStart"
+        android:textColor="@color/softBlue"
+        android:textSize="@dimen/textSize14"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     <Button
+        android:id="@+id/social_remember"
         fontPath="@string/economica_bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/initialButtonTitleKey"
-        android:textColor="@color/softBlue"
-        android:textSize="@dimen/textSize14"
-        android:layout_marginLeft="@dimen/padding_15"
         android:layout_below="@+id/linearLayout"
-        android:background="@android:color/transparent"
-        android:id="@+id/social_remember"
         android:layout_alignEnd="@id/linearLayout"
         android:layout_alignRight="@+id/linearLayout"
-        android:textAlignment="textEnd" />
+        android:background="@android:color/transparent"
+        android:text="@string/initialButtonTitleKey"
+        android:textAlignment="textEnd"
+        android:textColor="@color/softBlue"
+        android:textSize="@dimen/textSize14"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayout"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+    <Button
+        android:id="@+id/button_continue"
+        fontPath="@string/economica_bold"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayout"
+        android:background="@android:color/transparent"
+        android:text="@string/next"
+        android:textAlignment="center"
+        android:textColor="@color/softBlue"
+        android:textSize="@dimen/textSize14"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayout"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
 
-</RelativeLayout>
+    <ImageView
+        android:id="@+id/logoIv"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="16dp"
+        android:scaleType="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/logo_nuevo" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/social_title2"
+            fontPath="@string/avenir_medium"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
+            android:gravity="center_horizontal"
+            android:text="@string/welcomScreenTitle"
+            android:textSize="@dimen/textSize20"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="8dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toTopOf="@+id/social_title3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/social_title2"
+            app:srcCompat="@drawable/terminal_2_logo" />
+
+        <TextView
+            android:id="@+id/social_title3"
+            android:textColor="@color/black"
+            fontPath="@string/avenir_medium"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:gravity="center_horizontal"
+            android:text="@string/internationalFlightsTitle"
+            android:textSize="@dimen/textSize18"
+            app:layout_constraintBottom_toTopOf="@+id/social_title4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/social_title4"
+            fontPath="@string/avenir_roman"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:gravity="center_horizontal"
+            android:text="@string/T2TerminalTitle"
+            android:textSize="@dimen/textSize18"
+            app:layout_constraintBottom_toTopOf="@+id/social_title5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/social_title5"
+            fontPath="@string/avenir_medium"
+            android:textColor="@color/black"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:gravity="center_horizontal"
+            android:text="@string/nationalFlightsTitle"
+            android:textSize="@dimen/textSize18"
+            app:layout_constraintBottom_toTopOf="@+id/social_title6"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/social_title6"
+            fontPath="@string/avenir_roman"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:gravity="center_horizontal"
+            android:text="@string/T1TerminalTitle"
+            android:textSize="@dimen/textSize18"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

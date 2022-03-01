@@ -12,6 +12,9 @@ import com.massiva.nuevopudahuel.base.PudahuelApplication;
 import com.massiva.nuevopudahuel.constants.PudahuelPrefs;
 import com.massiva.nuevopudahuel.controllers.SyncController;
 
+import java.util.Calendar;
+import java.util.Date;
+
 
 /**
  * Created by moddity on 24/2/16.
@@ -30,12 +33,30 @@ public class SocialStartUpActivity extends BaseActivity implements View.OnClickL
         $(R.id.social_instagram).setOnClickListener(this);
         $(R.id.social_remember).setOnClickListener(this);
         $(R.id.social_dont_remember).setOnClickListener(this);
+        $(R.id.button_continue).setOnClickListener(this);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        int month = calendar.get(Calendar.MONTH);
+        int year = calendar.get(Calendar.YEAR);
+
+        if ((month == Calendar.FEBRUARY || month == Calendar.MARCH) && year == 2022) {
+            $(R.id.social_dont_remember).setVisibility(View.GONE);
+            $(R.id.social_remember).setVisibility(View.GONE);
+            $(R.id.button_continue).setVisibility(View.VISIBLE);
+        }else {
+            $(R.id.social_dont_remember).setVisibility(View.VISIBLE);
+            $(R.id.social_remember).setVisibility(View.VISIBLE);
+            $(R.id.button_continue).setVisibility(View.GONE);
+        }
+
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.social_remember:
+            case R.id.button_continue:
                 ((PudahuelApplication)this.getApplication()).storeString(PudahuelPrefs.DONT_SHOW_SOCIAL, "false");
                 startActivity(new Intent(this, HomeActivity.class));
                 finish();

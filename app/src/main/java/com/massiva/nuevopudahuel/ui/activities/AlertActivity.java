@@ -57,7 +57,7 @@ public class AlertActivity extends BaseActivity implements View.OnClickListener,
 
     private BannerView currentBanner;
     private Flight currentFlight;
-    private TextView vuelo, tiempo, estado;
+    private TextView vuelo, tiempo, estado, terminal;
     private LinearLayout flightDetail;
 
     private String flightId = null;
@@ -84,6 +84,7 @@ public class AlertActivity extends BaseActivity implements View.OnClickListener,
         vuelo = $(R.id.alerta_vuelo);
         tiempo = $(R.id.alerta_tiempo);
         estado = $(R.id.alerta_estado);
+        terminal = $(R.id.alerta_terminal);
 
         configFlight();
 
@@ -118,6 +119,9 @@ public class AlertActivity extends BaseActivity implements View.OnClickListener,
         gateBeltTitle.setText(currentFlight.isArrival() ? getString(R.string.flightDetailArrivalGateTitleKey) : getString(R.string.flightDetailDepartureGateTitleKey));
         TextView gateBelt = $(R.id.alerta_gate_belt);
         gateBelt.setText(currentFlight.isArrival() ? currentFlight.getBelt() : currentFlight.getGate());
+
+        terminal.setText(currentFlight.getPublicTerminal());
+
     }
 
     private void configFavorito() {

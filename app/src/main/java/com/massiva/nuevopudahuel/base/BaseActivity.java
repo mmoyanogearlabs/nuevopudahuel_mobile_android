@@ -16,7 +16,6 @@ import com.massiva.nuevopudahuel.ui.activities.SplashActivity;
 import com.massiva.nuevopudahuel.ui.activities.VideoSplashActivity;
 import com.massiva.nuevopudahuel.ui.custom.CustomProgressDialog;
 import com.facebook.appevents.AppEventsLogger;
-import com.flurry.android.FlurryAgent;
 
 import io.github.inflationx.calligraphy3.CalligraphyConfig;
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
@@ -82,12 +81,10 @@ public abstract class BaseActivity extends AppCompatActivity implements SyncCont
     @Override
     protected void onStart() {
         super.onStart();
-        FlurryAgent.onStartSession(this);
     }
 
     @Override
     protected void onStop() {
-        FlurryAgent.onEndSession(this);
         super.onStop();
     }
 

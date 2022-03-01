@@ -10,6 +10,9 @@ import com.massiva.nuevopudahuel.base.BaseActivity;
 import com.massiva.nuevopudahuel.base.PudahuelApplication;
 import com.massiva.nuevopudahuel.constants.PudahuelPrefs;
 
+import java.util.Calendar;
+import java.util.Date;
+
 /**
  * Created by iaguila on 15/3/16.
  */
@@ -38,7 +41,16 @@ public class VideoSplashActivity extends BaseActivity implements MediaPlayer.OnC
     public void onCompletion(MediaPlayer mp) {
         String dontShowSocial = ((PudahuelApplication) this.getApplication()).getStoredString(PudahuelPrefs.DONT_SHOW_SOCIAL, "false");
 
-        if (dontShowSocial.equals("true")) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        int month = calendar.get(Calendar.MONTH);
+        int year = calendar.get(Calendar.YEAR);
+
+        if ((month == Calendar.FEBRUARY || month == Calendar.MARCH) && year == 2022) {
+            Intent intent = new Intent(this, SocialStartUpActivity.class);
+            startActivity(intent);
+            finish();
+        } else if (dontShowSocial.equals("true")) {
             startActivity(new Intent(this, HomeActivity.class));
             finish();
         } else {

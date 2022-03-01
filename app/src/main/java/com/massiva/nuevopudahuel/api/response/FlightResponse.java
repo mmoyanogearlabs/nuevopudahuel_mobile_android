@@ -25,11 +25,14 @@ public class FlightResponse extends BaseResponse {
     private String belt;
     private String statusText;
     private String mainFlightCode;
+    @SerializedName("public_terminal")
+    private String publicTerminal;
     private String gate;
 
     public Flight toFlight() {
         Flight flight = new Flight();
         flight.setId(id);
+        flight.setPublicTerminal(publicTerminal);
         flight.setSecundaryFlight(secundaryFlight);
         flight.setStatusId(statusId);
         flight.setEmbark(embark);

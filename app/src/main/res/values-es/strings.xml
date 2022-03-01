@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Aeropuerto AMB</string>
+    <string name="welcomScreenTitle">Bienvenidos/as al Aeropuerto de Santiago</string>
+    <string name="internationalFlightsTitle">Vuelos internacionales:</string>
+    <string name="nationalFlightsTitle">Vuelos nacionales:</string>
+    <string name="T1TerminalTitle">T1 (antiguo terminal)</string>
+    <string name="T2TerminalTitle">T2 (nuevo terminal)</string>
+    <string name="next">continuar</string>
 </resources>

@@ -23,7 +23,6 @@ import com.massiva.nuevopudahuel.R;
 import com.massiva.nuevopudahuel.base.BaseActivity;
 import com.massiva.nuevopudahuel.base.PudahuelApplication;
 import com.massiva.nuevopudahuel.controllers.SyncController;
-import com.massiva.nuevopudahuel.controllers.TrackingController;
 import com.massiva.nuevopudahuel.model.MenuItem;
 import com.massiva.nuevopudahuel.ui.adapter.MenuAdapter;
 import com.massiva.nuevopudahuel.ui.fragments.ConfigurationFragment;
@@ -85,30 +84,28 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
                 switch (position) {
 
                     case 0: // HOME
-                        TrackingController.trackEvent(TrackingController.FLURRY_HOME_EVENT);
                         changeFragment(DashboardFragment.newInstance());
                         break;
                     case 1: // MIS VUELOS
                         changeFragment(FlightsFragment.newInstance(FlightsFragment.EXTRA_MY_FLIGHTS));
                         break;
                     case 2: // VUELOS
+                        changeFragment(FlightsFragment.newInstance(FlightsFragment.EXTRA_LLEGADAS));
+                        break;
+                    case 3: // VUELOS
                         changeFragment(FlightsFragment.newInstance(FlightsFragment.EXTRA_FLIGTHS));
                         break;
-                    case 3: // PARKING
-                        TrackingController.trackEvent(TrackingController.FLURRY_PARKING_EVENT);
+                    case 4: // PARKING
                         changeFragment(MenuWebviewFragment.newInstance(getString(R.string.menuOptionParkingTitleKey), getString(R.string.menuOptionParkingUrlKey)));
                         break;
-                    case 4: // ANTES DEL VUELO
-                        TrackingController.trackEvent(TrackingController.FLURRY_ANTES_EVENT);
+                    case 5: // ANTES DEL VUELO
                         changeFragment(MenuWebviewFragment.newInstance(getString(R.string.menuOptionBeforeFlightTitleKey), getString(R.string.menuOptionBeforeUrlKey)));
                         break;
-                    case 5: //EN EL AEROPUERTO
-                        TrackingController.trackEvent(TrackingController.FLURRY_AEROPUERTO_EVENT);
+                    case 6: //EN EL AEROPUERTO
                         changeFragment(MenuWebviewFragment.newInstance(getString(R.string.menuOptionAirportTitleKey), getString(R.string.menuOptionAirportUrlKey)));
                         break;
-                    case 6: // PROMOCIONES
+                    case 7: // PROMOCIONES
 
-                        TrackingController.trackEvent(TrackingController.FLURRY_PROMOS_EVENT);
 
 
 
@@ -119,17 +116,11 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
                         }
 
                         break;
-                    case 7: // CONFIGURACIÓN
-                        TrackingController.trackEvent(TrackingController.FLURRY_CONFIG_EVENT);
+                    case 8: // CONFIGURACIÓN
                         changeFragment(ConfigurationFragment.newInstance());
                         break;
-                    case 8: // NUEVOPUDAHUEL
-                        TrackingController.trackEvent(TrackingController.FLURRY_NEW_EVENT);
+                    case 9: // NUEVOPUDAHUEL
                         changeFragment(NuevoPudahuelFragment.newInstance());
-                        break;
-                    case 9: // PLANOS
-                        TrackingController.trackEvent(TrackingController.FLURRY_VIA_DIRECT);
-                        startActivity(IndoorMapActivity.makeIntent(HomeActivity.this));
                         break;
                 }
             }
@@ -155,17 +146,19 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
         items.add(home);
         MenuItem myFlights = new MenuItem(1, R.drawable.iconmenualerta, getString(R.string.menuOptionUserFlightsTitleKey));
         items.add(myFlights);
-        MenuItem flights = new MenuItem(2, R.drawable.iconmenuvuelos, getString(R.string.menuOptionFlightsTitleKey));
-        items.add(flights);
-        MenuItem parking = new MenuItem(3, R.drawable.iconmenuparking, getString(R.string.menuOptionParkingTitleKey));
+        MenuItem flightsArrives = new MenuItem(2, R.drawable.icons_airplane_landing, getString(R.string.menuOptionFlightsArrivesTitleKey));
+        items.add(flightsArrives);
+        MenuItem flightsDepartures = new MenuItem(3, R.drawable.icons_airplane_take_off, getString(R.string.menuOptionFlightsDeparturesTitleKey));
+        items.add(flightsDepartures);
+        MenuItem parking = new MenuItem(4, R.drawable.iconmenuparking, getString(R.string.menuOptionParkingTitleKey));
         items.add(parking);
-        MenuItem beforeFlight = new MenuItem(4, R.drawable.iconmenuantesvuelo, getString(R.string.menuOptionBeforeFlightTitleKey));
+        MenuItem beforeFlight = new MenuItem(5, R.drawable.iconmenuantesvuelo, getString(R.string.menuOptionBeforeFlightTitleKey));
         items.add(beforeFlight);
-        MenuItem airport = new MenuItem(5, R.drawable.iconmenuaeropuerto, getString(R.string.menuOptionAirportTitleKey));
+        MenuItem airport = new MenuItem(6, R.drawable.iconmenuaeropuerto, getString(R.string.menuOptionAirportTitleKey));
         items.add(airport);
         //MenuItem mapa = new MenuItem(9, R.drawable.iconmenuplanos, getString(R.string.menuOptionPlansTitleKey));
        // items.add(mapa);
-        MenuItem promo = new MenuItem(6, R.drawable.iconmenuqr,getString(R.string.menuOptionPromosTitleKey));
+        MenuItem promo = new MenuItem(7, R.drawable.iconmenuqr,getString(R.string.menuOptionPromosTitleKey));
         items.add(promo);
         /*
         MenuItem config = new MenuItem(7, R.drawable.iconmenusettings,getString(R.string.menuOptionConfigTitleKey));
