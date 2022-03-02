@@ -56,6 +56,6 @@ public class CarrouselController {
     }
 
     public RealmResults<CarrouselItem> getStoredItems(Realm realm) {
-        return realm.where(CarrouselItem.class).findAllSorted("position");
+        return realm.where(CarrouselItem.class).findAll().sort("position");
     }
 }
