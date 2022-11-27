@@ -13,7 +13,6 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.bzutils.BZUtils;
-import com.facebook.FacebookSdk;
 import com.google.firebase.FirebaseApp;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -77,7 +76,6 @@ public class PudahuelApplication extends MultiDexApplication {
         initBannersAPI();
         initRealm();
         BZUtils.printSignature(this);
-        FacebookSdk.sdkInitialize(this);
     }
 
     @Override
