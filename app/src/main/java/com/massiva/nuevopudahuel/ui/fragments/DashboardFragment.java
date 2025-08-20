@@ -1,11 +1,14 @@
 package com.massiva.nuevopudahuel.ui.fragments;
 
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Rect;
+import android.net.Uri;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -79,6 +82,11 @@ public class DashboardFragment extends HomeFragment implements View.OnClickListe
             configWeather();
         }
 
+        $(R.id.social_facebook).setOnClickListener(this);
+        $(R.id.social_twitter).setOnClickListener(this);
+        $(R.id.social_instagram).setOnClickListener(this);
+        $(R.id.social_threads).setOnClickListener(this);
+
         //queue = QueuesController.getInstance().getQueues(getBaseActivity().getRealm());
         //if (queue != null) {
         //    queue.addChangeListener(this);
@@ -87,11 +95,11 @@ public class DashboardFragment extends HomeFragment implements View.OnClickListe
 
         LinearLayout searchContainer = $(R.id.dash_search_container);
         Bitmap roundedLeft = BitmapFactory.decodeResource(getResources(), R.drawable.btnsalidashome);
-        Bitmap roundedRight = BitmapFactory.decodeResource(getResources(), R.drawable.btnllegadashome);
+        Bitmap roundedRight = BitmapFactory.decodeResource(getResources(), R.drawable.btnllegadashome);/*
         LinearLayout.LayoutParams searchContainerParams = new LinearLayout.LayoutParams(roundedLeft.getWidth() + roundedRight.getWidth(), ViewGroup.LayoutParams.WRAP_CONTENT);
         searchContainerParams.gravity = Gravity.CENTER_HORIZONTAL;
         searchContainerParams.setMargins(0, (int) getResources().getDimension(R.dimen.padding_10), 0, (int) getResources().getDimension(R.dimen.padding_15));
-        searchContainer.setLayoutParams(searchContainerParams);
+        searchContainer.setLayoutParams(searchContainerParams);*/
 
         searchFly = $(R.id.dash_editText);
         searchFly.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
@@ -105,7 +113,7 @@ public class DashboardFragment extends HomeFragment implements View.OnClickListe
                 return false;
             }
         });
-
+/*
         Rect rectangle= new Rect();
         Window window= getBaseActivity().getWindow();
         window.getDecorView().getWindowVisibleDisplayFrame(rectangle);
@@ -114,6 +122,7 @@ public class DashboardFragment extends HomeFragment implements View.OnClickListe
 
         banner = $(R.id.dashboard_banner);
         banner.setBannerInterface(this);
+        */
     }
 
     private void configWeather() {
@@ -154,6 +163,17 @@ public class DashboardFragment extends HomeFragment implements View.OnClickListe
             case R.id.dash_llegadas_container:
                 getHomeActivity().changeFragment(FlightsFragment.newInstance(FlightsFragment.EXTRA_LLEGADAS));
                 break;
+            case R.id.social_facebook:
+                startActivity(getOpenFacebookIntent());
+                break;
+            case R.id.social_twitter:
+                openTwitterIntent();
+            case R.id.social_instagram:
+                openInstagramTwitter();
+                break;
+            case R.id.social_threads:
+                openThreadsTwitter();
+                break;
         }
     }
 
@@ -169,6 +189,7 @@ public class DashboardFragment extends HomeFragment implements View.OnClickListe
     public void onBannerSizeChanged(int height) {
         super.onBannerSizeChanged(height);
         if (getBaseActivity() != null) {
+            /*
             LinearLayout weatherContainer = $(R.id.dashboard_container);
             Rect rectangle= new Rect();
             Window window= getBaseActivity().getWindow();
@@ -187,6 +208,7 @@ public class DashboardFragment extends HomeFragment implements View.OnClickListe
 
             weatherContainer.startAnimation(a);
             bannerHeight = height;
+            */
         }
     }
 
@@ -209,6 +231,51 @@ public class DashboardFragment extends HomeFragment implements View.OnClickListe
     @Override
     public void onChange(Object element) {
         configWeather();
+    }
+
+    private Intent getOpenFacebookIntent() {
+        try {
+            requireActivity(). getPackageManager()
+                    .getPackageInfo("com.facebook.katana", 0); //Checks if FB is even installed.
+            return new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("fb://page/1199933116700243")); //Trys to make intent with FB's URI
+        } catch (Exception e) {
+            return new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("https://www.facebook.com/Aeropuerto-Santiago-AMB-Nuevo-Pudahuel-1199933116700243")); //catches and opens a url to the desired page
+        }
+    }
+
+    private void openTwitterIntent() {
+        try {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("twitter://user?screen_name=NuevoPudahuel")));
+        }catch (Exception e) {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://twitter.com/#!/NuevoPudahuel")));
+        }
+    }
+
+    private void openInstagramTwitter() {
+
+        String kInstagramProfile = "aeropuertosantiago";
+
+        Uri uri = Uri.parse("http://instagram.com/_u/" + kInstagramProfile);
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        intent.setPackage("com.instagram.android");
+
+        try {
+           startActivity(intent);
+        }catch (ActivityNotFoundException e) {
+
+            // Fallback to browser
+            Intent webIntent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("https://instagram.com/" + kInstagramProfile));
+            startActivity(webIntent);
+        }
+
+    }
+
+    private void openThreadsTwitter() {
+        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.threads.com/@aeropuertosantiago")));
+
     }
 
     public class ResizeAnimation extends Animation {
@@ -259,5 +326,6 @@ public class DashboardFragment extends HomeFragment implements View.OnClickListe
             return false;
         }
     }
+
 
 }

@@ -30,8 +30,17 @@ public class FlightsController {
     private FlightsController() {
     }
 
-    public void requestArrivals(final PudahuelApplication application, final RestCallback<List<FlightResponse>> callback) {
-        application.getService().getArrivals(UserController.getInstance().getFlightsAPIToken(application), new RestCallback<List<FlightResponse>>() {
+    public void requestArrivals(final PudahuelApplication application,
+                                final RestCallback<List<FlightResponse>> callback) {
+
+
+        final String limit = "3000";
+        final String page = "0";
+        final String direction = "asc";
+        final String sortby = "scheduled";
+
+         application.getService().getArrivals(UserController.getInstance().getFlightsAPIToken(application), limit, page, direction, sortby,
+        new RestCallback<List<FlightResponse>>() {
             @Override
             public void failure(RetrofitError error) {
                 super.failure(error);
@@ -47,8 +56,15 @@ public class FlightsController {
         });
     }
 
-    public void requestDepartures(final PudahuelApplication application, final RestCallback<List<FlightResponse>> callback) {
-        application.getService().getDepartures(UserController.getInstance().getFlightsAPIToken(application), new RestCallback<List<FlightResponse>>() {
+    public void requestDepartures(final PudahuelApplication application,
+                                  final RestCallback<List<FlightResponse>> callback) {
+
+        final String limit = "3000";
+        final String page = "0";
+        final String direction = "asc";
+        final String sortby = "scheduled";
+
+        application.getService().getDepartures(UserController.getInstance().getFlightsAPIToken(application),limit, page, direction, sortby, new RestCallback<List<FlightResponse>>() {
             @Override
             public void failure(RetrofitError error) {
                 super.failure(error);
@@ -120,10 +136,12 @@ public class FlightsController {
         long timeStamp = System.currentTimeMillis();
         for (FlightResponse flightResponse : response) {
             Flight flight = flightResponse.toFlight();
-            flight.setArrival(arrivals);
-            flight.setFavorite(favoritesId.contains(flight.getId()));
-            flight.setTimestamp(timeStamp);
-            flights.add(flight);
+            if (flight.getScheduled() != null) {
+                flight.setArrival(arrivals);
+                flight.setFavorite(favoritesId.contains(flight.getId()));
+                flight.setTimestamp(timeStamp);
+                flights.add(flight);
+            }
         }
         realm.beginTransaction();
         realm.copyToRealmOrUpdate(flights);

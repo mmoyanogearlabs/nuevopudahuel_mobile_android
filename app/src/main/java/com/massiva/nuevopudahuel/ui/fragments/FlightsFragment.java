@@ -5,11 +5,14 @@ import android.graphics.Color;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -25,8 +28,10 @@ import com.massiva.nuevopudahuel.controllers.FlightsController;
 import com.massiva.nuevopudahuel.controllers.SyncController;
 import com.massiva.nuevopudahuel.model.Flight;
 import com.massiva.nuevopudahuel.ui.activities.AlertActivity;
+import com.massiva.nuevopudahuel.ui.activities.HomeActivity;
 import com.massiva.nuevopudahuel.ui.adapter.FlightsAdapter;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import io.realm.RealmChangeListener;
@@ -54,6 +59,7 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
     private SwipeRefreshLayout refreshLayout;
     private BannerView banner;
     private boolean searchFromHome;
+    private SeekBar seekBar;
 
     private boolean showNational = true;
 
@@ -85,6 +91,12 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
         salidas = $(R.id.flights_national_container);//$(R.id.flights_salidas_container);
         llegadas = $(R.id.flights_international_container);//$(R.id.flights_llegadas_container);
         origen = $(R.id.flights_origen_button);
+        seekBar = $(R.id.seekBar);
+        Button yesterdayButton = $(R.id.yesterday_button);
+        Button nowButton = $(R.id.now_button);
+        Button todayButton = $(R.id.today_button);
+        Button tomorrowButton = $(R.id.tomorrow_button);
+
         myFlightsTitle = $(R.id.flights_tittle);
 
 
@@ -151,7 +163,7 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
         });
 
         list = $(R.id.flights_list);
-        LinearLayoutManager manager = new LinearLayoutManager(getBaseActivity());
+        LinearLayoutManagerWithSmoothScroller manager = new LinearLayoutManagerWithSmoothScroller(getBaseActivity());
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         list.setLayoutManager(manager);
 
@@ -175,6 +187,52 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
 
         banner = $(R.id.flights_banner);
         banner.setBannerInterface(this);
+
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress,boolean fromUser) {
+                changedSelectedState(progress);
+
+            }
+        });
+
+        yesterdayButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                seekBar.setProgress(0, true);
+            }
+        });
+        nowButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                seekBar.setProgress(1, true);
+            }
+        });
+        todayButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                seekBar.setProgress(2, true);
+            }
+        });
+        tomorrowButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                seekBar.setProgress(3, true);
+            }
+        });
+        changedSelectedState(1);
+
     }
 
     private RealmResults<Flight> configFlights() {
@@ -248,6 +306,7 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
                 showNational = true;
                 //currentScreen = EXTRA_FLIGTHS;
                 refreshList();
+               // seekBar.setProgress(1, true);
                 break;
             case R.id.flights_international_container:
                 salidas.setSelected(false);
@@ -256,6 +315,7 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
                // origen.setText(getText(R.string.homeWaitTimeInternationalTitleKey));
                 //currentScreen = EXTRA_LLEGADAS;
                 refreshList();
+                //seekBar.setProgress(1, true);
                 break;
                 /*
             case R.id.flights_salidas_container:
@@ -277,6 +337,7 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
                 BZUtils.hideKeyboard(getBaseActivity());
                 break;
         }
+        seekBar.setProgress(1, true);
     }
 
     private void refreshList() {
@@ -284,6 +345,136 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
         adapter.setVols(configFlights());
         adapter.notifyDataSetChanged();
         scrollToNextFlight();
+    }
+    private void changedSelectedState(int progress) {
+
+        if (flightsResults.isEmpty()) {
+            return;
+        }
+
+        int position = 0;
+        switch (progress) {
+            case 0:
+                position = indexYesterday();
+                ((LinearLayoutManagerWithSmoothScroller)list.getLayoutManager()).smoothScrollToTopPosition(list,position);
+
+                break;
+            case 1:
+                 position = indexNow();
+                list.smoothScrollToPosition(position);
+
+                break;
+            case 2:
+                 position = indexToday();
+                ((LinearLayoutManagerWithSmoothScroller)list.getLayoutManager()).smoothScrollToTopPosition(list,position);
+
+                break;
+            case 3:
+                position = indexTomorrow();
+                ((LinearLayoutManagerWithSmoothScroller)list.getLayoutManager()).smoothScrollToTopPosition(list,position);
+
+                break;
+            default:
+                break;
+
+        }
+
+    }
+
+
+    private int indexYesterday() {
+        return 0;
+    }
+
+
+    private int indexNow() {
+        int returnValue = 0;
+        Date now = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(now);
+        int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
+        for (int i = 0; i < flightsResults.size(); i++) {
+            Flight flight = flightsResults.get(i);
+            assert flight != null;
+            Date estimated = flight.getEstimated();
+            if (now.getTime() < estimated.getTime()) {
+                break;
+            }else {
+                returnValue = i;
+
+            }
+        }
+        return returnValue;
+    }
+
+    private int indexToday() {
+        int returnValue = 0;
+        Date now = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(now);
+        int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
+        for (int i = 0; i < flightsResults.size(); i++) {
+            Flight flight = flightsResults.get(i);
+            assert flight != null;
+            Date estimated = flight.getEstimated();
+            Calendar calendarEstimated = Calendar.getInstance();
+            calendarEstimated.setTime(estimated);
+            int estimatedDay = calendarEstimated.get(Calendar.DAY_OF_MONTH);
+            returnValue = i;
+
+            if (currentDay == estimatedDay) {
+                break;
+            }
+        }
+        return returnValue;
+    }
+
+
+/*
+    private int indexTomorrow() {
+        int returnValue = 0;
+        Date now = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(now);
+        int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
+        for (int i = 0; i < flightsResults.size(); i++) {
+            Flight flight = flightsResults.get(i);
+            assert flight != null;
+            Date estimated = flight.getEstimated();
+            Calendar calendarEstimated = Calendar.getInstance();
+            calendarEstimated.setTime(estimated);
+            int estimatedDay = calendarEstimated.get(Calendar.DAY_OF_MONTH);
+            returnValue += 1;
+            if (currentDay != estimatedDay) {
+                returnValue += 1;
+                break;
+            }
+        }
+        return returnValue > 1 ? returnValue - 2 : (Math.min(returnValue, 0));
+    }
+    */
+
+    private int indexTomorrow() {
+        int returnValue = 0;
+        Date now = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(now);
+        calendar.add(Calendar.DATE, 1);
+        int dayTomorrow = calendar.get(Calendar.DAY_OF_MONTH);
+        for (int i = 0; i < flightsResults.size(); i++) {
+            Flight flight = flightsResults.get(i);
+            assert flight != null;
+            Date estimated = flight.getEstimated();
+            Calendar calendarEstimated = Calendar.getInstance();
+            calendarEstimated.setTime(estimated);
+            int estimatedDay = calendarEstimated.get(Calendar.DAY_OF_MONTH);
+            returnValue = i;
+
+            if (dayTomorrow == estimatedDay) {
+                break;
+            }
+        }
+        return returnValue;
     }
 
     @Override
@@ -321,3 +512,5 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
         adapter.notifyDataSetChanged();
     }
 }
+
+

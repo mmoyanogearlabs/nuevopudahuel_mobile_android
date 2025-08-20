@@ -14,6 +14,9 @@ import android.os.Build;
 import android.os.Environment;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
+
 import android.text.Html;
 import android.text.Spanned;
 import android.text.TextUtils;
@@ -27,6 +30,7 @@ import com.bzutils.LogBZ;
 import com.facebook.share.model.SharePhoto;
 import com.facebook.share.model.SharePhotoContent;
 import com.facebook.share.widget.ShareDialog;
+import com.massiva.nuevopudahuel.BuildConfig;
 import com.massiva.nuevopudahuel.R;
 import com.massiva.nuevopudahuel.api.RestCallback;
 import com.massiva.nuevopudahuel.api.response.FavoritesResponse;
@@ -39,6 +43,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 
 import io.realm.RealmChangeListener;
@@ -49,6 +54,8 @@ import retrofit.client.Response;
  * Created by moddity on 8/3/16.
  */
 public class AlertActivity extends BaseActivity implements View.OnClickListener, RealmChangeListener {
+
+    private static final Integer PERMISSION_CODE = 10000;
 
     public static final String EXTRA_FLIGHT = "EXTRA_FLIGHT";
 
@@ -63,6 +70,8 @@ public class AlertActivity extends BaseActivity implements View.OnClickListener,
     private String flightId = null;
 
     private String flightsDetailShareImageUri = null;
+
+    private String[] requiredPermissionList = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
 
     @Override
     protected int getLayoutResource() {
@@ -198,8 +207,25 @@ public class AlertActivity extends BaseActivity implements View.OnClickListener,
     }
 
     private void showChooserPicker(final String[] values) {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        File file = saveFlightDetailImage(flightDetail.getDrawingCache());
+        Uri uri = FileProvider.getUriForFile(getApplicationContext(), BuildConfig.APPLICATION_ID + ".fileprovider", file);
+
+        Intent sendIntent = new Intent();
+//        sendIntent.setAction(Intent.ACTION_SEND_MULTIPLE);
+        sendIntent.setAction(Intent.ACTION_SEND);
+
+        sendIntent.putExtra(Intent.EXTRA_TEXT,getTextToShare());
+
+        //sendIntent.setType("text/plain");
+        sendIntent.putExtra(Intent.EXTRA_STREAM, uri);
+        sendIntent.setType("image/*");
+
+        Intent shareIntent = Intent.createChooser(sendIntent, null);
+        startActivity(shareIntent);
+
+/*
         builder.setSingleChoiceItems(values, -1, new DialogInterface.OnClickListener() {
 
             @Override
@@ -219,6 +245,8 @@ public class AlertActivity extends BaseActivity implements View.OnClickListener,
             }
         });
         builder.create().show();
+        */
+
     }
 
     private void shareViaEmail(Spanned htmlBody) {
@@ -231,14 +259,37 @@ public class AlertActivity extends BaseActivity implements View.OnClickListener,
 
     private void shareViaTwitter() {
         try {
+
+            File file = saveFlightDetailImage(flightDetail.getDrawingCache());
+            Uri uri = FileProvider.getUriForFile(getApplicationContext(), BuildConfig.APPLICATION_ID + ".fileprovider", file);
+
+
+            Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_SEND);
+            intent.putExtra(Intent.EXTRA_TEXT,getTextToShare());
+            intent.setType("text/plain");
+            intent.putExtra(Intent.EXTRA_STREAM, uri);
+            intent.setType("image/jpeg");
+            intent.setPackage("com.twitter.android");
+            startActivity(intent);
+
+            /*
+
             Intent intent = new Intent(Intent.ACTION_SEND);
             intent.setType("/*");
             intent.setClassName("com.twitter.android", "com.twitter.android.composer.ComposerActivity");
             intent.putExtra(Intent.EXTRA_TEXT, getTextToShare());
-            intent.putExtra(Intent.EXTRA_STREAM, Uri.parse(saveFlightDetailImage(flightDetail.getDrawingCache())));
+
+            File file = saveFlightDetailImage(flightDetail.getDrawingCache());
+            Uri uri = FileProvider.getUriForFile(getApplicationContext(), BuildConfig.APPLICATION_ID + ".fileprovider", file);
+
+            intent.putExtra(Intent.EXTRA_STREAM, uri);
             startActivity(intent);
 
+            */
+
         } catch (final ActivityNotFoundException e) {
+            e.printStackTrace();
             Toast.makeText(this, "You don't seem to have twitter installed on this device", Toast.LENGTH_SHORT).show();
         }
     }
@@ -261,9 +312,12 @@ public class AlertActivity extends BaseActivity implements View.OnClickListener,
         }
     }
 
-    private String saveFlightDetailImage(Bitmap bitmap) {
+    private File saveFlightDetailImage(Bitmap bitmap) {
         long timestamp = new Date().getTime() / 1000;
-        String filePath = Environment.getExternalStorageDirectory() + "/NuevoPudahuel/";
+
+        String filePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)+ "/";
+
+       // String filePath = getExternalFilesDir(Environment.DIRECTORY_DCIM) + "/";
         FileOutputStream out = null;
         try {
             File file = new File(filePath);
@@ -289,7 +343,8 @@ public class AlertActivity extends BaseActivity implements View.OnClickListener,
                         }
 
                     });
-            return "file://" + finalFile.getPath();
+            return  finalFile;
+            //return "file://" + finalFile.getPath();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -308,11 +363,10 @@ public class AlertActivity extends BaseActivity implements View.OnClickListener,
                 configFavorito();
                 break;
             case R.id.btn_alerta_compartir:
-                if (getPudahuelApplication().isPermissionGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                if (checkAndRequestPermission()) {
                     saveImage();
-                } else if (Build.VERSION.SDK_INT >= 23) {
-                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 11);
                 }
+
                 break;
         }
     }
@@ -320,7 +374,7 @@ public class AlertActivity extends BaseActivity implements View.OnClickListener,
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == 11) {
+        if (requestCode == PERMISSION_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 saveImage();
             } else {
@@ -332,8 +386,8 @@ public class AlertActivity extends BaseActivity implements View.OnClickListener,
     private void saveImage() {
         LinearLayout flightContainer = $(R.id.alerta_flight_layout);
         flightContainer.setDrawingCacheEnabled(true);
-        flightsDetailShareImageUri = saveFlightDetailImage(flightContainer.getDrawingCache());
-        if (flightsDetailShareImageUri != null)
+        File file = saveFlightDetailImage(flightContainer.getDrawingCache());
+        if (file != null)
             showChooserPicker(new String[]{getString(R.string.flightDetailShareEmailTitleKey), getString(R.string.flightDetailShareFacebookTitleKey),
                     getString(R.string.flightDetailShareTwitterTitleKey)});
     }
@@ -348,4 +402,24 @@ public class AlertActivity extends BaseActivity implements View.OnClickListener,
     public void onChange(Object element) {
         configFlight();
     }
+
+    private Boolean checkAndRequestPermission()  {
+
+        ArrayList<String> permissionsNeeded = new ArrayList<>();
+
+        for (String permission : requiredPermissionList) {
+            if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
+                permissionsNeeded.add(permission);
+            }
+        }
+
+        if (permissionsNeeded.size() < requiredPermissionList.length) {
+            ActivityCompat.requestPermissions(this, requiredPermissionList, PERMISSION_CODE);
+            return false;
+        }
+
+        return true;
+
+    }
+
 }

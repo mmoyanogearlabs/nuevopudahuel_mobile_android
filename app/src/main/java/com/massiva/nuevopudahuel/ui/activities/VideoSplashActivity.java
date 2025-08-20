@@ -46,6 +46,9 @@ public class VideoSplashActivity extends BaseActivity implements MediaPlayer.OnC
         int month = calendar.get(Calendar.MONTH);
         int year = calendar.get(Calendar.YEAR);
 
+        startActivity(new Intent(this, HomeActivity.class));
+        finish();
+        /*
         if ((month == Calendar.FEBRUARY || month == Calendar.MARCH) && year == 2022) {
             Intent intent = new Intent(this, SocialStartUpActivity.class);
             startActivity(intent);
@@ -58,5 +61,6 @@ public class VideoSplashActivity extends BaseActivity implements MediaPlayer.OnC
             startActivity(intent);
             finish();
         }
+        */
     }
 }

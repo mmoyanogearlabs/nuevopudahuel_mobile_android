@@ -86,6 +86,7 @@ public class SyncController {
     }
 
     private void syncArrivals(final PudahuelApplication application) {
+
         FlightsController.getInstance().requestArrivals(application, new RestCallback<List<FlightResponse>>() {
             @Override
             public void failure(RetrofitError error) {
@@ -102,6 +103,7 @@ public class SyncController {
     }
 
     private void syncDepartures(final PudahuelApplication application) {
+
         FlightsController.getInstance().requestDepartures(application, new RestCallback<List<FlightResponse>>() {
             @Override
             public void failure(RetrofitError error) {
@@ -118,6 +120,10 @@ public class SyncController {
     }
 
     private void syncFavorites(final PudahuelApplication application) {
+
+
+
+
         FlightsController.getInstance().requestFavorites(application, new RestCallback<FavoritesResponse>() {
             @Override
             public void failure(RetrofitError error) {

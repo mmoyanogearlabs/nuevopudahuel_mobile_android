@@ -1,24 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     tools:ignore="MissingPrefix">
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/padding_10"
-            android:paddingTop="@dimen/padding_10"
-            android:id="@+id/menu_cell">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/padding_10"
+        android:paddingTop="@dimen/padding_10"
+        android:id="@+id/menu_cell">
 
-            <ImageView
-                android:layout_width="@dimen/padding_50"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:id="@+id/menu_image" />
+        <ImageView
+            android:layout_width="@dimen/padding_50"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:id="@+id/menu_image"
+            app:tint="@color/blue" />
 
             <TextView
                 fontPath="@string/avenir_medium"

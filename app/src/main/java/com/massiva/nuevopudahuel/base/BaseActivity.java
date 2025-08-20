@@ -69,7 +69,6 @@ public abstract class BaseActivity extends AppCompatActivity implements SyncCont
         super.onResume();
         if (!(this instanceof SplashActivity) && !(this instanceof VideoSplashActivity))
             SyncController.getInstance().setOnSyncListener(this);
-        AppEventsLogger.activateApp(this);
     }
 
     @Override

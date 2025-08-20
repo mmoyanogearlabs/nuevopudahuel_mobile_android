@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:text="@string/menuOptionFlightsTitleKey"
             android:textSize="@dimen/textSize20"
-            android:textColor="@color/softBlue"
+            android:textColor="@color/blue"
             android:layout_centerInParent="true"
             android:id="@+id/flights_tittle"/>
 
@@ -43,7 +43,8 @@
             android:layout_centerVertical="true"
             android:id="@+id/home_menu_button"
             android:layout_alignParentRight="true"
-            android:padding="@dimen/padding_10"/>
+            android:padding="@dimen/padding_10"
+            app:tint="@color/blue" />
 
     </RelativeLayout>
 
@@ -56,27 +57,29 @@
         android:layout_below="@+id/flights_header_container">
 
         <EditText
+            android:id="@+id/flights_editText"
             fontPath="@string/avenir_roman"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/padding_5"
+            android:layout_marginRight="@dimen/padding_10"
+            android:layout_toLeftOf="@+id/flights_search"
             android:background="@android:color/transparent"
             android:hint="@string/homeSearchFlightPlaceholderTextKey"
-            android:textSize="@dimen/textSize15"
-            android:layout_marginLeft="@dimen/padding_5"
             android:padding="@dimen/padding_5"
             android:singleLine="true"
-            android:id="@+id/flights_editText"
-            android:layout_marginRight="@dimen/padding_10"
-            android:layout_toLeftOf="@+id/flights_search"/>
+            android:textSize="@dimen/textSize15" />
 
         <ImageButton
+            android:id="@+id/flights_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:background="@drawable/iconlupa"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/padding_10"
-            android:id="@+id/flights_search"/>
+            android:background="@android:color/transparent"
+            android:src="@drawable/iconlupa"
+            app:tint="@color/blue" />
 
     </RelativeLayout>
 
@@ -95,19 +98,19 @@
         android:id="@+id/flights_a">
 
         <LinearLayout
-            android:orientation="horizontal"
+            android:id="@+id/flights_national_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/btn_flights_selector"
-            android:id="@+id/flights_national_container"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="bottom">
+                android:gravity="bottom"
+                android:orientation="horizontal">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -128,19 +131,19 @@
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="horizontal"
+            android:id="@+id/flights_international_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/btn_flights_selector"
-            android:id="@+id/flights_international_container"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="horizontal">
 
             <LinearLayout
-                android:orientation="horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="bottom">
+                android:gravity="bottom"
+                android:orientation="horizontal">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -155,17 +158,124 @@
                     android:text="@string/homeWaitTimeInternationalTitleKey"
                     android:textSize="@dimen/textSize16" />
 
-               </LinearLayout>
-
-           </LinearLayout>
+            </LinearLayout>
 
         </LinearLayout>
+
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/PUD_YELLOW_COLOR_TEXT_HEADER">
+
+            <LinearLayout
+
+                android:id="@+id/date_flights_menu"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <Button
+                    android:id="@+id/yesterday_button"
+                    fontPath="@string/economica_bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:text="@string/yesterday"
+                    android:textAllCaps="false"
+                    android:textSize="16sp"
+                    android:visibility="visible" />
+
+                <Button
+                    android:id="@+id/now_button"
+                    fontPath="@string/economica_bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:text="@string/now"
+                    android:textAllCaps="false"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/today_button"
+                    fontPath="@string/economica_bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:text="@string/today"
+
+                    android:textAllCaps="false"
+                    android:textSize="16sp" />
+
+
+                <Button
+                    android:id="@+id/tomorrow_button"
+                    fontPath="@string/economica_bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:text="@string/tomorrow"
+                    android:textAllCaps="false"
+                    android:textSize="16sp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="0dp"
+                android:layout_height="20dp"
+                android:orientation="horizontal"
+                android:weightSum="9"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                </FrameLayout>
+
+                <SeekBar
+                    android:id="@+id/seekBar"
+                    style="@style/Seekbar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="7"
+                    android:alpha="1"
+                    android:indeterminate="false"
+                    android:max="3"
+                    android:maxHeight="2dp"
+                    android:minHeight="2dp"
+                    android:progress="1"
+                    android:progressDrawable="@drawable/progress_drawable"
+                    android:thumbTint="@color/red" />
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                </FrameLayout>
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:background="#313030"
+            android:background="#021D49"
             android:id="@+id/flights_menu">
 
             <TextView

@@ -79,8 +79,9 @@ public class FlightsAdapter extends RecyclerView.Adapter<FlightsAdapter.ViewHold
 
     @Override
     public int getItemCount() {
-       if (vols != null) return vols.size();
-           return 0;
+       if (vols != null)
+           return vols.size();
+       return 0;
     }
 
     public void setVols(RealmResults<Flight> vols){

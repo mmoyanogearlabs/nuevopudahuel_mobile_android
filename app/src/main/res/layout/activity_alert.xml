@@ -28,7 +28,7 @@
                 android:id="@+id/alert_btnback"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
-                 />
+                app:tint="@color/blue" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -119,13 +119,13 @@
                         android:gravity="center">
 
                         <TextView
-                            fontPath="@string/economica_bold"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/white"
-                            android:textSize="18sp"
                             android:id="@+id/alerta_destination"
-                            android:gravity="center"/>
+                            fontPath="@string/economica_bold"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+                            android:textSize="18sp" />
 
                     </LinearLayout>
 
@@ -136,7 +136,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:id="@+id/alerta_subtitle"
-                    android:background="@color/softBlue"
+                    android:background="@color/blue"
                     android:paddingTop="@dimen/padding_1"
                     android:paddingBottom="@dimen/padding_1"
                     android:paddingLeft="@dimen/padding_15"
@@ -266,32 +266,33 @@
             </LinearLayout>
 
             <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/padding_3"
-                android:background="@drawable/btn_alerta_selector"
                 android:id="@+id/btn_alerta_btncrear"
-                android:layout_gravity="center_horizontal">
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="@dimen/padding_3"
+                android:background="@drawable/btn_alerta_selector">
 
                 <TextView
+                    android:id="@+id/alerta_create_text"
                     fontPath="@string/avenir_roman"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/flightDetailCreateAlertTitleKey"
-                    android:textColor="@color/white"
-                    android:layout_centerVertical="true"
                     android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/padding_15"
-                    android:id="@+id/alerta_create_text" />
+                    android:text="@string/flightDetailCreateAlertTitleKey"
+                    android:textColor="@color/white" />
 
                 <ImageView
+                    android:id="@+id/alerta_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/iconalertahome"
                     android:layout_centerVertical="true"
-                    android:id="@+id/alerta_icon"
                     android:layout_marginLeft="@dimen/padding_10"
-                    android:layout_toRightOf="@+id/alerta_create_text" />
+                    android:layout_marginRight="@dimen/padding_15"
+                    android:layout_toRightOf="@+id/alerta_create_text"
+                    android:src="@drawable/iconalertahome" />
 
             </RelativeLayout>
 
@@ -319,6 +320,7 @@
                     android:src="@drawable/btniconcompartir"
                     android:layout_gravity="center_vertical"
                     android:layout_marginRight="@dimen/padding_10"
+                    android:tint="@color/blue"
                     android:id="@+id/alerta_iconcomp" />
 
             </LinearLayout>

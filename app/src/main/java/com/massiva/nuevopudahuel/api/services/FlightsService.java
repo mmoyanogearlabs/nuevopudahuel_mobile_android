@@ -17,6 +17,7 @@ import retrofit.http.GET;
 import retrofit.http.Header;
 import retrofit.http.POST;
 import retrofit.http.Path;
+import retrofit.http.Query;
 
 /**
  * Created by iaguila on 02/02/2016.
@@ -31,11 +32,21 @@ public interface FlightsService {
     @GET("/weather")
     void getWeather(@Header(HEADER_AUTHORIZATION) String token, RestCallback<WeatherResponse> callback);
 
-    @GET("/arrivals")
-    void getArrivals(@Header(HEADER_AUTHORIZATION) String token, RestCallback<List<FlightResponse>> callback);
+    @GET("/arrivals/pageYesterday")
+    void getArrivals(@Header(HEADER_AUTHORIZATION) String token,
+                     @Query("limit") String limit,
+                     @Query("page") String page,
+                     @Query("direction") String direction,
+                     @Query("sortby") String sortby,
+                     RestCallback<List<FlightResponse>> callback);
 
-    @GET("/departures")
-    void getDepartures(@Header(HEADER_AUTHORIZATION) String token, RestCallback<List<FlightResponse>> callback);
+    @GET("/departures/pageYesterday")
+    void getDepartures(@Header(HEADER_AUTHORIZATION) String token,
+                       @Query("limit") String limit,
+                       @Query("page") String page,
+                       @Query("direction") String direction,
+                       @Query("sortby") String sortby,
+                       RestCallback<List<FlightResponse>> callback);
 
     @GET("/subscriptions")
     void getFavorites(@Header(HEADER_AUTHORIZATION) String token, RestCallback<FavoritesResponse> callback);

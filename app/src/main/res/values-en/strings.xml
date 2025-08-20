@@ -108,4 +108,11 @@
     <string name="T1TerminalTitle">T1 (old terminal)</string>
     <string name="T2TerminalTitle">T2 (new terminal)</string>
     <string name="next">next</string>
+
+
+    <string name="today">Today</string>
+    <string name="now">Now</string>
+    <string name="yesterday">Yesterday</string>
+    <string name="tomorrow">Tomorrow</string>
+
 </resources>

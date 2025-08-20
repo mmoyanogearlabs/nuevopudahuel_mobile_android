@@ -99,7 +99,7 @@ public class SocialStartUpActivity extends BaseActivity implements View.OnClickL
     }
 
     private void openInstagramTwitter() {
-        Uri uri = Uri.parse("http://instagram.com/aeropuertodesantiago");
+        Uri uri = Uri.parse("https://www.instagram.com/aeropuertosantiago/?utm_source=qr&igsh=MTgyczFjdWJxemdmag%3D%3D#");
         Intent likeIng = new Intent(Intent.ACTION_VIEW, uri);
 
         likeIng.setPackage("com.instagram.android");
@@ -108,7 +108,7 @@ public class SocialStartUpActivity extends BaseActivity implements View.OnClickL
             startActivity(likeIng);
         } catch (ActivityNotFoundException e) {
             startActivity(new Intent(Intent.ACTION_VIEW,
-                    Uri.parse("http://instagram.com/aeropuertodesantiago")));
+                    Uri.parse("https://www.instagram.com/aeropuertosantiago/?utm_source=qr&igsh=MTgyczFjdWJxemdmag%3D%3D#")));
         }
     }
 
