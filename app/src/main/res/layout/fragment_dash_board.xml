@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/backgroundhome">
+    android:background="@color/blue">
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -18,6 +18,7 @@
         app:tint="@color/white" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
@@ -54,21 +55,21 @@
 
                 <TextView
                     android:id="@+id/dashboard_weather_text"
+                    fontPath="@string/avenir_book"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/padding_10"
                     android:layout_toRightOf="@+id/dashboard_weather_icon"
-                    fontPath="@string/avenir_book"
                     android:textColor="@color/white"
                     android:textSize="@dimen/textSize75" />
 
                 <TextView
                     android:id="@+id/dashboard_weather_degrees"
+                    fontPath="@string/avenir_book"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/padding_10"
                     android:layout_toRightOf="@+id/dashboard_weather_text"
-                    fontPath="@string/avenir_book"
                     android:text="º"
                     android:textColor="@color/white"
                     android:textSize="@dimen/textSize30" />
@@ -93,12 +94,12 @@
 
             <TextView
                 android:id="@+id/social_title"
+                fontPath="@string/avenir_medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="2dp"
-                fontPath="@string/avenir_medium"
                 android:text="@string/initialTitleKey"
                 android:textSize="@dimen/textSize20"
                 app:layout_constraintBottom_toTopOf="@+id/social_subTitle"
@@ -194,11 +195,11 @@
 
                 <EditText
                     android:id="@+id/dash_editText"
+                    fontPath="@string/avenir_roman"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_toLeftOf="@+id/dash_icon_lupa"
                     android:background="@android:color/transparent"
-                    fontPath="@string/avenir_roman"
                     android:gravity="center_vertical"
                     android:hint="@string/homeSearchFlightPlaceholderTextKey"
                     android:paddingLeft="@dimen/padding_20"
@@ -226,6 +227,7 @@
 
                 <TextView
                     android:id="@+id/dashboard_myflights_text"
+                    fontPath="@string/economica_bold"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_marginStart="@dimen/padding_10"
@@ -233,7 +235,6 @@
                     android:layout_toStartOf="@+id/dash_img_myflights"
                     android:layout_toLeftOf="@+id/dash_img_myflights"
                     android:autoSizeTextType="uniform"
-                    fontPath="@string/economica_bold"
                     android:gravity="center"
                     android:text="@string/homeMyFlightsButtonTitleKey"
                     android:textColor="@color/white"
@@ -288,10 +289,10 @@
 
                     <TextView
                         android:id="@+id/textView"
+                        fontPath="@string/economica_bold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/padding_10"
-                        fontPath="@string/economica_bold"
                         android:text="@string/homeDepartureButtonTitleKey"
                         android:textSize="16sp" />
 
@@ -320,10 +321,10 @@
                         android:background="@drawable/btniconllegadasvuelos" />
 
                     <TextView
+                        fontPath="@string/economica_bold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/padding_10"
-                        fontPath="@string/economica_bold"
                         android:text="@string/homeArribalButtonTitleKey"
                         android:textSize="@dimen/textSize16" />
 
@@ -335,6 +336,21 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <ImageView
+        android:id="@+id/logoIv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/constraintLayout"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/logo_nuevo" />
 
     <!--
         <RelativeLayout

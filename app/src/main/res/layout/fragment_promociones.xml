@@ -13,14 +13,14 @@
         android:id="@+id/flights_header_container">
 
         <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/iconbarhome"
-            android:background="@android:color/transparent"
-            android:layout_centerVertical="true"
             android:id="@+id/bar_home_button"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:scaleType="matrix"
+            android:background="@drawable/iconbarhome"
             android:layout_alignParentLeft="true"
-            android:padding="@dimen/padding_10"/>
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp" />
 
         <TextView
             fontPath="@string/avenir_roman"

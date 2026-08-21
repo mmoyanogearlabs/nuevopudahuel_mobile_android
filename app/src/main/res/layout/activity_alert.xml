@@ -33,9 +33,9 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
                 android:src="@drawable/logonavbar"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"/>
+                android:visibility="invisible" />
 
         </RelativeLayout>
 
@@ -75,48 +75,49 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:id="@+id/alerta_flight_layout">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#313030"
+                    android:background="@color/blue"
                     android:padding="@dimen/padding_3">
 
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:layout_marginRight="@dimen/padding_15"
-                        android:orientation="vertical"
                         android:layout_gravity="center_vertical"
-                        android:gravity="center">
+                        android:layout_marginRight="@dimen/padding_15"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/alerta_origin"
                             fontPath="@string/economica_bold"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:gravity="center"
                             android:text="SSL"
                             android:textColor="#FFFFFF"
-                            android:textSize="18sp"
-                            android:id="@+id/alerta_origin"
-                            android:gravity="center"/>
+                            android:textSize="18sp" />
 
                     </LinearLayout>
 
                     <ImageView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:layout_weight="1"
-                        android:src="@drawable/iconavionalerta"
-                        android:layout_gravity="center"/>
+                        android:src="@drawable/iconavionalerta" />
 
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:orientation="vertical"
-                        android:layout_marginLeft="@dimen/padding_15"
                         android:layout_gravity="center_vertical"
-                        android:gravity="center">
+                        android:layout_marginLeft="@dimen/padding_15"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:orientation="vertical">
 
                         <TextView
                             android:id="@+id/alerta_destination"

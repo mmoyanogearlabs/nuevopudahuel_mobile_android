@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Aeropuerto AMB</string>
+    <string name="app_name">Aeropuerto Santiago de Chile</string>
     <string name="welcomScreenTitle">Bienvenidos/as al Aeropuerto de Santiago</string>
     <string name="internationalFlightsTitle">Vuelos internacionales:</string>
     <string name="nationalFlightsTitle">Vuelos nacionales:</string>

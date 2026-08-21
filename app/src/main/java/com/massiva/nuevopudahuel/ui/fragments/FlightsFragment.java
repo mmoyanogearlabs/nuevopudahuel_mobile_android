@@ -2,6 +2,7 @@ package com.massiva.nuevopudahuel.ui.fragments;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -134,6 +136,12 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
             myFlightsTitle.setText(getText(R.string.homeDepartureButtonTitleKey));
         }
 
+
+        ((TextView)$(R.id.flights_national_title)).setTextColor(Color.WHITE);
+        ((TextView)$(R.id.flights_international_title)).setTextColor(Color.BLACK);
+        ((ImageView)$(R.id.flights_national_image)).setColorFilter(Color.WHITE);
+        ((ImageView)$(R.id.flights_international_image)).setColorFilter(Color.BLACK);
+
         flights.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
         flights.setOnEditorActionListener(new TextView.OnEditorActionListener(){
             @Override
@@ -206,6 +214,9 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
 
             }
         });
+
+        seekBar.getProgressDrawable().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
+
 
         yesterdayButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -302,6 +313,11 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
             case R.id.flights_national_container:
                 salidas.setSelected(true);
                 llegadas.setSelected(false);
+                ((TextView)$(R.id.flights_national_title)).setTextColor(Color.WHITE);
+                ((TextView)$(R.id.flights_international_title)).setTextColor(Color.BLACK);
+                ((ImageView)$(R.id.flights_national_image)).setColorFilter(Color.WHITE);
+                ((ImageView)$(R.id.flights_international_image)).setColorFilter(Color.BLACK);
+
                 //origen.setText(getText(R.string.homeWaitTimeNationalTitleKey));
                 showNational = true;
                 //currentScreen = EXTRA_FLIGTHS;
@@ -311,6 +327,11 @@ public class FlightsFragment extends HomeFragment implements View.OnClickListene
             case R.id.flights_international_container:
                 salidas.setSelected(false);
                 llegadas.setSelected(true);
+                ((TextView)$(R.id.flights_national_title)).setTextColor(Color.BLACK);
+                ((TextView)$(R.id.flights_international_title)).setTextColor(Color.WHITE);
+                ((ImageView)$(R.id.flights_national_image)).setColorFilter(Color.BLACK);
+                ((ImageView)$(R.id.flights_international_image)).setColorFilter(Color.WHITE);
+
                 showNational = false;
                // origen.setText(getText(R.string.homeWaitTimeInternationalTitleKey));
                 //currentScreen = EXTRA_LLEGADAS;
