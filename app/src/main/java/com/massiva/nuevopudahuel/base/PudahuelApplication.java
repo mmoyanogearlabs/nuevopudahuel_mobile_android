@@ -103,7 +103,7 @@ public class PudahuelApplication extends MultiDexApplication {
                 .addInterceptor(new CalligraphyInterceptor(
                         new CalligraphyConfig.Builder()
                                 .setDefaultFontPath(getResources().getString(R.string.khand_regular))
-                                .setFontAttrId(R.attr.fontPath)
+                                .setFontAttrId(io.github.inflationx.calligraphy3.R.attr.fontPath)
                                 .build()))
                 .build());
     }

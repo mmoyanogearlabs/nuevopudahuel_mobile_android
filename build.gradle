@@ -1,18 +1,19 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript { 
-    ext.kotlin_version = '1.6.10'
+    ext.kotlin_version = '1.9.22'
 
     repositories {
         google()
+        mavenCentral()
         jcenter()
         maven {
             url 'https://artifactory.appodeal.com/appodeal-public/'
         }
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:7.4.2"
-        classpath "io.realm:realm-gradle-plugin:10.13.3-transformer-api"
+        classpath "com.android.tools.build:gradle:8.2.1"
+        classpath "io.realm:realm-gradle-plugin:10.19.0"
         classpath 'com.google.gms:google-services:4.3.15'
         classpath 'com.google.firebase:firebase-crashlytics-gradle:2.8.1'
 
