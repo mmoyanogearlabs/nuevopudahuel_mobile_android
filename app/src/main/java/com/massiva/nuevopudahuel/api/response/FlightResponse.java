@@ -45,7 +45,6 @@ public class FlightResponse extends BaseResponse {
         flight.setFlightCode(flightCode);
         flight.setBelt(belt);
         flight.setStatusText(statusText);
-        flight.setArrival(origin != null);
         flight.setMainFlightCode(mainFlightCode);
         flight.setGate(gate);
         return flight;

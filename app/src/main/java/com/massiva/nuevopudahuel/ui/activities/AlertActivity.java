@@ -12,8 +12,9 @@ import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.util.Log;
 import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
+import androidx.core.app.ActivityCompat;    
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
@@ -46,6 +47,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
+import io.realm.Case;
 import io.realm.RealmChangeListener;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -78,24 +80,105 @@ public class AlertActivity extends BaseActivity implements View.OnClickListener,
         return R.layout.activity_alert;
     }
 
+    private Flight findFlight(String flightId) {
+        if (flightId == null || flightId.trim().isEmpty()) {
+            Log.d("FCM_DEBUG", "AlertActivity.findFlight: empty flight id received");
+            return null;
+        }
+        String cleanId = flightId.trim();
+        Log.d("FCM_DEBUG", "AlertActivity.findFlight: attempting lookup for flightId='" + cleanId + "'");
+
+        Flight flight = getRealm().where(Flight.class).equalTo("id", cleanId).findFirst();
+        if (flight != null) {
+            Log.d("FCM_DEBUG", "AlertActivity.findFlight: matched by id='" + cleanId + "'");
+            return flight;
+        }
+
+        flight = getRealm().where(Flight.class).equalTo("flightCode", cleanId, Case.INSENSITIVE).findFirst();
+        if (flight != null) {
+            Log.d("FCM_DEBUG", "AlertActivity.findFlight: matched by flightCode='" + cleanId + "'");
+            return flight;
+        }
+
+        flight = getRealm().where(Flight.class).equalTo("mainFlightCode", cleanId, Case.INSENSITIVE).findFirst();
+        if (flight != null) {
+            Log.d("FCM_DEBUG", "AlertActivity.findFlight: matched by mainFlightCode='" + cleanId + "'");
+            return flight;
+        }
+
+        String formattedInput = cleanId.replaceAll("\\s+", "");
+        try {
+            io.realm.RealmResults<Flight> allFlights = getRealm().where(Flight.class).findAll();
+            for (Flight f : allFlights) {
+                if (f.getFlightCode() != null) {
+                    String storedCode = f.getFlightCode().replaceAll("\\s+", "");
+                    if (storedCode.equalsIgnoreCase(formattedInput)) {
+                        Log.d("FCM_DEBUG", "AlertActivity.findFlight: matched normalized flightCode='" + cleanId + "' to stored flight id='" + f.getId() + "'");
+                        return f;
+                    }
+                }
+                if (f.getMainFlightCode() != null) {
+                    String storedMainCode = f.getMainFlightCode().replaceAll("\\s+", "");
+                    if (storedMainCode.equalsIgnoreCase(formattedInput)) {
+                        Log.d("FCM_DEBUG", "AlertActivity.findFlight: matched normalized mainFlightCode='" + cleanId + "' to stored flight id='" + f.getId() + "'");
+                        return f;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            Log.e("AlertActivity", "Error scanning flights for match", e);
+        }
+
+        return null;
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+        if (getIntent() != null) {
+            flightId = getIntent().getStringExtra(EXTRA_FLIGHT);
+            Log.d("FCM_DEBUG", "AlertActivity.onNewIntent: received EXTRA_FLIGHT='" + flightId + "'");
+            if (flightId != null) {
+                currentFlight = findFlight(flightId);
+                configFlight();
+            }
+        }
+    }
+
     @Override
     protected void configView() {
         $(R.id.btn_alerta_btncrear).setOnClickListener(this);
         $(R.id.btn_alerta_compartir).setOnClickListener(this);
 
-        currentBanner = $(R.id.alert_banner);
-        currentBanner.setBannerInterface(this);
-
-        flightId = getIntent().getStringExtra(EXTRA_FLIGHT);
-
-        currentFlight = /*getRealm().copyFromRealm(*/(getRealm().where(Flight.class).equalTo("id", flightId).findFirst());//);
-        currentFlight.addChangeListener(this);
         vuelo = $(R.id.alerta_vuelo);
         tiempo = $(R.id.alerta_tiempo);
         estado = $(R.id.alerta_estado);
         terminal = $(R.id.alerta_terminal);
 
-        configFlight();
+        currentBanner = $(R.id.alert_banner);
+        currentBanner.setBannerInterface(this);
+
+        flightId = getIntent().getStringExtra(EXTRA_FLIGHT);
+        Log.d("FCM_DEBUG", "AlertActivity.configView: EXTRA_FLIGHT='" + flightId + "'");
+
+        try {
+            getRealm().addChangeListener(this);
+        } catch (Exception e) {
+            Log.e("AlertActivity", "Error adding Realm change listener", e);
+        }
+
+        if (flightId != null) {
+            currentFlight = findFlight(flightId);
+        }
+
+        if (currentFlight != null) {
+            Log.d("FCM_DEBUG", "AlertActivity.configView: matched currentFlight id='" + currentFlight.getId() + "'");
+            configFlight();
+        } else {
+            Log.w("AlertActivity", "Flight not found yet for flightId: " + flightId);
+            Log.d("FCM_DEBUG", "AlertActivity.configView: no currentFlight found for flightId='" + flightId + "'");
+        }
 
         $(R.id.alert_btnback).setOnClickListener(this);
         flightDetail = $(R.id.alerta_flight_layout);
@@ -103,34 +186,62 @@ public class AlertActivity extends BaseActivity implements View.OnClickListener,
     }
 
     private void configFlight() {
+        if (currentFlight == null || !currentFlight.isValid()) {
+            return;
+        }
 
-        currentFlight = /*getRealm().copyFromRealm(*/(getRealm().where(Flight.class).equalTo("id", flightId).findFirst());//);
-
-        $(R.id.alerta_created_layout).setVisibility(currentFlight.isFavorite() ? View.VISIBLE : View.INVISIBLE);
-        vuelo.setText(currentFlight.getFlightCode() + "");
-        tiempo.setText(BZUtils.dateToString(currentFlight.getEstimated(), "HH:mm"));
-        estado.setText(currentFlight.getStatusText());
-        estado.setTextColor(getResources().getColor(FlightsController.getInstance().getStatusColor(this, currentFlight)));
-        TextView createAlert = $(R.id.alerta_create_text);
-        createAlert.setText(currentFlight.isFavorite() ? getString(R.string.flightDetailDisableAlertTitleKey) : getString(R.string.flightDetailCreateAlertTitleKey));
-        createAlert.setTextColor(Color.WHITE);
-        TextView origin = $(R.id.alerta_origin);
-        origin.setText(currentFlight.isArrival() ? currentFlight.getOrigin() : getString(R.string.airportSantiagoChile));
-        origin.setTextColor(Color.WHITE);
-        TextView destination = $(R.id.alerta_destination);
-        destination.setText(currentFlight.isArrival() ? getString(R.string.airportSantiagoChile) : currentFlight.getDestination());
-        destination.setTextColor(Color.WHITE);
-        TextView stopOver = $(R.id.alerta_stopover_text);
-        stopOver.setText(currentFlight.getStopOver());
-        stopOver.setTextColor(Color.WHITE);
-        $(R.id.alerta_stopcover).setVisibility(TextUtils.isEmpty(currentFlight.getStopOver()) ? View.INVISIBLE : View.VISIBLE);
-        TextView gateBeltTitle = $(R.id.alerta_gate_belt_title);
-        gateBeltTitle.setText(currentFlight.isArrival() ? getString(R.string.flightDetailArrivalGateTitleKey) : getString(R.string.flightDetailDepartureGateTitleKey));
-        TextView gateBelt = $(R.id.alerta_gate_belt);
-        gateBelt.setText(currentFlight.isArrival() ? currentFlight.getBelt() : currentFlight.getGate());
-
-        terminal.setText(currentFlight.getPublicTerminal());
-
+        try {
+            if ($(R.id.alerta_created_layout) != null) {
+                $(R.id.alerta_created_layout).setVisibility(currentFlight.isFavorite() ? View.VISIBLE : View.INVISIBLE);
+            }
+            if (vuelo != null) {
+                vuelo.setText(currentFlight.getFlightCode() != null ? currentFlight.getFlightCode() : "");
+            }
+            if (tiempo != null) {
+                tiempo.setText(currentFlight.getEstimated() != null ? BZUtils.dateToString(currentFlight.getEstimated(), "HH:mm") : "--:--");
+            }
+            if (estado != null) {
+                estado.setText(currentFlight.getStatusText() != null ? currentFlight.getStatusText() : "");
+                estado.setTextColor(getResources().getColor(FlightsController.getInstance().getStatusColor(this, currentFlight)));
+            }
+            TextView createAlert = $(R.id.alerta_create_text);
+            if (createAlert != null) {
+                createAlert.setText(currentFlight.isFavorite() ? getString(R.string.flightDetailDisableAlertTitleKey) : getString(R.string.flightDetailCreateAlertTitleKey));
+                createAlert.setTextColor(Color.WHITE);
+            }
+            TextView origin = $(R.id.alerta_origin);
+            if (origin != null) {
+                origin.setText(currentFlight.isArrival() ? (currentFlight.getOrigin() != null ? currentFlight.getOrigin() : "") : getString(R.string.airportSantiagoChile));
+                origin.setTextColor(Color.WHITE);
+            }
+            TextView destination = $(R.id.alerta_destination);
+            if (destination != null) {
+                destination.setText(currentFlight.isArrival() ? getString(R.string.airportSantiagoChile) : (currentFlight.getDestination() != null ? currentFlight.getDestination() : ""));
+                destination.setTextColor(Color.WHITE);
+            }
+            TextView stopOver = $(R.id.alerta_stopover_text);
+            if (stopOver != null) {
+                stopOver.setText(currentFlight.getStopOver() != null ? currentFlight.getStopOver() : "");
+                stopOver.setTextColor(Color.WHITE);
+            }
+            if ($(R.id.alerta_stopcover) != null) {
+                $(R.id.alerta_stopcover).setVisibility(TextUtils.isEmpty(currentFlight.getStopOver()) ? View.INVISIBLE : View.VISIBLE);
+            }
+            TextView gateBeltTitle = $(R.id.alerta_gate_belt_title);
+            if (gateBeltTitle != null) {
+                gateBeltTitle.setText(currentFlight.isArrival() ? getString(R.string.flightDetailArrivalGateTitleKey) : getString(R.string.flightDetailDepartureGateTitleKey));
+            }
+            TextView gateBelt = $(R.id.alerta_gate_belt);
+            if (gateBelt != null) {
+                String val = currentFlight.isArrival() ? currentFlight.getBelt() : currentFlight.getGate();
+                gateBelt.setText(val != null ? val : "-");
+            }
+            if (terminal != null) {
+                terminal.setText(currentFlight.getPublicTerminal() != null ? currentFlight.getPublicTerminal() : "");
+            }
+        } catch (Exception e) {
+            Log.e("AlertActivity", "Error in configFlight", e);
+        }
     }
 
     private void configFavorito() {
@@ -393,13 +504,43 @@ public class AlertActivity extends BaseActivity implements View.OnClickListener,
     }
 
     @Override
+    public void onBackPressed() {
+        if (isTaskRoot()) {
+            Intent intent = new Intent(this, HomeActivity.class);
+            startActivity(intent);
+        }
+        super.onBackPressed();
+    }
+
+    @Override
     protected void onDestroy() {
-        currentFlight.removeChangeListener(this);
+        try {
+            getRealm().removeChangeListener(this);
+        } catch (Exception e) {
+            // ignore
+        }
+        if (currentFlight != null && currentFlight.isValid()) {
+            try {
+                currentFlight.removeChangeListener(this);
+            } catch (Exception e) {
+                // ignore
+            }
+        }
         super.onDestroy();
     }
 
     @Override
     public void onChange(Object element) {
+        if ((currentFlight == null || !currentFlight.isValid()) && flightId != null) {
+            currentFlight = findFlight(flightId);
+            if (currentFlight != null && currentFlight.isValid()) {
+                try {
+                    currentFlight.addChangeListener(this);
+                } catch (Exception e) {
+                    // ignore
+                }
+            }
+        }
         configFlight();
     }
 

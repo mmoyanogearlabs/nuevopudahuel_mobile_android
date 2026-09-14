@@ -164,9 +164,12 @@ public class FlightsController {
             realm.commitTransaction();
         }*/
         List<Flight> flights = new ArrayList<>();
+        long timeStamp = System.currentTimeMillis();
         for (FlightResponse flightResponse : response) {
             Flight flight = flightResponse.toFlight();
+            flight.setArrival(arrivals);
             flight.setFavorite(true);
+            flight.setTimestamp(timeStamp);
             flights.add(flight);
         }
         realm.beginTransaction();
