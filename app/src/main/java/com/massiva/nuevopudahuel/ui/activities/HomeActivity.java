@@ -2,9 +2,11 @@ package com.massiva.nuevopudahuel.ui.activities;
 
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
@@ -50,10 +52,125 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
 
         getPudahuelApplication().setHomeAlive(true);
 
+        if (Build.VERSION.SDK_INT >= 33) {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, 102);
+            }
+        }
+
         configMenu();
-        changeFragment(DashboardFragment.newInstance());
+        handlePushIntent(getIntent());
+    }
 
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+        handlePushIntent(intent);
+    }
 
+    private void handlePushIntent(Intent intent) {
+        Log.d("FCM_DEBUG", "=== HomeActivity handlePushIntent ===");
+        if (intent == null) {
+            Log.d("FCM_DEBUG", "handlePushIntent: intent is null");
+        } else {
+            Log.d("FCM_DEBUG", "handlePushIntent action=" + intent.getAction());
+            Log.d("FCM_DEBUG", "handlePushIntent component=" + (intent.getComponent() != null ? intent.getComponent().flattenToString() : "null"));
+            android.os.Bundle extras = intent.getExtras();
+            if (extras == null || extras.isEmpty()) {
+                Log.d("FCM_DEBUG", "handlePushIntent extras=none");
+            } else {
+                for (String key : extras.keySet()) {
+                    Log.d("FCM_DEBUG", "handlePushIntent extra[" + key + "]=" + String.valueOf(extras.get(key)));
+                }
+            }
+        }
+
+        String flightId = extractFlightId(intent);
+        if (flightId != null && !flightId.isEmpty()) {
+            Log.d("FCM_DEBUG", "HomeActivity deep-linking to AlertActivity with flight_id=" + flightId);
+            Intent alertIntent = new Intent(this, AlertActivity.class);
+            alertIntent.putExtra(AlertActivity.EXTRA_FLIGHT, flightId);
+            alertIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            startActivity(alertIntent);
+            return;
+        }
+
+        if (intent != null && intent.getBooleanExtra("show_my_flights", false)) {
+            changeFragment(FlightsFragment.newInstance(FlightsFragment.EXTRA_MY_FLIGHTS));
+        } else if (getSupportFragmentManager().findFragmentById(R.id.menuMain_fragment) == null) {
+            changeFragment(DashboardFragment.newInstance());
+        }
+    }
+
+    private String extractFlightId(Intent intent) {
+        if (intent == null || intent.getExtras() == null) {
+            return null;
+        }
+
+        android.os.Bundle extras = intent.getExtras();
+        String[] priorityKeys = new String[] {
+                AlertActivity.EXTRA_FLIGHT,
+                "flight_id", "flightId", "npg_id", "npgId",
+                "flight_code", "flightCode", "flight_number", "flightNumber"
+        };
+
+        for (String key : priorityKeys) {
+            if (extras.containsKey(key)) {
+                Object value = extras.get(key);
+                if (value != null) {
+                    String stringValue = String.valueOf(value).trim();
+                    if (stringValue != null && !stringValue.isEmpty()
+                            && !stringValue.equalsIgnoreCase("null")
+                            && !stringValue.equalsIgnoreCase("true")
+                            && !stringValue.equalsIgnoreCase("false")) {
+                        return stringValue;
+                    }
+                }
+            }
+        }
+
+        for (String key : extras.keySet()) {
+            Object value = extras.get(key);
+            if (value instanceof String) {
+                String stringValue = ((String) value).trim();
+                if (stringValue.startsWith("{") && stringValue.endsWith("}")) {
+                    try {
+                        org.json.JSONObject json = new org.json.JSONObject(stringValue);
+                        for (String pKey : priorityKeys) {
+                            if (json.has(pKey)) {
+                                String jsonValue = json.optString(pKey, "").trim();
+                                if (jsonValue != null && !jsonValue.isEmpty()
+                                        && !jsonValue.equalsIgnoreCase("null")
+                                        && !jsonValue.equalsIgnoreCase("true")
+                                        && !jsonValue.equalsIgnoreCase("false")) {
+                                    return jsonValue;
+                                }
+                            }
+                        }
+                    } catch (org.json.JSONException ignored) {
+                    }
+                }
+            }
+        }
+
+        String[] secondaryKeys = new String[] {"vuelo", "npg", "flight", "id", "code"};
+        for (String key : secondaryKeys) {
+            if (extras.containsKey(key)) {
+                Object value = extras.get(key);
+                if (value != null) {
+                    String stringValue = String.valueOf(value).trim();
+                    if (stringValue != null && !stringValue.isEmpty()
+                            && !stringValue.equalsIgnoreCase("null")
+                            && !stringValue.equalsIgnoreCase("true")
+                            && !stringValue.equalsIgnoreCase("false")) {
+                        return stringValue;
+                    }
+                }
+            }
+        }
+
+        return null;
     }
 
     @Override
